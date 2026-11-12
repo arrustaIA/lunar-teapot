@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-12T20:41:24+01:00",
-  "run_id": "news-llm-20261112-204124",
+  "generated_at": "2026-11-12T21:36:01+01:00",
+  "run_id": "news-llm-20261112-213601",
   "analyst": "Analista Notizie",
   "sources_window": {
-    "from": "2026-11-12T19:11:36+01:00",
-    "to": "2026-11-12T20:29:52+01:00"
+    "from": "2026-11-12T20:30:22+01:00",
+    "to": "2026-11-12T21:10:49+01:00"
   },
-  "news_seen_count": 69,
+  "news_seen_count": 30,
   "macro": {
     "bias": -0.25,
     "confidence": 0.6,
-    "summary": "Verso le 20:40 Wall Street gira in negativo (S&P 500 -0,3%, Nasdaq -0,5%) con Nvidia a -6% dopo le dimissioni di Huang e i neocloud in caduta; il rendimento del decennale USA sale al 5,1% (circa +10 pb), EUR/USD scende a 1,106 (-1%) e il Brent sale a circa 95,8 $ (+3%). Il Congresso valuta strette sull'export di chip verso la Cina. Domani PPI USA alle 14:30 ora di Roma: un dato caldo rafforzerebbe il rialzo Fed a dicembre e peserebbe su azionario e duration.",
+    "summary": "Verso le 21:35 Wall Street resta in lieve calo (S&P 500 -0,4%, Nasdaq -0,6%) dopo aver recuperato parte delle perdite: il -6% di Nvidia è compensato dai rialzi dell'energia. Decennale USA al 5,1%, Brent a circa 96 $ (+3,5%), EUR/USD a 1,106 (-1%). Pimco avverte sull'eccesso di debito delle aziende AI. Domani PPI USA alle 14:30 ora di Roma: un dato caldo rafforzerebbe il rialzo Fed a dicembre e peserebbe su azionario e duration.",
     "valid_until": "2026-11-13T16:00:00+01:00",
     "keyword_score": 0.026,
     "keyword_news_count_12h": 175
@@ -42,18 +42,18 @@
       "impact": -0.45,
       "confidence": 0.6,
       "horizon": "1-3d",
-      "rationale": "Ora circa -6% (163 $): dopo le dimissioni di Huang il Congresso spinge in modo bipartisan per stretta sull'export di chip AI verso la Cina e i neocloud crollano (Nebius -18%, CoreWeave -8%); incertezza alta fino alla trimestrale del 17/11.",
+      "rationale": "Ancora circa -6% (163 $): nuove rivelazioni (una seconda relazione, legami con società che fornivano capacità di calcolo a Huawei, indagine interna affidata a Wachtell) tengono alto il rischio regolatorio sull'export; gli acquisti record dei piccoli investitori non bastano a invertire prima della trimestrale del 17/11.",
       "key_headlines": [
-        "Nvidia CEO Jensen Huang resigns, in blow to AI boom he helped foster",
-        "Wall Street moves higher, Nasdaq seesaws even as Nvidia slips on Huang shock",
-        "Equities Rise Intraday Despite Nvidia Sell-Off Post CEO's Departure",
-        "Who will succeed Jensen Huang at Nvidia? Analysts weigh in.",
-        "What we know after Jensen Huang resigns as Nvidia's CEO",
-        "Nvidia CEO Jensen Huang resigns in wake of affair, spy scandal"
+        "Exclusive-Former Nvidia CEO Huang had a relationship with a second employee, sources say",
+        "Jensen Huang is out and Nvidia stock is down—what market pros say about buying dips - CNBC",
+        "Retail investors are buying Nvidia's stock crash like never before — history urges patience",
+        "AI industry weighs future without Nvidia's Huang",
+        "Nvidia: Ex-prosecutor Joon Kim and Wachtell, Lipton bring big track record to investigation",
+        "Nvidia Falls From the Top of the AI Pyramid as Jensen Huang’s Exit Takes Its Chief AI Promoter"
       ],
       "keyword_score": -0.057,
       "keyword_news_count_24h": 266,
-      "issued_at": "2026-11-12T20:41:24+01:00",
+      "issued_at": "2026-11-12T21:36:01+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
@@ -73,41 +73,6 @@
       "keyword_news_count_24h": 14,
       "issued_at": "2026-11-12T14:05:07+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
-    },
-    {
-      "ticker": "AVGO",
-      "isin": "US11135F1012",
-      "name": "Broadcom",
-      "impact": 0.35,
-      "confidence": 0.55,
-      "horizon": "intraday",
-      "rationale": "Circa +5,2%, tra i migliori mega-cap come alternativa a Nvidia (chip custom/reti, con Arista +4%): rotazione ancora in corso, in gran parte già nel prezzo.",
-      "key_headlines": [
-        "Nvidia and Alibaba among market cap stock movers on Thursday"
-      ],
-      "keyword_score": 0.229,
-      "keyword_news_count_24h": 31,
-      "issued_at": "2026-11-12T20:41:24+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
-      "ticker": "AMD",
-      "isin": "US0079031078",
-      "name": "AMD",
-      "impact": 0.35,
-      "confidence": 0.6,
-      "horizon": "intraday",
-      "rationale": "Circa +5,4% con upgrade come alternativa a Nvidia: rotazione ancora forte, ma già in buona parte nel prezzo.",
-      "key_headlines": [
-        "AMD Stock Scores Upgrade as Main Rival Nvidia Spirals - Advanced Micro Devices (NASDAQ:AMD), NVIDIA (NASD",
-        "Tom Lee Says Jensen Huang Exit Doesn’t Change His Bullish Tech Outlook: AVGO, AMD Stocks Lead Chip Rally",
-        "Why AMD Shares Are Surging and What a $10,000 Investment in the Stock Could Be Worth in 3 Years",
-        "Nvidia, AMD, Broadcom: The AI Stock Winners and Losers After Jensen Huang’s Ousting"
-      ],
-      "keyword_score": 0.147,
-      "keyword_news_count_24h": 56,
-      "issued_at": "2026-11-12T19:34:49+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
     },
     {
       "ticker": "LLY",
@@ -262,22 +227,6 @@
       "expires_at": "2026-11-16T17:25:00+01:00"
     },
     {
-      "ticker": "MU",
-      "isin": "US5951121038",
-      "name": "Micron",
-      "impact": -0.25,
-      "confidence": 0.5,
-      "horizon": "intraday",
-      "rationale": "Circa -2,3%: le memorie sono viste a rischio dopo lo scossone Nvidia, pressione di settore fino a fine seduta senza notizie proprie.",
-      "key_headlines": [
-        "Micron, Other Memory Chip Stocks Fall on Nvidia Shakeup. Why They’re at Risk."
-      ],
-      "keyword_score": -0.063,
-      "keyword_news_count_24h": 23,
-      "issued_at": "2026-11-12T20:41:24+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
       "ticker": "TIT.MI",
       "isin": "IT0003497168",
       "name": "Telecom Italia",
@@ -300,17 +249,14 @@
       "impact": -0.22,
       "confidence": 0.45,
       "horizon": "1-3d",
-      "rationale": "Il caso Nvidia e i ritardi di capacità di Nebius rinnovano i dubbi sul finanziamento dell'infrastruttura AI, a cui Oracle è molto esposta per debito e capex: tono negativo.",
+      "rationale": "Circa -1,7% (-34% da inizio anno): lo scossone Nvidia raffredda il rimbalzo del cloud AI e riaccende i dubbi su debito e capex; tono negativo confermato.",
       "key_headlines": [
-        "Nvidia’s bad news is even worse for Oracle",
-        "Nebius Stock Falls as Capacity Delays Push Revenue Into 2027",
-        "Nebius falls 10% as company expects increased 2026 capex spend, issues weak outlook",
-        "The ‘bank of Nvidia’ is in jeopardy, threatening the entire AI boom",
-        "Mapping the Market: Oracle shares may be in for a rally - Reuters"
+        "Oracle Stocks Fall 2.77% as NVIDIA Shake-Up Cools the AI Cloud Rebound",
+        "Oracle Is Down 34% in 2026: Is ORCL Stock Dead Money or Due for a Bounce?"
       ],
       "keyword_score": 0.196,
       "keyword_news_count_24h": 20,
-      "issued_at": "2026-11-12T15:36:29+01:00",
+      "issued_at": "2026-11-12T21:36:01+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
@@ -344,6 +290,55 @@
       "keyword_score": 0.228,
       "keyword_news_count_24h": 3,
       "issued_at": "2026-11-12T14:05:07+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
+      "ticker": "AVGO",
+      "isin": "US11135F1012",
+      "name": "Broadcom",
+      "impact": 0.2,
+      "confidence": 0.45,
+      "horizon": "1-3d",
+      "rationale": "Circa +4,8% come beneficiario della rotazione dopo Huang (chip custom e reti): slancio ancora positivo, in buona parte già incorporato.",
+      "key_headlines": [
+        "Why Broadcom Stock Rallied Thursday Morning - The Motley Fool"
+      ],
+      "keyword_score": 0.229,
+      "keyword_news_count_24h": 31,
+      "issued_at": "2026-11-12T21:36:01+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
+      "ticker": "AMD",
+      "isin": "US0079031078",
+      "name": "AMD",
+      "impact": 0.2,
+      "confidence": 0.45,
+      "horizon": "1-3d",
+      "rationale": "Circa +5% come alternativa a Nvidia, con nuovo investimento nel calcolo quantistico e target 2027 rivisto da BofA: la rotazione può proseguire, ma gran parte è già nel prezzo.",
+      "key_headlines": [
+        "AMD makes surprise quantum computing move with new investment",
+        "Bank of America Revamps AMD Stock Price Target for 2027"
+      ],
+      "keyword_score": 0.147,
+      "keyword_news_count_24h": 56,
+      "issued_at": "2026-11-12T21:36:01+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
+      "ticker": "MU",
+      "isin": "US5951121038",
+      "name": "Micron",
+      "impact": -0.2,
+      "confidence": 0.45,
+      "horizon": "1-3d",
+      "rationale": "Circa -2,3% mentre Sandisk cede quasi l'8%: le memorie restano il segmento più colpito dallo shock Nvidia, pressione di settore fino alla trimestrale Nvidia.",
+      "key_headlines": [
+        "Sandisk Stocks Slide 7.83% as NVIDIA Exit Hits Storage a Week Before 8-for-1 Split"
+      ],
+      "keyword_score": -0.063,
+      "keyword_news_count_24h": 23,
+      "issued_at": "2026-11-12T21:36:01+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
@@ -437,15 +432,14 @@
       "impact": 0.18,
       "confidence": 0.5,
       "horizon": "1-3d",
-      "rationale": "Guidance alzata verso 20 mld € e design win in accumulo (conti già usciti il 10/11), ma oggi il titolo ha aperto in gap negativo e il comparto europeo soffre lo shock Nvidia; bilancio aziendale positivo, rischio settoriale in giornata.",
+      "rationale": "Obiettivo di ricavi verso 20 mld €, buyback da 450 mln € e design win in accumulo contro un comparto chip in raffreddamento: bilancio aziendale positivo, rischio settoriale domani dopo lo shock Nvidia.",
       "key_headlines": [
-        "Infineon Lifts Guidance Toward €20 Billion as Design Wins Pile Up",
-        "Infineon stock faces capacity hurdle as CEO seeks customer backing"
+        "Infineon's Long Game: €20 Billion Revenue Target, a €450 Million Buyback and a Cooling Chip Sect - ad-hoc-news.de"
       ],
       "keyword_score": 0.283,
       "keyword_news_count_24h": 11,
-      "issued_at": "2026-11-12T14:05:07+01:00",
-      "expires_at": "2026-11-16T21:50:00+01:00"
+      "issued_at": "2026-11-12T21:36:01+01:00",
+      "expires_at": "2026-11-16T17:25:00+01:00"
     },
     {
       "ticker": "HEI.DE",
@@ -552,6 +546,22 @@
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
+      "ticker": "INTC",
+      "isin": "US4581401001",
+      "name": "Intel",
+      "impact": -0.15,
+      "confidence": 0.4,
+      "horizon": "1-3d",
+      "rationale": "Circa -2%: l'uscita di Huang mette in dubbio la partnership con Nvidia legata alla sua quota da 13 mld $ in Intel; pressione moderata nei prossimi giorni.",
+      "key_headlines": [
+        "Intel Stocks Fall 3.49% as NVIDIA CEO Exit Clouds a $13 Billion Partnership Stake"
+      ],
+      "keyword_score": -0.09,
+      "keyword_news_count_24h": 23,
+      "issued_at": "2026-11-12T21:36:01+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
       "ticker": "BAYN.DE",
       "isin": "DE000BAY0017",
       "name": "Bayer",
@@ -573,15 +583,16 @@
       "isin": "US5949181045",
       "name": "Microsoft",
       "impact": -0.1,
-      "confidence": 0.4,
+      "confidence": 0.35,
       "horizon": "intraday",
-      "rationale": "Disservizi su Outlook, Teams e Microsoft 365 (oltre 130.000 segnalazioni su Downdetector) mentre il rialzo si sgonfia a +0,4%: lieve negativo di reputazione, non sui conti.",
+      "rationale": "Disservizi su Microsoft 365 e Outlook ancora segnalati, titolo quasi piatto (+0,1%) sopra un livello tecnico chiave: lieve negativo di reputazione, non sui conti.",
       "key_headlines": [
-        "Microsoft services suffer outages affecting hundreds of thousands of users"
+        "Microsoft 365, Outlook down for thousands of US users, Downdetector shows",
+        "Stock Market Today: Nasdaq Skids As Nvidia's Chief Exits; Microsoft Shares Hold A Key Level (Live Coverage)"
       ],
       "keyword_score": 0.078,
       "keyword_news_count_24h": 21,
-      "issued_at": "2026-11-12T20:41:24+01:00",
+      "issued_at": "2026-11-12T21:36:01+01:00",
       "expires_at": "2026-11-12T21:50:00+01:00"
     },
     {
@@ -599,22 +610,6 @@
       "keyword_score": 0.05,
       "keyword_news_count_24h": 34,
       "issued_at": "2026-11-12T19:34:49+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
-      "ticker": "INTC",
-      "isin": "US4581401001",
-      "name": "Intel",
-      "impact": -0.1,
-      "confidence": 0.35,
-      "horizon": "intraday",
-      "rationale": "Il CEO Lip-Bu Tan difende il turnaround mentre il titolo cede circa -1,3%: nessun fatto nuovo, tono debole fino a fine seduta.",
-      "key_headlines": [
-        "Intel CEO Lip-Bu Tan on turnaround efforts amid stock slump: 'I feel called to do this'"
-      ],
-      "keyword_score": -0.09,
-      "keyword_news_count_24h": 23,
-      "issued_at": "2026-11-12T20:41:24+01:00",
       "expires_at": "2026-11-12T21:50:00+01:00"
     },
     {

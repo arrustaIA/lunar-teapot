@@ -1,21 +1,19 @@
 {
   "schema_version": "1.0",
-  "last_run_id": "news-llm-20261112-204124",
-  "last_generated_at": "2026-11-12T20:41:24+01:00",
-  "last_published": "2026-11-12T20:29:52+01:00",
-  "last_news_id": "03b05eb86c980773",
-  "last_fetched": "2026-11-12T20:35:13+01:00",
+  "last_run_id": "news-llm-20261112-213601",
+  "last_generated_at": "2026-11-12T21:36:01+01:00",
+  "last_published": "2026-11-12T21:10:49+01:00",
+  "last_news_id": "24ed76111a9a8dc4",
+  "last_fetched": "2026-11-12T21:15:14+01:00",
   "sources_window": {
-    "from": "2026-11-12T19:11:36+01:00",
-    "to": "2026-11-12T20:29:52+01:00"
+    "from": "2026-11-12T20:30:22+01:00",
+    "to": "2026-11-12T21:10:49+01:00"
   },
-  "news_seen_count": 69,
+  "news_seen_count": 30,
   "tickers_judged": [
     "RHM.DE",
     "NVDA",
     "ENR.DE",
-    "AVGO",
-    "AMD",
     "LLY",
     "AIR.DE",
     "MBG.DE",
@@ -25,11 +23,13 @@
     "SAP.DE",
     "VOW3.DE",
     "SIE.DE",
-    "MU",
     "TIT.MI",
     "ORCL",
     "BMW.DE",
     "LDO.MI",
+    "AVGO",
+    "AMD",
+    "MU",
     "STLAM.MI",
     "BAS.DE",
     "TTE.PA",
@@ -42,10 +42,10 @@
     "PLTR",
     "AMZN",
     "BA",
+    "INTC",
     "BAYN.DE",
     "MSFT",
     "AAPL",
-    "INTC",
     "META",
     "DBK.DE",
     "ADS.DE",
@@ -55,6 +55,6 @@
     "ENEL.MI"
   ],
   "notes": "Run incrementali con news_llm/extract_new_news.py: analizzare solo notizie con (published, id) successivi a (last_published, last_news_id). news_seen_count = notizie lette nell'ultima run.",
-  "last_checked_at": "2026-11-12T20:41:24+01:00",
-  "last_run_note": "Run 20:4x: lette 69 notizie (19:11-20:30). Nvidia scivola a -6% dopo le dimissioni di Huang con pressioni bipartisan per strette sull'export di chip in Cina; neocloud in caduta, decennale USA al 5,1%, Wall Street in lieve calo. Rinnovati Nvidia, Micron, Broadcom, Alphabet, Siemens, Stellantis, Heidelberg, Intel; nuovo Microsoft (disservizi); catalizzatore Generali 13/11."
+  "last_checked_at": "2026-11-12T21:36:01+01:00",
+  "last_run_note": "Run 21:3x: lette 30 notizie (20:30-21:11). Nvidia ferma a -6% con nuove rivelazioni sul caso Huang (legami con fornitori di Huawei, indagine interna); S&P 500 -0,4% con energia in rialzo. Rinnovati Nvidia, Oracle, Infineon; Intel, AMD, Broadcom, Micron portati a 1-3 giorni; Microsoft intraday."
 }

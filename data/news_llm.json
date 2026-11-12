@@ -1,0 +1,746 @@
+{
+ "schema_version": "1.0",
+ "generated_at": "2026-11-12T18:39:53+01:00",
+ "run_id": "news-llm-20261112-183953",
+ "analyst": "Analista Notizie",
+ "sources_window": {
+  "from": "2026-11-12T17:38:08+01:00",
+  "to": "2026-11-12T18:08:37+01:00"
+ },
+ "news_seen_count": 49,
+ "macro": {
+  "bias": -0.15,
+  "confidence": 0.6,
+  "summary": "Wall Street regge lo shock Nvidia (S&P +0,2%, Nasdaq quasi piatto verso le 18:35) grazie alla rotazione su AMD, Broadcom e Microsoft, ma il quadro resta fragile: emergono indagini del DOJ che possono coinvolgere Nvidia (anche antitrust) e Super Micro, si discute il rischio per il finanziamento da 500 mld $ dell'infrastruttura AI, il decennale USA sale al 5,11% e il mercato obbligazionario teme più l'inflazione/Fed che l'AI; Barr (Fed) avverte su possibili scossoni al lavoro per l'AI. Petrolio in rialzo (WTI circa 87,7 $), Bitcoin ancora debole (circa 71.700 $). Domani PPI USA alle 14:30 ora di Roma: un dato caldo peserebbe su azionario e duration.",
+  "valid_until": "2026-11-13T16:00:00+01:00",
+  "keyword_score": 0.053,
+  "keyword_news_count_12h": 133
+ },
+ "tickers": [
+  {
+   "ticker": "RHM.DE",
+   "isin": "DE0007030009",
+   "name": "Rheinmetall",
+   "impact": -0.48,
+   "confidence": 0.72,
+   "horizon": "1-3d",
+   "rationale": "Secondo taglio di guidance in tre mesi (ritardi su contratti e tesoreria) seguito da doppio downgrade e target a 900 € (BofA e altri): il punteggio a parole chiave è quasi piatto, ma la notizia è nettamente negativa.",
+   "key_headlines": [
+    "Rheinmetall Faces Double Downgrade to €900 as Guidance Cut Exposes Cash Burn",
+    "Rheinmetall's Second Guidance Cut in Three Months Puts Execution Under the Microscope",
+    "Rheinmetall Draws Twin €900 Targets as Broker Caution Meets a Belgian Order"
+   ],
+   "keyword_score": 0.004,
+   "keyword_news_count_24h": 10,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "NVDA",
+   "isin": "US67066G1040",
+   "name": "NVIDIA",
+   "impact": -0.45,
+   "confidence": 0.6,
+   "horizon": "1-3d",
+   "rationale": "Dopo l'uscita di Huang si aggiungono indagini del DOJ che possono toccare Nvidia (una antitrust) e il downgrade Baird a Neutral con target 200 $: il rimbalzo del mattino è svanito (circa -5%) e l'incertezza su governance e CEO resta fino alla trimestrale del 17/11.",
+   "key_headlines": [
+    "Super Micro shares tumble as DOJ probes widen to Nvidia, Semafor reports",
+    "NVIDIA Is Bouncing After a $430 Billion Wipeout. One Analyst Just Downgraded It. Where’s the Price Target?",
+    "The Stock Market Is Surviving Nvidia’s Drop. Now Comes the Hard Part.",
+    "Analysis: Nvidia’s leadership crisis tests the chipmaker’s role as the ‘central bank of AI’",
+    "Jensen Huang's Nvidia ousting may signal shifting winds on China in Washington",
+    "Jensen Huang's Nvidia exit casts shadow over Wall Street’s $500 billion AI financing bet"
+   ],
+   "keyword_score": -0.095,
+   "keyword_news_count_24h": 197,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "AVGO",
+   "isin": "US11135F1012",
+   "name": "Broadcom",
+   "impact": 0.45,
+   "confidence": 0.65,
+   "horizon": "intraday",
+   "rationale": "Leader della rotazione (+5%) come progettista dei chip custom/TPU per gli hyperscaler; il rischio è un rientro rapido se la transizione in Nvidia appare ordinata.",
+   "key_headlines": [
+    "Broadcom Rallies 5% as Traders Bet on Chip Rivals After Jensen Huang’s Exit; NVIDIA Falls 5%, AMD Climbs 2%",
+    "AMD and Broadcom emerge as winners amid Nvidia leadership uncertainty",
+    "Broadcom, AMD stock outlook after Huang’s exit from Nvidia",
+    "Alphabet vs. Broadcom: the best AI stocks for risk and reward"
+   ],
+   "keyword_score": 0.195,
+   "keyword_news_count_24h": 25,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "AMD",
+   "isin": "US0079031078",
+   "name": "AMD",
+   "impact": 0.4,
+   "confidence": 0.6,
+   "horizon": "intraday",
+   "rationale": "Circa +5% come alternativa a Nvidia, con BofA che lo conferma scelta preferita nelle CPU server: slancio di rotazione ancora intatto per il resto della seduta.",
+   "key_headlines": [
+    "AMD Stocks Gain 2.6% as Investors Look Beyond NVIDIA After CEO Exit",
+    "AMD Remains Top Pick in CPU Space Amid Expanding Market for Servers, BofA Says"
+   ],
+   "keyword_score": 0.102,
+   "keyword_news_count_24h": 44,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "ENR.DE",
+   "isin": "DE000ENER6Y0",
+   "name": "Siemens Energy",
+   "impact": 0.38,
+   "confidence": 0.7,
+   "horizon": "1-3d",
+   "rationale": "Q4 record (ricavi 12,8 mld €, utile netto 1,36 mld), dividendo triplicato a 2,30 €, buyback aggiuntivo fino a 9 mld € e fiducia di JPMorgan; ieri +8/11%, oggi digestione in gap negativo, ma il quadro fondamentale resta costruttivo.",
+   "key_headlines": [
+    "Siemens Energy Wins JPMorgan's Vote of Confidence as Record Orders Face Their Margin Test",
+    "Siemens Energy jumps 7% as Q4 revenue hits record, dividend triples",
+    "Siemens Energy, dopo le elezioni Usa arriva il cambio di vento sulle rinnovabili"
+   ],
+   "keyword_score": 0.451,
+   "keyword_news_count_24h": 14,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "LLY",
+   "isin": "US5324571083",
+   "name": "Eli Lilly",
+   "impact": 0.35,
+   "confidence": 0.55,
+   "horizon": "1-3d",
+   "rationale": "Batte Novo arrivando per prima in Cina con il GLP-1 orale (approvazione NMPA): conferma la spinta positiva già in corso.",
+   "key_headlines": [
+    "Eli Lilly beats Novo to oral China GLP-1RA market on NMPA approval"
+   ],
+   "keyword_score": 0.146,
+   "keyword_news_count_24h": 21,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "AIR.DE",
+   "isin": "NL0000235190",
+   "name": "Airbus",
+   "impact": 0.3,
+   "confidence": 0.62,
+   "horizon": "1-3d",
+   "rationale": "Avvio del buyback da 5 mld € (prima tranche 800 mln) e nuovo ordine Cathay su A330neo: due spinte concrete, non solo sentiment di settore.",
+   "key_headlines": [
+    "Airbus Kicks Off EUR 5 Billion Buyback With EUR 800 Million Opening Tranche",
+    "Cathay Pacific Orders 11 More Airbus A330neos, Taking Total to 41",
+    "Airbus stock draws support from Cathay order for 14 aircraft"
+   ],
+   "keyword_score": 0.121,
+   "keyword_news_count_24h": 7,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "STLAM.MI",
+   "isin": "NL00150001Q9",
+   "name": "Stellantis",
+   "impact": -0.3,
+   "confidence": 0.55,
+   "horizon": "1-3d",
+   "rationale": "Quasi -3% mentre l'Europa sale, vicino al minimo di 3,50 €: Mirafiori ferma da cinque settimane e dubbi sull'impatto dell'intesa Leapmotor su un impianto italiano.",
+   "key_headlines": [
+    "Azioni Stellantis giù di quasi il 3% mentre l'Europa sale. Il titolo si avvicina al minimo di 3,50 euro",
+    "Mirafiori ferma da cinque settimane: caos in Stellantis e il titolo scivola",
+    "Stellantis-Leapmotor: perché l’intesa può pesare su un impianto italiano"
+   ],
+   "keyword_score": 0.0,
+   "keyword_news_count_24h": 9,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "ALV.DE",
+   "isin": "DE0008404005",
+   "name": "Allianz",
+   "impact": 0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Utile Q3 di 4,7 mld € e titolo in rialzo, con la gestione fondi a sostegno; i sinistri da tempeste sono il punto debole ma non cambiano il quadro di domani.",
+   "key_headlines": [
+    "Allianz stock gains as Q3 profit hits EUR 4.7 billion",
+    "Allianz's Fund Arm Is Doing the Heavy Lifting While Storm Claims Test the Insurance Engine"
+   ],
+   "keyword_score": 0.346,
+   "keyword_news_count_24h": 14,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "UCG.MI",
+   "isin": "IT0005239360",
+   "name": "UniCredit",
+   "impact": 0.25,
+   "confidence": 0.55,
+   "horizon": "1-3d",
+   "rationale": "Outlook alzato e avanzamento del dossier Commerzbank (ok regolamentare più vicino per una quota maggiore): catalizzatore societario, non solo settore bancario.",
+   "key_headlines": [
+    "UniCredit stock lifts outlook as Commerzbank plan advances",
+    "Commerzbank stock: UniCredit seeks clearance for larger stake"
+   ],
+   "keyword_score": 0.0,
+   "keyword_news_count_24h": 6,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "SAP.DE",
+   "isin": "DE0007164600",
+   "name": "SAP",
+   "impact": 0.25,
+   "confidence": 0.55,
+   "horizon": "1-3d",
+   "rationale": "JPMorgan raddoppia il target mentre il buyback sale a 9,6 mln di azioni: sostegno concreto, già in parte nei prezzi di oggi.",
+   "key_headlines": [
+    "JPMorgan Doubles SAP Price Target as Buyback Total Reaches 9.6 Million Shares"
+   ],
+   "keyword_score": 0.377,
+   "keyword_news_count_24h": 18,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "VOW3.DE",
+   "isin": "DE0007664039",
+   "name": "Volkswagen Vz",
+   "impact": -0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Porsche SE chiede a Volkswagen di accelerare la ristrutturazione dopo il calo degli utili: pressione idiosincratica sul titolo preferenziale, in linea con la debolezza del settore auto.",
+   "key_headlines": [
+    "Porsche SE urges Volkswagen to accelerate overhaul as earnings drop"
+   ],
+   "keyword_score": -0.24,
+   "keyword_news_count_24h": 2,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "SIE.DE",
+   "isin": "DE0007236101",
+   "name": "Siemens",
+   "impact": 0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Ordini del Q4 record a 34,8 mld € (+58%): oggi +2% in chiusura, possibile seguito domani se i broker alzano le stime.",
+   "key_headlines": [
+    "Siemens stock rises as Q4 orders jump 58% to record €34.8 billion"
+   ],
+   "keyword_score": 0.344,
+   "keyword_news_count_24h": 16,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "MBG.DE",
+   "isin": "DE0007100000",
+   "name": "Mercedes-Benz Group",
+   "impact": -0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Stop agli investimenti in Germania con chiusure di impianti in vista e titolo -1,4%: segnale di ristrutturazione e domanda debole nell'auto tedesca.",
+   "key_headlines": [
+    "Mercedes-Benz halts German investments as plant closures loom",
+    "Mercedes-Benz stock slips 1.64% as Hydro plan faces execution test"
+   ],
+   "keyword_score": -0.178,
+   "keyword_news_count_24h": 4,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "TIT.MI",
+   "isin": "IT0003497168",
+   "name": "Telecom Italia",
+   "impact": 0.22,
+   "confidence": 0.55,
+   "horizon": "1-3d",
+   "rationale": "Crescita più forte nel Q3 2026 e guidance confermata (già in watchlist): notizie positive ma poche e in parte già metabolizzate rispetto a ieri.",
+   "key_headlines": [
+    "Relazione sugli utili: Telecom Italia registra una crescita più forte nel terzo trimestre 2026"
+   ],
+   "keyword_score": 0.087,
+   "keyword_news_count_24h": 2,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "ORCL",
+   "isin": "US68389X1054",
+   "name": "Oracle",
+   "impact": -0.22,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Il caso Nvidia e i ritardi di capacità di Nebius rinnovano i dubbi sul finanziamento dell'infrastruttura AI, a cui Oracle è molto esposta per debito e capex: tono negativo.",
+   "key_headlines": [
+    "Nvidia’s bad news is even worse for Oracle",
+    "Nebius Stock Falls as Capacity Delays Push Revenue Into 2027",
+    "Nebius falls 10% as company expects increased 2026 capex spend, issues weak outlook",
+    "The ‘bank of Nvidia’ is in jeopardy, threatening the entire AI boom",
+    "Mapping the Market: Oracle shares may be in for a rally - Reuters"
+   ],
+   "keyword_score": 0.196,
+   "keyword_news_count_24h": 20,
+   "issued_at": "2026-11-12T15:36:29+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "BMW.DE",
+   "isin": "DE0005190003",
+   "name": "BMW",
+   "impact": -0.22,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Guidance 2026 vicina al pareggio, intoppi di fornitura su tre impianti, taglio di rating S&P e downgrade di broker: quadro auto tedesca debole, senza un contrappeso immediato.",
+   "key_headlines": [
+    "BMW's Overhaul Gets a Deadline, a Downgrade and Two New Battery Partners",
+    "BMW's 2026 Guidance Nears Break-Even as Supply Snags Hit Three Plants and S&P Trims Credit Rating"
+   ],
+   "keyword_score": -0.032,
+   "keyword_news_count_24h": 12,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "BAS.DE",
+   "isin": "DE000BASF111",
+   "name": "BASF",
+   "impact": -0.22,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Downgrade Jefferies in concomitanza con l'avvio dell'impianto MDI in Louisiana: il giudizio dei broker pesa più della notizia industriale nel breve.",
+   "key_headlines": [
+    "BASF's Louisiana MDI Start-Up Meets a Jefferies Downgrade"
+   ],
+   "keyword_score": -0.041,
+   "keyword_news_count_24h": 9,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "LDO.MI",
+   "isin": "IT0003856405",
+   "name": "Leonardo",
+   "impact": 0.22,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Aggiudicato un contratto NAVAIR DAIRCM: notizia aziendale positiva ma di portata più tattica che trasformativa per la seduta.",
+   "key_headlines": [
+    "Leonardo (BIT:LDO) Won A Major NAVAIR DAIRCM Contract"
+   ],
+   "keyword_score": 0.228,
+   "keyword_news_count_24h": 3,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "AAPL",
+   "isin": "US0378331005",
+   "name": "Apple",
+   "impact": 0.2,
+   "confidence": 0.5,
+   "horizon": "intraday",
+   "rationale": "Vista come rifugio dentro la tech dopo il massimo storico, ma ora è piatta: spinta positiva più debole rispetto al pomeriggio.",
+   "key_headlines": [
+    "Apple Stock Called 'Safe Haven,' Hits Record High",
+    "Apple's Market Cap Grew From $347 Billion to $4.6 Trillion During Tim Cook's 15 Years as CEO. Here's What That Growth Curve Means for Apple's Next Chapter Under John Ternus.",
+    "Drama Notable Only By Its Absence: Why Investors Love Apple (NASDAQ:AAPL)"
+   ],
+   "keyword_score": 0.074,
+   "keyword_news_count_24h": 33,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "INTC",
+   "isin": "US4581401001",
+   "name": "Intel",
+   "impact": -0.2,
+   "confidence": 0.45,
+   "horizon": "intraday",
+   "rationale": "Ancora debole (circa -1%) tra i perdenti del caso Nvidia: nessuna notizia nuova che cambi il quadro negativo di oggi.",
+   "key_headlines": [
+    "What Is Going On With Intel Stock on Thursday?"
+   ],
+   "keyword_score": -0.087,
+   "keyword_news_count_24h": 18,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "MU",
+   "isin": "US5951121038",
+   "name": "Micron",
+   "impact": -0.2,
+   "confidence": 0.5,
+   "horizon": "intraday",
+   "rationale": "Memorie colpite dal caso Nvidia (Micron, Sandisk, SK Hynix circa -3%) per timori sulla domanda dei data center: pressione di settore, nessuna notizia propria.",
+   "key_headlines": [
+    "Sandisk, Micron, and SK Hynix Slide 3% as NVIDIA Shake-Up Hits Memory Stocks"
+   ],
+   "keyword_score": -0.063,
+   "keyword_news_count_24h": 24,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "TTE.PA",
+   "isin": "FR0000120271",
+   "name": "TotalEnergies",
+   "impact": 0.2,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Q3 con cassa forte a sostegno dei ritorni agli azionisti, e petrolio in rimbalzo su rischi Hormuz: supporto moderato, non un nuovo shock di utili oggi.",
+   "key_headlines": [
+    "TotalEnergies stock stays in focus after strong Q3 cash flow",
+    "Oil: Hormuz mine strikes support Brent rebound – Commerzbank"
+   ],
+   "keyword_score": 0.219,
+   "keyword_news_count_24h": 4,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "COIN",
+   "isin": "US19260Q1076",
+   "name": "Coinbase",
+   "impact": -0.2,
+   "confidence": 0.5,
+   "horizon": "intraday",
+   "rationale": "Bitcoin ai minimi da agosto (circa 71.800 $) e target degli analisti in calo per ricavi più deboli: prevale la pressione, il lancio di nuovi perpetual futures è marginale.",
+   "key_headlines": [
+    "Coinbase stock price prediction: Seller pressure persists amid weaker revenue and cautious outlook",
+    "Coinbase (COIN) Stock Fair Value Moves Lower After Mixed Analyst Target Changes",
+    "Bitcoin Fell to $71,800 After Nvidia CEO Jensen Huang Resigned. Is That Why BTC Hit Its Lowest Price Since August?",
+    "Coinbase launches perpetual futures for BMNR, WDC, RKLB and AAOI"
+   ],
+   "keyword_score": -0.12,
+   "keyword_news_count_24h": 17,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "VNA.DE",
+   "isin": "DE000A1ML7J1",
+   "name": "Vonovia",
+   "impact": -0.2,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Pressione politica a Berlino e mercato obbligazionario sfavorevole (decennale USA sopra il 5%) pesano su un titolo immobiliare molto sensibile ai tassi.",
+   "key_headlines": [
+    "Vonovia Wields the Wrecking Ball as Berlin and the Bond Market Close In",
+    "10-year Treasury yield jumps back above 5% as oil gains and more Fed rate hikes expected"
+   ],
+   "keyword_score": 0.154,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "IFX.DE",
+   "isin": "DE0006231004",
+   "name": "Infineon",
+   "impact": 0.18,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Guidance alzata verso 20 mld € e design win in accumulo (conti già usciti il 10/11), ma oggi il titolo ha aperto in gap negativo e il comparto europeo soffre lo shock Nvidia; bilancio aziendale positivo, rischio settoriale in giornata.",
+   "key_headlines": [
+    "Infineon Lifts Guidance Toward €20 Billion as Design Wins Pile Up",
+    "Infineon stock faces capacity hurdle as CEO seeks customer backing"
+   ],
+   "keyword_score": 0.283,
+   "keyword_news_count_24h": 11,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "MSFT",
+   "isin": "US5949181045",
+   "name": "Microsoft",
+   "impact": 0.15,
+   "confidence": 0.45,
+   "horizon": "intraday",
+   "rationale": "In rialzo di circa l'1,4% con la rotazione fuori da Nvidia; la battaglia contro il divieto di componenti cinesi nei data center AI è un rischio regolatorio di medio periodo, non per la seduta.",
+   "key_headlines": [
+    "Microsoft Is Fighting a Ban on Chinese Parts Inside AI Data Centers"
+   ],
+   "keyword_score": -0.031,
+   "keyword_news_count_24h": 16,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "CBK.DE",
+   "isin": "DE000CBK1001",
+   "name": "Commerzbank",
+   "impact": -0.15,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Utile tenuto ma outlook sui tassi più debole, target dei broker tagliati nonostante il buyback; lo stalking di UniCredit resta un'incognita binaria più che un sostegno di breve.",
+   "key_headlines": [
+    "Commerzbank Holds Its Profit Line as Rate Outlook Dims and UniCredit Circles",
+    "Commerzbank's Buyback Rolls On While Three Brokers Cut Price Targets",
+    "UniCredit stock lifts outlook as Commerzbank plan advances"
+   ],
+   "keyword_score": 0.041,
+   "keyword_news_count_24h": 14,
+   "issued_at": "2026-11-12T14:05:07+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "PLTR",
+   "isin": "US69608A1088",
+   "name": "Palantir",
+   "impact": -0.15,
+   "confidence": 0.4,
+   "horizon": "intraday",
+   "rationale": "Il CTO vuole vendere 50 mln $ di azioni dopo il crollo AI: segnale negativo di breve, controbilanciato solo da commenti generici positivi.",
+   "key_headlines": [
+    "Palantir’s Tech Chief Wants to Sell $50 Million in Stock After the AI Crash",
+    "Palantir stock price prediction: Upward momentum faces $181.24 resistance",
+    "Top VC on Palantir: “You Literally Can’t Stop Your Margins Going Up”",
+    "Palantir’s Growth Story Could Be Just Getting Started"
+   ],
+   "keyword_score": -0.045,
+   "keyword_news_count_24h": 17,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "HEI.DE",
+   "isin": "DE0006047004",
+   "name": "Heidelberg Materials",
+   "impact": 0.15,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Crescita nel Q3 a sostegno dell'outlook 2026: lieve positivo per la seduta di domani.",
+   "key_headlines": [
+    "Heidelberg Materials stock: Q3 growth supports 2026 outlook"
+   ],
+   "keyword_score": 0.0,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "BAYN.DE",
+   "isin": "DE000BAY0017",
+   "name": "Bayer",
+   "impact": 0.12,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Dopo l'approvazione FDA di Sunharbo il titolo ritraccia (vendi sulla notizia) mentre si passa al lancio USA: positivo di fondo ma slancio di breve ridotto.",
+   "key_headlines": [
+    "Bayer stock slips as Sunharbo moves from FDA approval to US launch",
+    "Bayer's Field-Level Fungicide Bet and First-in-Class Stroke Drug Share One Test: Can Precision Pay?"
+   ],
+   "keyword_score": 0.293,
+   "keyword_news_count_24h": 7,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "META",
+   "isin": "US30303M1027",
+   "name": "Meta Platforms",
+   "impact": -0.1,
+   "confidence": 0.4,
+   "horizon": "intraday",
+   "rationale": "Lo slancio della scelta JPMorgan svanisce: Meta scende con il sell-off AI e il paragone di Eisman con Enron sul deal AI fuori bilancio da 27 mld $ pesa sul sentiment.",
+   "key_headlines": [
+    "Big Tech Stocks Today: Nvidia and Meta Fall as Microsoft Rises Amid AI Selloff",
+    "Meta's $27B Off-Balance-Sheet AI Deal Reminds Steve Eisman of Enron— Joseph Carlson Disagrees",
+    "Meta (META) Stock May Be 48% Undervalued Despite EU Feature Crackdown",
+    "Alphabet and Meta Platforms Pay Dividends. Is Either of Them Worth Owning for Income?"
+   ],
+   "keyword_score": 0.148,
+   "keyword_news_count_24h": 26,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-12T21:50:00+01:00"
+  },
+  {
+   "ticker": "DBK.DE",
+   "isin": "DE0005140008",
+   "name": "Deutsche Bank",
+   "impact": -0.1,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Multa BaFin da 8 mln €: importo irrilevante per i conti, piccolo danno di reputazione.",
+   "key_headlines": [
+    "Deutsche Bank stock hit by EUR 8 million BaFin fine"
+   ],
+   "keyword_score": 0.09,
+   "keyword_news_count_24h": 14,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "ADS.DE",
+   "isin": "DE000A1EWWW0",
+   "name": "Adidas",
+   "impact": 0.1,
+   "confidence": 0.35,
+   "horizon": "1-3d",
+   "rationale": "Commento sul Q3 record bilanciato dai rischi del segmento lifestyle: notizia già nota, lieve positivo.",
+   "key_headlines": [
+    "adidas stock weighs record Q3 against lifestyle footwear risks"
+   ],
+   "keyword_score": 0.572,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "PUM.DE",
+   "isin": "DE0006969603",
+   "name": "Puma",
+   "impact": 0.1,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "RBC alza il target a 28 € ma resta Sector Perform: lieve supporto, senza cambio di giudizio.",
+   "key_headlines": [
+    "Puma stock: RBC raises target to EUR 28, keeps Sector Perform"
+   ],
+   "keyword_score": -0.055,
+   "keyword_news_count_24h": 9,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "MUV2.DE",
+   "isin": "DE0008430026",
+   "name": "Munich Re",
+   "impact": 0.08,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Utile Q3 in calo ma obiettivo 2026 alzato: trimestrale mista, nessun segnale netto.",
+   "key_headlines": [
+    "Munich Re stock: Q3 profit slips as 2026 target rises"
+   ],
+   "keyword_score": 0.02,
+   "keyword_news_count_24h": 10,
+   "issued_at": "2026-11-12T17:44:54+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "LHA.DE",
+   "isin": "DE0008232125",
+   "name": "Lufthansa",
+   "impact": 0.05,
+   "confidence": 0.35,
+   "horizon": "1-3d",
+   "rationale": "Guidance 2026 ristretta, quota TAP e ritorno a Dubai contro un conto carburante più alto: quadro misto, nessuna direzione netta.",
+   "key_headlines": [
+    "Lufthansa Narrows 2026 Guidance as TAP Stake and Flagship Jet Reshape the Story",
+    "Lufthansa Balances TAP Expansion and Dubai Return Against a Higher Fuel Bill"
+   ],
+   "keyword_score": 0.176,
+   "keyword_news_count_24h": 8,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  },
+  {
+   "ticker": "ENEL.MI",
+   "isin": "IT0003128367",
+   "name": "Enel",
+   "impact": 0.05,
+   "confidence": 0.35,
+   "horizon": "1-3d",
+   "rationale": "Utile a 6,0 mld € (+6%) ma margini in Italia ancora frenati: conti in linea, effetto quasi neutro.",
+   "key_headlines": [
+    "Enel: utili a 6,0 miliardi (+6%) ma l’Italia frena ancora i margini"
+   ],
+   "keyword_score": 0.0,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-12T18:39:53+01:00",
+   "expires_at": "2026-11-13T17:25:00+01:00"
+  }
+ ],
+ "catalysts": [
+  {
+   "ticker": "MACRO",
+   "event": "Interventi Fed (Daly, Williams e altri) nella tarda seduta USA",
+   "datetime": "2026-11-12T19:10:00+01:00",
+   "expected_impact_note": "Dopo le parole di Waller su un possibile rialzo da 50 pb, i discorsi di oggi possono muovere le aspettative sui Fed funds di dicembre."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "Trimestrale Applied Materials (attrezzature per chip), dopo la chiusura USA",
+   "datetime": "2026-11-12T22:05:00+01:00",
+   "expected_impact_note": "Orario indicativo (dopo la chiusura del 12/11). Titolo -47% dai massimi: il risultato può muovere ASML, Infineon e il comparto semiconduttori domani mattina."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "PPI e core PPI USA (ottobre)",
+   "datetime": "2026-11-13T14:30:00+01:00",
+   "expected_impact_note": "Principale dato inflattivo rimasto questa settimana dopo il CPI caldo di martedì. Un PPI forte rafforzerebbe l'ipotesi di rialzo Fed a dicembre e peserebbe su azionario/duration."
+  },
+  {
+   "ticker": "NVDA",
+   "event": "Trimestrale Q3 FY27 (dopo chiusura Wall Street) e conference call",
+   "datetime": "2026-11-17T23:00:00+01:00",
+   "expected_impact_note": "Risultati attesi dopo la chiusura del 17/11, call alle 17:00 ET (23:00 ora di Roma). Guidance aziendale recente: ricavi ~108 mld $ ±2%. L'esito del CdA peserà almeno quanto i numeri."
+  },
+  {
+   "ticker": "NVDA",
+   "event": "Nomina del CEO permanente (ricerca interna ed esterna, data non comunicata)",
+   "datetime": "2026-11-17T23:00:00+01:00",
+   "expected_impact_note": "Data non nota: indicata la trimestrale del 17/11 come prima occasione probabile per aggiornamenti. Un nome forte può innescare un rimbalzo su Nvidia e sul comparto AI; la scelta di un esterno poco noto o ritardi prolungherebbero lo sconto."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "HICP finale area euro (ottobre)",
+   "datetime": "2026-11-18T12:00:00+01:00",
+   "expected_impact_note": "Conferma del dato flash già uscito; di solito impatto contenuto salvo revisioni, in vista della BCE di dicembre."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "Flash PMI S&P Global area euro (novembre)",
+   "datetime": "2026-11-23T10:00:00+01:00",
+   "expected_impact_note": "Prima lettura ciclica di novembre per manifattura e servizi UE; può muovere euro e indici europei se si discosta dal consenso."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "FOMC (decisione e press conference, anche SEP/dot plot)",
+   "datetime": "2026-12-09T20:00:00+01:00",
+   "expected_impact_note": "Dopo il CPI di ottobre sopra le attese il mercato prezza in larga parte +25 pb, con una coda su +50 pb. Evento di volatilità elevata su USD, rendimenti e azionario globale."
+  },
+  {
+   "ticker": "AVGO",
+   "event": "Trimestrale Broadcom Q4 FY26 (stimata, dopo chiusura)",
+   "datetime": "2026-12-09T22:00:00+01:00",
+   "expected_impact_note": "Data stimata da calendari di mercato, da confermare sulla IR. Rileva per il comparto chip insieme al FOMC dello stesso giorno."
+  },
+  {
+   "ticker": "ORCL",
+   "event": "Trimestrale Oracle Q2 FY27",
+   "datetime": "2026-12-14T22:00:00+01:00",
+   "expected_impact_note": "Data confermata dai calendari di settore. Sensibile al ciclo della spesa AI/cloud dopo lo shock Nvidia."
+  },
+  {
+   "ticker": "MACRO",
+   "event": "Decisione di politica monetaria BCE",
+   "datetime": "2026-12-17T14:15:00+01:00",
+   "expected_impact_note": "Sondaggio Reuters: rialzo dei tassi al 2,75%. Conferenza di Lagarde alle 14:45 ora di Roma; impatto su euro, banche e indici UE."
+  },
+  {
+   "ticker": "MU",
+   "event": "Trimestrale Micron Q1 FY27 (stimata)",
+   "datetime": "2026-12-23T22:00:00+01:00",
+   "expected_impact_note": "Data stimata. Sarà il test sulla narrativa di scarsità delle memorie per l'AI."
+  }
+ ]
+}

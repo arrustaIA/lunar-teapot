@@ -1,0 +1,68 @@
+# Bot di paper trading (SOLDI FINTI, nessun broker reale). Sessioni lunghe che eseguono scheduler.py.
+# Orari: TZ=Europe/Rome. I cron sono in UTC e volutamente anticipati / ridondanti (GitHub può partire
+# in ritardo di 10-30+ min); gh/decide.py decide in base all'ora di Roma (vale sia con ora solare che legale).
+name: paper-session
+on:
+  schedule:
+    - cron: "10,40 4-20 * * 1-5"   # avvio mattutino + cane da guardia se la catena di sessioni si interrompe
+    - cron: "25 * * * *"           # ogni ora: fuori orario solo raccolta notizie (24/7)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "session | news"
+        default: session
+      minutes:
+        description: "durata massima sessione in minuti (340 = piena, con catena)"
+        default: "340"
+permissions:
+  contents: write
+  actions: write
+env:
+  TZ: Europe/Rome
+  PYTHONUNBUFFERED: "1"
+jobs:
+  decide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      mode: ${{ steps.d.outputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: gh }
+      - id: d
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          INPUT_MODE: ${{ inputs.mode }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: python3 gh/decide.py >> "$GITHUB_OUTPUT"
+  run:
+    needs: decide
+    if: needs.decide.outputs.mode == 'session' || needs.decide.outputs.mode == 'news'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    concurrency:
+      group: paper-state
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -q -r requirements.txt
+      - name: Config git
+        run: |
+          git config user.name "paper-trading-bot"
+          git config user.email "paper-trading-bot@users.noreply.github.com"
+      - name: Scarica stato
+        run: python3 gh/state.py pull
+      - name: Esegui
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python3 gh/session_runner.py --mode "${{ needs.decide.outputs.mode }}" --minutes "${{ inputs.minutes || '340' }}"
+      - name: Salva stato (anche in caso di errore/timeout)
+        if: always()
+        run: python3 gh/state.py push || true

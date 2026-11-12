@@ -1,0 +1,16 @@
+# Bot PAPER: nel branch main va solo il codice + i giudizi di Natasia. Lo stato live sta nel branch `state`.
+__pycache__/
+*.pyc
+backups/
+logs/
+reports/
+charts/
+local/
+data/*
+!data/news_llm.json
+!data/news_llm_history.jsonl
+!data/news_llm_state.json
+.env
+*.env
+*.pulltmp
+.DS_Store

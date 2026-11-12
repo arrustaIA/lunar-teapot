@@ -53,6 +53,6 @@
     "ENEL.MI"
   ],
   "notes": "Run incrementali con news_llm/extract_new_news.py: analizzare solo notizie con (published, id) successivi a (last_published, last_news_id). news_seen_count = notizie lette nell'ultima run.",
-  "last_checked_at": "2026-11-12T22:43:23+01:00",
-  "last_run_note": "Run 22:4x: lette 42 notizie (21:11-22:01). Chiusura USA: S&P 500 -0,35%, Nvidia -4,3% lontana dai minimi; Applied Materials batte le stime ma piatta after-hours. Rinnovati Nvidia (-0,30), AMD, BMW, Siemens Energy, Mercedes; nuovi Tesla (fusione SpaceX), Coinbase, Microsoft, ASML; scaduti i giudizi intraday USA di oggi. Aggiunti catalizzatori CMD Rheinmetall e possibile fusione SpaceX-Tesla."
+  "last_checked_at": "2026-11-13T00:08:00+01:00",
+  "last_run_note": "Run 00:0x: 0 notizie nuove (ultima pubblicata 22:00:36, ultima raccolta 22:05). Stato sincronizzato da GitHub salvato alle 22:25; la raccolta oraria delle 23:25 non risulta ancora (probabile ritardo cron GitHub, da ricontrollare al prossimo giro). Giudizi invariati."
 }

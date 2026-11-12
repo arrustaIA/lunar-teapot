@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-11-12 (~23:05 ora di Roma) – R&D serale: shadow diagnostico sul filtro commissioni; nessuna regola di trading cambiata
+
+- **Stato**: sessione GitHub regolare (heartbeat 22:25, job di attesa notturno in corso verso le ~07:10). Oggi 0 operazioni, equity 1.000,00 €.
+- **shadow.py (solo misura, mai ordini)**: oggi il segnale ORB_DYN su AVGO (grafico APPROVE 40) risultava "non approvato" perché il filtro
+  commissioni dava quantità 0; il report lo etichettava in modo fuorviante. Ora ogni segnale salva `qty_diag` (rischio 2%, tetto 30%, senza
+  filtri minimo/commissioni) e a fine giornata i segnali APPROVE bloccati solo da quel filtro ricevono un esito diagnostico (`diag: true`),
+  sommato separatamente. Etichette corrette: "respinto dall'analista grafico" vs "diagnostico". Prova isolata (PT_SHADOW_DIR/PT_REPORTS/PT_BARS
+  temporanei) sui segnali di oggi: AVGO stop, lordo −1,90 €, netto −3,90 € (il filtro oggi ha evitato una perdita); `--dry-run` della scansione ok.
+- **Backtest serale** (20/08–12/11, 61 sedute, dati aggiornati): baseline v0 21 trade, netto −23,93 € (OOS 18 trade −20,70 €); no_chart −62,78 €;
+  delay15 −18,95 €; pullback identico alla baseline; us_rescan −59,38 €. Leva: da ko_ls_x1 −53,14 € a ko_ls_x5 −731,65 €, factor x2–x5 da −272 a −690 €;
+  strict_fees 0 trade (non testabile). Nessuna variante validata.
+- **Ipotesi pre-registrata `cap100`** (tetto posizione 100% invece di 30%, per diluire le commissioni fisse): 112 trade, netto **−360,53 €**,
+  OOS 74 trade −225,28 €, DD −37,8% → **scartata**. Diagnosi: un tetto più alto fa passare il filtro commissioni a molti trade con stop stretto,
+  e quei trade marginali hanno vantaggio lordo nettamente negativo; il filtro commissioni oggi funziona anche da filtro di qualità. Stesso
+  messaggio dalla leva: più esposizione = più perdita. Nessun ritocco del parametro su questo campione.
+- **Raccomandazioni HR del 12/11, valutate**:
+  - "servono 20-30 trade": accolta (nessuna regola cambiata).
+  - pullback su VWAP: **scartata nella forma attuale** — nel backtest le condizioni del pullback coincidono con quelle dell'ORB (sopra ORH, sopra VWAP,
+    momentum > 0, non esteso), quindi un breakout esteso che rientra viene già preso dalla v0: 0 trade aggiuntivi. Andrebbe ridefinito come setup diverso.
+  - mean-reversion su VWAP: già testata (REBOUND, −14,25 € in 61 sedute, −336 € su 2 anni di barre 1h) → resta solo in shadow.
+  - quant/backtester: esiste già (`/workspace/rd-paper-trading`, walk-forward); corretto `run_rd.sh` che senza argomenti passava un argomento vuoto e falliva.
+  - monitor qualità quotazioni: già coperto dal feed L&S (ritardo misurato 5-40 s, mediana ~40 s dai runner GitHub).
+  - analista notizie LLM: già attivo (Natasia); nuovo `rd-paper-trading/news_eval.py` misura in ombra giudizio LLM vs punteggio a parole chiave
+    sul rendimento open→close della seduta successiva. Oggi 0 coppie valutabili (storico con prezzo solo da oggi); integrazione solo con ≥ 100 coppie e vantaggio netto OOS.
+  - analista calendario/eventi e specialista sessione USA: non ancora testabili sui dati (nessun calendario storico; ORB USA già scartato −36,44 €); rinviati.
+- Backup in `backups/20261112-230537/`. Ledger non toccato.
+
 ## 2026-11-12 (~21:20 ora di Roma) – Catena notturna verso l'apertura, indipendente dal cron
 
 - **Perché**: il workflow è attivo su `main`, ma a sera i run erano solo `workflow_dispatch` (nessuno

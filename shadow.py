@@ -56,6 +56,16 @@ def size(close, dist, ccy):
     return q
 
 
+def size_diag(close, dist, ccy):
+    """Quantita' diagnostica: stesso rischio/cap della v0 ma SENZA i filtri minimo/commissioni.
+    Serve solo a misurare il vantaggio lordo dei segnali che il filtro commissioni blocca (mai ordini)."""
+    px = to_eur(close, ccy); de = to_eur(dist, ccy); fees = 2 * CFG["fee_per_order"]
+    if de <= 0 or px <= 0:
+        return 0.0
+    q = max(0.0, min((CFG["risk_per_trade"] * NOTIONAL - fees) / de, CFG["max_position_pct"] * NOTIONAL / px))
+    return math.floor(q * 1e4) / 1e4
+
+
 def prev_close_from_bars(b, region):
     d = today()
     prior = [x for x in sorted(set(b.index.date)) if x < d]
@@ -150,7 +160,7 @@ def scan(dry=False):
         a = CA.analyze(t, "buy", b, daily.get(t), stop, target, save_chart=False)
         row = dict(day=today().isoformat(), ts=n.isoformat(timespec="seconds"), strategy=strat, ticker=t, region=region,
                    currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(stop, 4), target=round(target, 4),
-                   qty=qty, chart_score=a["score"], chart_verdict=a["verdict"], approved=a["verdict"] == "APPROVE" and qty > 0,
+                   qty=qty, qty_diag=size_diag(entry, close - stop, ccy), chart_score=a["score"], chart_verdict=a["verdict"], approved=a["verdict"] == "APPROVE" and qty > 0,
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
                    dyn=t not in st_t, note="SHADOW: nessun ordine")
         found += 1
@@ -174,7 +184,12 @@ def eod(dry=False):
     for r in todo:
         b = bars.get(r["ticker"])
         res = dict(r, outcome="n/d", exit=None, net_ante_tasse=None)
-        if r.get("approved") and b is not None and len(b) and r["qty"] > 0:
+        q = r["qty"] if r.get("approved") and r["qty"] > 0 else 0.0
+        diag = False
+        if q <= 0 and r.get("chart_verdict") == "APPROVE" and (r.get("qty_diag") or 0) > 0:
+            q, diag = r["qty_diag"], True          # bloccato solo dal filtro commissioni: esito diagnostico
+        if q > 0 and b is not None and len(b):
+            res["diag"] = diag
             fl = flatten_time(r["region"])
             fut = b[(b.index > pd.Timestamp(r["bar"])) & (b.index < fl)]
             st, tg, e = r["stop"], r["target"], r["entry"]; risk = e - st
@@ -185,14 +200,14 @@ def eod(dry=False):
                 if x["High"] >= tg:
                     px, why = max(tg, x["Open"]), "target"; break
                 if x["High"] >= e + risk:
-                    st = max(st, e + to_eur(0, "EUR") + 2 * CFG["fee_per_order"] / r["qty"])
+                    st = max(st, e + 2 * CFG["fee_per_order"] / q)
             if px is None and len(fut):
                 px = float(fut["Close"].iloc[-1]) * (1 - CFG["slippage"])
             if px is not None:
-                gross = to_eur(r["qty"] * (px - e), r["currency"])
+                gross = to_eur(q * (px - e), r["currency"])
                 pnl = gross - 2 * CFG["fee_per_order"]
                 res.update(outcome=why, exit=round(px, 4), gross=round(gross, 2), net_ante_tasse=round(pnl, 2),
-                           tax_if_gain=round(max(pnl, 0) * TAX_RATE, 2))
+                           tax_if_gain=round(max(pnl, 0) * TAX_RATE, 2), qty_used=q)
         out.append(res)
         if not dry:
             append(RES, res)
@@ -202,13 +217,24 @@ def eod(dry=False):
           "Sizing ipotetico su 1.000 €, commissioni 2 €; netto ante tasse (tassa 26% solo se in utile, zainetto non applicato).", ""]
     if not allres:
         md.append("Nessun segnale oggi.")
-    tot = 0.0
+    tot = totd = 0.0
     for x in allres:
-        v = x.get("net_ante_tasse"); tot += v or 0
+        v = x.get("net_ante_tasse")
+        if x.get("diag"):
+            totd += v or 0
+        else:
+            tot += v or 0
+        if v is not None:
+            tag = (f", DIAGNOSTICO (bloccato dal filtro commissioni, qty {x.get('qty_used')}): lordo {x.get('gross', 0):+.2f} €, "
+                   f"netto ante tasse {v:+.2f} €") if x.get("diag") else f", netto ante tasse {v:+.2f} €"
+        elif x.get("chart_verdict") != "APPROVE":
+            tag = " (respinto dall'analista grafico: solo conteggio)"
+        else:
+            tag = " (approvato dal grafico ma senza barre/quantità: solo conteggio)"
         md.append(f"- {x['ts'][11:16]} {x['strategy']} {x['ticker']} ingresso {x['entry']} stop {x['stop']} target {x['target']} "
-                  f"grafico {x['chart_score']} ({x['chart_verdict']}) -> {x['outcome']}"
-                  + (f", netto ante tasse {v:+.2f} €" if v is not None else " (non approvato: solo conteggio)"))
-    md += ["", f"Totale netto ante tasse dei segnali approvati: {tot:+.2f} €"]
+                  f"grafico {x['chart_score']} ({x['chart_verdict']}) -> {x['outcome']}" + tag)
+    md += ["", f"Totale netto ante tasse dei segnali operativi (passano anche il filtro commissioni): {tot:+.2f} €",
+           f"Totale netto ante tasse dei segnali diagnostici (solo filtro commissioni li blocca): {totd:+.2f} €"]
     if dry:
         print("\n".join(md)); return
     open(os.path.join(REPORTS, f"shadow_{today():%Y-%m-%d}.md"), "w").write("\n".join(md) + "\n")

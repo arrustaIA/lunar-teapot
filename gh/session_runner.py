@@ -28,7 +28,10 @@ def sh(cmd, check=False):
     return r.returncode
 
 def save():
+    before = open("requirements.txt").read()
     sh("git pull -q --ff-only origin main || echo 'pull main non riuscito (continuo con il codice attuale)'")
+    if open("requirements.txt").read() != before:
+        sh("pip install -q -r requirements.txt")
     if sh("python3 gh/state.py push"):
         log("ATTENZIONE: salvataggio stato fallito, riprovo al prossimo giro")
 
@@ -49,6 +52,9 @@ def run_session(minutes, chain):
     start = datetime.datetime.now()
     end, more_today = session_end(start, minutes)
     log(f"sessione PAPER {start:%Y-%m-%d %H:%M} -> {end:%H:%M} (ora di Roma); catena={chain and more_today}")
+    # sonda fonti dati dal runner (L&S può essere bloccato/limitato: marketdata ripiega su Yahoo)
+    sh("timeout 60 python3 marketdata.py --quote SIE.DE 2>&1 | tail -3 | sed 's/^/sonda L&S: /'")
+    sh("timeout 60 python3 -c \"import yfinance as y; d=y.download('SAP.DE', period='1d', interval='1m', progress=False); print('sonda Yahoo: barre 1m', len(d))\" 2>&1 | tail -2")
     sched = subprocess.Popen(["python3", "scheduler.py"], stdout=open("logs/scheduler.log", "a"), stderr=subprocess.STDOUT)
     last_save, dispatched = time.time(), False
     while datetime.datetime.now() < end:

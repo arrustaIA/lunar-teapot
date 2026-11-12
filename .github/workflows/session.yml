@@ -1,6 +1,9 @@
 # Bot di paper trading (SOLDI FINTI, nessun broker reale). Sessioni lunghe che eseguono scheduler.py.
 # Orari: TZ=Europe/Rome. I cron sono in UTC e volutamente anticipati / ridondanti (GitHub può partire
 # in ritardo di 10-30+ min); gh/decide.py decide in base all'ora di Roma (vale sia con ora solare che legale).
+# Catena autonoma: ogni sessione lancia la successiva; a fine giornata (lun-gio) lancia un job `wait`
+# che dorme fino a ~07:10 ora di Roma (max 340 min a hop, due hop per la notte) e poi apre la sessione.
+# Venerdì sera la catena si ferma; il lunedì riparte il cron, con la routine feriale come riserva.
 name: paper-session
 on:
   schedule:
@@ -9,14 +12,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "session | news"
+        description: "session | news | wait"
         default: session
       minutes:
-        description: "durata massima sessione in minuti (340 = piena, con catena)"
+        description: "durata massima sessione/attesa in minuti (340 = piena, con catena)"
         default: "340"
 permissions:
   contents: write
-  actions: write
+  actions: write   # serve a lanciare il run successivo con GITHUB_TOKEN (workflow_dispatch)
 env:
   TZ: Europe/Rome
   PYTHONUNBUFFERED: "1"
@@ -39,7 +42,7 @@ jobs:
         run: python3 gh/decide.py >> "$GITHUB_OUTPUT"
   run:
     needs: decide
-    if: needs.decide.outputs.mode == 'session' || needs.decide.outputs.mode == 'news'
+    if: needs.decide.outputs.mode == 'session' || needs.decide.outputs.mode == 'news' || needs.decide.outputs.mode == 'wait'
     runs-on: ubuntu-latest
     timeout-minutes: 355
     concurrency:
@@ -48,15 +51,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        if: needs.decide.outputs.mode != 'wait'
         with:
           python-version: "3.13"
           cache: pip
-      - run: pip install -q -r requirements.txt
+      - if: needs.decide.outputs.mode != 'wait'
+        run: pip install -q -r requirements.txt
       - name: Config git
+        if: needs.decide.outputs.mode != 'wait'
         run: |
           git config user.name "lunar-teapot"
           git config user.email "lunar-teapot@users.noreply.github.com"
       - name: Scarica stato
+        if: needs.decide.outputs.mode != 'wait'
         run: python3 gh/state.py pull
       - name: Esegui
         env:
@@ -64,5 +71,5 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: python3 gh/session_runner.py --mode "${{ needs.decide.outputs.mode }}" --minutes "${{ inputs.minutes || '340' }}"
       - name: Salva stato (anche in caso di errore/timeout)
-        if: always()
+        if: always() && needs.decide.outputs.mode != 'wait'
         run: python3 gh/state.py push || true

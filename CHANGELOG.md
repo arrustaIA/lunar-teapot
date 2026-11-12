@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-11-12 (~21:20 ora di Roma) – Catena notturna verso l'apertura, indipendente dal cron
+
+- **Perché**: il workflow è attivo su `main`, ma a sera i run erano solo `workflow_dispatch` (nessuno
+  innescato da `schedule`). Su un repo nuovo o rinominato GitHub può registrare i cron in ritardo, e
+  senza catena dopo le 22:25 la sessione di domani potrebbe non partire.
+- **Nuovo**: `gh/chain.py` e il modo `wait` in `gh/session_runner.py` / `gh/decide.py` /
+  `.github/workflows/session.yml`. A fine giornata (lun-gio) la sessione lancia un job che dorme fino
+  alle ~07:10 ora di Roma (due hop da 340 minuti al massimo) e poi apre la sessione. Il job di attesa
+  non installa dipendenze e non tocca il branch `state`. Prima di ogni dispatch verifica che non ci
+  sia già un run in coda (oltre al gruppo di concorrenza `paper-state`).
+- Venerdì sera la catena si ferma; il lunedì riparte il cron, con la routine feriale come riserva se
+  il cron non è ancora attivo.
+- `permissions: actions: write` resta, serve a lanciare il run successivo con `GITHUB_TOKEN`.
+- Test locali: `python3 gh/test_chain.py` (47 controlli su orari e hop) e `--dry-run` del runner,
+  senza toccare la sessione in corso né lo stato.
+
 ## 2026-11-12 (~19:30 ora di Roma) – Il bot gira su GitHub Actions (repo pubblico), scheduler del box spento
 
 - **Perché**: il box va in pausa quando nessun agente è attivo e il bot si fermava (oggi più pause, apertura USA persa).

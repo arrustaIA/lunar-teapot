@@ -15,11 +15,18 @@ ledger opererebbero due volte (`scheduler.py` rifiuta di partire fuori da GitHub
   per al massimo 340 minuti, fino alle 22:25 (dopo `team_review` delle 22:15). 6 minuti prima della fine mette
   in coda la sessione successiva (stesso gruppo di concorrenza `paper-state`: parte appena finisce la
   precedente, il buco di 1-3 minuti è coperto dal recupero pause dello scheduler). Nessun cambio di sessione
-  nelle aperture 09:00-09:45 e 15:20-15:50. Giornata tipo: ~06:15-11:55, ~11:55-17:35, ~17:35-22:25.
-- **Cron** (UTC, ridondanti perché GitHub può partire in ritardo; `gh/decide.py` ragiona in ora di Roma, quindi
-  vale con ora solare e legale): `10,40 4-20 * * 1-5` avvia la prima sessione dalle 06:00 e fa da cane da
-  guardia se la catena si interrompe; `25 * * * *` fuori orario e nel weekend fa solo una raccolta notizie.
-  Un run programmato salta se c'è già una sessione attiva o in coda.
+  nelle aperture 09:00-09:45 e 15:20-15:50. Giornata tipo: ~07:10-12:50, ~12:50-18:30, ~18:30-22:25.
+- **Catena notturna** (lun-gio): a fine giornata parte un job `wait` che dorme fino alle ~07:10 ora di Roma
+  e poi lancia la sessione. Un job dura al massimo 340 minuti, quindi la notte sono due hop (~22:25-04:00
+  e ~04:00-07:10). Il job di attesa non tocca lo stato sul branch `state`. Prima di lanciare un run
+  successivo controlla che non ce ne sia già uno in coda. Venerdì sera la catena si ferma; il lunedì
+  riparte il cron, e se il cron non è ancora registrato ci pensa la routine feriale (primo controllo
+  intorno alle 09:00).
+- **Cron** (UTC, ridondanti perché GitHub può partire in ritardo o, su un repo nuovo/rinominato, non
+  registrare subito gli orari; `gh/decide.py` ragiona in ora di Roma, quindi vale con ora solare e legale):
+  `10,40 4-20 * * 1-5` avvia la prima sessione dalle 06:00 e fa da cane da guardia se la catena si
+  interrompe; `25 * * * *` fuori orario e nel weekend fa solo una raccolta notizie. Un run programmato
+  salta se c'è già una sessione o un'attesa attiva o in coda.
 - **Stato** sul branch `state` (`gh/state.py`): ledger, barre, notizie, watchlist, `logs/`, `reports/`,
   `charts/`. Salvato ogni 15 minuti e a fine sessione, scaricato all'avvio. Il branch ha sempre un solo
   commit (force push) e lo snapshot pota barre > 45 giorni e file datati > 21 giorni: il repo resta piccolo.

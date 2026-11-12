@@ -12,6 +12,8 @@
 - `start_scheduler.sh`: non avvia più lo scheduler locale, mostra lo stato delle sessioni GitHub.
 - `update.py`: scarica prima lo stato da GitHub, salva l'ora dell'ultimo aggiornamento in `local/update_state.json`
   (non più nel ledger, che viene sovrascritto), segnala se la sessione GitHub è ferma; le pause diventano «pause o cambi di sessione».
+- `sync_github.sh news`: pubblica solo i giudizi di Natasia; `update.py` lo esegue dopo il pull.
+- Test su GitHub (19:23-19:35): news, rescan e notizie ok; trade fallito per `six` mancante → aggiunto a `requirements.txt`. Sessione live dalle 19:37: L&S raggiungibile dai runner (ritardo mediano ~40 s), Yahoo ok, cicli trade/manage/shadow/news regolari, stato salvato alle 19:51 e scaricato sul box.
 - Backup in `backups/20261112-191915/`.
 
 ## 2026-11-12 (~18:45 ora di Roma) – news.py ogni 10 minuti + notizie forti nella watchlist dinamica

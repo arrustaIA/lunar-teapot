@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-12T21:36:01+01:00",
-  "run_id": "news-llm-20261112-213601",
+  "generated_at": "2026-11-12T22:43:23+01:00",
+  "run_id": "news-llm-20261112-224323",
   "analyst": "Analista Notizie",
   "sources_window": {
-    "from": "2026-11-12T20:30:22+01:00",
-    "to": "2026-11-12T21:10:49+01:00"
+    "from": "2026-11-12T21:10:56+01:00",
+    "to": "2026-11-12T22:00:36+01:00"
   },
-  "news_seen_count": 30,
+  "news_seen_count": 42,
   "macro": {
-    "bias": -0.25,
-    "confidence": 0.6,
-    "summary": "Verso le 21:35 Wall Street resta in lieve calo (S&P 500 -0,4%, Nasdaq -0,6%) dopo aver recuperato parte delle perdite: il -6% di Nvidia è compensato dai rialzi dell'energia. Decennale USA al 5,1%, Brent a circa 96 $ (+3,5%), EUR/USD a 1,106 (-1%). Pimco avverte sull'eccesso di debito delle aziende AI. Domani PPI USA alle 14:30 ora di Roma: un dato caldo rafforzerebbe il rialzo Fed a dicembre e peserebbe su azionario e duration.",
+    "bias": -0.2,
+    "confidence": 0.55,
+    "summary": "Wall Street chiude in calo moderato (S&P 500 -0,35% a 7.592, Nasdaq -0,39%, Dow -0,36%): Nvidia -4,3% ma lontana dai minimi (-12%), compensata da energia (+1,5%, quarta seduta di rialzo con il greggio dopo le parole di Trump sull'Iran) e dai rivali Broadcom, AMD e Alphabet in rialzo. Ampiezza debole (titoli in calo 3,4 a 1 sul NYSE), Nebius -16,8%, CoreWeave -6,9%. Il mercato prezza un rialzo Fed a dicembre al 100% (15% di probabilità per +50 pb). Applied Materials batte le stime dopo la chiusura ma resta piatta. Domani PPI USA alle 14:30 ora di Roma: un dato caldo peserebbe su azionario e duration.",
     "valid_until": "2026-11-13T16:00:00+01:00",
-    "keyword_score": 0.026,
-    "keyword_news_count_12h": 175
+    "keyword_score": 0.0,
+    "keyword_news_count_12h": 188
   },
   "tickers": [
     {
@@ -36,42 +36,43 @@
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
-      "ticker": "NVDA",
-      "isin": "US67066G1040",
-      "name": "NVIDIA",
-      "impact": -0.45,
-      "confidence": 0.6,
-      "horizon": "1-3d",
-      "rationale": "Ancora circa -6% (163 $): nuove rivelazioni (una seconda relazione, legami con società che fornivano capacità di calcolo a Huawei, indagine interna affidata a Wachtell) tengono alto il rischio regolatorio sull'export; gli acquisti record dei piccoli investitori non bastano a invertire prima della trimestrale del 17/11.",
-      "key_headlines": [
-        "Exclusive-Former Nvidia CEO Huang had a relationship with a second employee, sources say",
-        "Jensen Huang is out and Nvidia stock is down—what market pros say about buying dips - CNBC",
-        "Retail investors are buying Nvidia's stock crash like never before — history urges patience",
-        "AI industry weighs future without Nvidia's Huang",
-        "Nvidia: Ex-prosecutor Joon Kim and Wachtell, Lipton bring big track record to investigation",
-        "Nvidia Falls From the Top of the AI Pyramid as Jensen Huang’s Exit Takes Its Chief AI Promoter"
-      ],
-      "keyword_score": -0.057,
-      "keyword_news_count_24h": 266,
-      "issued_at": "2026-11-12T21:36:01+01:00",
-      "expires_at": "2026-11-16T21:50:00+01:00"
-    },
-    {
       "ticker": "ENR.DE",
       "isin": "DE000ENER6Y0",
       "name": "Siemens Energy",
-      "impact": 0.38,
-      "confidence": 0.7,
+      "impact": 0.35,
+      "confidence": 0.6,
       "horizon": "1-3d",
-      "rationale": "Q4 record (ricavi 12,8 mld €, utile netto 1,36 mld), dividendo triplicato a 2,30 €, buyback aggiuntivo fino a 9 mld € e fiducia di JPMorgan; ieri +8/11%, oggi digestione in gap negativo, ma il quadro fondamentale resta costruttivo.",
+      "rationale": "JPMorgan alza il target e la divisione eolica Gamesa torna in utile, a conferma del Q4 record: sostegno nelle prossime sedute dopo una giornata piatta (-0,2%).",
       "key_headlines": [
+        "Siemens Energy's Wind Unit Crosses Into Profit as JPMorgan Lifts Its Sights - ad-hoc-news.de",
         "Siemens Energy Wins JPMorgan's Vote of Confidence as Record Orders Face Their Margin Test",
         "Siemens Energy jumps 7% as Q4 revenue hits record, dividend triples",
         "Siemens Energy, dopo le elezioni Usa arriva il cambio di vento sulle rinnovabili"
       ],
-      "keyword_score": 0.451,
-      "keyword_news_count_24h": 14,
-      "issued_at": "2026-11-12T14:05:07+01:00",
+      "keyword_score": 0.478,
+      "keyword_news_count_24h": 13,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-16T17:25:00+01:00"
+    },
+    {
+      "ticker": "NVDA",
+      "isin": "US67066G1040",
+      "name": "NVIDIA",
+      "impact": -0.3,
+      "confidence": 0.55,
+      "horizon": "1-3d",
+      "rationale": "Chiusura a -4,3% (166 $) dopo un minimo a quasi -12%: acquisti record dei piccoli investitori attutiscono il colpo, ma downgrade, dubbi sui finanziamenti circolari e successione aperta (Buck favorito sui mercati di previsione) tengono il titolo sotto pressione fino al 17/11.",
+      "key_headlines": [
+        "Help wanted: AI firms court ex-spies as Nvidia crisis spotlights security risks",
+        "Retail buyers limit Nvidia stock rout",
+        "Nvidia executive Ian Buck emerges as CEO frontrunner on prediction markets",
+        "Tim Cook for Nvidia CEO? Trump and the world ponder who’s next",
+        "Nvidia Stock Just Got Downgraded After Jensen Huang's Exit. Should You Sell?",
+        "Equities close lower as Nvidia drop outweighs energy gains"
+      ],
+      "keyword_score": -0.069,
+      "keyword_news_count_24h": 292,
+      "issued_at": "2026-11-12T22:43:23+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
@@ -115,14 +116,15 @@
       "impact": -0.3,
       "confidence": 0.55,
       "horizon": "1-3d",
-      "rationale": "Congelati gli investimenti in Germania e chiusure di impianti valutate (titolo -1,4% oggi): ristrutturazione costosa e domanda debole pesano anche domani.",
+      "rationale": "Stop ai nuovi investimenti negli impianti tedeschi e chiusure valutate (ripresa della notizia del pomeriggio): titolo -1,7% oggi, pressione e rischio politico-sindacale nei prossimi giorni.",
       "key_headlines": [
+        "Mercedes-Benz halts new investment in German plants, considers closures",
         "Mercedes-Benz weighs German plant closures, executive says",
         "Mercedes-Benz freezes German investments as plant closures loom (MBGAF:OTCMKTS)"
       ],
-      "keyword_score": -0.1,
-      "keyword_news_count_24h": 6,
-      "issued_at": "2026-11-12T19:34:49+01:00",
+      "keyword_score": -0.157,
+      "keyword_news_count_24h": 8,
+      "issued_at": "2026-11-12T22:43:23+01:00",
       "expires_at": "2026-11-16T17:25:00+01:00"
     },
     {
@@ -227,6 +229,24 @@
       "expires_at": "2026-11-16T17:25:00+01:00"
     },
     {
+      "ticker": "BMW.DE",
+      "isin": "DE0005190003",
+      "name": "BMW",
+      "impact": -0.25,
+      "confidence": 0.5,
+      "horizon": "1-3d",
+      "rationale": "JPMorgan taglia il target mentre restano margini 2026 vicini al pareggio e intoppi di fornitura su tre impianti: tono negativo confermato dopo il -1,4% di oggi.",
+      "key_headlines": [
+        "BMW's Margin Reset Meets a Supply Test as JPMorgan Trims Its Target - ad-hoc-news.de",
+        "BMW's Overhaul Gets a Deadline, a Downgrade and Two New Battery Partners",
+        "BMW's 2026 Guidance Nears Break-Even as Supply Snags Hit Three Plants and S&P Trims Credit Rating"
+      ],
+      "keyword_score": 0.079,
+      "keyword_news_count_24h": 11,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-16T17:25:00+01:00"
+    },
+    {
       "ticker": "TIT.MI",
       "isin": "IT0003497168",
       "name": "Telecom Italia",
@@ -260,23 +280,6 @@
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
-      "ticker": "BMW.DE",
-      "isin": "DE0005190003",
-      "name": "BMW",
-      "impact": -0.22,
-      "confidence": 0.5,
-      "horizon": "1-3d",
-      "rationale": "Guidance 2026 vicina al pareggio, intoppi di fornitura su tre impianti, taglio di rating S&P e downgrade di broker: quadro auto tedesca debole, senza un contrappeso immediato.",
-      "key_headlines": [
-        "BMW's Overhaul Gets a Deadline, a Downgrade and Two New Battery Partners",
-        "BMW's 2026 Guidance Nears Break-Even as Supply Snags Hit Three Plants and S&P Trims Credit Rating"
-      ],
-      "keyword_score": -0.032,
-      "keyword_news_count_24h": 12,
-      "issued_at": "2026-11-12T14:05:07+01:00",
-      "expires_at": "2026-11-16T21:50:00+01:00"
-    },
-    {
       "ticker": "LDO.MI",
       "isin": "IT0003856405",
       "name": "Leonardo",
@@ -305,23 +308,6 @@
       ],
       "keyword_score": 0.229,
       "keyword_news_count_24h": 31,
-      "issued_at": "2026-11-12T21:36:01+01:00",
-      "expires_at": "2026-11-16T21:50:00+01:00"
-    },
-    {
-      "ticker": "AMD",
-      "isin": "US0079031078",
-      "name": "AMD",
-      "impact": 0.2,
-      "confidence": 0.45,
-      "horizon": "1-3d",
-      "rationale": "Circa +5% come alternativa a Nvidia, con nuovo investimento nel calcolo quantistico e target 2027 rivisto da BofA: la rotazione può proseguire, ma gran parte è già nel prezzo.",
-      "key_headlines": [
-        "AMD makes surprise quantum computing move with new investment",
-        "Bank of America Revamps AMD Stock Price Target for 2027"
-      ],
-      "keyword_score": 0.147,
-      "keyword_news_count_24h": 56,
       "issued_at": "2026-11-12T21:36:01+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
@@ -458,21 +444,40 @@
       "expires_at": "2026-11-16T17:25:00+01:00"
     },
     {
+      "ticker": "AMD",
+      "isin": "US0079031078",
+      "name": "AMD",
+      "impact": 0.15,
+      "confidence": 0.45,
+      "horizon": "1-3d",
+      "rationale": "Chiusura a +5,9% come principale beneficiaria della rotazione fuori da Nvidia: slancio ancora positivo ma in gran parte già nel prezzo, rischio prese di beneficio con il PPI di domani.",
+      "key_headlines": [
+        "Advanced Micro Devices (AMD) Stock Jumped, What Is Driving Attention Today?",
+        "AMD makes surprise quantum computing move with new investment",
+        "Bank of America Revamps AMD Stock Price Target for 2027"
+      ],
+      "keyword_score": 0.176,
+      "keyword_news_count_24h": 59,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
       "ticker": "COIN",
       "isin": "US19260Q1076",
       "name": "Coinbase",
       "impact": -0.15,
-      "confidence": 0.45,
+      "confidence": 0.4,
       "horizon": "intraday",
-      "rationale": "Circa -2% con Bitcoin debole nelle giornate negative; il rating confermato da Cantor non basta a invertire la pressione.",
+      "rationale": "Circa -4% in chiusura con controlli di trading rafforzati e trend ribassista persistente: tono negativo che può proseguire domani, legato anche al clima sulle cripto.",
       "key_headlines": [
+        "Coinbase shares drop almost 4% after enhanced trading controls and persistent downtrend pressure - Traders Union",
         "Cantor reiterates Coinbase stock rating citing trust advantage By Investing.com",
         "Why bitcoin suffers alongside everything else on bad trading days"
       ],
-      "keyword_score": -0.097,
-      "keyword_news_count_24h": 19,
-      "issued_at": "2026-11-12T19:34:49+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
+      "keyword_score": -0.123,
+      "keyword_news_count_24h": 16,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-13T21:50:00+01:00"
     },
     {
       "ticker": "CBK.DE",
@@ -491,42 +496,6 @@
       "keyword_news_count_24h": 14,
       "issued_at": "2026-11-12T14:05:07+01:00",
       "expires_at": "2026-11-16T21:50:00+01:00"
-    },
-    {
-      "ticker": "PLTR",
-      "isin": "US69608A1088",
-      "name": "Palantir",
-      "impact": -0.15,
-      "confidence": 0.4,
-      "horizon": "intraday",
-      "rationale": "Il CTO vuole vendere 50 mln $ di azioni dopo il crollo AI: segnale negativo di breve, controbilanciato solo da commenti generici positivi.",
-      "key_headlines": [
-        "Palantir’s Tech Chief Wants to Sell $50 Million in Stock After the AI Crash",
-        "Palantir stock price prediction: Upward momentum faces $181.24 resistance",
-        "Top VC on Palantir: “You Literally Can’t Stop Your Margins Going Up”",
-        "Palantir’s Growth Story Could Be Just Getting Started"
-      ],
-      "keyword_score": -0.045,
-      "keyword_news_count_24h": 17,
-      "issued_at": "2026-11-12T17:44:54+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
-      "ticker": "AMZN",
-      "isin": "US0231351067",
-      "name": "Amazon",
-      "impact": 0.15,
-      "confidence": 0.45,
-      "horizon": "intraday",
-      "rationale": "Circa +1,2%: l'IPO Anthropic dà valore alla sua quota, spinta positiva ma moderata.",
-      "key_headlines": [
-        "Amazon Stocks Gain as Anthropic IPO Puts $271.8 Billion Value on Stake",
-        "Alphabet Climbs 3% as NVIDIA’s Leadership Shake-Up Puts Google’s AI Chips in the Spotlight; Microsoft Gains 2%, Amazon Ticks Up"
-      ],
-      "keyword_score": 0.108,
-      "keyword_news_count_24h": 22,
-      "issued_at": "2026-11-12T19:34:49+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
     },
     {
       "ticker": "BA",
@@ -562,6 +531,24 @@
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
+      "ticker": "TSLA",
+      "isin": "US88160R1014",
+      "name": "Tesla",
+      "impact": 0.15,
+      "confidence": 0.4,
+      "horizon": "1-3d",
+      "rationale": "Bloomberg: trattative di fusione con SpaceX in avanzamento, annuncio possibile già a dicembre (o inizio 2027); titolo +1,7% in chiusura. Sostegno speculativo, frenato da forti ostacoli regolatori.",
+      "key_headlines": [
+        "SpaceX, Tesla merger talks progress, Bloomberg News reports",
+        "SpaceX, Tesla Merger Reportedly Could Be Announced as Soon as December, Potentially Ahead of Democrats Taking Control of Congress in January - TradingKey",
+        "SpaceX could announce $1.5 trillion Tesla merger in December: report - Electrek"
+      ],
+      "keyword_score": 0.079,
+      "keyword_news_count_24h": 30,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-16T21:50:00+01:00"
+    },
+    {
       "ticker": "BAYN.DE",
       "isin": "DE000BAY0017",
       "name": "Bayer",
@@ -579,57 +566,20 @@
       "expires_at": "2026-11-16T21:50:00+01:00"
     },
     {
-      "ticker": "MSFT",
-      "isin": "US5949181045",
-      "name": "Microsoft",
-      "impact": -0.1,
-      "confidence": 0.35,
-      "horizon": "intraday",
-      "rationale": "Disservizi su Microsoft 365 e Outlook ancora segnalati, titolo quasi piatto (+0,1%) sopra un livello tecnico chiave: lieve negativo di reputazione, non sui conti.",
-      "key_headlines": [
-        "Microsoft 365, Outlook down for thousands of US users, Downdetector shows",
-        "Stock Market Today: Nasdaq Skids As Nvidia's Chief Exits; Microsoft Shares Hold A Key Level (Live Coverage)"
-      ],
-      "keyword_score": 0.078,
-      "keyword_news_count_24h": 21,
-      "issued_at": "2026-11-12T21:36:01+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
-      "ticker": "AAPL",
-      "isin": "US0378331005",
-      "name": "Apple",
-      "impact": 0.1,
+      "ticker": "ASML.AS",
+      "isin": "NL0010273215",
+      "name": "ASML",
+      "impact": 0.12,
       "confidence": 0.4,
       "horizon": "intraday",
-      "rationale": "Massimo storico come rifugio dentro la tech, ma oggi piatta e con commenti su valutazione elevata (37 volte gli utili): spinta debole.",
+      "rationale": "Applied Materials (fonti web, non in news.sqlite) batte le stime (ricavi 10,41 mld $, EPS 4,16 $) e guida il Q1 a 11,1 mld $, ma in after-hours resta quasi piatta: lettura lievemente positiva per le attrezzature chip domani mattina.",
       "key_headlines": [
-        "Apple Shares Hit Fresh Record High: The AI Safe-Haven Premium Logic Behind 37x P/E",
-        "Wall Street Models Lag Structural Reality, Prompting Me To Add an ‘Overvalued’ Apple"
+        "Applied Materials Beats Targets On Strong Chip-Gear Sales (IBD, after hours 12/11)"
       ],
-      "keyword_score": 0.05,
-      "keyword_news_count_24h": 34,
-      "issued_at": "2026-11-12T19:34:49+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
-    },
-    {
-      "ticker": "META",
-      "isin": "US30303M1027",
-      "name": "Meta Platforms",
-      "impact": -0.1,
-      "confidence": 0.4,
-      "horizon": "intraday",
-      "rationale": "Lo slancio della scelta JPMorgan svanisce: Meta scende con il sell-off AI e il paragone di Eisman con Enron sul deal AI fuori bilancio da 27 mld $ pesa sul sentiment.",
-      "key_headlines": [
-        "Big Tech Stocks Today: Nvidia and Meta Fall as Microsoft Rises Amid AI Selloff",
-        "Meta's $27B Off-Balance-Sheet AI Deal Reminds Steve Eisman of Enron— Joseph Carlson Disagrees",
-        "Meta (META) Stock May Be 48% Undervalued Despite EU Feature Crackdown",
-        "Alphabet and Meta Platforms Pay Dividends. Is Either of Them Worth Owning for Income?"
-      ],
-      "keyword_score": 0.148,
-      "keyword_news_count_24h": 26,
-      "issued_at": "2026-11-12T17:44:54+01:00",
-      "expires_at": "2026-11-12T21:50:00+01:00"
+      "keyword_score": 0.142,
+      "keyword_news_count_24h": 5,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-13T17:25:00+01:00"
     },
     {
       "ticker": "DBK.DE",
@@ -678,6 +628,24 @@
       "keyword_news_count_24h": 9,
       "issued_at": "2026-11-12T18:39:53+01:00",
       "expires_at": "2026-11-13T17:25:00+01:00"
+    },
+    {
+      "ticker": "MSFT",
+      "isin": "US5949181045",
+      "name": "Microsoft",
+      "impact": -0.08,
+      "confidence": 0.3,
+      "horizon": "intraday",
+      "rationale": "Nuovo disservizio di Outlook in serata (segnalati problemi anche su AWS e Google): danno di reputazione lieve, non sui conti, per la seduta di domani.",
+      "key_headlines": [
+        "Microsoft outage hits Outlook. AWS and Google users also report issues",
+        "Microsoft 365, Outlook down for thousands of US users, Downdetector shows",
+        "Stock Market Today: Nasdaq Skids As Nvidia's Chief Exits; Microsoft Shares Hold A Key Level (Live Coverage)"
+      ],
+      "keyword_score": 0.05,
+      "keyword_news_count_24h": 29,
+      "issued_at": "2026-11-12T22:43:23+01:00",
+      "expires_at": "2026-11-13T21:50:00+01:00"
     },
     {
       "ticker": "MUV2.DE",
@@ -731,12 +699,6 @@
   ],
   "catalysts": [
     {
-      "ticker": "MACRO",
-      "event": "Trimestrale Applied Materials (attrezzature per chip), dopo la chiusura USA",
-      "datetime": "2026-11-12T22:05:00+01:00",
-      "expected_impact_note": "Orario indicativo (dopo la chiusura del 12/11). Titolo -47% dai massimi: il risultato può muovere ASML, Infineon e il comparto semiconduttori domani mattina."
-    },
-    {
       "ticker": "G.MI",
       "event": "Risultati Generali primi nove mesi 2026",
       "datetime": "2026-11-13T07:30:00+01:00",
@@ -783,6 +745,18 @@
       "event": "Flash PMI S&P Global area euro (novembre)",
       "datetime": "2026-11-23T10:00:00+01:00",
       "expected_impact_note": "Prima lettura ciclica di novembre per manifattura e servizi UE; può muovere euro e indici europei se si discosta dal consenso."
+    },
+    {
+      "ticker": "RHM.DE",
+      "event": "Capital Markets Day Rheinmetall ad Amburgo (26-27/11)",
+      "datetime": "2026-11-26T09:00:00+01:00",
+      "expected_impact_note": "Date dal calendario IR (26-27/11; la pagina evento indica 25-27/11), orario stimato. Dopo due tagli di guidance il mercato attende un percorso credibile su ricavi e cassa: un piano prudente ma solido può ridurre lo sconto, nuovi ritardi lo aggraverebbero."
+    },
+    {
+      "ticker": "TSLA",
+      "event": "Possibile annuncio della fusione SpaceX-Tesla (indiscrezioni Bloomberg)",
+      "datetime": "2026-12-01T15:30:00+01:00",
+      "expected_impact_note": "Data non comunicata: secondo Bloomberg l'annuncio potrebbe arrivare già a dicembre o slittare a inizio 2027; indicato l'inizio di dicembre come riferimento. Forte potenziale di volatilità su Tesla, con ostacoli regolatori elevati."
     },
     {
       "ticker": "MACRO",

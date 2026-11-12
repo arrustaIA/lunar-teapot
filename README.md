@@ -30,10 +30,11 @@ ledger opererebbero due volte (`scheduler.py` rifiuta di partire fuori da GitHub
 ### Come lo usano gli agenti sul box
 ```
 ./sync_github.sh pull    # prima di leggere risultati/notizie: scarica lo stato live da GitHub
+./sync_github.sh news    # pubblica solo i giudizi di Natasia (lo fa anche update.py a ogni aggiornamento)
 ./sync_github.sh push    # dopo aver cambiato codice o news_llm*.json: pubblica su main (con controllo dati sensibili)
 ./gh_status.sh           # salute: ultimi run GitHub + età dell'heartbeat dello scheduler
 ```
-- **Natasia**: `./sync_github.sh pull` → legge `data/news.sqlite` → scrive `data/news_llm*.json[l]` → `./sync_github.sh push`.
+- **Natasia**: `./sync_github.sh pull` → legge `data/news.sqlite` → scrive `data/news_llm*.json[l]` → `./sync_github.sh news`.
 - **Lerabuns (R&D)**: `./sync_github.sh pull` per i risultati; test sempre su copie isolate (`PT_DB`, `PT_LOGS`, …);
   deploy = `./sync_github.sh push` (la sessione in corso prende il codice entro 15 minuti).
 - `update.py` fa da solo `sync_github.sh pull` prima di leggere lo stato e segnala se la sessione GitHub è ferma.

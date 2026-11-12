@@ -14,7 +14,8 @@ def sync_first():
     if os.environ.get("GITHUB_ACTIONS") or os.environ.get("PT_NO_SYNC") or os.environ.get("PT_DB"):
         return ""
     r = subprocess.run([os.path.join(BASE, "sync_github.sh"), "pull"], capture_output=True, text=True)
-    return (r.stdout + r.stderr).strip()
+    n = subprocess.run([os.path.join(BASE, "sync_github.sh"), "news"], capture_output=True, text=True)  # giudizi di Natasia
+    return (r.stdout + r.stderr).strip() + ("" if n.returncode == 0 else " | push giudizi notizie fallito")
 
 def github_health():
     try:

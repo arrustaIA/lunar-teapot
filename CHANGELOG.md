@@ -1,5 +1,48 @@
 # Changelog
 
+## 2026-11-13 (21:20 ora di Roma) – Zero operazioni: diagnosi, 6 rimedi testati OOS → nessun deploy di ordini; shadow esteso a V0_LOOSE
+
+- **Richiesta** (Sguattera): zero operazioni il 12 e il 13/11. Testare rimedi concreti out-of-sample al netto di tutto e fare il deploy di
+  qualunque configurazione batta la v0; se nulla è positivo, stimare quanto costerebbe una variante che opera davvero a size piccola.
+- **Diagnosi produzione (nessun bug trovato)**: run GitHub di oggi tutti ok, heartbeat regolare, `trade.py` ha fatto 82 passaggi
+  (07:30-21:00 ogni 10 min) senza errori. Su 656 valutazioni (8 titoli): fuori finestra 213, nessun breakout 359 (NVDA, MU e AVGO sempre
+  sotto il massimo dell'opening range in una giornata in calo), e dopo un breakout UE: troppo esteso 33, momentum 15m negativo 32,
+  guadagno atteso < 3× commissioni 15 (stop minimo 0,4% × tetto 30% = 2,40 € al target), sotto VWAP 4. L'analista grafico non è mai
+  stato raggiunto; il 12/11 stesso schema. Lo shadow ha visto 4 segnali APPROVE bloccati solo dal filtro commissioni (TTE.PA, SAP.DE,
+  MSFT, META): esito diagnostico **−6,41 €** ante tasse, quindi il filtro oggi ha evitato perdite. Il backtest della v0 prevede 19 trade in
+  61 sedute (75% delle sedute senza trade): due giorni a zero sono il comportamento atteso (probabilità ≈ 57%), non un guasto.
+- **Metodo**: regole pre-registrate alle 21:06 prima dei risultati (`rd-paper-trading/reports/preregistration_2026-11-13_zerotrade.md`),
+  6 varianti senza griglie. yfinance 5 minuti (v0 e V1/V1b sullo stesso motore e dati della baseline, 19/08-11/11; le altre 21/08-13/11),
+  CON.DE escluso, OOS dopo 20 sedute, holdout ultimo 1/3. Commissioni 1+1 €, slippage 0,05%, spread (KO x5: 0,50% del certificato),
+  knock-out per barra, tassa 26% dopo commissioni con zainetto in ordine di chiusura. Soglia: ≥ 30 trade OOS, netto OOS > 0, PF > 1,1,
+  senza il migliore ≥ 0, DD ≤ 15%, holdout > 0, meglio della v0.
+- **Risultati OOS**:
+
+  | Variante | Trade tot/OOS | Lordo OOS | Netto OOS | PF | Holdout | Max DD | Esito |
+  |---|---|---|---|---|---|---|---|
+  | v0 attuale (riferimento) | 19/16 | +17,23 € | −15,35 € | 0,59 | −7,64 € | −3,1% | – |
+  | V1 v0 con estensione 3 ATR e filtro commissioni 1,5× | 89/66 | −19,53 € | **−151,53 €** | 0,05 | −79,51 € | −20,3% | respinta |
+  | V1b v0 con watchlist 10 UE + 6 USA | 30/24 | −1,19 € | −49,19 € | 0,33 | −26,65 € | −7,6% | respinta |
+  | V2 giudizi di Natasia (KO x5) | 2/2 | +23,60 € | +12,19 € | 2,37 | – | −0,9% | non valutabile: storico dal 12/11, 4 giudizi forti |
+  | V3 segnale parole chiave news.py (KO x5) | 8/8 | −33,00 € | −49,00 € | 0,12 | – | −5,6% | non valutabile, negativa |
+  | V4 fade del falso breakout dopo l'OR, 09:30-11:00 UE / 16:00-17:30 USA, 70 titoli (KO x5) | 252/78 | −45,11 € | −201,11 € | 0,01 | capitale esaurito | −89,9% | respinta |
+  | V5 momentum ultima ora USA, 21:00-21:45 (KO x5) | 164/107 | −133,22 € | −347,22 € | 0,12 | −139,33 € | −66,2% | respinta |
+
+  La v0 è l'unica con lordo positivo (+36 bp a trade); allentare i filtri aggiunge trade a lordo negativo (V1 −10 bp a trade).
+- **Dati live L&S dal 12/11 (troppo pochi per validare, usati solo come controllo dei costi)**: 3.554 esecuzioni su 18 titoli contro il mid
+  a 1 minuto, mezzo spread effettivo mediano 7,1 bp (p90 30 bp), quindi il backtest con 5 bp è un po' ottimista. Bid/ask alle 21:05 su 72
+  titoli: spread mediano 27 bp (USA 8, UE 37, P911.DE 176): la sera i titoli UE costano molto di più.
+- **Decisione**: nessuna variante supera i criteri → **nessun deploy di ordini**, la v0 resta invariata. La variante meno negativa che opera
+  davvero (≥ 30 trade OOS) è V1: circa 34 trade/mese, costo atteso **≈ −78 €/mese** a size di produzione (DD −20%) e **≈ −71 €/mese** anche a
+  100 € di nozionale, perché le commissioni fisse dominano. La v0 costa ≈ −8 €/mese con ≈ 8 trade/mese. Gli stessi dati si raccolgono a
+  costo zero: **`shadow.py` registra da lunedì 16/11 anche `V0_LOOSE`** (= V1, sulla watchlist statica, analista grafico come la v0), mai ordini.
+- **Test del deploy**: copia isolata (`PT_SHADOW_DIR`, `PT_REPORTS`, `PT_LOGS`, `PT_BARS`, `PT_LOCK`, `PT_DB` temporanei) con orologio finto:
+  alle 11:35 V0_LOOSE scatta su IFX.DE dove la v0 dice "troppo esteso" e coincide con la v0 su MB.MI; alle 21:10 27 valutazioni e 1 segnale.
+  In produzione `shadow.py --dry-run` e `--eod --dry-run` girano senza errori. Ledger, `trade.py`, scheduler e workflow non toccati.
+- **Backup**: `backups/20261113-211512/` (`shadow.py`, `README.md`, `CHANGELOG.md`). Rollback: ripristinare `shadow.py`.
+- **File R&D**: `rd-paper-trading/rd1113z/` (`v1_runner.py`, `sim.py`, `ls_spread.py`, risultati JSON e trade CSV) e
+  `rd-paper-trading/reports/zerotrade_2026-11-13.md`.
+
 ## 2026-11-13 (14:33 ora di Roma) – R&D: posizioni più grandi con leva KO x5 (C e v0) → NON validato, nessun deploy; verifica regola fiscale
 
 - **Richiesta** (Andrea tramite Sguattera): diluire i 2 € fissi con nozionale 2.000–3.000 € via leva fino a x5, rischio 2–3%, e una versione

@@ -117,6 +117,7 @@ La macchina può essere messa in pausa quando nessun agente è attivo. Al risveg
 - `shadow.py` registra solo segnali ipotetici (mai ordini, mai il ledger) in `data/shadow_signals.jsonl` e, alle 21:56, l'esito simulato in `data/shadow_results.jsonl` (entrambi solo in aggiunta) e `reports/shadow_YYYY-MM-DD.md`:
   - `REBOUND`: rimbalzo "VWAP reclaim" dopo un forte calo (minimo ≤ chiusura di ieri × (1 − max(2,5%; ATR%)), minimo fatto da ≥ 15 min, riconquista fresca del VWAP, momentum 15m > 0, prezzo ancora sotto la chiusura di ieri, analista grafico APPROVE), su watchlist statica ∪ dinamica;
   - `ORB_DYN`: regole ORB v0 sui soli candidati dinamici.
+  - `V0_LOOSE` (attiva dal 16/11/2026): ORB v0 sulla watchlist statica con estensione massima 3,0 ATR5m sopra ORH (v0: 1,5) e guadagno al target ≥ 1,5× commissioni (v0: 3×); analista grafico come la v0. Backtest −203,29 € (89 trade): solo misura di quanto opererebbe dal vivo, nessun ordine.
   Dal 13/11/2026 anche i segnali APPROVE dell'analista grafico che il solo filtro commissioni bloccherebbe ricevono un esito **diagnostico** (`diag: true`, quantità `qty_diag` con rischio 2% e tetto 30%, senza filtri minimo/commissioni), sommato a parte nel report: serve a misurare se quel filtro toglie trade buoni o cattivi.
   Sizing ipotetico su 1.000 €, commissioni 2 €, slippage 0,05%. Regole pre-registrate in `/workspace/rd-paper-trading/reports/preregistration_2026-11-12.md`.
 

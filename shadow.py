@@ -8,6 +8,10 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   analista grafico APPROVE (>= 25). Stop max(minimo, prezzo - 2 ATR5m) (0,4%-3%), target 2R, breakeven a +1R.
 - ORB_DYN: regole ORB v0 identiche a trade.py, ma solo sui candidati della watchlist dinamica non presenti nella
   statica (lato USA dopo l'OR 15:30-16:00). Diagnostico.
+- V0_LOOSE (attiva dal 16/11/2026, pre-registrazione R&D reports/preregistration_2026-11-13_zerotrade.md, variante V1): ORB v0 sulla
+  watchlist statica con i due filtri che bloccano quasi tutti i breakout allentati: non oltre 3,0 ATR5m sopra ORH (v0: 1,5) e
+  guadagno al target >= 1,5x commissioni (v0: 3x). Analista grafico APPROVE come la v0. Backtest 19/08-11/11: 89 trade,
+  netto -203,29 EUR (OOS 66 trade, -151,53 EUR) -> NON in produzione: misura a costo zero di quanto opererebbe dal vivo.
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
@@ -27,6 +31,7 @@ OUT = os.environ.get("PT_SHADOW_DIR", DATA)
 SIG = os.path.join(OUT, "shadow_signals.jsonl")
 RES = os.path.join(OUT, "shadow_results.jsonl")
 RB = dict(min_drop=0.025, drop_atr=1.0, min_bars_after_low=3, reclaim_lookback=3, stop_atr=2.0)
+LOOSE = dict(max_extension_atr=3.0, min_reward_vs_fees=1.5)   # variante V0_LOOSE (solo shadow)
 NOTIONAL = CFG["start_cash"]   # sizing ipotetico su 1.000 € (non legge l'equity del ledger)
 
 
@@ -47,11 +52,11 @@ def append(path, row):
         f.write(json.dumps(row, ensure_ascii=False, default=str) + "\n")
 
 
-def size(close, dist, ccy):
+def size(close, dist, ccy, min_rr=None):
     px = to_eur(close, ccy); de = to_eur(dist, ccy); fees = 2 * CFG["fee_per_order"]
     q = max(0.0, min((CFG["risk_per_trade"] * NOTIONAL - fees) / de, CFG["max_position_pct"] * NOTIONAL / px))
     q = math.floor(q * 1e4) / 1e4
-    if q * px < CFG["min_position_eur"] or q * CFG["reward_r"] * de < CFG["min_reward_vs_fees"] * fees:
+    if q * px < CFG["min_position_eur"] or q * CFG["reward_r"] * de < (CFG["min_reward_vs_fees"] if min_rr is None else min_rr) * fees:
         return 0.0
     return q
 
@@ -103,7 +108,7 @@ def rebound(b, sess, region, daily):
     return close, close - dist, close + CFG["reward_r"] * dist, f"minimo {low:.3f} vs chiusura ieri {pc:.3f}, VWAP {float(vw.iloc[-1]):.3f}"
 
 
-def orb(b, sess, region):
+def orb(b, sess, region, max_ext=None):
     o, _, _ = session_times(region)
     r = sess[(sess.index >= o) & (sess.index < o + timedelta(minutes=CFG["or_minutes"]))]
     if len(r) < 4 or len(sess) < 8:
@@ -111,7 +116,7 @@ def orb(b, sess, region):
     orh, orl = float(r["High"].max()), float(r["Low"].min())
     a = float(atr(b).iloc[-1]); close = float(sess["Close"].iloc[-1]); vw = float(vwap(sess).iloc[-1])
     if not (close > orh and close > vw and close - float(sess["Close"].iloc[-4]) > 0
-            and close <= orh + CFG["max_extension_atr"] * a):
+            and close <= orh + (CFG["max_extension_atr"] if max_ext is None else max_ext) * a):
         return None
     stop = max(orl, close - CFG["atr_stop_mult"] * a)
     dist = min(max(close - stop, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])
@@ -126,7 +131,7 @@ def scan(dry=False):
     dyn = rescan.load_dyn()
     st_t = {i["ticker"] for i in static}
     plan = [(i, "REBOUND") for i in static] + [(i, "REBOUND") for i in dyn if i["ticker"] not in st_t] + \
-           [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t]
+           [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static]
     done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) if r.get("day") == today().isoformat()}
     plan = [(i, s) for i, s in plan if (s, i["ticker"]) not in done]
     tick = sorted({i["ticker"] for i, _ in plan})[:20]       # LS: max 20 titoli per ciclo
@@ -150,13 +155,18 @@ def scan(dry=False):
             continue
         sess = today_session(b, region, cash_only=False)
         sess = sess[sess.index >= o]
-        sig = rebound(b, sess, region, daily.get(t)) if strat == "REBOUND" else orb(b, sess, region)
+        if strat == "REBOUND":
+            sig = rebound(b, sess, region, daily.get(t))
+        elif strat == "V0_LOOSE":
+            sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"])
+        else:
+            sig = orb(b, sess, region)
         if not sig:
             continue
         close, stop, target, info = sig
         ccy = quote_currency(b, t)
         entry = float(b.attrs.get("ask") or close * (1 + CFG["slippage"]))
-        qty = size(entry, close - stop, ccy)
+        qty = size(entry, close - stop, ccy, min_rr=LOOSE["min_reward_vs_fees"] if strat == "V0_LOOSE" else None)
         a = CA.analyze(t, "buy", b, daily.get(t), stop, target, save_chart=False)
         row = dict(day=today().isoformat(), ts=n.isoformat(timespec="seconds"), strategy=strat, ticker=t, region=region,
                    currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(stop, 4), target=round(target, 4),
@@ -164,7 +174,7 @@ def scan(dry=False):
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
                    dyn=t not in st_t, note="SHADOW: nessun ordine")
         found += 1
-        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN"):
+        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE"):
             # registra comunque il segnale grezzo (serve al conteggio), ma con approved=False; non lo ripete oggi
             pass
         if dry:
@@ -213,7 +223,8 @@ def eod(dry=False):
             append(RES, res)
     allres = [x for x in _lines(RES) if x.get("day") == d] if not dry else out
     md = [f"# Shadow {today():%d/%m/%Y} – segnali ipotetici, NESSUN ordine (ora di Roma)", "",
-          "Strategie non validate dal backtest: REBOUND (rimbalzo VWAP dopo forte calo) e ORB_DYN (ORB v0 su candidati dinamici).",
+          "Strategie non validate dal backtest: REBOUND (rimbalzo VWAP dopo forte calo), ORB_DYN (ORB v0 su candidati dinamici) e "
+          "V0_LOOSE (ORB v0 sulla watchlist statica con estensione max 3 ATR e filtro commissioni 1,5x).",
           "Sizing ipotetico su 1.000 €, commissioni 2 €; netto ante tasse (tassa 26% solo se in utile, zainetto non applicato).", ""]
     if not allres:
         md.append("Nessun segnale oggi.")

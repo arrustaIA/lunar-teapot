@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-11-13 (14:20 ora di Roma) – R&D urgente: ORB sessione USA long+short via knock-out x5 → NON validato, nessun deploy
+
+- **Richiesta** (Andrea tramite Sguattera): un setup ORB sulla sessione USA, long e short, con filtri meno restrittivi, live prima delle 15:30
+  **solo se** ha valore atteso netto positivo. Nessuna regola di trading è cambiata: il bot continua con la v0.
+- **Metodo**: le regole sono pre-registrate prima dei test, alle 14:18 (`rd-paper-trading/reports/preregistration_2026-11-13_usorb.md`).
+  - Universo: 19 titoli USA dell'universo TR. Dati: barre yfinance a 5 minuti, 55 sedute complete dal 20/08 al 12/11.
+  - Le prime 20 sedute sono riscaldamento; l'OOS va dal 18/09 al 12/11 (35 sedute).
+  - Strumento: long e short tramite KO su azione x5 (`derivatives.py`), con spread 0,50% sul certificato, knock-out controllato su ogni barra,
+    1 € + 1 € di commissioni, slippage 0,05% per lato, tasse 26% con zainetto. Rischio 2% compresi i costi, nozionale minimo 1.000 €, investimento
+    massimo pari a equity/3, al massimo 3 posizioni.
+  - Regole: OR 15:30-16:00, ingressi 16:00-17:30 all'apertura della barra successiva, stop max(OR opposto, 1,5·ATR5m) fra 0,4% e 3%,
+    target 2R, breakeven a +1R, uscita forzata alle 21:45.
+  - Filtri: VWAP, trend del giorno, nessun inseguimento e volume relativo dell'OR ≥ 1,2.
+  - Criteri: netto OOS > 0, almeno 20 trade OOS, PF OOS > 1,1, netto OOS senza il trade migliore ≥ 0.
+- **Risultati OOS** (netto dopo tutti i costi e le tasse):
+
+  | Variante | Trade OOS | Lordo OOS | Commissioni | Netto OOS | PF | Senza il migliore | Esito |
+  |---|---|---|---|---|---|---|---|
+  | A: ORB long+short senza analista | 39 | −157,37 € | 78 € | **−235,37 €** | 0,20 | −248,87 € | respinta |
+  | B: A + analista coerente (±15) | 28 | −99,48 € | 56 € | **−155,48 €** | 0,36 | −173,91 € | respinta |
+  | C: A solo gap ≥ 1,5% nella sua direzione | 22 | +46,01 € | 44 € | **−12,86 €** | 0,92 | −38,99 € | respinta |
+
+  - Sull'intero campione: A −374,28 € (71 trade), B −220,55 € (40 trade, tutti short: nessun long ha punteggio ≥ +15), C −11,25 € (33 trade).
+  - Blocchi OOS di C: +50,98 / −0,86 / −71,54 / +8,56 €.
+- **Motivo preciso del mancato deploy**: nessuna variante soddisfa i criteri.
+  - A e B hanno già un lordo negativo: il breakout USA con filtri allentati perde prima dei costi, e gli short peggiorano il risultato.
+  - C è l'unica con lordo positivo, +46 € su 22 trade, cioè circa 2,1 € a trade. Questo margine è più o meno uguale alle commissioni
+    (2 € a trade) e lascia +2 € prima delle tasse, ma il netto è −12,86 € e il PF 0,92.
+  - Allentare i filtri aumenta i trade ma non il margine per trade. Come stabilito, i criteri non sono stati allentati dopo i risultati.
+- **File**: `rd-paper-trading/backtest_usorb.py`, `reports/backtest_usorb_2026-11-13.json` e `reports/trades_usorb_{A,B,C}.csv` (copia R&D).
+  Codice di produzione, scheduler e ledger non sono stati toccati.
+
 ## 2026-11-12 (~23:05 ora di Roma) – R&D serale: shadow diagnostico sul filtro commissioni; nessuna regola di trading cambiata
 
 - **Stato**: sessione GitHub regolare (heartbeat 22:25, job di attesa notturno in corso verso le ~07:10). Oggi 0 operazioni, equity 1.000,00 €.

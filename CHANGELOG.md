@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-11-13 (~23:10 ora di Roma) – R&D serale: nessun deploy; misure in ombra aggiornate
+
+- **Stato**: run GitHub di oggi tutte riuscite, heartbeat 22:25. Oggi 0 operazioni, equity 1.000,00 €, ledger invariato.
+- **Backtest serale** (21/08–13/11, 61 sedute, dati aggiornati): baseline v0 20 trade, netto −18,82 € (OOS 17 trade −19,79 €); no_chart −68,30 €;
+  delay15 −13,82 € (OOS 14 trade, non validato: netto negativo); pullback identico alla baseline; us_rescan −57,93 €. Leva: tutte le varianti
+  da −283 € (factor x2) a −740 € (KO x5 stretto), nessuna validata. Nessun segnale con vantaggio lordo che giustifichi short o leva.
+- **Reale vs backtest**: il backtest sul 12/11 apre AMD (netto +0,01 €) e AVGO (−5,38 €), la produzione no. AMD era bloccato dal filtro commissioni
+  (target 4,16 € < 6 €), AVGO è finito nello shadow diagnostico (−3,90 €). La differenza è la larghezza dello stop (barre yfinance 5 min nel
+  backtest, L&S a 1 min in produzione): il backtest sovrastima un po' il numero di trade; effetto netto sui due giorni +5,37 € a favore della produzione.
+- **Shadow cumulativo (12–13/11)**: 0 segnali operativi; 5 segnali ORB_DYN diagnostici (bloccati solo dal filtro commissioni) per −10,31 € ante tasse;
+  REBOUND 3 segnali, tutti respinti dall'analista grafico. Nessuna promozione (campione troppo piccolo e negativo).
+- **Notizie (Natasia)**: `rd-paper-trading/news_eval.py` (corretto: Spearman calcolato senza scipy) su 163 giudizi → 51 coppie (titolo, seduta
+  successiva) valutabili, quasi tutte su una sola seduta: LLM hit rate 60,8%, Spearman +0,14; parole chiave 57,4%, Spearman +0,21; giudizi forti
+  (|impatto×confidenza| ≥ 0,2) n=3, rendimento medio nel verso del giudizio −0,42%. Nessun vantaggio dimostrato, nessuna integrazione (soglia ≥ 100 coppie su più sedute).
+- **strict_fees_cap50**: ritest pre-registrato rinviato, servono ≥ 20 trade OOS e il campione 5 min disponibile ne dà ~10.
+- **Raccomandazioni HR del 13/11, valutate**: identiche a quelle del 12/11. "Servono 20-30 trade": accolta. Pullback VWAP: scartata (0 trade in più
+  rispetto alla v0). Mean-reversion VWAP: già testata (REBOUND, negativa) → resta in shadow. Quant/backtester, monitor quotazioni (feed L&S) e
+  analista notizie LLM (Natasia): già attivi. Specialista USA: ORB USA scartato più volte (−57,93 € stasera). Analista calendario/eventi: rinviato,
+  con 20 trade in backtest il filtro sarebbe inverificabile.
+- Codice di produzione, scheduler, workflow e ledger non toccati.
+
 ## 2026-11-13 (21:25 ora di Roma) – Diagnosi zero trade: nessun guasto sul percorso ordini; fix scan 09:35
 
 - **Richiesta** (Andrea: «Qualcosa non va se ancora nessun trade»): capire perché il bot paper non ha eseguito alcun ordine dal lancio (12-13/11).

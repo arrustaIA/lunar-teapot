@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-11-13 (~14:40 ora di Roma) – R&D: altri rimedi testati su 3 anni di barre orarie → nessuno supera la v0, nessun deploy
+
+- **Perché**: zero trade dal 12/11. Abbiamo cercato rimedi diversi da quelli già in test da Lerabuns (ORB USA e leva sulla v0).
+  Nessuna regola di trading è cambiata.
+- **Dati e metodo**: barre yfinance da 1 ora dal 12/2023 al 12/11/2026 sui 71 titoli dell'universo TR (circa 50.600 giornate-titolo),
+  più indici (DAX, Euro Stoxx 50, S&P 500, Nasdaq 100) e i 60 giorni a 5 minuti come controllo. Il 2024 è in-sample, 2025-2026 è
+  fuori campione (OOS). Slippage 0,05% per lato, commissioni 1 € + 1 €, tassa 26% sull'utile dopo commissioni con zainetto, rischio 2%,
+  tetto 30% per posizione (oppure KO x5 con spread 0,10% sul nozionale), al massimo 3 posizioni al giorno.
+- **Risultati** (bp = rendimento medio a trade dopo lo slippage e prima delle commissioni):
+
+  | Rimedio | Esito |
+  |---|---|
+  | Gap fade all'apertura, gap ≥ 1 ATR, stop 1 ATR, target chiusura del gap (UE+USA) | Portafoglio realistico OOS 2025-26: 118 trade, **−339,90 €**, PF 0,29, DD −34%; con KO x5: 242 trade, **−764,59 €**, DD −77%. IS 2024: −338,69 €. Media dei trade presi ≈ 0 bp. L'effetto medio positivo (+46 bp) viene quasi tutto dal crollo dell'aprile 2025 (2025Q2 +182 bp); senza quel trimestre, UE +0,5 bp. |
+  | Gap fade solo UE, gap ≥ 1,5 ATR | OOS 89 trade, **−338,11 €**, PF 0,15, DD −34% |
+  | Gap fade USA solo nei giorni in cui anche l'S&P 500 apre in gap ≥ 1% nella stessa direzione | 2024: 26 trade, −80,93 €, PF 0,40; 2025-26: 51 trade, **−4,64 €**, PF 0,98 (KO x5 −7,86 €) |
+  | Gap-and-go (stessa direzione del gap) | dall'apertura −4 / −36 bp (soglie 0,3 / 1 ATR); dopo la prima ora ≈ 0 bp |
+  | Momentum della prima ora fino alla chiusura (\|r1\| ≥ 0,5-1 ATR) | da −4 a +3 bp dopo lo slippage; servirebbero ≥ 20 bp solo per le commissioni |
+  | Rottura del massimo/minimo di ieri dopo la prima ora | −0,5 bp (21.590 casi) |
+  | Trend di fine giornata (dalle 15:00 UE / 19:30 USA alla chiusura) | da −0,5 a +2 bp |
+  | Momentum intraday sugli indici (DAX, ESTX50, SPX, NDX; ultima ora e resto della giornata) | da −2,5 a +1,5 bp; l'S&P 500 negli ultimi anni tende a invertire |
+  | Uscite sull'ORB (proxy a 1 ora, 38.926 casi): 2R+BE, 3R+BE, trailing 1R, uscita a tempo | tutte fra −9,1 e −10,0 bp, cioè vantaggio lordo zero: il tipo di uscita non cambia nulla |
+  | Universo più volatile (ORB per quintile di ATR%, fino a ATR 4,9%) | da −8,3 a −11 bp in ogni quintile: nessun vantaggio |
+  | Inversione/continuazione dopo un giorno di forte movimento (≥ 1,5-3 ATR) | da −22 a +2 bp, segno instabile da un anno all'altro |
+
+- **Conclusione**: su questi titoli e con dati gratuiti non abbiamo trovato setup intraday con un vantaggio lordo che superi stabilmente
+  2 € di commissioni su posizioni da 300-1.500 €. La leva amplifica le perdite, il filtro su volatilità e uscite non crea vantaggio. Il
+  criterio di deploy (netto OOS > 0 e migliore della v0, DD < 15%) non è soddisfatto da nessuna variante. Non aggiungiamo shadow nuovi:
+  nessuna idea è abbastanza promettente da giustificare un'altra fonte di segnali.
+- **Nota sui dati**: in yfinance CON.DE ha un falso "gap" dopo lo spin-off di Aumovio (09/2025), che falsa i test sui gap se non si
+  filtra.
+- **File**: gli script e i risultati sono in `rd-paper-trading/rd1113/` (copia R&D, fuori dal repo). Codice di produzione, workflow e
+  ledger non sono stati toccati.
+
 ## 2026-11-13 (14:20 ora di Roma) – R&D urgente: ORB sessione USA long+short via knock-out x5 → NON validato, nessun deploy
 
 - **Richiesta** (Andrea tramite Sguattera): un setup ORB sulla sessione USA, long e short, con filtri meno restrittivi, live prima delle 15:30

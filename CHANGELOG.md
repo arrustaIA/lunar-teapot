@@ -1,5 +1,51 @@
 # Changelog
 
+## 2026-11-13 (14:33 ora di Roma) – R&D: posizioni più grandi con leva KO x5 (C e v0) → NON validato, nessun deploy; verifica regola fiscale
+
+- **Richiesta** (Andrea tramite Sguattera): diluire i 2 € fissi con nozionale 2.000–3.000 € via leva fino a x5, rischio 2–3%, e una versione
+  "meno trade di qualità più alta". Nessuna regola di trading è cambiata: il bot continua con la v0.
+- **Regola fiscale (confermata da Andrea) – verifica**: 26% sull'utile di ogni operazione al netto delle commissioni di acquisto e vendita;
+  perdite nette (commissioni incluse) nello zainetto per 4 anni, compensano solo le plusvalenze successive.
+  - Produzione (`common.apply_tax` / `close_position`, usati da `trade.py` e `close_all.py`): **già corretta**, nessuna modifica.
+  - Motori R&D `backtest.py` (`./run_rd.sh`) e `backtest_leverage.py`: **già corretti** (tasse alla chiusura, in ordine temporale). La v0 e i risultati
+    precedenti non cambiano.
+  - `shadow.py`: riporta il netto **ante tasse** ed è dichiarato come tale (solo misura, nessun ordine). Nessuna modifica.
+  - `backtest_usorb.py` (test di stamattina): **2 errori corretti** in R&D. Le tasse venivano applicate in ordine di ingresso invece che di chiusura.
+    Inoltre il dimensionamento e il limite giornaliero usavano l'esito di trade non ancora chiusi, quindi c'era informazione futura.
+  - **Da dove venivano i ~15 € di C (+46,01 lordo − 44 commissioni = +2,01 ante tasse, ma −12,86 netto)**: non da un bug della regola. Sono 14,87 €
+    di tasse pagate sui trade vincenti di settembre e inizio ottobre (COIN, AMD, META, TSLA), quando lo zainetto era vuoto. Le perdite sono arrivate
+    dopo (ottobre e novembre) e a fine periodo restano ~69 € di zainetto non usato: le tasse già pagate non tornano. Spread e slippage erano già dentro il lordo.
+  - **Ricalcolo cronologico corretto** (`rd-paper-trading/recalc_usorb_chrono.py`): C 19 trade OOS, lordo −21,53 €, tasse 2,02 €, **netto −61,55 €**,
+    PF 0,61. A 39 trade, −240,52 € (prima −235,37). B 28 trade, −155,90 € (prima −155,48). Le conclusioni non cambiano: nessuna variante validata.
+    C peggiora perché il suo risultato dipendeva da quali trade restavano sopra il nozionale minimo di 1.000 €: il campione è fragile.
+- **Metodo**: le regole sono pre-registrate alle 14:23, prima dei risultati (`rd-paper-trading/reports/preregistration_2026-11-13_sizing.md`).
+  - Combinazioni, 4 al massimo: C_2000_r2, C_3000_r3, V0_2000_r3 e V0Q_3000_r3 (analista ≥ 40 e un solo ingresso al giorno).
+  - Strumento: KO x5 su azione con spread 0,50%, 1 € + 1 €, slippage 0,05% e tasse corrette. Sizing cronologico, limitato dalla cassa libera, al massimo 3 posizioni.
+  - Criteri: netto OOS > 0, ≥ 20 trade OOS, PF > 1,2, netto senza il migliore ≥ 0, DD ≤ 15% e P(−20% in 60 sedute) ≤ 10% (bootstrap da 10.000 simulazioni).
+    Per C serve anche una conferma su barre 1h di circa 2 anni (dal 15/12/2023 al 19/08/2026, 697 sedute non usate stamattina).
+- **Risultati OOS**:
+
+  | Combinazione | Trade OOS | Netto OOS | PF | Max DD | Peggior giorno | KO | P(−20%/60 sed.) | P(−50%) | 1h 2 anni | Esito |
+  |---|---|---|---|---|---|---|---|---|---|---|
+  | C_2000_r2 | 1 | −19,07 € | 0 | −1,9% | −19,07 € | 0 | 0% | 0% | 0 trade | respinta |
+  | C_3000_r3 | 1 | −28,55 € | 0 | −2,9% | −28,55 € | 0 | 0,05% | 0% | 0 trade | respinta |
+  | V0_2000_r3 | 56 | **−330,38 €** | 0,25 | −60,2% | −36,60 € | 0 | 100% | 88% | – | respinta |
+  | V0Q_3000_r3 | 39 | **−319,60 €** | 0,37 | −40,6% | −41,36 € | 0 | 99% | 39% | – | respinta |
+
+- **Motivo preciso**:
+  - Con il rischio fisso al 2–3%, un nozionale di 2.000–3.000 € richiede uno stop entro circa 0,7–0,8% del prezzo. Lo stop mediano dei segnali C
+    è dell'1,4% sulle barre a 5 minuti e del 3% su quelle da 1 ora, quindi C non genera quasi trade: 1 in OOS e 0 su 2 anni. Aumentare il rischio
+    per arrivare al minimo violerebbe le regole di rischio.
+  - **Diagnostica, non usata come criterio**: i 218 segnali C su 1h a 2 anni, a nozionale fisso, hanno lordo negativo, −2,04 € a trade su 1.000 €
+    e −6,11 € su 3.000 € (PF ante tasse 0,49–0,62). Il vantaggio di C visto stamattina non si conferma su dati indipendenti.
+  - v0 a leva: lordo per trade negativo (−3,90 € e −6,19 €), quindi più leva amplifica le perdite. Il risultato è coerente con cap100 del 12/11
+    (−360 €). La versione "qualità" (analista ≥ 40, un trade al giorno) fa meno trade ma ha un lordo per trade peggiore.
+  - Il collo di bottiglia non sono solo le commissioni. Questi segnali non hanno un vantaggio lordo e la leva non lo crea: serve prima un segnale
+    con lordo positivo e stabile a 1x.
+- **File** (copia R&D): `backtest_sizing.py`, `recalc_usorb_chrono.py`, `diag_c1h.py`, `reports/backtest_sizing_2026-11-13.json`,
+  `reports/backtest_usorb_2026-11-13_recalc.json` e `reports/trades_sizing_*.csv`. Codice di produzione, scheduler e ledger non sono stati toccati;
+  è stato pubblicato solo questo CHANGELOG.
+
 ## 2026-11-13 (~14:40 ora di Roma) – R&D: altri rimedi testati su 3 anni di barre orarie → nessuno supera la v0, nessun deploy
 
 - **Perché**: zero trade dal 12/11. Abbiamo cercato rimedi diversi da quelli già in test da Lerabuns (ORB USA e leva sulla v0).

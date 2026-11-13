@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-13 (21:25 ora di Roma) – Diagnosi zero trade: nessun guasto sul percorso ordini; fix scan 09:35
+
+- **Richiesta** (Andrea: «Qualcosa non va se ancora nessun trade»): capire perché il bot paper non ha eseguito alcun ordine dal lancio (12-13/11).
+- **Diagnosi del percorso ordini (filtri, non un bug di esecuzione)**: sessione GitHub in corso dalle 18:32, heartbeat 21:18, 83 passaggi `trade.py` oggi (07:30-21:10 ogni 10 min) senza eccezioni, senza quotazioni stantie e senza dati mancanti. Ledger invariato: 1.000,00 €, 0 posizioni, 0 trade. L'analista grafico (soglia 25) **non è mai stato chiamato** in produzione: i setup si fermano prima, al filtro commissioni.
+- **Valutazioni del 13/11** (664, 8 titoli della watchlist): fuori finestra ingressi 213, nessun breakout 365, troppo esteso 35, momentum 15m negativo 32, guadagno atteso < 3× commissioni 15, sotto VWAP 4. Stesso schema il 12/11 (296 valutazioni: nessun breakout 135, fuori finestra 60, momentum 50, troppo esteso 31, sotto VWAP 14, commissioni 6).
+- **Quanto è andata vicina la v0**: il filtro chiede un target 2R ≥ 6 € (3× le 2 € di andata e ritorno) su un tetto posizione di 300 €, quindi serve uno stop ≥ 1%. Con lo stop minimo dello 0,4% il target vale esattamente 2,40 € (11 dei 15 rifiuti di oggi). Il più vicino oggi è **ENR.DE alle 09:30: 3,40 €** (stop ~0,57%); ieri il massimo è stato AMD 4,16 €. Lo shadow ha visto 4 segnali ORB_DYN con score grafico 25-40 (TTE.PA, SAP.DE, MSFT, META) altrettanto bloccati dalle commissioni (qty 0); esito diagnostico già noto −6,41 €, quindi il filtro oggi ha evitato perdite. Nessuna soglia di strategia è stata allentata.
+- **Bug reale (non un filtro)**: alle 07:30, senza watchlist, `trade.py` lancia `scan.py` e congela la lista di prima dell'apertura (oggi tutti i gap EU a +0,00%). Alle 09:35 lo scan ufficiale ha trovato il file e si è fermato (`watchlist already exists`). Lo scan delle 09:35 adesso rifà una lista scritta prima delle 09:35, così gap e volume relativo sono quelli della seduta. Test: `python3 test_scan_watchlist.py`. Nessun impatto sugli ordini di oggi (le 09:35 sono già passate); vale da lunedì.
+- **Cosa non è un bug**: orari (EU 09:30-21:15, USA 16:00-21:15 in novembre), feed L&S, persistenza dello stato, size arrotondata a 0 (le size al tetto 300 € passavano il nozionale minimo da 200 €). Il tetto 30% × filtro 3× commissioni è un filtro deliberato; R&D ha già scartato tetto 100% e leva.
+
+
 ## 2026-11-13 (21:20 ora di Roma) – Zero operazioni: diagnosi, 6 rimedi testati OOS → nessun deploy di ordini; shadow esteso a V0_LOOSE
 
 - **Richiesta** (Sguattera): zero operazioni il 12 e il 13/11. Testare rimedi concreti out-of-sample al netto di tutto e fare il deploy di

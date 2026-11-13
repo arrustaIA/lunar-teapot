@@ -11,14 +11,41 @@ def z(s):
     sd = s.std()
     return (s - s.mean()) / sd if sd and sd == sd else s * 0
 
+# Official morning scan (scheduler): after the EU opening range. A list written earlier
+# (trade.py fallback at 07:30 when the overnight session is already running) has no cash-session
+# gap/rvol and must be rebuilt at this time. Do not loosen this clock: it is the documented job time.
+OFFICIAL_SCAN_TIME = time(9, 35)
+
+def stale_preopen_watchlist(wl, n=None):
+    """True when an existing watchlist was created before today's 09:35 official scan."""
+    n = n or now()
+    if not wl:
+        return False
+    official = datetime.combine(n.date(), OFFICIAL_SCAN_TIME, ROME)
+    if n < official:
+        return False
+    raw = wl.get("created")
+    if not raw:
+        return True
+    try:
+        created = datetime.fromisoformat(raw)
+    except ValueError:
+        return True
+    if created.tzinfo is None:
+        created = created.replace(tzinfo=ROME)
+    return created.astimezone(ROME) < official
+
 def main():
     force = "--force" in sys.argv
     if is_weekend() and "--any-day" not in sys.argv:
         log("weekend: no scan", "scan"); return
     with Lock():
         if os.path.exists(watchlist_path()) and not force:
-            wl = load_watchlist(); log(f"watchlist already exists for today: {[w['ticker'] for w in wl['items']]}", "scan")
-            return
+            wl = load_watchlist()
+            if not stale_preopen_watchlist(wl):
+                log(f"watchlist already exists for today: {[w['ticker'] for w in wl['items']]}", "scan")
+                return
+            log(f"watchlist of {wl.get('created')} was built before the official 09:35 scan -> rebuilding with today's gap/rvol", "scan")
         con = db(); ensure_day(con)
         uni = load_universe()
         tick = [u["ticker"] for u in uni]

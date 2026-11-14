@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-11-15 (~00:18 ora di Roma) – Validazione walk-forward + sensitività: nessun deploy
+
+- **Cosa**: script riutilizzabile `rd-paper-trading/validate.py` (fuori dal repo pubblico). Walk-forward a blocchi
+  (IS minimo 20 sedute, OOS da 10, holdout ultimo 1/3) più griglia one-at-a-time intorno ai parametri scelti, al netto
+  di commissioni 1+1 €, slippage 0,05% e tassa 26% dopo le commissioni (zainetto FIFO, nessun lookahead). CON.DE escluso.
+  Finestra 21/08–13/11/2026 (61 sedute, barre 5 min). Un candidato passa solo se batte la v0 fuori campione (OOS e holdout,
+  entrambi con netto > 0), è stabile sui blocchi walk-forward e non crolla a piccoli cambi di parametri.
+- **Candidati (netto totale / trade / netto OOS / stabilità / robustezza / esito)**:
+  - v0 (riferimento, già in produzione): −18,82 €, 20 trade, OOS −19,79 € (17), 0/5 blocchi, non validata walk-forward
+  - V0_LOOSE (estensione 3 ATR, filtro 1,5×): −210,39 €, 95, OOS −155,04 €, 0/5, instabile — FAIL
+  - v0 watchlist 10 UE + 6 USA: −59,82 €, 30, OOS −47,53 €, 1/5 — FAIL
+  - pullback VWAP dopo breakout troppo esteso: identico alla v0 (0 trade in più) — FAIL
+  - fade del falso breakout OR (1×, non KO x5): −272,28 €, 100, OOS −192,82 € — FAIL
+  - momentum ultima ora USA (1×): −10,19 €, 7 trade, OOS +4,87 € e holdout +10,29 € ma solo 3 trade OOS (< 20) — FAIL
+  - fade del gap overnight (regime e ingresso solo su dati già noti): −212,14 €, 79, OOS −123,64 € — FAIL
+  - ORB USA A/B/C (1×): A −63,37 € (56), B −51,89 € (31), C −16,31 € (38, OOS −0,75 €, 3/5 blocchi) ma holdout peggiore della v0 e OOS non > 0 — FAIL
+  - mean-reversion su VWAP solo in giorni range-bound (regime = range/chiusura di ieri ≤ mediana dei 20 giorni precedenti): −320,02 €, 139, OOS −131,51 € — FAIL
+- **Decisione**: nessun candidato supera i tre criteri → **nessun deploy**, la v0 resta invariata. Il registro trade `a8c8f61` è già su `main`.
+- Codice di produzione, scheduler, workflow e ledger non toccati in questo passo.
+
+
 ## 2026-11-14 (~23:42 ora di Roma) – Registro trade in append-only (produzione e shadow)
 
 - **Cosa**: ogni chiusura (produzione e shadow, compreso il filtro dibattito) scrive una riga in `data/trade_log.jsonl`

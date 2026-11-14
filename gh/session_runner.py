@@ -24,7 +24,7 @@ MAX_MIN = chain.MAX_MIN
 DAY_END = chain.DAY_END                 # dopo team_review delle 22:15
 NO_HANDOFF = [((9, 0), (9, 45)), ((15, 20), (15, 50))]   # aperture EU/USA: niente cambio sessione qui
 SAVE_EVERY = 15 * 60
-JOB_PAT = r"python3 (news|scan|trade|rescan|shadow|close_all|report|team_review)\.py"
+JOB_PAT = r"python3 (news|scan|trade|rescan|shadow|debate|close_all|report|team_review)\.py"
 
 def log(m):
     print(f"[{datetime.datetime.now():%H:%M:%S}] {m}", flush=True)

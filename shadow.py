@@ -12,12 +12,16 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   watchlist statica con i due filtri che bloccano quasi tutti i breakout allentati: non oltre 3,0 ATR5m sopra ORH (v0: 1,5) e
   guadagno al target >= 1,5x commissioni (v0: 3x). Analista grafico APPROVE come la v0. Backtest 19/08-11/11: 89 trade,
   netto -203,29 EUR (OOS 66 trade, -151,53 EUR) -> NON in produzione: misura a costo zero di quanto opererebbe dal vivo.
+- DIBATTITO (prova di un giorno dal 16/11/2026, pre-registrazione R&D reports/preregistration_2026-11-16_debate.md): per i segnali
+  V0 (copia diagnostica delle regole di trade.py, compresi quelli bloccati dal filtro commissioni), V0_LOOSE e NEWS_LLM (giudizi forti
+  di Natasia, |impact| >= 0,5 e confidence >= 0,6) debate.py fa argomentare PRO e CONTRO a un LLM gratuito e un giudice decide
+  ENTRA/SCARTA. V0 e NEWS_LLM vanno in data/debate_signals.jsonl (non nei totali shadow). Worker in background, mai bloccante.
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
 File: data/shadow_signals.jsonl e data/shadow_results.jsonl (solo in aggiunta), reports/shadow_YYYY-MM-DD.md.
 """
-import json, math, os, sys
+import json, math, os, subprocess, sys
 from datetime import datetime, timedelta
 import pandas as pd
 from common import (CFG, ROME, DATA, REPORTS, log, now, today, is_weekend, session_times, flatten_time, load_watchlist,
@@ -30,6 +34,8 @@ S = "shadow"
 OUT = os.environ.get("PT_SHADOW_DIR", DATA)
 SIG = os.path.join(OUT, "shadow_signals.jsonl")
 RES = os.path.join(OUT, "shadow_results.jsonl")
+DSIG = os.path.join(OUT, "debate_signals.jsonl")   # segnali V0 / NEWS_LLM per il filtro dibattito (solo shadow)
+NEWS_MAX_TICKERS = 6                               # NEWS_LLM: max titoli extra scaricati per ciclo
 RB = dict(min_drop=0.025, drop_atr=1.0, min_bars_after_low=3, reclaim_lookback=3, stop_atr=2.0)
 LOOSE = dict(max_extension_atr=3.0, min_reward_vs_fees=1.5)   # variante V0_LOOSE (solo shadow)
 NOTIONAL = CFG["start_cash"]   # sizing ipotetico su 1.000 € (non legge l'equity del ledger)
@@ -123,6 +129,108 @@ def orb(b, sess, region, max_ext=None):
     return close, close - dist, close + CFG["reward_r"] * dist, f"ORH {orh:.3f}, VWAP {vw:.3f}"
 
 
+def ctx_for(b, sess, region, close):
+    """Dati noti al momento del segnale (per il contesto del dibattito; nessun dato futuro)."""
+    out = {}
+    try:
+        o, _, _ = session_times(region)
+        r = sess[(sess.index >= o) & (sess.index < o + timedelta(minutes=CFG["or_minutes"]))]
+        if len(r):
+            out.update(ORH=round(float(r["High"].max()), 4), ORL=round(float(r["Low"].min()), 4))
+        out["VWAP"] = round(float(vwap(sess).iloc[-1]), 4)
+        if len(sess) >= 4:
+            out["momentum15m_pct"] = round((close / float(sess["Close"].iloc[-4]) - 1) * 100, 2)
+        out["ATR5m"] = round(float(atr(b).iloc[-1]), 4)
+        pc = prev_close_from_bars(b, region)
+        if pc:
+            out.update(chiusura_ieri=round(pc, 4), var_giorno_pct=round((close / pc - 1) * 100, 2))
+        out["max_seduta"], out["min_seduta"] = round(float(sess["High"].max()), 4), round(float(sess["Low"].min()), 4)
+    except Exception:
+        pass
+    return out
+
+
+def news_candidates(n):
+    """Giudizi forti di Natasia non scaduti ed emessi prima di adesso: [(item, giudizio)]."""
+    try:
+        j = json.load(open(os.path.join(DATA, "news_llm.json")))
+    except Exception:
+        return []
+    uni = {u["ticker"]: u for u in load_universe()}
+    out = []
+    for t in j.get("tickers", []):
+        try:
+            iss, exp = pd.Timestamp(t.get("issued_at")), pd.Timestamp(t.get("expires_at"))
+            if iss.tzinfo is None or exp.tzinfo is None or not (iss <= pd.Timestamp(n) < exp):
+                continue
+            if abs(float(t.get("impact") or 0)) < 0.5 or float(t.get("confidence") or 0) < 0.6 or t["ticker"] not in uni:
+                continue
+        except Exception:
+            continue
+        out.append((dict(ticker=t["ticker"], region=uni[t["ticker"]].get("region") or "EU"), t))
+    return out
+
+
+def news_scan(n, bars, done, dry):
+    """NEWS_LLM: un segnale per titolo/giorno nel verso del giudizio di Natasia (solo per il dibattito, nessun ordine)."""
+    cands = [(it, j) for it, j in news_candidates(n) if ("NEWS_LLM", it["ticker"]) not in done]
+    cands = [(it, j) for it, j in cands if session_times(it["region"])[0] + timedelta(minutes=CFG["or_minutes"]) <= n
+             <= session_times(it["region"])[2]]
+    if not cands:
+        return 0
+    extra = sorted({it["ticker"] for it, _ in cands if it["ticker"] not in bars})[:NEWS_MAX_TICKERS]
+    if extra:
+        bars = dict(bars); bars.update(intraday_bars(extra))
+    found = 0
+    for it, j in cands:
+        t, region = it["ticker"], it["region"]
+        b = bars.get(t)
+        if b is None or b.empty or not quote_ok(b, region)[0]:
+            continue
+        o, _, _ = session_times(region)
+        sess = today_session(b, region, cash_only=False)
+        sess = sess[sess.index >= o]
+        if len(sess) < 4:
+            continue
+        side = "long" if float(j["impact"]) > 0 else "short"
+        close = float(sess["Close"].iloc[-1]); a = float(atr(b).iloc[-1])
+        dist = min(max(CFG["atr_stop_mult"] * a, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])
+        sg = 1 if side == "long" else -1
+        q = b.attrs.get("ask") if side == "long" else b.attrs.get("bid")
+        entry = float(q or close * (1 + sg * CFG["slippage"]))
+        ccy = quote_currency(b, t)
+        row = dict(day=today().isoformat(), ts=n.isoformat(timespec="seconds"), strategy="NEWS_LLM", ticker=t, region=region,
+                   side=side, currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(close - sg * dist, 4),
+                   target=round(close + sg * CFG["reward_r"] * dist, 4), qty_diag=size_diag(entry, dist, ccy),
+                   chart_score=None, chart_verdict=None, bar=str(sess.index[-1]), source=b.attrs.get("source"),
+                   ctx=ctx_for(b, sess, region, close),
+                   natasia=dict(impact=j.get("impact"), confidence=j.get("confidence"), horizon=j.get("horizon"),
+                                rationale=str(j.get("rationale", ""))[:400], key_headlines=(j.get("key_headlines") or [])[:3],
+                                issued_at=j.get("issued_at")),
+                   note="SHADOW: nessun ordine (solo filtro dibattito)")
+        found += 1
+        if dry:
+            print(json.dumps(row, ensure_ascii=False)); continue
+        append(DSIG, row)
+        log(f"SHADOW NEWS_LLM {t} {side} @ {entry:.4f} stop {row['stop']} target {row['target']} (Natasia {j.get('impact')})", S)
+    return found
+
+
+def spawn_debate():
+    """Lancia il worker del dibattito in background (lock esclusivo dentro debate.py): shadow.py non aspetta mai l'LLM."""
+    try:
+        import debate
+        if not debate.pending(today().isoformat()):
+            return
+        base = os.path.dirname(os.path.abspath(__file__))
+        # "python3 debate.py" letterale: gh/session_runner.py lo riconosce (JOB_PAT) e lo aspetta prima di salvare lo stato
+        subprocess.Popen(["python3", "debate.py", "--worker"], cwd=base,
+                         stdout=open(os.path.join(base, "logs", "debate.log"), "a"),
+                         stderr=subprocess.STDOUT, start_new_session=True)
+    except Exception as e:
+        log(f"dibattito: worker non avviato ({e})", S)
+
+
 def scan(dry=False):
     n = now()
     if is_weekend():
@@ -131,12 +239,20 @@ def scan(dry=False):
     dyn = rescan.load_dyn()
     st_t = {i["ticker"] for i in static}
     plan = [(i, "REBOUND") for i in static] + [(i, "REBOUND") for i in dyn if i["ticker"] not in st_t] + \
-           [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static]
-    done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) if r.get("day") == today().isoformat()}
+           [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static] + \
+           [(i, "V0") for i in static]
+    done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) + _lines(DSIG) if r.get("day") == today().isoformat()}
     plan = [(i, s) for i, s in plan if (s, i["ticker"]) not in done]
     tick = sorted({i["ticker"] for i, _ in plan})[:20]       # LS: max 20 titoli per ciclo
     if not tick:
-        log("shadow: nessun titolo da valutare", S); return
+        log("shadow: nessun titolo da valutare", S)
+        try:
+            news_scan(n, {}, done, dry)
+            if not dry:
+                spawn_debate()
+        except Exception as e:
+            log(f"shadow NEWS_LLM: errore {e}", S)
+        return
     bars = intraday_bars(tick)
     try:
         daily = rescan.daily_cached([u["ticker"] for u in load_universe()])
@@ -157,7 +273,8 @@ def scan(dry=False):
         sess = sess[sess.index >= o]
         if strat == "REBOUND":
             sig = rebound(b, sess, region, daily.get(t))
-        elif strat == "V0_LOOSE":
+        elif strat in ("V0_LOOSE", "V0"):   # V0 = stesse regole di trade.py (estensione 1,5 ATR), copia per il dibattito
+            sig = orb(b, sess, region, max_ext=None if strat == "V0" else LOOSE["max_extension_atr"])
             sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"])
         else:
             sig = orb(b, sess, region)
@@ -172,15 +289,26 @@ def scan(dry=False):
                    currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(stop, 4), target=round(target, 4),
                    qty=qty, qty_diag=size_diag(entry, close - stop, ccy), chart_score=a["score"], chart_verdict=a["verdict"], approved=a["verdict"] == "APPROVE" and qty > 0,
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
-                   dyn=t not in st_t, note="SHADOW: nessun ordine")
+                   dyn=t not in st_t, side="long", ctx=ctx_for(b, sess, region, close), note="SHADOW: nessun ordine")
         found += 1
         if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE"):
             # registra comunque il segnale grezzo (serve al conteggio), ma con approved=False; non lo ripete oggi
             pass
         if dry:
             print(json.dumps(row, ensure_ascii=False)); continue
+        if strat == "V0":
+            row["blocked_by_fees"] = qty <= 0
+            append(DSIG, row)          # copia diagnostica della v0: solo per il dibattito, fuori dai totali shadow
+            log(f"SHADOW V0 (dibattito) {t} @ {entry:.4f} grafico {a['score']} {a['verdict']} qty {qty}", S)
+            continue
         append(SIG, row)
         log(f"SHADOW {strat} {t} @ {entry:.4f} stop {stop:.4f} target {target:.4f} grafico {a['score']} {a['verdict']}", S)
+    try:
+        found += news_scan(n, bars, done, dry)
+    except Exception as e:
+        log(f"shadow NEWS_LLM: errore {e}", S)
+    if not dry:
+        spawn_debate()            # anche senza segnali nuovi: riprende quelli rimasti in attesa
     log(f"shadow: {len(plan)} valutazioni, {found} segnali", S)
 
 
@@ -246,6 +374,11 @@ def eod(dry=False):
                   f"grafico {x['chart_score']} ({x['chart_verdict']}) -> {x['outcome']}" + tag)
     md += ["", f"Totale netto ante tasse dei segnali operativi (passano anche il filtro commissioni): {tot:+.2f} €",
            f"Totale netto ante tasse dei segnali diagnostici (solo filtro commissioni li blocca): {totd:+.2f} €"]
+    try:
+        import debate
+        md += debate.eod_lines(dry)
+    except Exception as e:
+        md += ["", f"Filtro dibattito: confronto non calcolato ({type(e).__name__}: {e})"]
     if dry:
         print("\n".join(md)); return
     open(os.path.join(REPORTS, f"shadow_{today():%Y-%m-%d}.md"), "w").write("\n".join(md) + "\n")

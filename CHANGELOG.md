@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-11-14 (~23:40 ora di Roma) – Filtro sperimentale "dibattito" LLM, SOLO shadow, attivo da lunedì 16/11
+
+- **Cosa**: nuovo `debate.py` + aggancio in `shadow.py` (richiesta di Andrea via Sguattera, prova di un giorno). Per ogni segnale live V0
+  (copia diagnostica delle regole di `trade.py` sulla watchlist statica, compresi i segnali bloccati dal filtro commissioni o respinti dal grafico),
+  V0_LOOSE e NEWS_LLM (giudizi di Natasia non scaduti ed emessi prima del segnale, |impact| ≥ 0,5, confidence ≥ 0,6; verso = segno dell'impact,
+  stop 1,5 ATR5m limitato a 0,4–3%, target 2R) tre chiamate LLM: PRO, CONTRO, GIUDICE → ENTRA/SCARTA + motivo. Input solo dati noti al segnale
+  (prezzo, ORH/ORL, VWAP, momentum 15m, ATR5m, chiusura di ieri, stop/target, punteggio grafico, titoli pubblicati e scaricati entro l'ora del segnale).
+- **Dove**: segnali V0/NEWS_LLM in `data/debate_signals.jsonl` (fuori dai totali shadow), decisioni con timestamp in `data/debate_decisions.jsonl`,
+  esiti in `data/debate_results.jsonl` (tutti solo in aggiunta, branch `state`); confronto ENTRA / SCARTA / nessun filtro / non decisi nel report
+  `reports/shadow_YYYY-MM-DD.md` delle 21:56, con cumulativo dopo tassa 26%. Esito con sizing diagnostico su 1.000 €, stesse uscite della v0
+  (stop, 2R, breakeven a +1R, 21:50), netto 1 € + 1 €. Una decisione conta solo se registrata prima dell'uscita simulata (anti-lookahead).
+  V0 e V0_LOOSE identici (stessa barra/ingresso/stop) usano una sola decisione e contano una volta nei totali.
+- **LLM**: GitHub Models è stato ritirato il 30/07/2026 (docs GitHub), quindi niente `permissions: models` nel workflow (non toccato). Si usa
+  l'endpoint anonimo gratuito di Pollinations (`text.pollinations.ai/openai`, modello gpt-oss-20b), senza chiavi né header Authorization.
+  Limiti: max 3 chiamate per segnale, 40 segnali e 120 chiamate al giorno, timeout 45 s, ≥ 31 s tra chiamate (limite per IP), worker in
+  background con lock (max 25 min per avvio), mai bloccante per shadow/trade; errore o tetto → NON_DECISO. Attivo solo dal 16/11.
+- **Perché**: richiesta di Andrea; misura a costo zero se un filtro "dibattito" migliora i segnali. Pre-registrazione:
+  R&D `reports/preregistration_2026-11-16_debate.md` (un giorno non basta per operare; nettamente peggio → si scarta; meglio → prova anche martedì).
+- **Test**: `python3 test_debate.py` 16/16 (orologio finto 16/11, API finta: decisione prima dell'esito, dedup, API in errore → NON_DECISO,
+  DEBATE_OFF, long al target, short allo stop, decisione tardiva esclusa). Chiamata reale all'API dal box: 3 chiamate in 68 s, verdetto valido.
+  End-to-end con orologio finto sul 12/11 17:03 (barre Yahoo): 8 segnali (3 V0, 3 V0_LOOSE, 1 NEWS_LLM finto, 1 ORB_DYN), 4 dibattiti reali
+  (12 chiamate, 3 decisioni riusate), tutti SCARTA; report 21:56 generato con confronto. Endpoint irraggiungibile → NON_DECISO senza eccezioni.
+  `shadow.py --dry-run` e `--eod --dry-run` senza errori e senza scritture; `test_scan_watchlist.py` e `gh/test_chain.py` ok.
+- **Altro**: `gh/session_runner.py` aspetta anche `python3 debate.py` prima di salvare lo stato. Nessuna modifica a `trade.py`, ordini, ledger,
+  scheduler o workflow. Backup: `backups/20261114-231812/`.
+
 ## 2026-11-13 (~23:10 ora di Roma) – R&D serale: nessun deploy; misure in ombra aggiornate
 
 - **Stato**: run GitHub di oggi tutte riuscite, heartbeat 22:25. Oggi 0 operazioni, equity 1.000,00 €, ledger invariato.

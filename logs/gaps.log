@@ -1,0 +1,7 @@
+GAP start=2026-11-12 15:42:00 end=2026-11-12 16:15:00 durata=33 min (retroattivo, prima del recupero automatico) recupero: nessuno (scheduler vecchio); nessuna posizione aperta, nessun impatto sul conto
+GAP start=2026-11-12 16:28:35 end=2026-11-12 16:36:59 durata=8 min (tick) recupero: trade --manage --catchup -> trade
+GAP start=2026-11-12 16:39:55 end=2026-11-12 17:40:45 durata=60 min (tick) recupero: trade --manage --catchup -> trade -> news
+GAP start=2026-11-12 17:48:31 end=2026-11-12 18:12:21 durata=23 min (tick) recupero: trade --manage --catchup -> trade -> news
+GAP start=2026-11-12 18:50:38 end=2026-11-12 19:00:28 durata=9 min (tick) recupero: trade --manage --catchup -> trade -> rescan -> news
+GAP start=2026-11-12 19:03:48 end=2026-11-12 19:08:25 durata=4 min (tick) recupero: trade --manage --catchup -> trade -> news
+GAP start=2026-11-12 22:25:00 end=2026-11-13 07:10:55 durata=525 min (avvio, heartbeat vecchio) recupero: trade --manage --catchup -> close_all -> news | pausa a cavallo della mezzanotte: report/team_review del giorno precedente non recuperati

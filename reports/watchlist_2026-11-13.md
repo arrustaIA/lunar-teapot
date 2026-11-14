@@ -1,0 +1,10 @@
+# Watchlist 13/11/2026 (creata 07:30 ora di Roma)
+
+1. **Siemens Energy** (ENR.DE, EU) punteggio 5.457: gap +0.00%, ieri +10.78%, 5gg +11.13%, volume relativo 1.4x, ATR 6.06%, sopra la media 20gg, news +0.38 (13 notizie 24h): Power index rises 1%: Siemens Energy, GE Vernova rally up to 5%; here's why - Business Standard (Google News, 13/11 06:32)
+2. **Mediobanca** (MB.MI, EU) punteggio 4.849: gap +0.00%, ieri +1.97%, 5gg +3.24%, volume relativo 3.8x, ATR 2.43%, sopra la media 20gg, news +0.00 (0 notizie 24h)
+3. **Infineon** (IFX.DE, EU) punteggio 3.722: gap +0.00%, ieri +6.26%, 5gg +3.74%, volume relativo 1.3x, ATR 5.95%, sopra la media 20gg, news +0.10 (11 notizie 24h): Infineon's Long Game: €20 Billion Revenue Target, a €450 Million Buyback and a Cooling Chip Sect - ad-hoc-news.de (Google News, 12/11 20:50)
+4. **STMicroelectronics** (STMMI.MI, EU) punteggio 2.408: gap +0.00%, ieri +5.16%, 5gg +3.13%, volume relativo 1.0x, ATR 5.85%, sopra la media 20gg, news +0.00 (1 notizie 24h): FTSE MIB in verde con STMicroelectronics ed Enel - FXEmpire (Google News, 12/11 12:02)
+5. **Prysmian** (PRY.MI, EU) punteggio 1.465: gap +0.00%, ieri +4.29%, 5gg +7.09%, volume relativo 0.8x, ATR 5.17%, sopra la media 20gg, news +0.00 (0 notizie 24h)
+6. **Micron** (MU, US) punteggio 9.913: gap +2.18%, ieri -1.59%, 5gg +21.64%, volume relativo 0.9x, ATR 8.03%, sotto la media 20gg, news -0.05 (21 notizie 24h): Micron, Other Memory Chip Stocks Fall on Nvidia Shakeup. Why They’re at Risk. (yfinance, 12/11 19:16)
+7. **NVIDIA** (NVDA, US) punteggio 8.545: gap +0.99%, ieri -4.34%, 5gg -8.49%, volume relativo 3.8x, ATR 6.41%, sotto la media 20gg, news -0.07 (310 notizie 24h): Nvidia on track for longest weekly losing streak since 2012 as market value sinks by $1.6 trillion (CNBC Top, 13/11 06:51)
+8. **Broadcom** (AVGO, US) punteggio 5.9: gap +0.48%, ieri +5.54%, 5gg +24.98%, volume relativo 1.6x, ATR 5.24%, sopra la media 20gg, news +0.21 (31 notizie 24h): Broadcom Stocks Climb 4.54% as Custom AI Chips Gain Appeal After NVIDIA Shake-Up (yfinance, 12/11 18:56)

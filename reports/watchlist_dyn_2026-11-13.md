@@ -1,0 +1,15 @@
+# Watchlist dinamica 13/11/2026 (aggiornata 21:00 ora di Roma) – solo candidati, usati in SHADOW
+
+1. 09:45 **Meta Platforms** (META, US) [notizie (news.py)]: sentiment parole chiave 6h +0.50 su 7 notizie; raffica di 7 notizie in 60 min (media oraria 7gg 0.3); top: 10,795 Meta Platforms, Inc. $META Shares Bought by Ethic Inc. - MarketBeat (Google News, 13/11 09:39)
+2. 10:25 **NVIDIA** (NVDA, US) [notizie (news.py)]: raffica di 7 notizie in 60 min (media oraria 7gg 2.1); top: China AI stocks tumble as Nvidia fallout fuels fears of tighter U.S. chip curbs (Investing.com, 13/11 07:10)
+3. 11:45 **TotalEnergies** (TTE.PA, EU) [notizie (news.py)]: sentiment parole chiave 6h +0.55 su 3 notizie; top: TotalEnergies stock: Q3 cash flow jumps as buybacks expand - ad-hoc-news.de (Google News, 13/11 11:21)
+4. 12:15 **Apple** (AAPL, US) [notizie (news.py)]: raffica di 8 notizie in 60 min (media oraria 7gg 0.3); top: SPDR S&P 500 ETF (SPY) Buys $335.9 Million More Apple on Nov. 11 (yfinance, 13/11 12:03)
+5. 12:15 **Siemens** (SIE.DE, EU) [notizie (news.py)]: sentiment parole chiave 6h +0.57 su 3 notizie; top: Siemens stock gains after record orders and raised 2027 outlook - ad-hoc-news.de (Google News, 13/11 11:48)
+6. 12:45 **Microsoft** (MSFT, US) [notizie (news.py)]: raffica di 7 notizie in 60 min (media oraria 7gg 0.4); top: Microsoft Stock Falls Amid Global Office Outage. The Timing Couldn’t Be Worse. - Barron's (Google News, 13/11 11:40)
+7. 12:45 **Micron** (MU, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.2); top: Micron Stock Is Rallying but the Memory Chip Giant Needs Much More - Barron's (Google News, 13/11 12:33)
+8. 12:45 **AMD** (AMD, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Nvidia's Rivals Are Cashing in on Jensen Huang's Exit. AMD Shares Have Jumped 30% This Week (yfinance, 13/11 12:17)
+9. 12:45 **Banco BPM** (BAMI.MI, EU) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.2); top: Piazza Affari a due velocità: ENI e Banco BPM corrono, scivolano Generali, Unipol e Juventus. Ecco cosa sta succedendo - Meteofinanza.com (Google News, 13/11 12:10)
+10. 13:45 **SAP** (SAP.DE, EU) [notizie (news.py)]: sentiment parole chiave 6h +0.53 su 3 notizie; top: SAP's Buyback Tops 9.6 Million Shares While JPMorgan Bets on AI Moving From Pilot to Production - ad-hoc-news.de (Google News, 13/11 13:31)
+11. 13:45 **Tesla** (TSLA, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Tesla-SpaceX Merger Expectations Heat Up as Stock Nears $400 in 5-Day Rally, Poised to Gain Over 20% More - TradingKey (Google News, 13/11 09:55)
+12. 14:55 **Siemens Energy** (ENR.DE, EU) [notizie (news.py)]: sentiment parole chiave 6h +0.50 su 3 notizie; top: Siemens Energy's Record Order Book Meets a Harder Yardstick as Goldman Trims Its Target - ad-hoc-news.de (Google News, 13/11 13:30)
+13. 16:00 **Broadcom** (AVGO, US) [prezzo/volume]: movimento -5.30% (soglia 5.24%), volume relativo 2.8x

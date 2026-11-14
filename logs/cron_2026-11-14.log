@@ -1,0 +1,39 @@
+2026-11-14 03:32:26 [news] news: 108 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 384, 'Google News': 1037, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-14 03:32:26 [news] news: run completata in 7 s
+sentiment macro 12h: +0.02 su 174 titoli
+  SIE.DE    +0.62 (6 notizie) Siemens Balances Record Cash Generation Against a Cautious Analyst Call - ad-hoc-news.de (Google News, 13/11 13:51)
+  TTE.PA    +0.53 (5 notizie) TotalEnergies stock: Q3 cash flow jumps as buybacks expand - ad-hoc-news.de (Google News, 13/11 11:21)
+  MB.MI     -0.50 (1 notizie) L'offerta di Intesa per Mediobanca manterrà i termini dell'offerta fallita per MPS, secondo un documento - MarketScreener Italia (
+  IFX.DE    +0.39 (8 notizie) Infineon stock: Record quarter sets stronger 2027 outlook - ad-hoc-news.de (Google News, 13/11 17:28)
+  ENR.DE    +0.35 (11 notizie) Siemens Energy's €9 Billion Buyback Plan Now Hinges on Whether the Cash Actually Arrives - ad-hoc-news.de (Google News, 13/11 20:
+  PST.MI    +0.32 (2 notizie) Azioni Poste Italiane, conti record e dividendo più ricco: quanto possono salire ancora? - Meteofinanza.com (Google News, 13/11 10
+  RWE.DE    +0.30 (9 notizie) RWE's Urenco Exit Nears as Berlin Weighs €4 Billion Buyout and Wind Deal Closes - ad-hoc-news.de (Google News, 14/11 01:22)
+  ENEL.MI   +0.29 (11 notizie) Enel SpA (ENLAY) (Q3 2026) Earnings Call Highlights: Record CapEx and 8% EPS Growth Offset ... (yfinance, 13/11 18:03)
+  ADS.DE    +0.26 (4 notizie) Adidas stock balances record Q3 with higher 2026 outlook - ad-hoc-news.de (Google News, 13/11 10:30)
+  CBK.DE    +0.26 (8 notizie) Commerzbank Balances Buyback Progress Against Cautious Analyst Revisions - ad-hoc-news.de (Google News, 13/11 17:50)
+2026-11-14 11:41:38 [news] news: 141 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 370, 'Google News': 976, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}; host in pausa: ['www.ilsole24ore.com']
+2026-11-14 11:41:38 [news] news: run completata in 7 s
+sentiment macro 12h: +0.00 su 26 titoli
+  SIE.DE    +0.62 (5 notizie) Siemens Wins Over JPMorgan as Data-Center Demand and a Wider Growth Corridor Back Its 2027 Ambitions - ad-hoc-news.de (Google News
+  TTE.PA    +0.50 (2 notizie) TotalEnergies shares among the biggest gainers on the CAC 40 after a Jefferies note - Idéal Investisseur (Google News, 13/11 13:22
+  SAP.DE    +0.39 (8 notizie) AstraZeneca Cloud Win and JPMorgan Upgrade Put SAP's AI Story on the Front Foot - ad-hoc-news.de (Google News, 14/11 11:10)
+  CBK.DE    +0.35 (5 notizie) Commerzbank Balances Buyback Progress Against Cautious Analyst Revisions - ad-hoc-news.de (Google News, 13/11 17:50)
+  RWE.DE    +0.34 (7 notizie) KKR stock: RWE joint venture reaches financial close in UK wind - ad-hoc-news.de (Google News, 14/11 11:34)
+  JPM       +0.34 (23 notizie) AstraZeneca Cloud Win and JPMorgan Upgrade Put SAP's AI Story on the Front Foot - ad-hoc-news.de (Google News, 14/11 11:10)
+  IFX.DE    +0.32 (7 notizie) Infineon Keeps Buy Ratings Intact as Jefferies and JPMorgan Trim Price Targets - ad-hoc-news.de (Google News, 14/11 10:01)
+  BMW.DE    -0.28 (11 notizie) BMW (XTRA:BMW) Tells Some Owners To Park Vehicles Outside After Recall (yfinance, 14/11 07:19)
+  ENR.DE    +0.28 (5 notizie) Siemens Energy Locks In €9 Billion Buyback as Analysts Split on Where the Stock Goes Next - ad-hoc-news.de (Google News, 14/11 04:
+  VNA.DE    +0.26 (5 notizie) Vonovia Trims 2026 Guidance as Berlin Expropriation Talk Adds to Financing Headwinds - ad-hoc-news.de (Google News, 14/11 10:51)
+2026-11-14 18:13:08 [news] news: 213 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 348, 'Google News': 915, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-14 18:13:08 [news] news: run completata in 6 s
+sentiment macro 12h: +0.03 su 35 titoli
+  RWE.DE    +0.87 (5 notizie) RWE's Nine-Month Beat Backs Top-End Guidance as Sicily Storage Build and £12 Billion Wind Deal Adva - ad-hoc-news.de (Google News,
+  CBK.DE    +0.76 (3 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+  MBG.DE    -0.50 (1 notizie) Mercedes-Benz stock: Hydro deal sets lower-carbon supply targets - ad-hoc-news.de (Google News, 14/11 11:50)
+  MUV2.DE   +0.50 (2 notizie) Munich Re's Buyback Ticks Along as Analysts Keep Their Powder Dry - ad-hoc-news.de (Google News, 14/11 14:21)
+  P911.DE   -0.50 (1 notizie) Porsche AG stock: Mission S heads to Dubai premiere - ad-hoc-news.de (Google News, 14/11 12:29)
+  ENEL.MI   +0.50 (1 notizie) Azioni ENEL Analisi Q3 2026 con il Metodo Biagetti: esito positivo - Finanza Italiacom (Google News, 14/11 16:04)
+  RACE.MI   -0.50 (1 notizie) Ferrari, il titolo tiene mentre si attendono le consegne di fine esercizio - Traderlink (Google News, 14/11 14:53)
+  TTE.PA    +0.50 (1 notizie) TotalEnergies stock: Methane push gains fresh backing at COP31 - ad-hoc-news.de (Google News, 14/11 12:05)
+  UCG.MI    +0.50 (2 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+  DTE.DE    +0.48 (5 notizie) Deutsche Telekom's Munich AI Build-Out Gains Steam While Brussels Gigafactory Call and Buyback Math - ad-hoc-news.de (Google News,

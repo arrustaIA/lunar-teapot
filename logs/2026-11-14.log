@@ -1,0 +1,6 @@
+2026-11-14 03:32:26 [news] news: 108 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 384, 'Google News': 1037, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-14 03:32:26 [news] news: run completata in 7 s
+2026-11-14 11:41:38 [news] news: 141 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 370, 'Google News': 976, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}; host in pausa: ['www.ilsole24ore.com']
+2026-11-14 11:41:38 [news] news: run completata in 7 s
+2026-11-14 18:13:08 [news] news: 213 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 348, 'Google News': 915, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-14 18:13:08 [news] news: run completata in 6 s

@@ -1,0 +1,163 @@
+{
+ "date": "2026-11-12",
+ "items": [
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:36",
+   "move": 0.0556,
+   "rvol": 2.18,
+   "atr_d": 0.0517,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento +5.56% (soglia 5.17%), volume relativo 2.2x"
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.055,
+   "rationale": "raffica di 17 notizie in 60 min (media oraria 7gg 1.2); top: Stock Market Today: Nasdaq Higher Amid Nvidia CEO Change; Software Name Jumps (Live Coverage) (yfinance, 12/11 18:26)"
+  },
+  {
+   "ticker": "SAP.DE",
+   "name": "SAP",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "18:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.745,
+   "rationale": "sentiment parole chiave 6h +0.74 su 4 notizie; top: SAP stock gains fresh capital-allocation detail from buyback tranche - ad-hoc-news.de (Google News, 12/11 18:26)"
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "18:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.583,
+   "rationale": "sentiment parole chiave 6h +0.58 su 5 notizie; top: Siemens Energy Wins JPMorgan's Vote of Confidence as Record Orders Face Their Margin Test - ad-hoc-news.de (Google News, 12/11 12:51)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.17,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.3); top: Tom Lee Says Jensen Huang Exit Doesn’t Change His Bullish Tech Outlook: AVGO, AMD Stocks Lead Chip Rally (yfinance, 12/11 18:22)"
+  },
+  {
+   "ticker": "SIE.DE",
+   "name": "Siemens",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "18:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.543,
+   "rationale": "sentiment parole chiave 6h +0.54 su 5 notizie; top: Siemens stock rises as Q4 orders jump 58% to record €34.8 billion - ad-hoc-news.de (Google News, 12/11 18:05)"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-12T18:36:44+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 71,
+   "candidates": 1,
+   "added": [
+    "AVGO"
+   ]
+  },
+  {
+   "at": "2026-11-12T18:45:12+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "NVDA",
+    "SAP.DE",
+    "ENR.DE",
+    "AMD",
+    "SIE.DE"
+   ]
+  },
+  {
+   "at": "2026-11-12T19:00:37+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 64,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-12T19:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 65,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-12T20:00:13+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 65,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-12T20:30:13+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 65,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-12T21:00:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 65,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-12T21:00:15+01:00"
+}

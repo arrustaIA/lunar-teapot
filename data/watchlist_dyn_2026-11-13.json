@@ -1,0 +1,488 @@
+{
+ "date": "2026-11-13",
+ "items": [
+  {
+   "ticker": "META",
+   "name": "Meta Platforms",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "09:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 7 notizie; raffica di 7 notizie in 60 min (media oraria 7gg 0.3); top: 10,795 Meta Platforms, Inc. $META Shares Bought by Ethic Inc. - MarketBeat (Google News, 13/11 09:39)"
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "10:25",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.012,
+   "rationale": "raffica di 7 notizie in 60 min (media oraria 7gg 2.1); top: China AI stocks tumble as Nvidia fallout fuels fears of tighter U.S. chip curbs (Investing.com, 13/11 07:10)"
+  },
+  {
+   "ticker": "TTE.PA",
+   "name": "TotalEnergies",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "11:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.547,
+   "rationale": "sentiment parole chiave 6h +0.55 su 3 notizie; top: TotalEnergies stock: Q3 cash flow jumps as buybacks expand - ad-hoc-news.de (Google News, 13/11 11:21)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.0,
+   "rationale": "raffica di 8 notizie in 60 min (media oraria 7gg 0.3); top: SPDR S&P 500 ETF (SPY) Buys $335.9 Million More Apple on Nov. 11 (yfinance, 13/11 12:03)"
+  },
+  {
+   "ticker": "SIE.DE",
+   "name": "Siemens",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.572,
+   "rationale": "sentiment parole chiave 6h +0.57 su 3 notizie; top: Siemens stock gains after record orders and raised 2027 outlook - ad-hoc-news.de (Google News, 13/11 11:48)"
+  },
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.008,
+   "rationale": "raffica di 7 notizie in 60 min (media oraria 7gg 0.4); top: Microsoft Stock Falls Amid Global Office Outage. The Timing Couldn’t Be Worse. - Barron's (Google News, 13/11 11:40)"
+  },
+  {
+   "ticker": "MU",
+   "name": "Micron",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.173,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.2); top: Micron Stock Is Rallying but the Memory Chip Giant Needs Much More - Barron's (Google News, 13/11 12:33)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.074,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Nvidia's Rivals Are Cashing in on Jensen Huang's Exit. AMD Shares Have Jumped 30% This Week (yfinance, 13/11 12:17)"
+  },
+  {
+   "ticker": "BAMI.MI",
+   "name": "Banco BPM",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.058,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.2); top: Piazza Affari a due velocità: ENI e Banco BPM corrono, scivolano Generali, Unipol e Juventus. Ecco cosa sta succedendo - Meteofinanza.com (Google News, 13/11 12:10)"
+  },
+  {
+   "ticker": "SAP.DE",
+   "name": "SAP",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "13:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.533,
+   "rationale": "sentiment parole chiave 6h +0.53 su 3 notizie; top: SAP's Buyback Tops 9.6 Million Shares While JPMorgan Bets on AI Moving From Pilot to Production - ad-hoc-news.de (Google News, 13/11 13:31)"
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "13:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.077,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Tesla-SpaceX Merger Expectations Heat Up as Stock Nears $400 in 5-Day Rally, Poised to Gain Over 20% More - TradingKey (Google News, 13/11 09:55)"
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "14:55",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: Siemens Energy's Record Order Book Meets a Harder Yardstick as Goldman Trims Its Target - ad-hoc-news.de (Google News, 13/11 13:30)"
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:00",
+   "move": -0.053,
+   "rvol": 2.84,
+   "atr_d": 0.0524,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -5.30% (soglia 5.24%), volume relativo 2.8x"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-13T09:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T09:45:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "META"
+   ]
+  },
+  {
+   "at": "2026-11-13T10:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T10:25:12+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "NVDA"
+   ]
+  },
+  {
+   "at": "2026-11-13T10:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T11:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T11:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T11:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "TTE.PA"
+   ]
+  },
+  {
+   "at": "2026-11-13T12:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T12:15:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "AAPL",
+    "SIE.DE"
+   ]
+  },
+  {
+   "at": "2026-11-13T12:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T12:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 7,
+   "added": [
+    "MSFT",
+    "MU",
+    "AMD",
+    "BAMI.MI"
+   ]
+  },
+  {
+   "at": "2026-11-13T13:00:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T13:30:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T13:45:09+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "SAP.DE",
+    "TSLA"
+   ]
+  },
+  {
+   "at": "2026-11-13T14:00:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T14:30:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T14:55:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "ENR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-13T15:00:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 47,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T15:30:04+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 47,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T16:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 59,
+   "candidates": 1,
+   "added": [
+    "AVGO"
+   ]
+  },
+  {
+   "at": "2026-11-13T16:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T17:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T17:30:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T18:00:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T18:30:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T19:00:07+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T19:30:07+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T20:00:07+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T20:30:07+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-13T21:00:07+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-13T21:00:10+01:00"
+}

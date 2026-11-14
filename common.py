@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS state(key TEXT PRIMARY KEY, value TEXT);
 CREATE TABLE IF NOT EXISTS positions(
   ticker TEXT PRIMARY KEY, name TEXT, region TEXT, currency TEXT, qty REAL,
   entry_ts TEXT, entry_local REAL, entry_fx REAL, entry_eur REAL, entry_fee REAL,
-  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT);
+  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT, mae_local REAL, mfe_local REAL);
 CREATE TABLE IF NOT EXISTS trades(
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, day TEXT, ticker TEXT, name TEXT, side TEXT,
   qty REAL, price_local REAL, currency TEXT, fx REAL, price_eur REAL, value_eur REAL,
@@ -272,10 +272,19 @@ CREATE TABLE IF NOT EXISTS analyses(id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEX
 CREATE TABLE IF NOT EXISTS days(day TEXT PRIMARY KEY, start_equity REAL, end_equity REAL, halted INTEGER DEFAULT 0);
 """
 
+def _migrate_positions(con):
+    """Add MAE/MFE columns to ledgers created before the trade log existed."""
+    cols = {r[1] for r in con.execute("PRAGMA table_info(positions)")}
+    for col in ("mae_local", "mfe_local"):
+        if col not in cols:
+            con.execute(f"ALTER TABLE positions ADD COLUMN {col} REAL")
+    con.commit()
+
 def db():
     con = sqlite3.connect(DB)
     con.row_factory = sqlite3.Row
     con.executescript(SCHEMA)
+    _migrate_positions(con)
     if con.execute("SELECT 1 FROM state WHERE key='cash'").fetchone() is None:
         con.execute("INSERT INTO state VALUES('cash',?)", (str(CFG["start_cash"]),))
         con.execute("INSERT INTO state VALUES('start_cash',?)", (str(CFG["start_cash"]),))
@@ -372,7 +381,8 @@ def open_position(con, ticker, qty, price_local, stop, target, risk_eur, rationa
     cols = dict(ticker=ticker, name=m["name"], region=m["region"], currency=m["currency"], qty=qty,
                 entry_ts=now().isoformat(timespec="seconds"), entry_local=fill, entry_fx=fx, entry_eur=px_eur,
                 entry_fee=fee, stop_local=stop, initial_stop_local=stop, target_local=target, risk_eur=risk_eur,
-                rationale=rationale, entry_bar=entry_bar, setup=setup, chart_score=chart_score, entry_chart=chart)
+                rationale=rationale, entry_bar=entry_bar, setup=setup, chart_score=chart_score, entry_chart=chart,
+                mae_local=fill, mfe_local=fill)
     con.execute(f"INSERT INTO positions({','.join(cols)}) VALUES({','.join('?'*len(cols))})", tuple(cols.values()))
     con.commit()
     return fill
@@ -424,6 +434,11 @@ def close_position(con, p, price_local, reason, apply_slippage=True, chart=None,
     set_cash(con, get_cash(con) + proceeds - CFG["fee_per_order"] - tax)
     con.execute("DELETE FROM positions WHERE ticker=?", (p["ticker"],))
     con.commit()
+    try:
+        import trade_log as TL
+        TL.from_position(p, fill, reason, gross, fees, tax, net, used=used, source="production", fx=fx)
+    except Exception as e:
+        log(f"WARN trade_log non scritto per {p.get('ticker')}: {e}", "trade_log")
     return fill, net
 
 def quote_ok(bars, region):
@@ -582,6 +597,16 @@ def late_flatten(con, ps, bars, script, reason_tag="chiusura in ritardo (pausa m
         rb = rb[rb.index < cut] if len(rb) else rb
         if len(rb):
             px, at = float(rb["Close"].iloc[-1]), rb.index[-1]
+            try:
+                import trade_log as TL
+                start_mae = p.get("mae_local") if p.get("mae_local") is not None else p["entry_local"]
+                start_mfe = p.get("mfe_local") if p.get("mfe_local") is not None else p["entry_local"]
+                mae, mfe = start_mae, start_mfe
+                for _, bar in rb.iterrows():
+                    mae, mfe = TL.update_excursion(mae, mfe, p["entry_local"], bar["Low"], bar["High"], p.get("side") or "long")
+                p["mae_local"], p["mfe_local"] = mae, mfe
+            except Exception:
+                pass
         else:
             px, at = float(p["entry_local"]), _aware(p["entry_ts"])
             log(f"WARN {p['ticker']}: nessuna barra prima di {cut:%H:%M}, chiudo al prezzo di ingresso", script)

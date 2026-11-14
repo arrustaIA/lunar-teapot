@@ -33,7 +33,10 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         hs = half_spread(b)
         done = False
         tag = " [recupero pausa]" if catchup else ""
+        import trade_log as TL
         for ts, bar in new.iterrows():
+            mae, mfe = TL.update_excursion(p.get("mae_local"), p.get("mfe_local"), entry, bar["Low"], bar["High"])
+            p["mae_local"], p["mfe_local"] = mae, mfe
             if bar["Low"] <= stop:
                 px = min(stop, bar["Open"]) - (hs if bar.get("src") != "quote" else 0.0)
                 a = CA.analyze(p["ticker"], "sell", b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
@@ -56,7 +59,8 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         # checkpoint = start of the last replayed bar (it may still be forming, so it is re-checked next time)
         ck = new.index[-1] if len(new) else since
         def save():
-            con.execute("UPDATE positions SET stop_local=? WHERE ticker=?", (stop, p["ticker"]))
+            con.execute("UPDATE positions SET stop_local=?, mae_local=?, mfe_local=? WHERE ticker=?",
+                        (stop, p.get("mae_local"), p.get("mfe_local"), p["ticker"]))
             set_watch_checkpoint(con, p["ticker"], ck)
             con.commit()
         if stops_only:

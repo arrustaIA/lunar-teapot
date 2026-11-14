@@ -299,7 +299,11 @@ def simulate(r, b):
     fut = b[(b.index > pd.Timestamp(r["bar"])) & (b.index < fl)]
     px, why, exit_ts = None, "fine giornata", fl
     step = timedelta(minutes=5)
+    import trade_log as TL
+    side = "long" if sgn > 0 else "short"
+    mae, mfe = e, e
     for ts, x in fut.iterrows():
+        mae, mfe = TL.update_excursion(mae, mfe, e, x["Low"], x["High"], side)
         if (x["Low"] <= st) if sgn > 0 else (x["High"] >= st):
             px = (min(st, x["Open"]) * (1 - CFG["slippage"])) if sgn > 0 else (max(st, x["Open"]) * (1 + CFG["slippage"]))
             why, exit_ts = "stop", ts.to_pydatetime() + step; break
@@ -315,7 +319,8 @@ def simulate(r, b):
         px = float(fut["Close"].iloc[-1]) * (1 - sgn * CFG["slippage"])
     gross = to_eur(q * (px - e) * sgn, ccy)
     return dict(outcome=why, exit=round(px, 4), exit_ts=exit_ts.isoformat(timespec="seconds"), qty=q,
-                gross=round(gross, 2), net_ante_tasse=round(gross - fees, 2))
+                gross=round(gross, 2), net_ante_tasse=round(gross - fees, 2),
+                mae=round(mae, 4), mfe=round(mfe, 4))
 
 
 def _stats(rows):
@@ -362,6 +367,24 @@ def eod_lines(dry=False, bars_fn=None):
         new.append(row)
         if not dry:
             append(RESF, row)
+            if sim and sim.get("net_ante_tasse") is not None:
+                try:
+                    import trade_log as TL
+                    tax = TL.tax_after_fees(sim["net_ante_tasse"])[0]
+                    TL.record_close(
+                        source="shadow", strategy_id=f"DEBATE_{r['strategy']}",
+                        symbol=r["ticker"], side=r.get("side") or "long", qty=sim.get("qty") or 0,
+                        entry_ts=r.get("ts"), entry_price=r.get("entry"),
+                        exit_ts=sim.get("exit_ts"), exit_price=sim.get("exit"),
+                        entry_reason=r.get("info") or "", exit_reason=sim.get("outcome") or "",
+                        fees=2 * CFG["fee_per_order"], gross_pnl_eur=sim.get("gross") or 0,
+                        tax_eur=tax, net_pnl_eur=sim["net_ante_tasse"] - tax,
+                        currency=r.get("currency") or "EUR",
+                        mae_price=sim.get("mae"), mfe_price=sim.get("mfe"),
+                        debate_verdict=verdict, debate_group=group,
+                    )
+                except Exception:
+                    pass
     rows = [x for x in _lines(RESF) if x.get("day") == d] + (new if dry else [])
     g = lambda rs, name: [x for x in rs if x.get("group") == name]
 

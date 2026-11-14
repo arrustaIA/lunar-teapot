@@ -275,7 +275,6 @@ def scan(dry=False):
             sig = rebound(b, sess, region, daily.get(t))
         elif strat in ("V0_LOOSE", "V0"):   # V0 = stesse regole di trade.py (estensione 1,5 ATR), copia per il dibattito
             sig = orb(b, sess, region, max_ext=None if strat == "V0" else LOOSE["max_extension_atr"])
-            sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"])
         else:
             sig = orb(b, sess, region)
         if not sig:
@@ -331,21 +330,41 @@ def eod(dry=False):
             fl = flatten_time(r["region"])
             fut = b[(b.index > pd.Timestamp(r["bar"])) & (b.index < fl)]
             st, tg, e = r["stop"], r["target"], r["entry"]; risk = e - st
-            px, why = None, "fine giornata"
+            px, why, exit_ts = None, "fine giornata", fl
+            import trade_log as TL
+            mae, mfe = e, e
             for ts, x in fut.iterrows():
+                mae, mfe = TL.update_excursion(mae, mfe, e, x["Low"], x["High"], r.get("side") or "long")
                 if x["Low"] <= st:
-                    px, why = min(st, x["Open"]) * (1 - CFG["slippage"]), "stop"; break
+                    px, why, exit_ts = min(st, x["Open"]) * (1 - CFG["slippage"]), "stop", ts; break
                 if x["High"] >= tg:
-                    px, why = max(tg, x["Open"]), "target"; break
+                    px, why, exit_ts = max(tg, x["Open"]), "target", ts; break
                 if x["High"] >= e + risk:
                     st = max(st, e + 2 * CFG["fee_per_order"] / q)
             if px is None and len(fut):
                 px = float(fut["Close"].iloc[-1]) * (1 - CFG["slippage"])
+                exit_ts = fut.index[-1]
             if px is not None:
                 gross = to_eur(q * (px - e), r["currency"])
-                pnl = gross - 2 * CFG["fee_per_order"]
+                fees = 2 * CFG["fee_per_order"]
+                pnl = gross - fees
+                tax = round(max(pnl, 0) * TAX_RATE, 2)
                 res.update(outcome=why, exit=round(px, 4), gross=round(gross, 2), net_ante_tasse=round(pnl, 2),
-                           tax_if_gain=round(max(pnl, 0) * TAX_RATE, 2), qty_used=q)
+                           tax_if_gain=tax, qty_used=q, mae=round(mae, 4), mfe=round(mfe, 4))
+                if not dry:
+                    try:
+                        TL.record_close(
+                            source="shadow", strategy_id=r.get("strategy") or "SHADOW",
+                            symbol=r["ticker"], side=r.get("side") or "long", qty=q,
+                            entry_ts=r.get("ts"), entry_price=e, exit_ts=str(exit_ts),
+                            exit_price=px, entry_reason=r.get("info") or "", exit_reason=why,
+                            fees=fees, gross_pnl_eur=gross, tax_eur=tax, net_pnl_eur=pnl - tax,
+                            currency=r.get("currency") or "EUR",
+                            mae_price=mae, mfe_price=mfe, excursion_incomplete=False,
+                            diag=diag, approved=bool(r.get("approved")),
+                        )
+                    except Exception as ex:
+                        log(f"WARN trade_log shadow non scritto per {r.get('ticker')}: {ex}", S)
         out.append(res)
         if not dry:
             append(RES, res)

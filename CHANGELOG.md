@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-11-14 (~23:42 ora di Roma) – Registro trade in append-only (produzione e shadow)
+
+- **Cosa**: ogni chiusura (produzione e shadow, compreso il filtro dibattito) scrive una riga in `data/trade_log.jsonl`
+  (solo in aggiunta, mai riscritto; vive sul branch `state`). Campi: `strategy_id`, titolo, verso, orario e prezzo di
+  ingresso/uscita, quantità, motivo di ingresso e di uscita, MAE e MFE (prezzo e EUR: minimo/massimo delle barre mentre
+  la posizione è aperta), slippage modellato 0,05%, commissioni 1+1 €, lordo, risultato dopo le commissioni, tassa
+  italiana 26% sull'utile dopo le commissioni (con zainetto in produzione) e netto. In produzione `mae_local`/`mfe_local`
+  restano sulla posizione aperta e si aggiornano a ogni barra in `trade.py`.
+- **Perché**: richiesta di Andrea (registro più ricco, con motivo di uscita e escursione massima a favore/contro).
+- **Test**: `python3 test_trade_log.py` (escursioni long/short, tassa dopo le commissioni, append-only, chiusura
+  produzione che scrive il log). `test_scan_watchlist.py`, `test_debate.py` (16/16) e `gh/test_chain.py` ok.
+- **Altro**: corretto un refuso in `shadow.py` per cui la copia V0 del dibattito usava l'estensione 3 ATR di V0_LOOSE
+  invece di 1,5; il filtro dibattito non è stato cambiato per il resto. Nessuna modifica a ordini, sizing, scheduler
+  o workflow. Percorso del log sovrascrivibile con `PT_TRADE_LOG` (test isolati).
+
+
 ## 2026-11-14 (~23:40 ora di Roma) – Filtro sperimentale "dibattito" LLM, SOLO shadow, attivo da lunedì 16/11
 
 - **Cosa**: nuovo `debate.py` + aggancio in `shadow.py` (richiesta di Andrea via Sguattera, prova di un giorno). Per ogni segnale live V0

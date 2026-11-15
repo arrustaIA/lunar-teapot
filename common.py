@@ -37,6 +37,8 @@ CFG = dict(
     reward_r=2.0,               # take profit at 2R
     breakeven_at_r=1.0,         # move stop to breakeven once +1R reached
     max_extension_atr=1.5,      # don't chase: close <= OR high + 1.5*ATR
+    ema_fast=9,                 # v0 alignment filter (15/11/2026): longs only if EMA9 > EMA21 on 5m closes
+    ema_slow=21,
     fractional=True,            # TR allows fractional/euro-amount orders on many stocks; set False for whole shares           # skip ticker if latest bar older than this (holiday/halt)
     watchlist_eu=5, watchlist_us=3,
     benchmark="EXS1.DE",        # iShares Core DAX ETF (EUR)
@@ -242,6 +244,47 @@ def vwap(df):
     if v.sum() <= 0:
         return tp.expanding().mean()
     return (tp * v).cumsum() / v.cumsum().replace(0, math.nan)
+
+def to_5m(df):
+    """5-minute OHLC. If the series is already 5-minute, return it unchanged."""
+    if df is None or getattr(df, "empty", True):
+        return df
+    idx = df.index
+    if len(idx) >= 2:
+        med = (idx[1:] - idx[:-1]).median()
+        sec = med.total_seconds() if hasattr(med, "total_seconds") else float(med) / 1e9
+        if 200 <= sec <= 400:
+            return df
+    agg = {"Open": "first", "High": "max", "Low": "min", "Close": "last"}
+    if "Volume" in df.columns:
+        agg["Volume"] = "sum"
+    cols = {k: v for k, v in agg.items() if k in df.columns}
+    if "Close" not in cols:
+        return df.iloc[0:0]
+    return df.resample("5min", label="left", closed="left").agg(cols).dropna(subset=["Close"])
+
+def ema(series, n):
+    return series.ewm(span=int(n), adjust=False).mean()
+
+def ema_aligned(bars, side="long", fast=None, slow=None):
+    """EMA alignment on 5-minute closes (same timeframe as the 15/11/2026 validation).
+
+    long: EMA(fast) > EMA(slow); short: EMA(fast) < EMA(slow).
+    Returns (ok, ema_fast, ema_slow). ok is False if the series is too short or a value is NaN.
+    """
+    fast = int(CFG["ema_fast"] if fast is None else fast)
+    slow = int(CFG["ema_slow"] if slow is None else slow)
+    nan = float("nan")
+    b = to_5m(bars)
+    if b is None or getattr(b, "empty", True) or "Close" not in b.columns or len(b) < slow:
+        return False, nan, nan
+    e_fast = float(ema(b["Close"], fast).iloc[-1])
+    e_slow = float(ema(b["Close"], slow).iloc[-1])
+    if e_fast != e_fast or e_slow != e_slow:
+        return False, e_fast, e_slow
+    if (side or "long").lower() == "short":
+        return e_fast < e_slow, e_fast, e_slow
+    return e_fast > e_slow, e_fast, e_slow
 
 def bar_age_min(bars):
     """Minutes since the last quote (LS last_ts) or, for yfinance, the end of the latest 5m bar."""

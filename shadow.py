@@ -25,7 +25,7 @@ import json, math, os, subprocess, sys
 from datetime import datetime, timedelta
 import pandas as pd
 from common import (CFG, ROME, DATA, REPORTS, log, now, today, is_weekend, session_times, flatten_time, load_watchlist,
-                    load_universe, intraday_bars, daily_bars, today_session, atr, vwap, quote_ok, quote_currency,
+                    load_universe, intraday_bars, daily_bars, today_session, atr, vwap, ema_aligned, quote_ok, quote_currency,
                     to_eur, TAX_RATE)
 import chart_analysis as CA
 import rescan
@@ -124,6 +124,9 @@ def orb(b, sess, region, max_ext=None):
     if not (close > orh and close > vw and close - float(sess["Close"].iloc[-4]) > 0
             and close <= orh + (CFG["max_extension_atr"] if max_ext is None else max_ext) * a):
         return None
+    # stessa regola della produzione: long solo se EMA9 > EMA21 sulle chiusure 5m
+    if not ema_aligned(b, side="long")[0]:
+        return None
     stop = max(orl, close - CFG["atr_stop_mult"] * a)
     dist = min(max(close - stop, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])
     return close, close - dist, close + CFG["reward_r"] * dist, f"ORH {orh:.3f}, VWAP {vw:.3f}"
@@ -141,6 +144,9 @@ def ctx_for(b, sess, region, close):
         if len(sess) >= 4:
             out["momentum15m_pct"] = round((close / float(sess["Close"].iloc[-4]) - 1) * 100, 2)
         out["ATR5m"] = round(float(atr(b).iloc[-1]), 4)
+        ok_ema, e9, e21 = ema_aligned(b, side="long")
+        if e9 == e9 and e21 == e21:
+            out["EMA9"], out["EMA21"], out["ema_aligned"] = round(e9, 4), round(e21, 4), bool(ok_ema)
         pc = prev_close_from_bars(b, region)
         if pc:
             out.update(chiusura_ieri=round(pc, 4), var_giorno_pct=round((close / pc - 1) * 100, 2))

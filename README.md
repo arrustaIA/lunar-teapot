@@ -125,7 +125,7 @@ La macchina può essere messa in pausa quando nessun agente è attivo. Al risveg
 
 ## Regole di trading (trade.py) – solo long (Trade Republic non permette lo short di azioni)
 1. Opening range (OR) = primi 30 min della sessione.
-2. Segnale: prezzo > massimo OR, > VWAP, momentum 15 min positivo, non più di 1,5×ATR(5m) sopra il massimo OR (non si insegue).
+2. Segnale: prezzo > massimo OR, > VWAP, momentum 15 min positivo, non più di 1,5×ATR(5m) sopra il massimo OR (non si insegue), e EMA9 > EMA21 calcolate sulle chiusure a 5 minuti (filtro di allineamento; per un eventuale short servirebbe EMA9 < EMA21).
 3. Notizie: blocco se sentiment del titolo nelle ultime 6 h ≤ -0,4 o clima macro ≤ -0,4.
 4. Analista grafico deve dare **APPROVE** (punteggio ≥ 25 su -100..+100).
 5. Stop = max(minimo OR, prezzo − 1,5×ATR5m), distanza tra 0,4% e 3%. Target = 2R. Raggiunto +1R lo stop va a pareggio (commissioni incluse).

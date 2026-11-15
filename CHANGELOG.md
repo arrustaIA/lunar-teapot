@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-15 (~11:10 ora di Roma) - Filtro EMA9>EMA21 in produzione (v0)
+
+- **Cosa**: la v0 (ORB + VWAP + momentum 15m) entra in long solo se, sulla stessa barra a 5 minuti usata nel test, EMA9 è sopra EMA21 (`ema_aligned` in `common.py`, periodi 9 e 21, `ewm(span, adjust=False)` sulle chiusure). Se le EMA non sono pronte o non sono allineate, l'ingresso è rifiutato con motivo `ema_misaligned`, che compare nei conteggi del report giornaliero. Un eventuale short (oggi la v0 è solo long) richiederebbe EMA9 sotto EMA21. Stop, target, commissioni, sizing e analista grafico restano quelli della v0.
+- **Validazione** (script fuori repo `indicators_test.py`, 61 sedute 21/08-13/11/2026, barre 5 min, CON.DE escluso, costi 1+1 €, slippage 0,05%, tassa 26% dopo le commissioni):
+  - v0 (prima, già in produzione): −18,82 €, 20 trade, OOS −19,79 € (17), holdout −12,58 €, walk-forward 0/5
+  - v0 + EMA9>EMA21 (parametri scelti, quelli messi in produzione): −7,09 €, 19 trade, OOS −8,06 € (16), holdout −6,95 €, walk-forward 2/5; griglia stabile (EMA8>EMA21 e EMA9>EMA26 identiche al centro; EMA9>EMA21>EMA50 OOS −4,44 € su 18 trade; prezzo>EMA50 identica al centro)
+  - altri candidati dello stesso test, non adottati: v0+ADX(14)>20 −20,04 € (19); stop su EMA50 −172,39 € (101); v0 senza long se RSI>70 −6,91 € ma solo 9 trade; incrocio EMA9/21+EMA200+ADX −34,61 € (15); MACD + squeeze Bollinger −17,96 € (5)
+- **Perché**: il filtro batte la v0 su netto, OOS, holdout e blocchi walk-forward, e la griglia non crolla. Resta un netto negativo (con 1.000 € e 2 € a giro nessuna regola testata è in utile), ma perde meno della v0 precedente. Attivo da lunedì 16/11 alle 07:30.
+- **Shadow**: la copia diagnostica V0 del dibattito (e ORB_DYN / V0_LOOSE, che condividono `orb()`) usa lo stesso filtro, così il confronto di lunedì sera è sulla v0 aggiornata. Nessun ordine dallo shadow.
+- **Test**: `python3 test_ema_filter.py`; `test_trade_log.py`, `test_scan_watchlist.py`, `test_debate.py`, `gh/test_chain.py`.
+- **Altro**: nessuna modifica al branch `state`, allo scheduler o ai workflow. Ledger e sizing invariati.
+
+
 ## 2026-11-15 (~00:18 ora di Roma) – Validazione walk-forward + sensitività: nessun deploy
 
 - **Cosa**: script riutilizzabile `rd-paper-trading/validate.py` (fuori dal repo pubblico). Walk-forward a blocchi

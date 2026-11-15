@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """One intraday decision pass (PAPER). Safe to run every 5-15 min from a scheduler.
-Rules: long-only opening-range breakout confirmed by VWAP + momentum, ATR stop, 2R target,
+Rules: long-only opening-range breakout confirmed by VWAP + momentum + EMA9>EMA21 (5m), ATR stop, 2R target,
 breakeven after +1R, one entry per ticker per day, chart-analyst APPROVE required for every buy,
 chart-analyst verdict checked before every discretionary sell, time-based flatten. See README."""
 import math, sys
@@ -105,6 +105,12 @@ def try_entry(con, it, b, eq, cash, n_open, daily):
     if close <= vw:    return "sotto VWAP: " + info
     if mom <= 0:       return "momentum 15m negativo: " + info
     if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
+    ok_ema, e9, e21 = ema_aligned(b, side="long")
+    if e9 == e9 and e21 == e21:
+        info = info + f", EMA9 {e9:.3f}, EMA21 {e21:.3f}"
+    if not ok_ema:
+        detail = f"EMA9 {e9:.3f} non sopra EMA21 {e21:.3f}" if e9 == e9 and e21 == e21 else "EMA non pronte"
+        return f"ema_misaligned: {detail}; " + info
     stop = max(orl, close - CFG["atr_stop_mult"] * a)
     dist = close - stop
     dist = min(max(dist, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])

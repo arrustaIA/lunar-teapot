@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """One intraday decision pass (PAPER). Safe to run every 5-15 min from a scheduler.
-Rules: long-only opening-range breakout confirmed by VWAP + momentum + EMA9>EMA21 (5m), ATR stop, 2R target,
+Rules: opening-range breakout (long) or breakdown (short, mirror rules, from 17/11/2026) confirmed by VWAP +
+momentum + EMA9 vs EMA21 (5m), ATR stop, 2R target,
 breakeven after +1R, one entry per ticker per day, chart-analyst APPROVE required for every buy,
 chart-analyst verdict checked before every discretionary sell, time-based flatten. See README."""
 import math, sys
@@ -27,31 +28,39 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         since, cutoff = watch_checkpoint(con, p), position_cutoff(p)
         new = replay_bars(p, b, since, cutoff)
         stop, target, entry = p["stop_local"], p["target_local"], p["entry_local"]
-        r = entry - p["initial_stop_local"]
+        short = is_short(p)
+        sg = -1 if short else 1                      # +1 long, -1 short
+        r = sg * (entry - p["initial_stop_local"])   # 1R in price, positive
         fx = eurusd() if p["currency"] == "USD" else 1.0
-        be = entry + (2 * CFG["fee_per_order"] * fx) / p["qty"]  # breakeven incl. both fees
+        be = entry + sg * (2 * CFG["fee_per_order"] * fx) / p["qty"]  # breakeven incl. both fees
         hs = half_spread(b)
         done = False
         tag = " [recupero pausa]" if catchup else ""
+        xside = "cover" if short else "sell"
+        xlab = "COVER" if short else "SELL"
         import trade_log as TL
         for ts, bar in new.iterrows():
-            mae, mfe = TL.update_excursion(p.get("mae_local"), p.get("mfe_local"), entry, bar["Low"], bar["High"])
+            mae, mfe = TL.update_excursion(p.get("mae_local"), p.get("mfe_local"), entry, bar["Low"], bar["High"], p["side"])
             p["mae_local"], p["mfe_local"] = mae, mfe
-            if bar["Low"] <= stop:
-                px = min(stop, bar["Open"]) - (hs if bar.get("src") != "quote" else 0.0)
-                a = CA.analyze(p["ticker"], "sell", b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
+            hit_stop = bar["High"] >= stop if short else bar["Low"] <= stop
+            if hit_stop:
+                adj = hs if bar.get("src") != "quote" else 0.0
+                px = max(stop, bar["Open"]) + adj if short else min(stop, bar["Open"]) - adj
+                a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
                 fill, pnl = close_position(con, p, px, f"stop {stop:.4f} colpito alle {ts:%H:%M}{tag}", chart=a["chart"])
-                log(f"SELL {p['ticker']} @ {fill:.4f} STOP ({bar.get('src')} bar {ts:%H:%M}) P&L {pnl:+.2f} EUR", S)
+                log(f"{xlab} {p['ticker']} @ {fill:.4f} STOP ({bar.get('src')} bar {ts:%H:%M}) P&L {pnl:+.2f} EUR", S)
                 if catchup: gap_log(f"CATCHUP-STOP {p['ticker']} stop {stop:.4f} bar {ts:%H:%M} fill {fill:.4f} netto {pnl:+.2f} EUR")
                 done = True; break
-            if bar["High"] >= target:
-                px = max(target, bar["Open"])
-                a = CA.analyze(p["ticker"], "sell", b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
+            hit_tgt = bar["Low"] <= target if short else bar["High"] >= target
+            if hit_tgt:
+                px = min(target, bar["Open"]) if short else max(target, bar["Open"])
+                a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
                 fill, pnl = close_position(con, p, px, f"take profit {target:.4f} alle {ts:%H:%M}{tag}", apply_slippage=False, chart=a["chart"])
-                log(f"SELL {p['ticker']} @ {fill:.4f} TARGET ({bar.get('src')} bar {ts:%H:%M}) P&L {pnl:+.2f} EUR", S)
+                log(f"{xlab} {p['ticker']} @ {fill:.4f} TARGET ({bar.get('src')} bar {ts:%H:%M}) P&L {pnl:+.2f} EUR", S)
                 if catchup: gap_log(f"CATCHUP-TARGET {p['ticker']} target {target:.4f} bar {ts:%H:%M} fill {fill:.4f} netto {pnl:+.2f} EUR")
                 done = True; break
-            if bar["High"] >= entry + CFG["breakeven_at_r"] * r and stop < be:
+            reached_1r = (bar["Low"] <= entry - CFG["breakeven_at_r"] * r) if short else (bar["High"] >= entry + CFG["breakeven_at_r"] * r)
+            if reached_1r and (stop > be if short else stop < be):
                 stop = be   # applies from the next bar (conservative)
                 log(f"{p['ticker']}: +{CFG['breakeven_at_r']}R reached ({ts:%H:%M}), stop moved to breakeven {be:.4f}", S)
         if done:
@@ -69,13 +78,13 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
             save(); continue
         # discretionary sell decision: ask the chart analyst (no PNG unless we act)
         ok, age = quote_ok(b, p["region"])
-        a = CA.analyze(p["ticker"], "sell", b, daily.get(p["ticker"]), stop, target, save_chart=False)
+        a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target, save_chart=False)
         if ok and a["verdict"] == "EXIT":
-            a = CA.analyze(p["ticker"], "sell", b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
+            a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
             fill, pnl = close_position(con, p, float(b["Close"].iloc[-1]),
-                                       f"uscita anticipata: grafico ribassista (score {a['score']})", chart=a["chart"],
-                                       quote_bars=b)
-            log(f"SELL {p['ticker']} @ {fill:.4f} CHART-EXIT score {a['score']} netto {pnl:+.2f} EUR", S); continue
+                                       f"uscita anticipata: grafico {'rialzista' if short else 'ribassista'} (score {a['score']})",
+                                       chart=a["chart"], quote_bars=b)
+            log(f"{xlab} {p['ticker']} @ {fill:.4f} CHART-EXIT score {a['score']} netto {pnl:+.2f} EUR", S); continue
         log(f"{p['ticker']}: analista grafico {a['verdict']} (score {a['score']}), stop {stop:.4f} target {target:.4f}", S)
         save()
 
@@ -101,24 +110,41 @@ def try_entry(con, it, b, eq, cash, n_open, daily):
     close = float(sess["Close"].iloc[-1])
     mom = close - float(sess["Close"].iloc[-4])
     info = f"prezzo {close:.3f}, ORH {orh:.3f}, ORL {orl:.3f}, VWAP {vw:.3f}, ATR5m {a:.3f}"
-    if close <= orh:   return "nessun breakout: " + info
-    if close <= vw:    return "sotto VWAP: " + info
-    if mom <= 0:       return "momentum 15m negativo: " + info
-    if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
-    ok_ema, e9, e21 = ema_aligned(b, side="long")
+    if close > orh:
+        side = "long"
+    elif close < orl and CFG.get("allow_short"):
+        side = "short"
+    else:
+        return ("nessun breakout né breakdown: " if CFG.get("allow_short") else "nessun breakout: ") + info
+    if side == "long":
+        if close <= vw:    return "sotto VWAP: " + info
+        if mom <= 0:       return "momentum 15m negativo: " + info
+        if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
+    else:
+        if close >= vw:    return "short: sopra VWAP: " + info
+        if mom >= 0:       return "short: momentum 15m positivo: " + info
+        if close < orl - CFG["max_extension_atr"] * a: return "short: troppo esteso, non inseguo: " + info
+    ok_ema, e9, e21 = ema_aligned(b, side=side)
     if e9 == e9 and e21 == e21:
         info = info + f", EMA9 {e9:.3f}, EMA21 {e21:.3f}"
     if not ok_ema:
-        detail = f"EMA9 {e9:.3f} non sopra EMA21 {e21:.3f}" if e9 == e9 and e21 == e21 else "EMA non pronte"
-        return f"ema_misaligned: {detail}; " + info
-    stop = max(orl, close - CFG["atr_stop_mult"] * a)
-    dist = close - stop
+        rel = "sotto" if side == "short" else "sopra"
+        detail = f"EMA9 {e9:.3f} non {rel} EMA21 {e21:.3f}" if e9 == e9 and e21 == e21 else "EMA non pronte"
+        return ("short: " if side == "short" else "") + f"ema_misaligned: {detail}; " + info
+    sg = 1 if side == "long" else -1
+    if side == "long":
+        stop = max(orl, close - CFG["atr_stop_mult"] * a)
+        dist = close - stop
+    else:
+        stop = min(orh, close + CFG["atr_stop_mult"] * a)
+        dist = stop - close
     dist = min(max(dist, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])
-    stop = close - dist
-    target = close + CFG["reward_r"] * dist
+    stop = close - sg * dist
+    target = close + sg * CFG["reward_r"] * dist
     ccy = quote_currency(b, t)
-    raw_px = b.attrs.get("ask") or close
-    px_eur = to_eur(raw_px if b.attrs.get("ask") else close * (1 + CFG["slippage"]), ccy)
+    q_attr = "ask" if side == "long" else "bid"
+    raw_px = b.attrs.get(q_attr) or close
+    px_eur = to_eur(raw_px if b.attrs.get(q_attr) else close * (1 + sg * CFG["slippage"]), ccy)
     dist_eur = to_eur(dist, ccy)
     fees = 2 * CFG["fee_per_order"]
     q_risk = (CFG["risk_per_trade"] * eq - fees) / dist_eur
@@ -133,19 +159,27 @@ def try_entry(con, it, b, eq, cash, n_open, daily):
     if reward < CFG["min_reward_vs_fees"] * fees:
         return f"guadagno atteso {reward:.2f} EUR < {CFG['min_reward_vs_fees']:.0f}x commissioni"
     ns, ms = news_signal(t, 6), macro_signal(6)
-    if ns["score"] <= -0.4:
-        return f"segnale ORB bloccato da notizie negative ({ns['score']:+.2f}): {ns['top']}"
-    if ms["score"] <= -0.4 and ms["count"] >= 10:
-        return f"segnale ORB bloccato: clima macro risk-off ({ms['score']:+.2f})"
-    a = CA.analyze(t, "buy", b, daily.get(t), stop, target)
+    if side == "long":
+        if ns["score"] <= -0.4:
+            return f"segnale ORB bloccato da notizie negative ({ns['score']:+.2f}): {ns['top']}"
+        if ms["score"] <= -0.4 and ms["count"] >= 10:
+            return f"segnale ORB bloccato: clima macro risk-off ({ms['score']:+.2f})"
+    else:
+        if ns["score"] >= 0.4:
+            return f"short bloccato da notizie positive ({ns['score']:+.2f}): {ns['top']}"
+        if ms["score"] >= 0.4 and ms["count"] >= 10:
+            return f"short bloccato: clima macro risk-on ({ms['score']:+.2f})"
+    a = CA.analyze(t, "buy" if side == "long" else "short", b, daily.get(t), stop, target)
     if a["verdict"] != "APPROVE":
         CA.record(con, a, 0)
-        return f"segnale ORB ma analista grafico RIFIUTA (score {a['score']}): " + "; ".join(a["reasons"][:4])
+        return (f"segnale ORB ma analista grafico RIFIUTA (score {a['score']}): " if side == "long" else
+                f"segnale short ma analista grafico RIFIUTA (score {a['score']}, serve <= -{CA.APPROVE_BUY}): ") + "; ".join(a["reasons"][:4])
     CA.record(con, a, 1)
-    why = f"ORB long: {info}; stop {stop:.3f}, target {target:.3f} (2R); grafico score {a['score']}; news {ns['score']:+.2f}"
+    why = (f"ORB {side}: {info}; stop {stop:.3f}, target {target:.3f} (2R); grafico score {a['score']}; news {ns['score']:+.2f}")
     fill = open_position(con, t, qty, close, stop, target, qty * dist_eur + fees, why, str(sess.index[-1]),
-                         setup="ORB+VWAP", chart_score=a["score"], chart=a["chart"], currency=ccy, quote_bars=b)
-    log(f"BUY {qty:.4f} {t} @ {fill:.4f} {ccy} (~{value:.2f} EUR) stop {stop:.4f} target {target:.4f} | {info}", S)
+                         setup="ORB+VWAP" if side == "long" else "ORB-SHORT", chart_score=a["score"], chart=a["chart"],
+                         currency=ccy, quote_bars=b, side=side)
+    log(f"{'BUY' if side == 'long' else 'SHORT'} {qty:.4f} {t} @ {fill:.4f} {ccy} (~{value:.2f} EUR) stop {stop:.4f} target {target:.4f} | {info}", S)
     return "ENTRATO"
 
 def manage_only(catchup=False):
@@ -226,7 +260,7 @@ def main():
             day["halted"] = 1
         if day["halted"]:
             log("trading halted for today", S); return
-        traded = {r[0] for r in con.execute("SELECT DISTINCT ticker FROM trades WHERE day=? AND side='BUY'", (day["day"],))}
+        traded = {r[0] for r in con.execute("SELECT DISTINCT ticker FROM trades WHERE day=? AND side IN ('BUY','SHORT')", (day["day"],))}
         for it in items:
             eq, cash, _ = equity(con, prices)
             n_open = len(positions(con))

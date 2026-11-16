@@ -36,7 +36,10 @@ CFG = dict(
     max_stop_pct=0.03,
     reward_r=2.0,               # take profit at 2R
     breakeven_at_r=1.0,         # move stop to breakeven once +1R reached
-    max_extension_atr=1.5,      # don't chase: close <= OR high + 1.5*ATR
+    max_extension_atr=1.5,      # don't chase: close <= OR high + 1.5*ATR (short: close >= OR low - 1.5*ATR)
+    allow_short=False,          # mirror ORB breakdown short side (1x, notional reserved as collateral). Code ready and tested,
+                                # OFF in production: backtest 61 sessions long+short -69.31 EUR vs long-only -7.09 (16/11/2026).
+                                # Runs in shadow as V0_SHORT. Set True to trade shorts.
     ema_fast=9,                 # v0 alignment filter (15/11/2026): longs only if EMA9 > EMA21 on 5m closes
     ema_slow=21,
     fractional=True,            # TR allows fractional/euro-amount orders on many stocks; set False for whole shares           # skip ticker if latest bar older than this (holiday/halt)
@@ -302,7 +305,7 @@ CREATE TABLE IF NOT EXISTS state(key TEXT PRIMARY KEY, value TEXT);
 CREATE TABLE IF NOT EXISTS positions(
   ticker TEXT PRIMARY KEY, name TEXT, region TEXT, currency TEXT, qty REAL,
   entry_ts TEXT, entry_local REAL, entry_fx REAL, entry_eur REAL, entry_fee REAL,
-  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT, mae_local REAL, mfe_local REAL);
+  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT, mae_local REAL, mfe_local REAL, side TEXT DEFAULT 'long');
 CREATE TABLE IF NOT EXISTS trades(
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, day TEXT, ticker TEXT, name TEXT, side TEXT,
   qty REAL, price_local REAL, currency TEXT, fx REAL, price_eur REAL, value_eur REAL,
@@ -316,11 +319,13 @@ CREATE TABLE IF NOT EXISTS days(day TEXT PRIMARY KEY, start_equity REAL, end_equ
 """
 
 def _migrate_positions(con):
-    """Add MAE/MFE columns to ledgers created before the trade log existed."""
+    """Add MAE/MFE and side columns to ledgers created before they existed."""
     cols = {r[1] for r in con.execute("PRAGMA table_info(positions)")}
     for col in ("mae_local", "mfe_local"):
         if col not in cols:
             con.execute(f"ALTER TABLE positions ADD COLUMN {col} REAL")
+    if "side" not in cols:
+        con.execute("ALTER TABLE positions ADD COLUMN side TEXT DEFAULT 'long'")
     con.commit()
 
 def db():
@@ -342,7 +347,25 @@ def set_cash(con, v):
     con.execute("UPDATE state SET value=? WHERE key='cash'", (str(round(v, 6)),))
 
 def positions(con):
-    return [dict(r) for r in con.execute("SELECT * FROM positions")]
+    out = [dict(r) for r in con.execute("SELECT * FROM positions")]
+    for p in out:
+        p["side"] = (p.get("side") or "long").lower()
+    return out
+
+def is_short(p):
+    return (p.get("side") or "long").lower() == "short"
+
+# trades.side values: BUY (open long), SELL (close long), SHORT (open short = sell short), COVER (close short = buy back)
+ENTRY_SIDES = ("BUY", "SHORT")
+EXIT_SIDES = ("SELL", "COVER")
+
+def position_value_eur(p, px_local):
+    """Equity contribution of an open position at px_local. Long: market value. Short (1x, notional
+    reserved at entry): reserved notional + unrealized P&L = qty*entry_eur + qty*(entry_eur - px_eur)."""
+    px_eur = to_eur(px_local, p["currency"])
+    if is_short(p):
+        return p["qty"] * p["entry_eur"] + p["qty"] * (p["entry_eur"] - px_eur)
+    return p["qty"] * px_eur
 
 
 def quote_bid_ask(bars):
@@ -383,7 +406,7 @@ def equity(con, prices=None):
     mv = {}
     for p in pos:
         px = prices.get(p["ticker"], (p["entry_local"], None))[0]
-        mv[p["ticker"]] = p["qty"] * to_eur(px, p["currency"])
+        mv[p["ticker"]] = position_value_eur(p, px)
     return cash + sum(mv.values()), cash, mv
 
 def ensure_day(con, eq=None):
@@ -413,19 +436,23 @@ def record_trade(con, ticker, side, qty, price_local, reason, **extra):
     return fx, px_eur, value, fee
 
 def open_position(con, ticker, qty, price_local, stop, target, risk_eur, rationale, entry_bar,
-                  setup="ORB", chart_score=None, chart=None, currency=None, quote_bars=None):
+                  setup="ORB", chart_score=None, chart=None, currency=None, quote_bars=None, side="long"):
+    """Open a PAPER position. side="short": sell short at the bid (or mid - slippage); the notional is
+    reserved from cash as collateral (1x, no extra leverage) and released with the P&L at cover."""
     m = dict(meta(ticker))
     if currency:
         m["currency"] = currency
-    fill = fill_price("BUY", price_local, quote_bars, apply_spread=True, apply_slippage=True)
-    fx, px_eur, value, fee = record_trade(con, ticker, "BUY", qty, fill, rationale, setup=setup, chart=chart,
-                                          currency=m["currency"])
+    side = (side or "long").lower()
+    order = "SELL" if side == "short" else "BUY"
+    fill = fill_price(order, price_local, quote_bars, apply_spread=True, apply_slippage=True)
+    fx, px_eur, value, fee = record_trade(con, ticker, "SHORT" if side == "short" else "BUY", qty, fill, rationale,
+                                          setup=setup, chart=chart, currency=m["currency"])
     set_cash(con, get_cash(con) - value - fee)
     cols = dict(ticker=ticker, name=m["name"], region=m["region"], currency=m["currency"], qty=qty,
                 entry_ts=now().isoformat(timespec="seconds"), entry_local=fill, entry_fx=fx, entry_eur=px_eur,
                 entry_fee=fee, stop_local=stop, initial_stop_local=stop, target_local=target, risk_eur=risk_eur,
                 rationale=rationale, entry_bar=entry_bar, setup=setup, chart_score=chart_score, entry_chart=chart,
-                mae_local=fill, mfe_local=fill)
+                mae_local=fill, mfe_local=fill, side=side)
     con.execute(f"INSERT INTO positions({','.join(cols)}) VALUES({','.join('?'*len(cols))})", tuple(cols.values()))
     con.commit()
     return fill
@@ -455,26 +482,34 @@ def apply_tax(con, pnl, ticker):
     return round(left * TAX_RATE, 2), used
 
 def close_position(con, p, price_local, reason, apply_slippage=True, chart=None, quote_bars=None):
-    """Sell whole position. Records gross P&L, fees (2 EUR round trip), tax and net P&L (EUR).
-    Marketable sells (flatten, chart-exit) use the bid when quote_bars has one; stop/target
-    keep the simulated resting-order price (apply_slippage/spread off or no quote_bars)."""
+    """Close the whole position (long: sell; short: buy to cover). Records gross P&L, fees (2 EUR
+    round trip), tax and net P&L (EUR). Marketable orders (flatten, chart-exit) use the bid (long) /
+    ask (short) when quote_bars has one; stop/target keep the simulated resting-order price."""
+    short = is_short(p)
+    order = "BUY" if short else "SELL"
     if quote_bars is not None and apply_slippage:
-        fill = fill_price("SELL", price_local, quote_bars, apply_spread=True, apply_slippage=True)
+        fill = fill_price(order, price_local, quote_bars, apply_spread=True, apply_slippage=True)
     elif apply_slippage:
-        fill = price_local * (1 - CFG["slippage"])
+        fill = price_local * (1 + CFG["slippage"] if short else 1 - CFG["slippage"])
     else:
         fill = price_local
     fx = eurusd() if p["currency"] == "USD" else 1.0
-    proceeds = p["qty"] * fill / fx
-    gross = proceeds - p["qty"] * p["entry_eur"]
+    exit_value = p["qty"] * fill / fx
+    cost = p["qty"] * p["entry_eur"]
+    if short:
+        gross = cost - exit_value
+        cash_back = cost + gross          # release reserved notional +/- P&L
+    else:
+        gross = exit_value - cost
+        cash_back = exit_value
     fees = p["entry_fee"] + CFG["fee_per_order"]
     pnl = gross - fees
     tax, used = apply_tax(con, pnl, p["ticker"])
     net = pnl - tax
-    record_trade(con, p["ticker"], "SELL", p["qty"], fill, reason, pnl_eur=round(pnl, 4), setup=p.get("setup"),
-                 gross_pnl_eur=round(gross, 4), tax_eur=tax, loss_credit_used=round(used, 4),
+    record_trade(con, p["ticker"], "COVER" if short else "SELL", p["qty"], fill, reason, pnl_eur=round(pnl, 4),
+                 setup=p.get("setup"), gross_pnl_eur=round(gross, 4), tax_eur=tax, loss_credit_used=round(used, 4),
                  net_pnl_eur=round(net, 4), chart=chart)
-    set_cash(con, get_cash(con) + proceeds - CFG["fee_per_order"] - tax)
+    set_cash(con, get_cash(con) + cash_back - CFG["fee_per_order"] - tax)
     con.execute("DELETE FROM positions WHERE ticker=?", (p["ticker"],))
     con.commit()
     try:
@@ -506,7 +541,7 @@ def flatten(con, which, reason, script):
         if p["ticker"] not in prices:
             log(f"WARN no price for {p['ticker']}, cannot flatten now", script); continue
         fill, pnl = close_position(con, p, prices[p["ticker"]][0], reason, quote_bars=bars.get(p["ticker"]))
-        log(f"SELL {p['qty']:.4f} {p['ticker']} @ {fill:.4f} {p['currency']} ({reason}) netto {pnl:+.2f} EUR", script)
+        log(f"{'COVER' if is_short(p) else 'SELL'} {p['qty']:.4f} {p['ticker']} @ {fill:.4f} {p['currency']} ({reason}) netto {pnl:+.2f} EUR", script)
         out.append(p["ticker"])
     return out
 
@@ -653,10 +688,10 @@ def late_flatten(con, ps, bars, script, reason_tag="chiusura in ritardo (pausa m
         else:
             px, at = float(p["entry_local"]), _aware(p["entry_ts"])
             log(f"WARN {p['ticker']}: nessuna barra prima di {cut:%H:%M}, chiudo al prezzo di ingresso", script)
-        px -= half_spread(b)
+        px += half_spread(b) if is_short(p) else -half_spread(b)
         reason = f"{reason_tag}: prezzo delle {at:%d/%m %H:%M} (limite {cut:%H:%M})"
         fill, net = close_position(con, p, px, reason, apply_slippage=True)
-        log(f"SELL {p['qty']:.4f} {p['ticker']} @ {fill:.4f} [LATE] {reason} netto {net:+.2f} EUR", script)
+        log(f"{'COVER' if is_short(p) else 'SELL'} {p['qty']:.4f} {p['ticker']} @ {fill:.4f} [LATE] {reason} netto {net:+.2f} EUR", script)
         gap_log(f"LATE-FLATTEN {p['ticker']} @ {fill:.4f} ({reason}) netto {net:+.2f} EUR")
         out.append(p["ticker"])
     return out

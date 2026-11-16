@@ -54,13 +54,13 @@ def main():
          f"- Equity: {eur(eq)} | oggi {eur(day)} ({pct(day / dayrow['start_equity'])}) | dall'avvio {eur(cum)} ({pct(cum / start_cash)})",
          f"- Oggi realizzato netto dopo tasse: {eur(rt['net'].sum() if len(rt) else 0)}; commissioni totali {eur(all_tax[1])}, tasse totali {eur(all_tax[0])}, zainetto fiscale {eur(credit)}"]
     if pos:
-        L.append("- Posizioni aperte: " + "; ".join(f"{p['name']} {p['qty']:.3f} @ {p['entry_local']:.2f}→{p['last']:.2f} {p['currency']} ({eur(p['unreal'])} non realizzato, lordo tasse)" for p in pos))
+        L.append("- Posizioni aperte: " + "; ".join(f"{p['name']}{' SHORT' if is_short(p) else ''} {p['qty']:.3f} @ {p['entry_local']:.2f}→{p['last']:.2f} {p['currency']} ({eur(p['unreal'])} non realizzato, lordo tasse)" for p in pos))
     else:
         L.append("- Nessuna posizione aperta.")
     if len(new):
         L.append(f"- Operazioni dalle {since[11:16]} del {since[8:10]}/{since[5:7]}: " + "; ".join(
-            f"{t.ts[11:16]} {'ACQ' if t.side == 'BUY' else 'VEND'} {t['name']} {t.qty:.3f} @ {t.price_local:.2f}"
-            + (f" netto {eur(t.net_pnl_eur)}" if t.side == "SELL" else "") for _, t in new.iterrows()))
+            f"{t.ts[11:16]} {({'BUY': 'ACQ', 'SELL': 'VEND', 'SHORT': 'SHORT', 'COVER': 'RICOPRE'}).get(t.side, t.side)} {t['name']} {t.qty:.3f} @ {t.price_local:.2f}"
+            + (f" netto {eur(t.net_pnl_eur)}" if t.side in EXIT_SIDES else "") for _, t in new.iterrows()))
     else:
         L.append(f"- Nessuna operazione dalle {since[11:16]} del {since[8:10]}/{since[5:7]}.")
     # Box pauses since the last update (logs/gaps.log, written by scheduler.py / catch-up passes)

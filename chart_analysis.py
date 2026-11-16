@@ -113,6 +113,10 @@ def analyze(ticker, side="buy", bars5=None, daily=None, stop=None, target=None, 
     score = int(max(-100, min(100, score)))
     if side == "buy":
         verdict = "APPROVE" if score >= APPROVE_BUY else "REJECT"
+    elif side == "short":  # short entry (17/11/2026): needs a clearly bearish chart, mirror of the long gate
+        verdict = "APPROVE" if score <= -APPROVE_BUY else "REJECT"
+    elif side == "cover":  # open short: EXIT if chart turned clearly bullish
+        verdict = "EXIT" if score >= -EXIT_SELL else "HOLD"
     else:  # sell decision for an open long: EXIT if chart turned clearly bearish
         verdict = "EXIT" if score <= EXIT_SELL else "HOLD"
     chart = None

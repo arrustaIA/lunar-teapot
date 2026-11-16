@@ -14,16 +14,17 @@ def trades_df(con, day=None):
     return pd.read_sql_query(q, con, params=(day,) if day else ())
 
 def round_trips(con, day=None):
-    """One row per closed trade (SELL joined with its BUY)."""
+    """One row per closed trade (SELL joined with its BUY, COVER joined with its SHORT)."""
     t = trades_df(con)
     rows = []
     open_buys = {}
     for _, r in t.iterrows():
-        if r.side == "BUY":
+        if r.side in ENTRY_SIDES:
             open_buys[r.ticker] = r
-        elif r.side == "SELL" and r.ticker in open_buys:
+        elif r.side in EXIT_SIDES and r.ticker in open_buys:
             b = open_buys.pop(r.ticker)
             rows.append(dict(day=r.day, ticker=r.ticker, name=r["name"], setup=b.setup or "ORB",
+                             side="short" if b.side == "SHORT" else "long",
                              entry_ts=b.ts, exit_ts=r.ts, entry_hour=int(b.ts[11:13]),
                              region=meta(r.ticker)["region"], value=b.value_eur,
                              gross=r.gross_pnl_eur or 0.0, fees=b.fee + r.fee, pnl=r.pnl_eur or 0.0,
@@ -50,7 +51,7 @@ def open_positions_view(con):
     out = []
     for p in pos:
         px = prices.get(p["ticker"], (p["entry_local"], None))[0]
-        val = p["qty"] * to_eur(px, p["currency"])
+        val = position_value_eur(p, px)   # short: reserved notional + unrealized P&L
         unreal = val - p["qty"] * p["entry_eur"] - p["entry_fee"] - CFG["fee_per_order"]  # incl. both fees
         out.append(dict(p, last=px, value=val, unreal=unreal))
     return out, prices

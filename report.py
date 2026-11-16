@@ -41,15 +41,16 @@ def main():
         L.append("| Ora | Titolo | Lato | Qtà | Prezzo | Valore | Comm. | Netto | Motivo |")
         L.append("|---|---|---|---|---|---|---|---|---|")
         for _, r in tr.iterrows():
-            net = eur(r.net_pnl_eur) if r.side == "SELL" and r.net_pnl_eur == r.net_pnl_eur else ""
-            L.append(f"| {r.ts[11:16]} | {r['name']} ({r.ticker}) | {'ACQUISTO' if r.side == 'BUY' else 'VENDITA'} | {r.qty:.4f} | "
+            net = eur(r.net_pnl_eur) if r.side in EXIT_SIDES and r.net_pnl_eur == r.net_pnl_eur else ""
+            lato = {"BUY": "ACQUISTO", "SELL": "VENDITA", "SHORT": "VENDITA ALLO SCOPERTO", "COVER": "RICOPERTURA SHORT"}.get(r.side, r.side)
+            L.append(f"| {r.ts[11:16]} | {r['name']} ({r.ticker}) | {lato} | {r.qty:.4f} | "
                      f"{r.price_local:.3f} {r.currency} | {eur(r.value_eur)} | {eur(r.fee)} | {net} | {r.reason[:90]} |")
     else:
         L.append("Nessuna operazione oggi: nessun segnale ha superato tutti i filtri (regole, analisi grafica, notizie, rischio).")
     if pos:
         L += ["", "## Posizioni aperte"]
         for p in pos:
-            L.append(f"- {p['name']} ({p['ticker']}): {p['qty']:.4f} @ {p['entry_local']:.3f} → {p['last']:.3f} {p['currency']}, "
+            L.append(f"- {p['name']} ({p['ticker']}){' SHORT' if is_short(p) else ''}: {p['qty']:.4f} @ {p['entry_local']:.3f} → {p['last']:.3f} {p['currency']}, "
                      f"valore {eur(p['value'])}, non realizzato {eur(p['unreal'])} (incl. commissioni), stop {p['stop_local']:.3f}")
     b = benchmark_day()
     L += ["", "## Confronto con benchmark"]
@@ -68,7 +69,7 @@ def main():
         L.append("- Uscite: " + ", ".join(f"{k} {v}" for k, v in kinds.items()))
         if f > 0 and abs(g) > 0: L.append(f"- Peso delle commissioni: {f / abs(g):.0%} del P&L lordo")
     if len(an):
-        buys = an[an.side == "buy"]
+        buys = an[an.side.isin(["buy", "short"])]
         L.append(f"- Analista grafico: {len(buys)} segnali valutati, {int((buys.verdict == 'APPROVE').sum())} approvati, {int((buys.verdict == 'REJECT').sum())} rifiutati")
     reasons = log_reasons(d)
     if reasons:

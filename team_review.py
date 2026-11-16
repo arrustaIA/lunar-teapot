@@ -55,7 +55,7 @@ def main():
     if nobr >= 10 and len(rt) == 0:
         rec.append("Nessun breakout nella maggior parte dei controlli: aggiungere un secondo setup (es. mean-reversion su VWAP nei giorni laterali) o un **quant/backtester** che testi le regole sui dati storici prima di usarle.")
     if len(an):
-        b = an[an.side == "buy"]
+        b = an[an.side.isin(["buy", "short"])]
         if len(b):
             L += [f"## Analista grafico", f"- Segnali valutati {len(b)}: approvati {int((b.verdict == 'APPROVE').sum())}, rifiutati {int((b.verdict == 'REJECT').sum())}, punteggio medio {b.score.mean():.0f}", ""]
             if len(b) >= 10 and (b.verdict == "REJECT").mean() > 0.8:

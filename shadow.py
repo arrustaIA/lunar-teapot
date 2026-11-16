@@ -20,6 +20,10 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   (ORB + VWAP + momentum + EMA9>EMA21, estensione max 1,5 ATR, analista grafico) ma filtro commissioni piu' severo: guadagno al
   target 2R >= 4x commissioni (8 EUR invece di 6). Backtest 61 sedute: 7 trade, +7,26 EUR (OOS +4,12, WF 2/5 come la v0) ->
   NON in produzione (pochi trade). Non passa dal dibattito LLM. Confronto con la v0 nel report delle 21:56.
+- V0_SHORT (dal 17/11/2026, R&D reports/short_2026-11-16.md): lato SHORT speculare della v0 (rottura sotto il minimo dell'opening
+  range, prezzo sotto VWAP, momentum 15m negativo, EMA9<EMA21, estensione max 1,5 ATR sotto ORL, stop min(ORH, prezzo+1,5 ATR),
+  target 2R sotto, stesso sizing e filtro commissioni 6 €, analista grafico con punteggio <= -25). Backtest 61 sedute: 29 short,
+  -69,35 EUR (OOS -55,88) e long+short -69,31 contro -7,09 della sola v0 long -> NON in produzione, qui per misurarlo dal vivo.
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
@@ -138,6 +142,25 @@ def orb(b, sess, region, max_ext=None):
     return close, close - dist, close + CFG["reward_r"] * dist, f"ORH {orh:.3f}, VWAP {vw:.3f}"
 
 
+def orb_short(b, sess, region):
+    """Specchio ribassista di orb(): breakdown sotto ORL, sotto VWAP, momentum 15m < 0, EMA9 < EMA21, max 1,5 ATR sotto ORL.
+    Ritorna (close, stop, target, info) con stop SOPRA e target SOTTO il prezzo."""
+    o, _, _ = session_times(region)
+    r = sess[(sess.index >= o) & (sess.index < o + timedelta(minutes=CFG["or_minutes"]))]
+    if len(r) < 4 or len(sess) < 8:
+        return None
+    orh, orl = float(r["High"].max()), float(r["Low"].min())
+    a = float(atr(b).iloc[-1]); close = float(sess["Close"].iloc[-1]); vw = float(vwap(sess).iloc[-1])
+    if not (close < orl and close < vw and close - float(sess["Close"].iloc[-4]) < 0
+            and close >= orl - CFG["max_extension_atr"] * a):
+        return None
+    if not ema_aligned(b, side="short")[0]:
+        return None
+    stop = min(orh, close + CFG["atr_stop_mult"] * a)
+    dist = min(max(stop - close, close * CFG["min_stop_pct"]), close * CFG["max_stop_pct"])
+    return close, close + dist, close - CFG["reward_r"] * dist, f"ORL {orl:.3f}, VWAP {vw:.3f}"
+
+
 def ctx_for(b, sess, region, close):
     """Dati noti al momento del segnale (per il contesto del dibattito; nessun dato futuro)."""
     out = {}
@@ -252,7 +275,7 @@ def scan(dry=False):
     st_t = {i["ticker"] for i in static}
     plan = [(i, "REBOUND") for i in static] + [(i, "REBOUND") for i in dyn if i["ticker"] not in st_t] + \
            [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static] + \
-           [(i, "V0_FEE4") for i in static] + [(i, "V0") for i in static]
+           [(i, "V0_FEE4") for i in static] + [(i, "V0_SHORT") for i in static] + [(i, "V0") for i in static]
     done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) + _lines(DSIG) if r.get("day") == today().isoformat()}
     plan = [(i, s) for i, s in plan if (s, i["ticker"]) not in done]
     tick = sorted({i["ticker"] for i, _ in plan})[:20]       # LS: max 20 titoli per ciclo
@@ -285,6 +308,8 @@ def scan(dry=False):
         sess = sess[sess.index >= o]
         if strat == "REBOUND":
             sig = rebound(b, sess, region, daily.get(t))
+        elif strat == "V0_SHORT":
+            sig = orb_short(b, sess, region)
         elif strat in ("V0_LOOSE", "V0", "V0_FEE4"):   # V0 / V0_FEE4 = stesse regole di trade.py (estensione 1,5 ATR)
             sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"] if strat == "V0_LOOSE" else None)
         else:
@@ -293,16 +318,20 @@ def scan(dry=False):
             continue
         close, stop, target, info = sig
         ccy = quote_currency(b, t)
-        entry = float(b.attrs.get("ask") or close * (1 + CFG["slippage"]))
-        qty = size(entry, close - stop, ccy, min_rr=MIN_RR.get(strat))
-        a = CA.analyze(t, "buy", b, daily.get(t), stop, target, save_chart=False)
+        side = "short" if strat == "V0_SHORT" else "long"
+        if side == "short":
+            entry = float(b.attrs.get("bid") or close * (1 - CFG["slippage"]))
+        else:
+            entry = float(b.attrs.get("ask") or close * (1 + CFG["slippage"]))
+        qty = size(entry, abs(close - stop), ccy, min_rr=MIN_RR.get(strat))
+        a = CA.analyze(t, "short" if side == "short" else "buy", b, daily.get(t), stop, target, save_chart=False)
         row = dict(day=today().isoformat(), ts=n.isoformat(timespec="seconds"), strategy=strat, ticker=t, region=region,
                    currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(stop, 4), target=round(target, 4),
-                   qty=qty, qty_diag=size_diag(entry, close - stop, ccy), chart_score=a["score"], chart_verdict=a["verdict"], approved=a["verdict"] == "APPROVE" and qty > 0,
+                   qty=qty, qty_diag=size_diag(entry, abs(close - stop), ccy), chart_score=a["score"], chart_verdict=a["verdict"], approved=a["verdict"] == "APPROVE" and qty > 0,
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
-                   dyn=t not in st_t, side="long", ctx=ctx_for(b, sess, region, close), note="SHADOW: nessun ordine")
+                   dyn=t not in st_t, side=side, ctx=ctx_for(b, sess, region, close), note="SHADOW: nessun ordine")
         found += 1
-        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE", "V0_FEE4"):
+        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE", "V0_FEE4", "V0_SHORT"):
             # registra comunque il segnale grezzo (serve al conteggio), ma con approved=False; non lo ripete oggi
             pass
         if dry:
@@ -341,23 +370,29 @@ def eod(dry=False):
             res["diag"] = diag
             fl = flatten_time(r["region"])
             fut = b[(b.index > pd.Timestamp(r["bar"])) & (b.index < fl)]
-            st, tg, e = r["stop"], r["target"], r["entry"]; risk = e - st
+            st, tg, e = r["stop"], r["target"], r["entry"]
+            short = (r.get("side") or "long") == "short"
+            sg = -1 if short else 1
+            risk = sg * (e - st)
             px, why, exit_ts = None, "fine giornata", fl
             import trade_log as TL
             mae, mfe = e, e
             for ts, x in fut.iterrows():
                 mae, mfe = TL.update_excursion(mae, mfe, e, x["Low"], x["High"], r.get("side") or "long")
-                if x["Low"] <= st:
-                    px, why, exit_ts = min(st, x["Open"]) * (1 - CFG["slippage"]), "stop", ts; break
-                if x["High"] >= tg:
-                    px, why, exit_ts = max(tg, x["Open"]), "target", ts; break
-                if x["High"] >= e + risk:
+                if (x["High"] >= st) if short else (x["Low"] <= st):
+                    px = max(st, x["Open"]) * (1 + CFG["slippage"]) if short else min(st, x["Open"]) * (1 - CFG["slippage"])
+                    why, exit_ts = "stop", ts; break
+                if (x["Low"] <= tg) if short else (x["High"] >= tg):
+                    px, why, exit_ts = (min(tg, x["Open"]) if short else max(tg, x["Open"])), "target", ts; break
+                if short and x["Low"] <= e - risk:
+                    st = min(st, e - 2 * CFG["fee_per_order"] / q)
+                elif not short and x["High"] >= e + risk:
                     st = max(st, e + 2 * CFG["fee_per_order"] / q)
             if px is None and len(fut):
-                px = float(fut["Close"].iloc[-1]) * (1 - CFG["slippage"])
+                px = float(fut["Close"].iloc[-1]) * (1 - sg * CFG["slippage"])
                 exit_ts = fut.index[-1]
             if px is not None:
-                gross = to_eur(q * (px - e), r["currency"])
+                gross = to_eur(sg * q * (px - e), r["currency"])
                 fees = 2 * CFG["fee_per_order"]
                 pnl = gross - fees
                 tax = round(max(pnl, 0) * TAX_RATE, 2)
@@ -407,6 +442,7 @@ def eod(dry=False):
     md += ["", f"Totale netto ante tasse dei segnali operativi (passano anche il filtro commissioni): {tot:+.2f} €",
            f"Totale netto ante tasse dei segnali diagnostici (solo filtro commissioni li blocca): {totd:+.2f} €"]
     md += fee4_lines(allres, d)
+    md += short_lines(allres, d)
     try:
         import debate
         md += debate.eod_lines(dry)
@@ -435,6 +471,18 @@ def fee4_lines(allres, d):
     except Exception:
         pass
     md.append(f"- v0 in produzione: {len(prod)} trade chiusi oggi, netto {sum(float(r.get('net_pnl_eur') or 0) for r in prod):+.2f} €")
+    return md
+
+
+def short_lines(allres, d):
+    """Lato short in shadow (V0_SHORT) contro la v0 long in produzione."""
+    sh = [x for x in allres if x.get("strategy") == "V0_SHORT"]
+    op = [x for x in sh if not x.get("diag") and x.get("net_ante_tasse") is not None]
+    dg = [x for x in sh if x.get("diag") and x.get("net_ante_tasse") is not None]
+    md = ["", "## Lato SHORT V0_SHORT (specchio della v0, nessun ordine)", ""]
+    md.append(f"- V0_SHORT: {len(sh)} segnali, {len(op)} operativi (grafico <= -25 e filtro 6 €), "
+              f"netto ante tasse {sum(x['net_ante_tasse'] for x in op):+.2f} €"
+              + (f"; diagnostici bloccati solo dalle commissioni {len(dg)}, {sum(x['net_ante_tasse'] for x in dg):+.2f} €" if dg else ""))
     return md
 
 

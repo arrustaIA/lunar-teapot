@@ -41,7 +41,10 @@ CFG = dict(
                                 # OFF in production: backtest 61 sessions long+short -69.31 EUR vs long-only -7.09 (16/11/2026).
                                 # Runs in shadow as V0_SHORT. Set True to trade shorts.
     wide_universe=True,         # 17/11/2026: every pass also scans ALL universe.csv names of wide_regions (09:35 watchlist first)
-    wide_regions=("EU",),       # backtest 62 sessions: wide EU + 09:35 US picks -5.74 EUR (v0 -7.09); wide US too -106 -> US in shadow
+    wide_regions=("EU", "US"),  # 17/11 notte: ordine esplicito di Andrea, tutti i titoli TR disponibili (universe_wide.csv, ~1.230)
+                                # nonostante il backtest peggiore (vedi CHANGELOG). Prima: ("EU",) -5,74 EUR vs v0 -7,09.
+    wide_file=True,             # usa core + universe_wide.csv nella scansione larga (False = solo universe.csv)
+    wide_chunk=200,             # titoli per richiesta Yahoo nella scansione larga (batch, una pausa breve tra i blocchi)
     ls_priority_max=20,         # live LS quotes for at most this many names per pass (held + breakout candidates first);
                                 # the others are screened on the one-call Yahoo 5m batch (EU ~15 min late)
     lev_to_gate=False,          # leverage ONLY as much as needed for the fee gate. Code ready, OFF: backtest 62 sessions
@@ -108,13 +111,35 @@ class Lock:
 
 # ---------------- universe ----------------
 def load_universe():
+    """Core universe (71 names with ISIN for live L&S quotes): 09:35 scan, rescan, shadow."""
     with open(os.path.join(BASE, "universe.csv")) as f:
         return list(csv.DictReader(f))
 
+WIDE_UNIVERSE = os.path.join(BASE, "universe_wide.csv")
+
+def load_wide_universe():
+    """Core universe + universe_wide.csv (TR-tradable index constituents filtered for liquidity and Yahoo 5m data,
+    built 16/11/2026: DAX/MDAX/SDAX, FTSE MIB/Mid Cap, CAC 40, AEX/AMX, IBEX 35, Euro Stoxx 50, BEL 20, PSI, ATX,
+    OMX Helsinki 25, ISEQ 20, S&P 500, S&P 400, extra large US names). Core rows first; no duplicates."""
+    out = load_universe()
+    have = {r["ticker"] for r in out}
+    if os.path.exists(WIDE_UNIVERSE):
+        with open(WIDE_UNIVERSE) as f:
+            out += [r for r in csv.DictReader(f) if r["ticker"] not in have]
+    return out
+
+_meta_map = None
 def meta(ticker):
-    for r in load_universe():
-        if r["ticker"] == ticker:
-            return r
+    """Universe row for ticker (core first, then universe_wide.csv); map built once per process."""
+    global _meta_map
+    if _meta_map is None:
+        m = {}
+        for r in load_wide_universe():
+            m.setdefault(r["ticker"], r)
+        _meta_map = m
+    r = _meta_map.get(ticker)
+    if r is not None:
+        return r
     return dict(name=ticker, ticker=ticker, region="EU", currency="EUR", isin="")
 
 # ---------------- market data ----------------
@@ -178,6 +203,19 @@ def _merge_ls_bars(yf_df, ls_df, row):
         merged = ls_df
     merged.attrs = dict(ls_df.attrs)
     return merged
+
+def yf_intraday_bars_chunked(tickers, period="2d", interval="5m", chunk=200, pause=0.5):
+    """Yahoo 5m bars for many names in polite batches (one request per `chunk` names). Failed chunks are skipped."""
+    import time as _t
+    tickers = list(tickers); out = {}
+    for i in range(0, len(tickers), chunk):
+        try:
+            out.update(yf_intraday_bars(tickers[i:i + chunk], period=period, interval=interval))
+        except Exception as e:
+            log(f"WARN Yahoo batch {i}-{i + chunk} fallito: {e}", "marketdata")
+        if i + chunk < len(tickers):
+            _t.sleep(pause)
+    return out
 
 def intraday_bars(tickers, period="5d", interval="5m", prepost=False, use_ls=True, yf_bars=None):
     """Primary: LS Exchange live mid/bid/ask (EUR, typically ~20-40s) plus 1m mid chart.

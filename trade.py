@@ -257,20 +257,19 @@ def breakout_candidates(yf_bars, uni_rows, n=None):
     return [t for _, t in out][: n or len(out)]
 
 def wide_data(wl_items, held):
-    """Wide scan (CFG wide_universe): every universe name of CFG wide_regions on every pass, plus the 09:35
-    watchlist (all regions). One Yahoo 5m batch for all names; live LS quotes (max ls_priority_max) for held
-    positions, breakout candidates and the watchlist, in that order; daily bars only for names that can signal.
-    Items order = watchlist (scan score) then the rest in universe.csv order, as in the R&D backtest.
-    Returns (items, bars, daily)."""
-    uni = load_universe()
+    """Wide scan (CFG wide_universe): every name of the wide universe (core universe.csv + universe_wide.csv when
+    CFG wide_file, ~1.230 TR-tradable liquid stocks) in CFG wide_regions, plus the 09:35 watchlist.
+    Data: Yahoo 5m (2 sessions) for ALL names in batches of CFG wide_chunk (~15 s for 1.230 names); a cheap screen
+    keeps the names at/near their opening-range high (breakout_candidates). Only those, the held positions and the
+    watchlist get the full v0 evaluation; live L&S quotes (max ls_priority_max) go to held, candidates, watchlist.
+    Returns (items_to_evaluate, bars, daily, n_scanned)."""
+    uni = load_wide_universe() if CFG.get("wide_file", True) else load_universe()
     regions = set(CFG.get("wide_regions") or ("EU", "US"))
     have = {i["ticker"] for i in wl_items}
-    items = list(wl_items) + [dict(ticker=u["ticker"], name=u["name"], region=u["region"], currency=u["currency"],
-                                   score=None, rationale="scansione larga") for u in uni
-                              if u["ticker"] not in have and u["region"] in regions]
-    all_t = sorted({i["ticker"] for i in items} | set(held))
-    yfb = yf_intraday_bars(all_t)
-    cands = breakout_candidates(yfb, [u for u in uni if u["ticker"] in set(all_t)])
+    scan_rows = [u for u in uni if u["region"] in regions or u["ticker"] in have or u["ticker"] in set(held)]
+    all_t = sorted({u["ticker"] for u in scan_rows} | have | set(held))
+    yfb = yf_intraday_bars_chunked(all_t, period="2d", chunk=CFG.get("wide_chunk", 200))
+    cands = breakout_candidates(yfb, scan_rows)
     prio = []
     for t in list(held) + cands + [i["ticker"] for i in wl_items]:
         if t not in prio:
@@ -278,10 +277,22 @@ def wide_data(wl_items, held):
     live = prio[:CFG.get("ls_priority_max", 20)]
     bars = dict(yfb)
     bars.update(intraday_bars(live, yf_bars=yfb))
-    need_daily = sorted(set(held) | set(cands) | have)
-    daily = daily_bars(need_daily, "6mo") if need_daily else {}
-    log(f"scansione larga: {len(items)} titoli ({'+'.join(sorted(regions))} tutti + watchlist), {len(yfb)} con dati Yahoo, "
-        f"{len(cands)} vicini alla rottura ({', '.join(cands[:10])}{'…' if len(cands) > 10 else ''}), quotazioni live per {len(live)}", S)
+    missing = [t for t in list(held) + [i["ticker"] for i in wl_items] if t not in bars]
+    if missing:   # Yahoo batch failed/limited for these: normal per-name path (Yahoo 5d + L&S)
+        log(f"WARN scansione larga: dati mancanti per {', '.join(missing)}, li riscarico a parte", S)
+        bars.update(intraday_bars(missing))
+    evaluate = set(prio)
+    need_daily = sorted(evaluate)
+    daily = {}
+    for i in range(0, len(need_daily), 200):
+        daily.update(daily_bars(need_daily[i:i + 200], "6mo"))
+    rows = {u["ticker"]: u for u in scan_rows}
+    items = [i for i in wl_items] + [dict(ticker=t, name=rows[t]["name"], region=rows[t]["region"], currency=rows[t]["currency"],
+                                          score=None, rationale="scansione larga") for t in prio if t not in have and t in rows]
+    log(f"scansione larga: {len(all_t)} titoli controllati ({'+'.join(sorted(regions))}), {len(yfb)} con dati Yahoo, "
+        f"{len(cands)} vicini al massimo dell'opening range ({', '.join(cands[:10])}{'…' if len(cands) > 10 else ''}), "
+        f"{len(items)} valutati per intero, quotazioni live per {len(live)}; "
+        f"altri {max(0, len(all_t) - len(evaluate))} lontani dalla rottura", S)
     return items, bars, daily
 
 def main():

@@ -98,31 +98,50 @@ def test_breakout_candidates():
 
 def test_wide_items_order_and_live_cap():
     uni = [dict(ticker=f"T{i}.DE", name=f"T{i}", region="EU", currency="EUR", isin="") for i in range(30)]
+    uni += [dict(ticker="U1", name="U1", region="US", currency="USD", isin=""), dict(ticker="U2", name="U2", region="US", currency="USD", isin="")]
     calls = {}
-    old = (T.load_universe, T.yf_intraday_bars, T.intraday_bars, T.daily_bars, T.breakout_candidates)
+    old = (T.load_wide_universe, T.yf_intraday_bars_chunked, T.intraday_bars, T.daily_bars, T.breakout_candidates)
+    oldcfg = dict(C.CFG)
     try:
-        T.load_universe = lambda: uni
-        T.yf_intraday_bars = lambda tick, *a, **k: {t: pd.DataFrame({"Close": [1.0]}) for t in tick}
+        T.load_wide_universe = lambda: uni
+        def yb(tick, *a, **k):
+            calls["yahoo"] = list(tick); return {t: pd.DataFrame({"Close": [1.0]}) for t in tick}
+        T.yf_intraday_bars_chunked = yb
         def ib(tick, *a, **k):
             calls["live"] = list(tick); return {t: pd.DataFrame({"Close": [2.0]}) for t in tick}
         T.intraday_bars = ib
         T.daily_bars = lambda tick, *a, **k: {t: None for t in tick}
-        T.breakout_candidates = lambda yfb, u, n=None: ["T29.DE", "T28.DE"]
+        T.breakout_candidates = lambda yfb, u, n=None: ["T29.DE", "U2"]
         wl = [dict(ticker="T0.DE", name="T0", region="EU", currency="EUR"),
               dict(ticker="U1", name="U1", region="US", currency="USD")]
-        uni.append(dict(ticker="U2", name="U2", region="US", currency="USD", isin=""))
-        C.CFG["wide_regions"] = ("EU",)
+        C.CFG["wide_regions"] = ("EU", "US"); C.CFG["ls_priority_max"] = 4
         items, bars, daily = T.wide_data(wl, ["T5.DE"])
         tk = [i["ticker"] for i in items]
-        check(len(items) == 31 and "U2" not in tk and "U1" in tk, "wide scan: all EU names + 09:35 watchlist (US only from the list)")
-        check(tk[:3] == ["T0.DE", "U1", "T1.DE"], "watchlist first, then universe order (as in the backtest)")
-        check(calls["live"][:4] == ["T5.DE", "T29.DE", "T28.DE", "T0.DE"] and len(calls["live"]) <= C.CFG["ls_priority_max"],
-              "live quotes for held, breakout candidates, watchlist (in that order)")
+        check(len(calls["yahoo"]) == 32, "Yahoo screen covers the whole wide universe (EU + US)")
+        check(tk == ["T0.DE", "U1", "T5.DE", "T29.DE", "U2"], f"full evaluation only for watchlist, held and candidates ({tk})")
+        check(calls["live"] == ["T5.DE", "T29.DE", "U2", "T0.DE"], "live quotes: held, candidates, watchlist, capped")
         check(float(bars["T29.DE"]["Close"].iloc[0]) == 2.0 and float(bars["T10.DE"]["Close"].iloc[0]) == 1.0,
               "live bars override Yahoo for priority names, Yahoo for the rest")
-        check(set(daily) == {"T5.DE", "T29.DE", "T28.DE", "T0.DE", "U1"}, "daily bars only for names that can signal")
+        check(set(daily) == {"T5.DE", "T29.DE", "U2", "T0.DE", "U1"}, "daily bars only for names that can signal")
+        C.CFG["wide_regions"] = ("EU",)
+        T.breakout_candidates = lambda yfb, u, n=None: []
+        items, bars, daily = T.wide_data(wl, [])
+        check("U2" not in calls["yahoo"] and "U1" in calls["yahoo"], "wide_regions limits the screen (watchlist always kept)")
     finally:
-        T.load_universe, T.yf_intraday_bars, T.intraday_bars, T.daily_bars, T.breakout_candidates = old
+        T.load_wide_universe, T.yf_intraday_bars_chunked, T.intraday_bars, T.daily_bars, T.breakout_candidates = old
+        C.CFG.clear(); C.CFG.update(oldcfg)
+
+
+def test_wide_universe_file():
+    w = C.load_wide_universe()
+    core = C.load_universe()
+    tk = [r["ticker"] for r in w]
+    check(len(tk) == len(set(tk)), "wide universe has no duplicates")
+    check(tk[:len(core)] == [r["ticker"] for r in core], "core rows (with ISIN) first")
+    check(len(w) >= 1000, f"wide universe has >= 1000 names ({len(w)})")
+    check(all(r["region"] in ("EU", "US") and r["currency"] in ("EUR", "USD") for r in w), "only EU/EUR and US/USD rows")
+    m = C.meta(w[-1]["ticker"])
+    check(m["ticker"] == w[-1]["ticker"] and m["currency"] == w[-1]["currency"], "meta() finds wide-universe names")
 
 
 def test_report_reason_grouping():

@@ -1,41 +1,38 @@
 {
  "schema_version": "1.0",
- "generated_at": "2026-11-16T07:24:27+01:00",
- "run_id": "news-llm-20261116-072427",
+ "generated_at": "2026-11-16T13:25:26+01:00",
+ "run_id": "news-llm-20261116-132526",
  "analyst": "Analista Notizie",
  "sources_window": {
-  "from": "2026-11-13T13:10:00+01:00",
-  "to": "2026-11-16T03:06:44+01:00"
+  "from": "2026-11-16T03:11:00+01:00",
+  "to": "2026-11-16T13:11:29+01:00"
  },
- "news_seen_count": 2129,
+ "news_seen_count": 631,
  "macro": {
-  "bias": -0.15,
-  "confidence": 0.5,
-  "summary": "Avvio di settimana prudente: futures USA poco mossi o in lieve calo, borse asiatiche in ribasso e PIL giapponese del terzo trimestre a sorpresa in contrazione per i costi energetici. La settimana ruota su Nvidia (trimestrale martedì sera, la prima senza Huang, mentre l'FT riferisce che valuta il ritorno) e sull'IPO Anthropic giovedì (richiesta 6 volte l'offerta, possibile drenaggio di liquidità dal resto del mercato). Sullo sfondo inflazione alla produzione USA al 6,5% annuo, Treasury decennale intorno al 5,15%, Fed orientata a nuovi rialzi; bitcoin sotto 69.000 $, oro e argento in calo. Oggi Empire State e discorsi Fed, domani vendite al dettaglio, mercoledì verbali Fed. Europa reduce dalla miglior settimana da giugno ma con slancio in esaurimento. Quadro lievemente negativo.",
+  "bias": -0.25,
+  "confidence": 0.55,
+  "summary": "Metà giornata debole sul fronte tecnologico: Asia in forte calo sui chip (Taiwan -5,7%, Nikkei -2,25%) con i dati cinesi di ottobre sotto le attese, futures S&P e Nasdaq in ribasso in attesa della trimestrale Nvidia di domani sera e dell'IPO Anthropic di giovedì. Le borse europee sono piatte vicino ai massimi grazie a difesa e consumi, mentre la tecnologia resta indietro. Bitcoin verso 64.600 $ con titoli cripto in calo; i mercati prezzano un rialzo Fed a dicembre come certo e Fed e BCE avvertono sul rischio di correzione se l'IA delude. Morgan Stanley alza il target sull'S&P 500 e va al massimo sovrappeso, controcorrente. Oggi Empire State e discorsi Fed. Quadro moderatamente negativo per la tecnologia, più neutro per l'Europa.",
   "valid_until": "2026-11-16T21:50:00+01:00",
-  "keyword_score": 0.133,
-  "keyword_news_count_12h": 15
+  "keyword_score": -0.009,
+  "keyword_news_count_12h": 108
  },
  "tickers": [
   {
-   "ticker": "NVDA",
-   "isin": "US67066G1040",
-   "name": "NVIDIA",
-   "impact": 0.3,
-   "confidence": 0.45,
+   "ticker": "COIN",
+   "isin": "US19260Q1076",
+   "name": "Coinbase",
+   "impact": -0.4,
+   "confidence": 0.6,
    "horizon": "intraday",
-   "rationale": "FT: Huang valuta il ritorno da CEO con il sostegno di Musk e grandi fondi, Bloomberg vede un rimbalzo; frenano Bessent (vuole un CEO esterno), HSBC che taglia il target a 170 $ e la trimestrale di martedì sera.",
+   "rationale": "Bitcoin scivola verso 64.600 $ con deflussi continui dagli ETF e titoli cripto in calo nel pre-mercato: la pressione su Coinbase prosegue.",
    "key_headlines": [
-    "Jensen Huang discusses comeback as Nvidia CEO with allies, FT reports",
-    "Jensen Huang Comeback Report Primes Nvidia Shares for a Bounce - Bloomberg",
-    "Musk, Uber co-founder join call for Jensen Huang's return to Nvidia",
-    "Bessent calls for ‘dramatic shakeup’ at Nvidia, urges outside CEO",
-    "HSBC Just Downgraded Nvidia and Cut Its Target to $170",
-    "Nvidia board urged to consider 'potential return of Jensen Huang' by two major investors - CNBC"
+    "Cryptocurrency Stocks Fall in Premarket Trading as Bitcoin Drops Towards $64,600",
+    "Bitcoin pinned below $65k as crypto sentiment dithers, ETF outflows persist",
+    "Crypto stocks slide premarket as Bitcoin selloff continues"
    ],
-   "keyword_score": -0.011,
-   "keyword_news_count_24h": 63,
-   "issued_at": "2026-11-16T07:24:27+01:00",
+   "keyword_score": 0.004,
+   "keyword_news_count_24h": 13,
+   "issued_at": "2026-11-16T13:25:26+01:00",
    "expires_at": "2026-11-16T21:50:00+01:00"
   },
   {
@@ -43,54 +40,74 @@
    "isin": "US0079031078",
    "name": "AMD",
    "impact": -0.3,
-   "confidence": 0.45,
+   "confidence": 0.5,
    "horizon": "intraday",
-   "rationale": "Se Nvidia rimbalza sulle voci del ritorno di Huang continua lo smontaggio della rotazione verso AMD (-8,75% venerdì dopo +45% in cinque sedute); multipli molto alti.",
+   "rationale": "Il selloff dei chip IA continua nel pre-mercato e la rotazione verso AMD delle ultime settimane si sta smontando; i flussi degli ETF sono in uscita.",
    "key_headlines": [
-    "Why is Advanced Micro Devices stock sliding today?",
-    "AMD Soars 19% in a Week on Oppenheimer’s Upgrade and Nvidia’s Turmoil: “Demand Is Higher Than Supply”",
-    "Jensen Huang Comeback Report Primes Nvidia Shares for a Bounce - Bloomberg"
+    "AMD, Intel and Nvidia Fall as AI Chip Selloff Continues",
+    "SPY, AMD And Google Stock Fall Premarket Ahead Of Nvidia Earnings - Coinpedia",
+    "Azioni AMD, Dell e Broadcom a picco: cosa sta succedendo a Wall Street? Occhi su Nvidia - Meteofinanza.com",
+    "ETFs Are Net Sellers of Advanced Micro Devices (AMD) on Nov. 12"
    ],
-   "keyword_score": 0.042,
-   "keyword_news_count_24h": 8,
-   "issued_at": "2026-11-16T07:24:27+01:00",
+   "keyword_score": -0.108,
+   "keyword_news_count_24h": 23,
+   "issued_at": "2026-11-16T13:25:26+01:00",
    "expires_at": "2026-11-16T21:50:00+01:00"
   },
   {
-   "ticker": "COIN",
-   "isin": "US19260Q1076",
-   "name": "Coinbase",
+   "ticker": "MU",
+   "isin": "US5951121038",
+   "name": "Micron",
    "impact": -0.3,
    "confidence": 0.5,
    "horizon": "intraday",
-   "rationale": "Crollo delle cripto: bitcoin sotto 69.000 $ e Coinbase ai minimi da febbraio 2024; il clima resta negativo, con Binance ancora a prelievi limitati dopo il furto.",
+   "rationale": "Memorie di nuovo in forte calo nella notte (Micron e SanDisk oltre -4%) prima di Nvidia e la causa antitrust sui prezzi DRAM va avanti: il clima di settore resta negativo.",
    "key_headlines": [
-    "Coinbase stock in the crypto crash: lowest since Feb 2024 - CryptoTicker.io",
-    "Bitcoin is now below $69,000 and could fall even further if investors cash out to buy into the Anthropic IPO",
-    "Binance targets full reopening of withdrawals by next week"
+    "US Memory Stocks Tumble Again Overnight as SanDisk, Micron Fall Over 4%, Western Digital Drops Over 3% - TradingKey",
+    "Why Micron and SanDisk Stocks Are Falling Before Nvidia Earnings",
+    "Market Chatter: Micron, Samsung, SK Hynix Fail to Get DRAM Price-Fixing Lawsuit Dismissed"
    ],
-   "keyword_score": 0.013,
-   "keyword_news_count_24h": 8,
-   "issued_at": "2026-11-16T07:24:27+01:00",
+   "keyword_score": -0.11,
+   "keyword_news_count_24h": 17,
+   "issued_at": "2026-11-16T13:25:26+01:00",
    "expires_at": "2026-11-16T21:50:00+01:00"
   },
   {
-   "ticker": "LLY",
-   "isin": "US5324571083",
-   "name": "Eli Lilly",
-   "impact": 0.3,
+   "ticker": "INTC",
+   "isin": "US4581401001",
+   "name": "Intel",
+   "impact": -0.3,
    "confidence": 0.5,
    "horizon": "1-3d",
-   "rationale": "Pillola dimagrante orforglipron approvata in Cina e Berenberg conferma Buy sull'outlook 2027: lo slancio positivo continua.",
+   "rationale": "Class action per frode dopo il crollo del 29% (-3,8% nella notte) e settore chip in vendita: è probabile che il titolo torni a testare l'area dei 50 $.",
    "key_headlines": [
-    "Eli Lilly Stocks Rise as China Approves Orforglipron Weight-Loss Pill",
-    "Eli Lilly Maintained at Buy as Berenberg Notes 'Strong' FY27 Outlook - marketscreener.com",
-    "More Good News for Eli Lilly Sends the Stock Even Higher"
+    "Intel Stock Down 3.8% Overnight on Robinhood as Lip-Bu Tan Faces Lawsuit Over PC Slowdown Disclosure - Benzinga",
+    "Intel Faces Shareholder Class Action, Nvidia Risks Flagged as INTC Falls Nearly 4% Overnight, Threatening to Test $50 Mark - TradingKey",
+    "AMD, Intel and Nvidia Fall as AI Chip Selloff Continues",
+    "Intel Faces Lawsuit After 29% Stock Crash. Investors Allege Fraud."
    ],
-   "keyword_score": 0.155,
-   "keyword_news_count_24h": 19,
-   "issued_at": "2026-11-13T13:25:04+01:00",
-   "expires_at": "2026-11-17T21:50:00+01:00"
+   "keyword_score": -0.422,
+   "keyword_news_count_24h": 43,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T21:50:00+01:00"
+  },
+  {
+   "ticker": "LDO.MI",
+   "isin": "IT0003856405",
+   "name": "Leonardo",
+   "impact": 0.3,
+   "confidence": 0.5,
+   "horizon": "intraday",
+   "rationale": "La difesa europea rimbalza e Leonardo guida il settore (+2%) su cyber e potenziamento della produzione: lo slancio dovrebbe reggere fino a sera.",
+   "key_headlines": [
+    "Defence sector rebounds; Leonardo tops the table, focusing on cyber security and strengthening production - Il Sole 24 ORE",
+    "Azioni Leonardo +2%: la pace in Ucraina non spaventa più? - Finanza Italiacom",
+    "European stocks buoyed by defence, consumer sectors; tech lags"
+   ],
+   "keyword_score": 0.221,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
    "ticker": "MBG.DE",
@@ -114,22 +131,93 @@
    "expires_at": "2026-11-17T17:25:00+01:00"
   },
   {
+   "ticker": "AVGO",
+   "isin": "US11135F1012",
+   "name": "Broadcom",
+   "impact": -0.25,
+   "confidence": 0.45,
+   "horizon": "intraday",
+   "rationale": "Scende sotto le medie chiave dopo il taglio di Redburn e insieme al resto dei chip IA prima della trimestrale Nvidia.",
+   "key_headlines": [
+    "Broadcom Slides Below Key Averages as Redburn Cut Tests AI Rally - BigGo Finance",
+    "Azioni AMD, Dell e Broadcom a picco: cosa sta succedendo a Wall Street? Occhi su Nvidia - Meteofinanza.com"
+   ],
+   "keyword_score": 0.174,
+   "keyword_news_count_24h": 24,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
    "ticker": "BAMI.MI",
    "isin": "IT0005218380",
    "name": "Banco BPM",
+   "impact": -0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "L'AD frena: la fusione con Crédit Agricole «non è cosa fatta» e Banco BPM può fare bene da sola; si sgonfia parte della speculazione delle ultime sedute.",
+   "key_headlines": [
+    "Banco BPM, Castagna frena sulla fusione con Crédit Agricole: non è ancora cosa fatta - Borsa Italiana",
+    "Banco Bpm, potenziale deal con Crédit Agricole non è ancora cosa fatta - Castagna Da Reuters - Investing.com",
+    "Banco Bpm: Castagna, dimostrato di poter fare bene da soli ma esaminiamo proposte - Il Sole 24 ORE",
+    "Banco Bpm : Castagna, io a.d. con Agricole? Nessuno ne ha parlato con me - MarketScreener Italia"
+   ],
+   "keyword_score": -0.028,
+   "keyword_news_count_24h": 21,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "R3NK.DE",
+   "isin": "DE000RENK730",
+   "name": "Renk Group",
    "impact": 0.25,
    "confidence": 0.45,
    "horizon": "1-3d",
-   "rationale": "Banco BPM apre al negoziato sulla fusione con Crédit Agricole, che vuole andare avanti con determinazione: speculazione positiva, nodo controllo e contendibilità da sciogliere.",
+   "rationale": "Ordini dei nove mesi +33,6%, acquisizione di David Brown Defence chiusa e nuovo CFO, con tutto il settore difesa in acquisto.",
    "key_headlines": [
-    "Banco Bpm apre al dialogo con Crédit Agricole, ma vuole garanzie per i soci. Il nodo è il controllo - Startmag",
-    "Crédit Agricole sulla fusione con Banco Bpm: “Avanti con determinazione” - la Repubblica",
-    "Banco Bpm tratta con Crédit Agricole: nodo contendibilità - Benzinga Italia"
+    "Renk Taps Jurate Keblyte as Finance Chief While Nine-Month Orders Surge 33.6% - ad-hoc-news.de",
+    "Renk Seals David Brown Defence Takeover, Names Keblyte as Next Finance Chief - ad-hoc-news.de",
+    "European stocks buoyed by defence, consumer sectors; tech lags"
    ],
-   "keyword_score": 0.0,
-   "keyword_news_count_24h": 4,
-   "issued_at": "2026-11-16T07:24:27+01:00",
+   "keyword_score": 0.154,
+   "keyword_news_count_24h": 6,
+   "issued_at": "2026-11-16T13:25:26+01:00",
    "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "HAG.DE",
+   "isin": "DE000HAG0005",
+   "name": "Hensoldt",
+   "impact": 0.25,
+   "confidence": 0.45,
+   "horizon": "1-3d",
+   "rationale": "Obiettivo di 10 mld € di ricavi al 2035 e ordini verso la parte alta della forchetta, con la difesa europea che torna a correre.",
+   "key_headlines": [
+    "Hensoldt Puts €10 Billion by 2035 on the Table While Order Intake Heads for the Top of Its Range - ad-hoc-news.de",
+    "Hensoldt's €10 Billion Horizon Meets a Sector-Wide Bid - ad-hoc-news.de"
+   ],
+   "keyword_score": 0.038,
+   "keyword_news_count_24h": 4,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "LLY",
+   "isin": "US5324571083",
+   "name": "Eli Lilly",
+   "impact": 0.25,
+   "confidence": 0.5,
+   "horizon": "1-3d",
+   "rationale": "Barclays alza il target a 1.550 $ dopo l'approvazione cinese di orforglipron: lo slancio positivo continua, nonostante qualche vendita degli ETF.",
+   "key_headlines": [
+    "Eli Lilly price target raised to $1,550 from $1,400 at Barclays - TipRanks",
+    "China approval: Eli Lilly stock gains 0.93% premarket to EUR 1,316.30 - ad-hoc-news.de",
+    "ETFs Are Net Sellers of Eli Lilly (LLY) on Nov. 12"
+   ],
+   "keyword_score": 0.067,
+   "keyword_news_count_24h": 13,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T21:50:00+01:00"
   },
   {
    "ticker": "SAP.DE",
@@ -182,56 +270,40 @@
    "expires_at": "2026-11-16T21:50:00+01:00"
   },
   {
-   "ticker": "LDO.MI",
-   "isin": "IT0003856405",
-   "name": "Leonardo",
-   "impact": 0.22,
+   "ticker": "RHM.DE",
+   "isin": "DE0007030009",
+   "name": "Rheinmetall",
+   "impact": 0.2,
    "confidence": 0.45,
-   "horizon": "1-3d",
-   "rationale": "Aggiudicato un contratto NAVAIR DAIRCM: notizia aziendale positiva ma di portata più tattica che trasformativa per la seduta.",
-   "key_headlines": [
-    "Leonardo (BIT:LDO) Won A Major NAVAIR DAIRCM Contract"
-   ],
-   "keyword_score": 0.228,
-   "keyword_news_count_24h": 3,
-   "issued_at": "2026-11-12T14:05:07+01:00",
-   "expires_at": "2026-11-16T21:50:00+01:00"
-  },
-  {
-   "ticker": "AVGO",
-   "isin": "US11135F1012",
-   "name": "Broadcom",
-   "impact": -0.2,
-   "confidence": 0.4,
    "horizon": "intraday",
-   "rationale": "Stessa dinamica di AMD: la rotazione nata dalla crisi Nvidia si sta sgonfiando (-4,8% venerdì) e un rimbalzo di Nvidia toglierebbe acquisti a Broadcom.",
+   "rationale": "Rimbalzo del settore difesa europeo (+3% in mattinata) e i Buy degli analisti reggono nonostante i tagli dei target.",
    "key_headlines": [
-    "Broadcom Jumped as Nvidia Fell. This Is What Has Investors Excited. - Yahoo Finance",
-    "Stock market this week: Broadcom jumps 18.2% - Opening Bell Daily",
-    "Jensen Huang Comeback Report Primes Nvidia Shares for a Bounce - Bloomberg"
+    "Rheinmetall's Buy Ratings Survive a Brutal Round of Target Cuts - ad-hoc-news.de",
+    "European stocks buoyed by defence, consumer sectors; tech lags",
+    "Undervalued European Defense Stocks to Watch as Military Spending Surges - Morningstar"
    ],
-   "keyword_score": 0.271,
-   "keyword_news_count_24h": 10,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-16T21:50:00+01:00"
+   "keyword_score": 0.122,
+   "keyword_news_count_24h": 9,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
-   "ticker": "INTC",
-   "isin": "US4581401001",
-   "name": "Intel",
+   "ticker": "ASML.AS",
+   "isin": "NL0010273215",
+   "name": "ASML",
    "impact": -0.2,
    "confidence": 0.45,
-   "horizon": "1-3d",
-   "rationale": "Class action degli azionisti dopo il crollo del 29% con l'accusa di aver nascosto il calo delle vendite di PC: pressione e titoli negativi nelle prossime sedute.",
+   "horizon": "intraday",
+   "rationale": "Asia giù per i chip (Taiwan -5,7%, TSMC in forte calo) e tecnologia europea debole prima di Nvidia: il buyback non basta a sostenere il titolo.",
    "key_headlines": [
-    "Intel sued by shareholders following 29% stock plunge - Charlotte Observer",
-    "Shareholders sue Intel after 28.6% stock drop — Channel NewsAsia - UA.NEWS",
-    "Intel faces shareholder lawsuit over concealed PC sales slump - Crypto Briefing"
+    "Asia stocks tumble as chipmakers slide and weak China data adds pressure",
+    "Why is Taiwan Semiconductor Manufacturing stock tumbling today?",
+    "ASML's €563 Million Buyback Runs Alongside a Dutch Labour Rift Investors Can't Ignore - ad-hoc-news.de"
    ],
-   "keyword_score": -0.24,
-   "keyword_news_count_24h": 12,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T21:50:00+01:00"
+   "keyword_score": 0.109,
+   "keyword_news_count_24h": 5,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
    "ticker": "STLAM.MI",
@@ -307,21 +379,90 @@
    "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
-   "ticker": "AMZN",
-   "isin": "US0231351067",
-   "name": "Amazon",
+   "ticker": "PLTR",
+   "isin": "US69608A1088",
+   "name": "Palantir",
    "impact": -0.15,
-   "confidence": 0.45,
+   "confidence": 0.4,
    "horizon": "intraday",
-   "rationale": "Il razzo della joint venture Boeing-Lockheed (ULA) è esploso in volo distruggendo 40 satelliti della rete Leo di Amazon: costo e ritardo per il progetto.",
+   "rationale": "Il CTO vende azioni per 65 mln $, concorrenti preparano offerte per il contratto NHS e l'Europa cerca alternative: pressione in un mercato tech debole.",
    "key_headlines": [
-    "US rocket fails after launch, payload of Amazon internet satellites destroyed",
-    "Boeing-Lockheed Martin joint venture rocket launch fails, destroys 40 satellites for Amazon's Leo broadban - The Economic Times"
+    "Palantir CTO sells $65M in stock, marking large... - Pluang",
+    "UK Consortium, Quantexa Reportedly Prepare Bids for NHS Contract Held by Palantir - marketscreener.com",
+    "Europe hunts for Palantir alternatives as militaries seek to limit US dependence - marketscreener.com"
    ],
-   "keyword_score": 0.261,
-   "keyword_news_count_24h": 21,
-   "issued_at": "2026-11-16T07:24:27+01:00",
+   "keyword_score": 0.112,
+   "keyword_news_count_24h": 16,
+   "issued_at": "2026-11-16T13:25:26+01:00",
    "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "IFX.DE",
+   "isin": "DE0006231004",
+   "name": "Infineon",
+   "impact": -0.15,
+   "confidence": 0.4,
+   "horizon": "intraday",
+   "rationale": "Chip in vendita in Asia e in Europa e nuovi ritocchi dei target: il titolo resta debole prima della trimestrale Nvidia.",
+   "key_headlines": [
+    "Infineon's Margin Promise Faces a Harder Crowd as Brokers Rework Their Numbers - ad-hoc-news.de",
+    "Asia stocks tumble as chipmakers slide and weak China data adds pressure"
+   ],
+   "keyword_score": 0.006,
+   "keyword_news_count_24h": 7,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
+  },
+  {
+   "ticker": "STMMI.MI",
+   "isin": "NL0000226223",
+   "name": "STMicroelectronics",
+   "impact": -0.15,
+   "confidence": 0.35,
+   "horizon": "intraday",
+   "rationale": "Sotto i riflettori a Piazza Affari mentre il settore semiconduttori è in vendita in Asia e a Wall Street prima di Nvidia.",
+   "key_headlines": [
+    "Leonardo, Banco BPM, STM sotto i riflettori a Piazza Affari - Websim",
+    "Asia stocks tumble as chipmakers slide and weak China data adds pressure"
+   ],
+   "keyword_score": 0.0,
+   "keyword_news_count_24h": 0,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
+  },
+  {
+   "ticker": "DTE.DE",
+   "isin": "DE0005557508",
+   "name": "Deutsche Telekom",
+   "impact": 0.15,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Upgrade di un analista, obiettivi 2026 alzati e campus IA di Monaco raddoppiato: lettura difensiva favorevole in un mercato che evita la tecnologia.",
+   "key_headlines": [
+    "Deutsche Telekom Wins Analyst Upgrade as Munich AI Bet and Huawei Fight Define the Week - ad-hoc-news.de",
+    "Deutsche Telekom Lifts 2026 Targets as Munich AI Factory Doubles in Scope - ad-hoc-news.de"
+   ],
+   "keyword_score": 0.135,
+   "keyword_news_count_24h": 7,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "BAYN.DE",
+   "isin": "DE000BAY0017",
+   "name": "Bayer",
+   "impact": 0.15,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Approvazione FDA del farmaco per l'ictus (primo della classe) e Deutsche Bank alza il target a 65 €: sostegno nelle prossime sedute.",
+   "key_headlines": [
+    "Bayer Wins FDA Nod for First-in-Class Stroke Drug as Deutsche Bank Lifts Target to EUR 65 - ad-hoc-news.de",
+    "Bayer Lands First-in-Class Stroke Drug Approval as Guidance Rises and Analysts Diverge - ad-hoc-news.de"
+   ],
+   "keyword_score": 0.443,
+   "keyword_news_count_24h": 3,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
   },
   {
    "ticker": "GOOGL",
@@ -339,41 +480,6 @@
    "keyword_news_count_24h": 1,
    "issued_at": "2026-11-16T07:24:27+01:00",
    "expires_at": "2026-11-18T21:50:00+01:00"
-  },
-  {
-   "ticker": "UCG.MI",
-   "isin": "IT0005239360",
-   "name": "UniCredit",
-   "impact": 0.15,
-   "confidence": 0.4,
-   "horizon": "1-3d",
-   "rationale": "JPMorgan alza stime e target; l'ok antitrust UE incondizionato su Commerzbank è vicino e Orcel ha fissato una scadenza a novembre. Acconto dividendo in arrivo.",
-   "key_headlines": [
-    "UniCredit, JPMorgan alza le stime e il prezzo obiettivo - Traderlink",
-    "UniCredit Nears Unconditional EU Antitrust Clearance as Commerzbank Grinds Through Buyback - ad-hoc-news.de",
-    "UniCredit's Orcel Sets November Deadline as Commerzbank Balances Record Earnings Against Trimmed Tar - ad-hoc-news.de"
-   ],
-   "keyword_score": 0.463,
-   "keyword_news_count_24h": 4,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T17:25:00+01:00"
-  },
-  {
-   "ticker": "CBK.DE",
-   "isin": "DE000CBK1001",
-   "name": "Commerzbank",
-   "impact": 0.15,
-   "confidence": 0.35,
-   "horizon": "1-3d",
-   "rationale": "Sostegno speculativo: UniCredit vicina al via libera antitrust UE senza condizioni e scadenza di novembre di Orcel, con il riacquisto di azioni in corso.",
-   "key_headlines": [
-    "UniCredit Nears Unconditional EU Antitrust Clearance as Commerzbank Grinds Through Buyback - ad-hoc-news.de",
-    "UniCredit's Orcel Sets November Deadline as Commerzbank Balances Record Earnings Against Trimmed Tar - ad-hoc-news.de"
-   ],
-   "keyword_score": 0.423,
-   "keyword_news_count_24h": 4,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T17:25:00+01:00"
   },
   {
    "ticker": "ALV.DE",
@@ -407,24 +513,6 @@
    ],
    "keyword_score": 0.0,
    "keyword_news_count_24h": 5,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T17:25:00+01:00"
-  },
-  {
-   "ticker": "RHM.DE",
-   "isin": "DE0007030009",
-   "name": "Rheinmetall",
-   "impact": -0.15,
-   "confidence": 0.35,
-   "horizon": "1-3d",
-   "rationale": "I broker continuano a limare i target per i dubbi sui tempi di consegna, nonostante l'ordine belga di 20 Skyranger e il portafoglio pieno.",
-   "key_headlines": [
-    "Rheinmetall's Order Book Swells as Brokers Trim Their Targets - ad-hoc-news.de",
-    "Rheinmetall stock: Belgium orders 20 Skyranger air-defense systems - ad-hoc-news.de",
-    "Rheinmetall Writes the Cheques, Brokers Rewrite the Targets - ad-hoc-news.de"
-   ],
-   "keyword_score": 0.0,
-   "keyword_news_count_24h": 7,
    "issued_at": "2026-11-16T07:24:27+01:00",
    "expires_at": "2026-11-18T17:25:00+01:00"
   },
@@ -591,23 +679,6 @@
    "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
-   "ticker": "BAYN.DE",
-   "isin": "DE000BAY0017",
-   "name": "Bayer",
-   "impact": 0.12,
-   "confidence": 0.45,
-   "horizon": "1-3d",
-   "rationale": "Dopo l'approvazione FDA di Sunharbo il titolo ritraccia (vendi sulla notizia) mentre si passa al lancio USA: positivo di fondo ma slancio di breve ridotto.",
-   "key_headlines": [
-    "Bayer stock slips as Sunharbo moves from FDA approval to US launch",
-    "Bayer's Field-Level Fungicide Bet and First-in-Class Stroke Drug Share One Test: Can Precision Pay?"
-   ],
-   "keyword_score": 0.293,
-   "keyword_news_count_24h": 7,
-   "issued_at": "2026-11-12T17:44:54+01:00",
-   "expires_at": "2026-11-16T21:50:00+01:00"
-  },
-  {
    "ticker": "MUV2.DE",
    "isin": "DE0008430026",
    "name": "Munich Re",
@@ -624,6 +695,94 @@
    "keyword_news_count_24h": 5,
    "issued_at": "2026-11-13T13:25:04+01:00",
    "expires_at": "2026-11-16T17:25:00+01:00"
+  },
+  {
+   "ticker": "AMZN",
+   "isin": "US0231351067",
+   "name": "Amazon",
+   "impact": -0.1,
+   "confidence": 0.4,
+   "horizon": "intraday",
+   "rationale": "La perdita di 40 satelliti Leo pesa sul titolo, ma la Casa Bianca dovrebbe includere Amazon tra i «campioni nazionali» dell'IA: effetto netto lievemente negativo.",
+   "key_headlines": [
+    "Amazon loses 40 satellites in major rocket failure",
+    "Amazon Stock Falls as Boeing-Lockheed Rocket Failure Destroys 40 Leo Satellites - TipRanks",
+    "Trump plans major AI boost for Nvidia, Amazon, Microsoft"
+   ],
+   "keyword_score": 0.094,
+   "keyword_news_count_24h": 42,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
+   "ticker": "UCG.MI",
+   "isin": "IT0005239360",
+   "name": "UniCredit",
+   "impact": 0.1,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Via libera UE senza condizioni e ok della Fed all'acquisizione di Commerzbank: ostacolo atteso rimosso, effetto modesto perché già scontato.",
+   "key_headlines": [
+    "UniCredit wins EU and US approval for Commerzbank acquisition",
+    "EU clears UniCredit takeover of Germany's Commerzbank",
+    "Europa sparsa, a Milano al centro le banche con Unicredit e Banco BPM - Teleborsa"
+   ],
+   "keyword_score": 0.231,
+   "keyword_news_count_24h": 11,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "CBK.DE",
+   "isin": "DE000CBK1001",
+   "name": "Commerzbank",
+   "impact": 0.1,
+   "confidence": 0.4,
+   "horizon": "1-3d",
+   "rationale": "Con il via libera UE e Fed all'offerta di UniCredit l'operazione avanza: lieve sostegno al prezzo di Commerzbank.",
+   "key_headlines": [
+    "UniCredit’s Commerzbank Bid Gets EU Approval",
+    "UniCredit wins EU and US approval for Commerzbank acquisition"
+   ],
+   "keyword_score": 0.218,
+   "keyword_news_count_24h": 12,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
+  },
+  {
+   "ticker": "MSFT",
+   "isin": "US5949181045",
+   "name": "Microsoft",
+   "impact": 0.1,
+   "confidence": 0.35,
+   "horizon": "1-3d",
+   "rationale": "Inclusione attesa tra i «campioni nazionali» dell'IA e Ignite da domani; il disservizio di Outlook non ha mosso il titolo.",
+   "key_headlines": [
+    "Trump plans major AI boost for Nvidia, Amazon, Microsoft",
+    "Is Microsoft’s Outlook Outage a “Disaster Moment?” The Stock Barely Moved",
+    "Microsoft (MSFT) Strikes AI Deal That Broadens Its Chip Supplier Base"
+   ],
+   "keyword_score": -0.005,
+   "keyword_news_count_24h": 22,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T21:50:00+01:00"
+  },
+  {
+   "ticker": "MC.PA",
+   "isin": "FR0000121014",
+   "name": "LVMH",
+   "impact": -0.1,
+   "confidence": 0.3,
+   "horizon": "1-3d",
+   "rationale": "I big del lusso valutano tagli ai prezzi per la crisi della domanda (Gucci ha già abbassato i listini); l'accordo con OpenAI sui media è marginale.",
+   "key_headlines": [
+    "Luxury giants weigh price cuts as slump deepens; Gucci lowers prices, LVMH debates - Chosunbiz",
+    "OpenAI Signs LVMH’s 17 Media Outlets, 2nd French News Deal - FourWeekMBA"
+   ],
+   "keyword_score": -0.085,
+   "keyword_news_count_24h": 6,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-18T17:25:00+01:00"
   },
   {
    "ticker": "META",
@@ -643,23 +802,6 @@
    "expires_at": "2026-11-16T21:50:00+01:00"
   },
   {
-   "ticker": "MSFT",
-   "isin": "US5949181045",
-   "name": "Microsoft",
-   "impact": 0.1,
-   "confidence": 0.35,
-   "horizon": "1-3d",
-   "rationale": "Morgan Stanley ribadisce la view positiva e Ignite parte il 17/11 (possibili numeri su Copilot); il disservizio globale della settimana scorsa è alle spalle.",
-   "key_headlines": [
-    "Morgan Stanley doubles down on Microsoft stock with bold outlook",
-    "Microsoft Ignite Starts Nov. 17. Will Microsoft Update Its Paid Copilot Seat Count?"
-   ],
-   "keyword_score": -0.17,
-   "keyword_news_count_24h": 5,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T21:50:00+01:00"
-  },
-  {
    "ticker": "TSLA",
    "isin": "US88160R1014",
    "name": "Tesla",
@@ -677,40 +819,6 @@
    "keyword_news_count_24h": 5,
    "issued_at": "2026-11-16T07:24:27+01:00",
    "expires_at": "2026-11-18T21:50:00+01:00"
-  },
-  {
-   "ticker": "MU",
-   "isin": "US5951121038",
-   "name": "Micron",
-   "impact": 0.1,
-   "confidence": 0.3,
-   "horizon": "1-3d",
-   "rationale": "Oltre il 75% della produzione 2027 già impegnata e fondi che spostano capitale da Nvidia a Micron; il settore chip resta però nervoso prima di Nvidia.",
-   "key_headlines": [
-    "Micron Technology (MU) Has More Than 75% Of 2027 Output Committed",
-    "Popular fund manager switches Nvidia shares for Micron amid Huang drama"
-   ],
-   "keyword_score": 0.049,
-   "keyword_news_count_24h": 9,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T21:50:00+01:00"
-  },
-  {
-   "ticker": "IFX.DE",
-   "isin": "DE0006231004",
-   "name": "Infineon",
-   "impact": -0.1,
-   "confidence": 0.35,
-   "horizon": "intraday",
-   "rationale": "Due broker tagliano i target dopo il -4,3% di venerdì e il settore chip resta nervoso in attesa di Nvidia martedì; Asia in calo stamattina.",
-   "key_headlines": [
-    "Two Brokers Cut Infineon Targets as Chip Stocks Buckle Before Nvidia Test - ad-hoc-news.de",
-    "Infineon's Capital Returns and Data-Centre Pitch Meet a Falling Chip Tape - ad-hoc-news.de"
-   ],
-   "keyword_score": 0.081,
-   "keyword_news_count_24h": 4,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-16T17:25:00+01:00"
   },
   {
    "ticker": "AIR.DE",
@@ -742,38 +850,6 @@
    ],
    "keyword_score": -0.144,
    "keyword_news_count_24h": 10,
-   "issued_at": "2026-11-13T07:29:10+01:00",
-   "expires_at": "2026-11-17T17:25:00+01:00"
-  },
-  {
-   "ticker": "R3NK.DE",
-   "isin": "DE000RENK730",
-   "name": "Renk Group",
-   "impact": 0.1,
-   "confidence": 0.35,
-   "horizon": "1-3d",
-   "rationale": "Acquisto di azioni da parte di un dirigente mentre il taglio di guidance di Rheinmetall pesa sulla difesa: piccolo segnale di fiducia, effetto limitato.",
-   "key_headlines": [
-    "Renk's Insider Buy Lands as Rheinmetall's Warning Tests the Sector - ad-hoc-news.de"
-   ],
-   "keyword_score": -0.3,
-   "keyword_news_count_24h": 4,
-   "issued_at": "2026-11-13T07:29:10+01:00",
-   "expires_at": "2026-11-17T17:25:00+01:00"
-  },
-  {
-   "ticker": "DTE.DE",
-   "isin": "DE0005557508",
-   "name": "Deutsche Telekom",
-   "impact": 0.1,
-   "confidence": 0.35,
-   "horizon": "1-3d",
-   "rationale": "Obiettivo di cassa alzato e campus AI di Monaco già tutto venduto: commenti positivi sui conti recenti, senza novità forti per la seduta.",
-   "key_headlines": [
-    "Deutsche Telekom's Raised Cash-Flow Bar Meets a Sold-Out Munich AI Campus - ad-hoc-news.de"
-   ],
-   "keyword_score": 0.212,
-   "keyword_news_count_24h": 7,
    "issued_at": "2026-11-13T07:29:10+01:00",
    "expires_at": "2026-11-17T17:25:00+01:00"
   },
@@ -831,21 +907,41 @@
    "expires_at": "2026-11-17T17:25:00+01:00"
   },
   {
+   "ticker": "NVDA",
+   "isin": "US67066G1040",
+   "name": "NVIDIA",
+   "impact": 0.05,
+   "confidence": 0.3,
+   "horizon": "intraday",
+   "rationale": "Spinte opposte: il WSJ la vede tra i «campioni nazionali» dell'IA e si parla del ritorno di Huang, ma il titolo scende ancora, i futures Nasdaq calano e Bessent conferma lo stop ai chip oltre H100 per la Cina; trimestrale domani sera.",
+   "key_headlines": [
+    "Trump administration to name Nvidia, other AI firms as US 'national champions', WSJ reports",
+    "Jensen Huang's return would boost Nvidia stock: Analyst - CNBC",
+    "Nvidia stock falls again as investors price in fallout from Jensen Huang's resignation - CNBC",
+    "Bessent: Trump Made It “Very Clear” China Gets No Nvidia Chips “Above H100s”",
+    "S&P 500, Nasdaq futures slide as Nvidia earnings, Anthropic debut loom"
+   ],
+   "keyword_score": -0.1,
+   "keyword_news_count_24h": 145,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T21:50:00+01:00"
+  },
+  {
    "ticker": "SIE.DE",
    "isin": "DE0007236101",
    "name": "Siemens",
-   "impact": 0.05,
-   "confidence": 0.3,
-   "horizon": "1-3d",
-   "rationale": "Segnali contrastanti: Vertical Research declassa a Hold, Evercore resta positiva; ordini record e dividendo più alto già noti.",
+   "impact": 0.0,
+   "confidence": 0.25,
+   "horizon": "intraday",
+   "rationale": "Calo di circa il 3% in mattinata che le notizie raccolte non spiegano (solo un target più alto e consegne a ÖBB): nessun giudizio direzionale.",
    "key_headlines": [
-    "Siemens (OTCMKTS:SIEGY) Downgraded by Vertical Research to Hold - MarketBeat",
-    "Siemens Wins a Bullish Nod From Evercore Even as Vertical Research Steps Back - ad-hoc-news.de"
+    "Siemens stock: MarketScreener lifts target price to EUR 258 - ad-hoc-news.de",
+    "Siemens Delivers Final Desiro ML Train to ÖBB - Railway-News"
    ],
-   "keyword_score": 0.377,
-   "keyword_news_count_24h": 5,
-   "issued_at": "2026-11-16T07:24:27+01:00",
-   "expires_at": "2026-11-18T17:25:00+01:00"
+   "keyword_score": 0.106,
+   "keyword_news_count_24h": 8,
+   "issued_at": "2026-11-16T13:25:26+01:00",
+   "expires_at": "2026-11-16T17:25:00+01:00"
   }
  ],
  "catalysts": [
@@ -892,6 +988,12 @@
    "expected_impact_note": "Conferma del dato flash già uscito; di solito impatto contenuto salvo revisioni, in vista della BCE di dicembre."
   },
   {
+   "ticker": "ISP.MI",
+   "event": "Incontro Mps-Intesa Sanpaolo a Roma sull'OPAS",
+   "datetime": "2026-11-18T12:00:00+01:00",
+   "expected_impact_note": "Data da dichiarazioni riportate dalla stampa (mercoledì 18), orario non noto (indicato mezzogiorno). Possibili chiarimenti su concambio e adesioni."
+  },
+  {
    "ticker": "MACRO",
    "event": "Verbali della riunione Fed di ottobre",
    "datetime": "2026-11-18T20:00:00+01:00",
@@ -932,6 +1034,12 @@
    "event": "Flash PMI S&P Global area euro (novembre)",
    "datetime": "2026-11-23T10:00:00+01:00",
    "expected_impact_note": "Prima lettura ciclica di novembre per manifattura e servizi UE; può muovere euro e indici europei se si discosta dal consenso."
+  },
+  {
+   "ticker": "ISP.MI",
+   "event": "Apertura del periodo di adesione all'OPAS di Intesa Sanpaolo su Mps",
+   "datetime": "2026-11-24T09:00:00+01:00",
+   "expected_impact_note": "Data da stampa finanziaria (adesioni dal 24 novembre); orario stimato all'apertura."
   },
   {
    "ticker": "RHM.DE",

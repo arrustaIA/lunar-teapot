@@ -52,8 +52,8 @@ def open_positions_view(con):
     for p in pos:
         px = prices.get(p["ticker"], (p["entry_local"], None))[0]
         val = position_value_eur(p, px)   # short: reserved notional + unrealized P&L
-        unreal = val - p["qty"] * p["entry_eur"] - p["entry_fee"] - CFG["fee_per_order"]  # incl. both fees
-        out.append(dict(p, last=px, value=val, unreal=unreal))
+        unreal = val + loan(p) - p["qty"] * p["entry_eur"] - p["entry_fee"] - CFG["fee_per_order"]  # incl. both fees
+        out.append(dict(p, last=px, value=val, unreal=unreal, lev=leverage(p)))
     return out, prices
 
 def log_reasons(day=None):
@@ -65,10 +65,32 @@ def log_reasons(day=None):
         for line in open(f):
             m = re.search(r"\[trade\] [A-Z0-9.\-]+: (.+)$", line)
             if not m: continue
-            k = m.group(1).split(":")[0].split("(")[0].strip()
-            if k.startswith(("analista grafico", "posizione aperta", "equity")): continue
+            k = reason_key(m.group(1))
+            if not k or k.startswith(("analista grafico", "posizione aperta", "equity", "ENTRATO")): continue
             cnt[k] = cnt.get(k, 0) + 1
     return dict(sorted(cnt.items(), key=lambda kv: -kv[1]))
+
+FEE_GATE_KEY = "filtro commissioni (guadagno atteso sotto 6 €)"
+
+def reason_key(reason):
+    """Group a trade.py reason: numbers stripped so e.g. every fee-gate reject lands in ONE bucket."""
+    r = reason.strip()
+    if r.startswith(("filtro commissioni", "guadagno atteso")):
+        return FEE_GATE_KEY
+    k = r.split(":")[0].split("(")[0].strip()
+    return re.sub(r"\s+", " ", re.sub(r"[-+]?\d+[.,]?\d*", "N", k)).strip()
+
+def fee_gate_rejects(day=None):
+    """{ticker: count} of fee-gate rejects in trade.py logs for day."""
+    files = [os.path.join(LOGS, f"{day}.log")] if day else sorted(glob.glob(os.path.join(LOGS, "*.log")))
+    out = {}
+    for f in files:
+        if not os.path.exists(f): continue
+        for line in open(f):
+            m = re.search(r"\[trade\] ([A-Z0-9.\-]+): (.+)$", line)
+            if m and reason_key(m.group(2)) == FEE_GATE_KEY:
+                out[m.group(1)] = out.get(m.group(1), 0) + 1
+    return out
 
 def benchmark_day():
     """Intraday buy&hold of the benchmark ETF from today's open to latest price."""

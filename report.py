@@ -50,7 +50,7 @@ def main():
     if pos:
         L += ["", "## Posizioni aperte"]
         for p in pos:
-            L.append(f"- {p['name']} ({p['ticker']}){' SHORT' if is_short(p) else ''}: {p['qty']:.4f} @ {p['entry_local']:.3f} → {p['last']:.3f} {p['currency']}, "
+            L.append(f"- {p['name']} ({p['ticker']}){' SHORT' if is_short(p) else ''}{' leva %.2fx' % p['lev'] if p.get('lev', 1) > 1.0001 else ''}: {p['qty']:.4f} @ {p['entry_local']:.3f} → {p['last']:.3f} {p['currency']}, "
                      f"valore {eur(p['value'])}, non realizzato {eur(p['unreal'])} (incl. commissioni), stop {p['stop_local']:.3f}")
     b = benchmark_day()
     L += ["", "## Confronto con benchmark"]
@@ -73,7 +73,14 @@ def main():
         L.append(f"- Analista grafico: {len(buys)} segnali valutati, {int((buys.verdict == 'APPROVE').sum())} approvati, {int((buys.verdict == 'REJECT').sum())} rifiutati")
     reasons = log_reasons(d)
     if reasons:
-        L.append("- Motivi principali per cui non si è entrati: " + "; ".join(f"{k} ({v})" for k, v in list(reasons.items())[:5]))
+        top = list(reasons.items())[:5]
+        if FEE_GATE_KEY in reasons and FEE_GATE_KEY not in dict(top):
+            top.append((FEE_GATE_KEY, reasons[FEE_GATE_KEY]))   # always shown: it is the rule that can block real breakouts
+        L.append("- Motivi principali per cui non si è entrati (controlli titolo×passaggio): " + "; ".join(f"{k} ({v})" for k, v in top))
+    fg = fee_gate_rejects(d)
+    if fg:
+        L.append(f"- Filtro commissioni: {sum(fg.values())} scarti su {len(fg)} titoli ("
+                 + ", ".join(f"{t} {n}" for t, n in sorted(fg.items(), key=lambda kv: -kv[1])[:8]) + ")")
     m = macro_signal()
     L.append(f"- Clima notizie macro (12h): {m['score']:+.2f} su {m['count']} titoli")
     charts = [c for c in list(tr.chart.dropna()) if c] if len(tr) else []

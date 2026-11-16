@@ -88,7 +88,8 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         log(f"{p['ticker']}: analista grafico {a['verdict']} (score {a['score']}), stop {stop:.4f} target {target:.4f}", S)
         save()
 
-def try_entry(con, it, b, eq, cash, n_open, daily):
+def plan_entry(con, it, b, eq, cash, n_open, daily):
+    """All entry checks; returns a reason string (no entry) or a plan dict for execute_entry."""
     t, region = it["ticker"], it["region"]
     o, c, last_entry = session_times(region)
     n = now()
@@ -147,17 +148,10 @@ def try_entry(con, it, b, eq, cash, n_open, daily):
     px_eur = to_eur(raw_px if b.attrs.get(q_attr) else close * (1 + sg * CFG["slippage"]), ccy)
     dist_eur = to_eur(dist, ccy)
     fees = 2 * CFG["fee_per_order"]
-    q_risk = (CFG["risk_per_trade"] * eq - fees) / dist_eur
-    q_cap = CFG["max_position_pct"] * eq / px_eur
-    q_cash = (cash - CFG["fee_per_order"]) / px_eur
-    qty = max(0.0, min(q_risk, q_cap, q_cash))
-    qty = math.floor(qty * 1e4) / 1e4 if CFG["fractional"] else math.floor(qty)
-    value = qty * px_eur
-    if value < CFG["min_position_eur"]:
-        return f"posizione troppo piccola ({value:.0f} EUR) per giustificare le commissioni"
-    reward = qty * CFG["reward_r"] * dist_eur
-    if reward < CFG["min_reward_vs_fees"] * fees:
-        return f"guadagno atteso {reward:.2f} EUR < {CFG['min_reward_vs_fees']:.0f}x commissioni"
+    sz = size_position(eq, cash, px_eur, dist_eur)
+    qty, value = sz["qty"], sz["value"]
+    if sz["why"]:
+        return sz["why"]
     ns, ms = news_signal(t, 6), macro_signal(6)
     if side == "long":
         if ns["score"] <= -0.4:
@@ -174,13 +168,26 @@ def try_entry(con, it, b, eq, cash, n_open, daily):
         CA.record(con, a, 0)
         return (f"segnale ORB ma analista grafico RIFIUTA (score {a['score']}): " if side == "long" else
                 f"segnale short ma analista grafico RIFIUTA (score {a['score']}, serve <= -{CA.APPROVE_BUY}): ") + "; ".join(a["reasons"][:4])
+    lev_txt = f", leva {sz['lev']:.2f}x (margine {sz['margin']:.0f} EUR, finanziato {sz['loan']:.0f} EUR)" if sz["loan"] > 0 else ""
+    why = (f"ORB {side}: {info}; stop {stop:.3f}, target {target:.3f} (2R); grafico score {a['score']}; news {ns['score']:+.2f}{lev_txt}")
+    return dict(ticker=t, side=side, qty=qty, value=value, close=close, stop=stop, target=target,
+                risk=qty * dist_eur + fees, why=why, bar=str(sess.index[-1]), analysis=a, ccy=ccy, bars=b,
+                info=info, margin=sz["margin"] if sz["loan"] > 0 else None, lev=sz["lev"], score=a["score"])
+
+def execute_entry(con, pl):
+    a = pl["analysis"]; side = pl["side"]; t = pl["ticker"]
     CA.record(con, a, 1)
-    why = (f"ORB {side}: {info}; stop {stop:.3f}, target {target:.3f} (2R); grafico score {a['score']}; news {ns['score']:+.2f}")
-    fill = open_position(con, t, qty, close, stop, target, qty * dist_eur + fees, why, str(sess.index[-1]),
+    fill = open_position(con, t, pl["qty"], pl["close"], pl["stop"], pl["target"], pl["risk"], pl["why"], pl["bar"],
                          setup="ORB+VWAP" if side == "long" else "ORB-SHORT", chart_score=a["score"], chart=a["chart"],
-                         currency=ccy, quote_bars=b, side=side)
-    log(f"{'BUY' if side == 'long' else 'SHORT'} {qty:.4f} {t} @ {fill:.4f} {ccy} (~{value:.2f} EUR) stop {stop:.4f} target {target:.4f} | {info}", S)
+                         currency=pl["ccy"], quote_bars=pl["bars"], side=side, margin_eur=pl["margin"])
+    lev = f" leva {pl['lev']:.2f}x" if pl["margin"] is not None else ""
+    log(f"{'BUY' if side == 'long' else 'SHORT'} {pl['qty']:.4f} {t} @ {fill:.4f} {pl['ccy']} (~{pl['value']:.2f} EUR{lev}) "
+        f"stop {pl['stop']:.4f} target {pl['target']:.4f} | {pl['info']}", S)
     return "ENTRATO"
+
+def try_entry(con, it, b, eq, cash, n_open, daily):
+    pl = plan_entry(con, it, b, eq, cash, n_open, daily)
+    return pl if isinstance(pl, str) else execute_entry(con, pl)
 
 def manage_only(catchup=False):
     """Light position-watch pass: stops/targets only, no entries or chart exits. Cheap when flat.
@@ -220,6 +227,63 @@ def manage_only(catchup=False):
         eq, cash, mv = equity(con, prices)
         log(f"{S} {len(pos)} pos, equity {eq:.2f} EUR", S)
 
+def breakout_candidates(yf_bars, uni_rows, n=None):
+    """Cheap screen of the WHOLE universe on the one-call Yahoo 5m batch: names whose last close is at/above the
+    cash-session opening-range high minus 0.5 x ATR5m (or at/below the low + 0.5 x ATR when shorts are on).
+    Returns tickers sorted by closeness/strength of the breakout (EU Yahoo is ~15 min late, so 'near' counts)."""
+    out = []
+    for u in uni_rows:
+        t = u["ticker"]; b = yf_bars.get(t)
+        if b is None or b.empty:
+            continue
+        try:
+            o, c, _ = session_times(u["region"])
+            sess = today_session(b, u["region"], cash_only=True)
+            orb = sess[sess.index < o + timedelta(minutes=CFG["or_minutes"])]
+            if len(orb) < 4 or len(sess) <= len(orb):
+                continue
+            a = float(atr(b).iloc[-1]); close = float(sess["Close"].iloc[-1])
+            orh, orl = float(orb["High"].max()), float(orb["Low"].min())
+            if not a or a != a:
+                continue
+            up = (close - orh) / a
+            dn = (orl - close) / a if CFG.get("allow_short") else -9
+            k = max(up, dn)
+            if k >= -0.5:
+                out.append((k, t))
+        except Exception:
+            continue
+    out.sort(key=lambda x: -x[0])
+    return [t for _, t in out][: n or len(out)]
+
+def wide_data(wl_items, held):
+    """Wide scan (CFG wide_universe): every universe name of CFG wide_regions on every pass, plus the 09:35
+    watchlist (all regions). One Yahoo 5m batch for all names; live LS quotes (max ls_priority_max) for held
+    positions, breakout candidates and the watchlist, in that order; daily bars only for names that can signal.
+    Items order = watchlist (scan score) then the rest in universe.csv order, as in the R&D backtest.
+    Returns (items, bars, daily)."""
+    uni = load_universe()
+    regions = set(CFG.get("wide_regions") or ("EU", "US"))
+    have = {i["ticker"] for i in wl_items}
+    items = list(wl_items) + [dict(ticker=u["ticker"], name=u["name"], region=u["region"], currency=u["currency"],
+                                   score=None, rationale="scansione larga") for u in uni
+                              if u["ticker"] not in have and u["region"] in regions]
+    all_t = sorted({i["ticker"] for i in items} | set(held))
+    yfb = yf_intraday_bars(all_t)
+    cands = breakout_candidates(yfb, [u for u in uni if u["ticker"] in set(all_t)])
+    prio = []
+    for t in list(held) + cands + [i["ticker"] for i in wl_items]:
+        if t not in prio:
+            prio.append(t)
+    live = prio[:CFG.get("ls_priority_max", 20)]
+    bars = dict(yfb)
+    bars.update(intraday_bars(live, yf_bars=yfb))
+    need_daily = sorted(set(held) | set(cands) | have)
+    daily = daily_bars(need_daily, "6mo") if need_daily else {}
+    log(f"scansione larga: {len(items)} titoli ({'+'.join(sorted(regions))} tutti + watchlist), {len(yfb)} con dati Yahoo, "
+        f"{len(cands)} vicini alla rottura ({', '.join(cands[:10])}{'…' if len(cands) > 10 else ''}), quotazioni live per {len(live)}", S)
+    return items, bars, daily
+
 def main():
     if "--manage" in sys.argv:
         manage_only(catchup="--catchup" in sys.argv); return
@@ -238,9 +302,12 @@ def main():
             if wl is None: return
         items = wl["items"]
         held = [p["ticker"] for p in positions(con)]
-        tickers = sorted(set([i["ticker"] for i in items] + held))
-        bars = intraday_bars(tickers)
-        daily = daily_bars(tickers, "6mo")
+        if CFG.get("wide_universe"):
+            items, bars, daily = wide_data(items, held)
+        else:
+            tickers = sorted(set([i["ticker"] for i in items] + held))
+            bars = intraday_bars(tickers)
+            daily = daily_bars(tickers, "6mo")
         prices = {t: (float(b["Close"].iloc[-1]), b.index[-1]) for t, b in bars.items()}
         day = ensure_day(con)
         manage_open(con, bars, daily)
@@ -261,6 +328,7 @@ def main():
         if day["halted"]:
             log("trading halted for today", S); return
         traded = {r[0] for r in con.execute("SELECT DISTINCT ticker FROM trades WHERE day=? AND side IN ('BUY','SHORT')", (day["day"],))}
+        plans = []
         for it in items:
             eq, cash, _ = equity(con, prices)
             n_open = len(positions(con))
@@ -274,7 +342,22 @@ def main():
             b = bars.get(t)
             if b is None or b.empty:
                 log(f"{t}: nessun dato", S); continue
-            log(f"{t}: {try_entry(con, it, b, eq, cash, n_open, daily)}", S)
+            if CFG.get("rank_signals"):
+                pl = plan_entry(con, it, b, eq, cash, n_open, daily)
+                if isinstance(pl, str):
+                    log(f"{t}: {pl}", S)
+                else:
+                    plans.append(pl)
+            else:
+                log(f"{t}: {try_entry(con, it, b, eq, cash, n_open, daily)}", S)
+        # rank_signals: best chart score first, as many as free slots / cash allow
+        for pl in sorted(plans, key=lambda x: -(x["score"] or 0)):
+            if len(positions(con)) >= CFG["max_positions"]:
+                log(f"{pl['ticker']}: segnale valido ma max {CFG['max_positions']} posizioni (classifica per score)", S); continue
+            need = (pl["margin"] if pl["margin"] is not None else pl["value"]) + CFG["fee_per_order"]
+            if get_cash(con) < need:
+                log(f"{pl['ticker']}: segnale valido ma cash insufficiente ({get_cash(con):.0f} < {need:.0f} EUR)", S); continue
+            log(f"{pl['ticker']}: {execute_entry(con, pl)}", S)
         eq, cash, mv = equity(con, prices)
         log(f"equity {eq:.2f} EUR (cash {cash:.2f}, posizioni {sum(mv.values()):.2f}), oggi {eq/day['start_equity']-1:+.2%}", S)
 

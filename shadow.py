@@ -33,7 +33,7 @@ import json, math, os, subprocess, sys
 from datetime import datetime, timedelta
 import pandas as pd
 from common import (CFG, ROME, DATA, REPORTS, log, now, today, is_weekend, session_times, flatten_time, load_watchlist,
-                    load_universe, intraday_bars, daily_bars, today_session, atr, vwap, ema_aligned, quote_ok, quote_currency,
+                    load_universe, intraday_bars, yf_intraday_bars, daily_bars, today_session, atr, vwap, ema_aligned, quote_ok, quote_currency,
                     to_eur, TAX_RATE)
 import chart_analysis as CA
 import rescan
@@ -276,10 +276,14 @@ def scan(dry=False):
     plan = [(i, "REBOUND") for i in static] + [(i, "REBOUND") for i in dyn if i["ticker"] not in st_t] + \
            [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static] + \
            [(i, "V0_FEE4") for i in static] + [(i, "V0_SHORT") for i in static] + [(i, "V0") for i in static]
+    wide_regs = set(CFG.get("wide_regions") or ()) if CFG.get("wide_universe") else set()
+    wide = [u for u in load_universe() if u["ticker"] not in st_t and u["region"] not in wide_regs]
+    plan += [(u, "V0_WIDE") for u in wide]      # v0 sui titoli che la produzione NON scansiona (oggi: USA fuori lista)
     done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) + _lines(DSIG) if r.get("day") == today().isoformat()}
     plan = [(i, s) for i, s in plan if (s, i["ticker"]) not in done]
-    tick = sorted({i["ticker"] for i, _ in plan})[:20]       # LS: max 20 titoli per ciclo
-    if not tick:
+    tick = sorted({i["ticker"] for i, s_ in plan if s_ != "V0_WIDE"})[:20]       # LS: max 20 titoli per ciclo
+    wide_t = sorted({i["ticker"] for i, s_ in plan if s_ == "V0_WIDE"} - set(tick))  # V0_WIDE: un solo batch Yahoo
+    if not tick and not wide_t:
         log("shadow: nessun titolo da valutare", S)
         try:
             news_scan(n, {}, done, dry)
@@ -288,7 +292,13 @@ def scan(dry=False):
         except Exception as e:
             log(f"shadow NEWS_LLM: errore {e}", S)
         return
-    bars = intraday_bars(tick)
+    bars = intraday_bars(tick) if tick else {}
+    if wide_t:
+        try:
+            ywide = yf_intraday_bars(wide_t)
+            bars = dict(bars); bars.update({t: b for t, b in ywide.items() if t not in bars})
+        except Exception as e:
+            log(f"shadow V0_WIDE: dati Yahoo non disponibili ({e})", S)
     try:
         daily = rescan.daily_cached([u["ticker"] for u in load_universe()])
     except Exception:
@@ -296,7 +306,7 @@ def scan(dry=False):
     found = 0
     for it, strat in plan:
         t, region = it["ticker"], it["region"]
-        if t not in tick:
+        if t not in tick and not (strat == "V0_WIDE" and t in wide_t):
             continue
         o, c, last_entry = session_times(region)
         if not (o + timedelta(minutes=CFG["or_minutes"]) <= n <= last_entry):
@@ -310,7 +320,7 @@ def scan(dry=False):
             sig = rebound(b, sess, region, daily.get(t))
         elif strat == "V0_SHORT":
             sig = orb_short(b, sess, region)
-        elif strat in ("V0_LOOSE", "V0", "V0_FEE4"):   # V0 / V0_FEE4 = stesse regole di trade.py (estensione 1,5 ATR)
+        elif strat in ("V0_LOOSE", "V0", "V0_FEE4", "V0_WIDE"):   # V0 / V0_FEE4 = stesse regole di trade.py (estensione 1,5 ATR)
             sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"] if strat == "V0_LOOSE" else None)
         else:
             sig = orb(b, sess, region)
@@ -331,7 +341,7 @@ def scan(dry=False):
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
                    dyn=t not in st_t, side=side, ctx=ctx_for(b, sess, region, close), note="SHADOW: nessun ordine")
         found += 1
-        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE", "V0_FEE4", "V0_SHORT"):
+        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE", "V0_FEE4", "V0_SHORT", "V0_WIDE"):
             # registra comunque il segnale grezzo (serve al conteggio), ma con approved=False; non lo ripete oggi
             pass
         if dry:
@@ -357,7 +367,13 @@ def eod(dry=False):
     sigs = [r for r in _lines(SIG) if r.get("day") == d]
     done = {(r["strategy"], r["ticker"]) for r in _lines(RES) if r.get("day") == d}
     todo = [r for r in sigs if (r["strategy"], r["ticker"]) not in done]
-    bars = intraday_bars(sorted({r["ticker"] for r in todo})[:20]) if todo else {}
+    tk = sorted({r["ticker"] for r in todo})
+    bars = intraday_bars(tk[:20]) if todo else {}
+    if len(tk) > 20:                     # V0_WIDE può superare i 20 titoli live: il resto da un batch Yahoo
+        try:
+            bars = dict(bars); bars.update({t: b for t, b in yf_intraday_bars(tk[20:]).items() if t not in bars})
+        except Exception as e:
+            log(f"shadow eod: Yahoo non disponibile per {len(tk) - 20} titoli ({e})", S)
     out = []
     for r in todo:
         b = bars.get(r["ticker"])
@@ -443,6 +459,7 @@ def eod(dry=False):
            f"Totale netto ante tasse dei segnali diagnostici (solo filtro commissioni li blocca): {totd:+.2f} €"]
     md += fee4_lines(allres, d)
     md += short_lines(allres, d)
+    md += wide_lines(allres, d)
     try:
         import debate
         md += debate.eod_lines(dry)
@@ -484,6 +501,16 @@ def short_lines(allres, d):
               f"netto ante tasse {sum(x['net_ante_tasse'] for x in op):+.2f} €"
               + (f"; diagnostici bloccati solo dalle commissioni {len(dg)}, {sum(x['net_ante_tasse'] for x in dg):+.2f} €" if dg else ""))
     return md
+
+
+def wide_lines(allres, d):
+    """V0_WIDE: regole v0 sui titoli dell'universo che la produzione non scansiona (oggi gli USA fuori dalla lista 09:35)."""
+    w = [x for x in allres if x.get("strategy") == "V0_WIDE"]
+    op = [x for x in w if not x.get("diag") and x.get("net_ante_tasse") is not None]
+    regs = "+".join(sorted(CFG.get("wide_regions") or ())) if CFG.get("wide_universe") else "nessuna"
+    return ["", f"## V0_WIDE (v0 sui titoli fuori dalla scansione di produzione; produzione larga su: {regs}; nessun ordine)", "",
+            f"- V0_WIDE: {len(w)} segnali, {len(op)} operativi (grafico e filtro 6 €), "
+            f"netto ante tasse {sum(x['net_ante_tasse'] for x in op):+.2f} €"]
 
 
 def main():

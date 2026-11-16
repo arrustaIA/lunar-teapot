@@ -40,6 +40,14 @@ CFG = dict(
     allow_short=False,          # mirror ORB breakdown short side (1x, notional reserved as collateral). Code ready and tested,
                                 # OFF in production: backtest 61 sessions long+short -69.31 EUR vs long-only -7.09 (16/11/2026).
                                 # Runs in shadow as V0_SHORT. Set True to trade shorts.
+    wide_universe=True,         # 17/11/2026: every pass also scans ALL universe.csv names of wide_regions (09:35 watchlist first)
+    wide_regions=("EU",),       # backtest 62 sessions: wide EU + 09:35 US picks -5.74 EUR (v0 -7.09); wide US too -106 -> US in shadow
+    ls_priority_max=20,         # live LS quotes for at most this many names per pass (held + breakout candidates first);
+                                # the others are screened on the one-call Yahoo 5m batch (EU ~15 min late)
+    lev_to_gate=False,          # leverage ONLY as much as needed for the fee gate. Code ready, OFF: backtest 62 sessions
+                                # -414.74 EUR on the 09:35 list (169 trades, mostly 0.4% noise stops), -753.78 wide (17/11/2026)
+    max_leverage=5.0,           # cap: notional <= 5x the 30% slot; margin = min(notional, slot), rest financed (paper)
+    rank_signals=False,         # rank same-pass signals by chart score before entering (see CHANGELOG)
     ema_fast=9,                 # v0 alignment filter (15/11/2026): longs only if EMA9 > EMA21 on 5m closes
     ema_slow=21,
     fractional=True,            # TR allows fractional/euro-amount orders on many stocks; set False for whole shares           # skip ticker if latest bar older than this (holiday/halt)
@@ -171,7 +179,7 @@ def _merge_ls_bars(yf_df, ls_df, row):
     merged.attrs = dict(ls_df.attrs)
     return merged
 
-def intraday_bars(tickers, period="5d", interval="5m", prepost=False, use_ls=True):
+def intraday_bars(tickers, period="5d", interval="5m", prepost=False, use_ls=True, yf_bars=None):
     """Primary: LS Exchange live mid/bid/ask (EUR, typically ~20-40s) plus 1m mid chart.
 
     Previous days' 5m bars still come from yfinance (LS public chart is the current session
@@ -179,7 +187,10 @@ def intraday_bars(tickers, period="5d", interval="5m", prepost=False, use_ls=Tru
     the series matches LS / Trade Republic. Pass use_ls=False to force Yahoo (see scan.py).
     """
     tickers = list(tickers)
-    yf_bars = yf_intraday_bars(tickers, period=period, interval=interval, prepost=prepost)
+    if yf_bars is None:     # callers that already hold the one-call Yahoo batch (wide scan) pass it in
+        yf_bars = yf_intraday_bars(tickers, period=period, interval=interval, prepost=prepost)
+    else:
+        yf_bars = {t: yf_bars[t] for t in tickers if t in yf_bars}
     if not use_ls or not tickers:
         return yf_bars
     uni = {r["ticker"]: r for r in load_universe()}
@@ -305,7 +316,7 @@ CREATE TABLE IF NOT EXISTS state(key TEXT PRIMARY KEY, value TEXT);
 CREATE TABLE IF NOT EXISTS positions(
   ticker TEXT PRIMARY KEY, name TEXT, region TEXT, currency TEXT, qty REAL,
   entry_ts TEXT, entry_local REAL, entry_fx REAL, entry_eur REAL, entry_fee REAL,
-  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT, mae_local REAL, mfe_local REAL, side TEXT DEFAULT 'long');
+  stop_local REAL, initial_stop_local REAL, target_local REAL, risk_eur REAL, rationale TEXT, entry_bar TEXT, setup TEXT, chart_score REAL, entry_chart TEXT, mae_local REAL, mfe_local REAL, side TEXT DEFAULT 'long', loan_eur REAL DEFAULT 0);
 CREATE TABLE IF NOT EXISTS trades(
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, day TEXT, ticker TEXT, name TEXT, side TEXT,
   qty REAL, price_local REAL, currency TEXT, fx REAL, price_eur REAL, value_eur REAL,
@@ -326,6 +337,8 @@ def _migrate_positions(con):
             con.execute(f"ALTER TABLE positions ADD COLUMN {col} REAL")
     if "side" not in cols:
         con.execute("ALTER TABLE positions ADD COLUMN side TEXT DEFAULT 'long'")
+    if "loan_eur" not in cols:
+        con.execute("ALTER TABLE positions ADD COLUMN loan_eur REAL DEFAULT 0")
     con.commit()
 
 def db():
@@ -359,13 +372,57 @@ def is_short(p):
 ENTRY_SIDES = ("BUY", "SHORT")
 EXIT_SIDES = ("SELL", "COVER")
 
+def loan(p):
+    """Financed part of a leveraged paper position (0 for 1x positions and old ledgers)."""
+    return float(p.get("loan_eur") or 0.0)
+
+def leverage(p):
+    """Notional / own margin of a position (1.0 = no leverage)."""
+    notional = p["qty"] * p["entry_eur"]
+    own = notional - loan(p)
+    return notional / own if own > 0 else 1.0
+
 def position_value_eur(p, px_local):
-    """Equity contribution of an open position at px_local. Long: market value. Short (1x, notional
-    reserved at entry): reserved notional + unrealized P&L = qty*entry_eur + qty*(entry_eur - px_eur)."""
+    """Equity contribution of an open position at px_local, net of the financed part (loan_eur).
+    Long: market value - loan. Short (notional reserved at entry): reserved notional + unrealized P&L - loan."""
     px_eur = to_eur(px_local, p["currency"])
     if is_short(p):
-        return p["qty"] * p["entry_eur"] + p["qty"] * (p["entry_eur"] - px_eur)
-    return p["qty"] * px_eur
+        return p["qty"] * p["entry_eur"] + p["qty"] * (p["entry_eur"] - px_eur) - loan(p)
+    return p["qty"] * px_eur - loan(p)
+
+def size_position(eq, cash, px_eur, dist_eur):
+    """Paper sizing (EUR). 2% risk per trade (stop distance x qty + both fees), 30% equity slot; the
+    expected 2R reward must be >= min_reward_vs_fees x round-trip fees (6 EUR). With lev_to_gate the
+    notional may exceed the slot ONLY as much as needed to reach that gate, up to max_leverage x slot,
+    never above the 2% risk. Margin = min(notional, slot); the rest is a paper loan repaid at close.
+    Returns dict(qty, value, reward, margin, loan, lev, gate, why) - why is '' when tradeable."""
+    fees = 2 * CFG["fee_per_order"]
+    gate = CFG["min_reward_vs_fees"] * fees
+    out = dict(qty=0.0, value=0.0, reward=0.0, margin=0.0, loan=0.0, lev=1.0, gate=gate, why="")
+    if px_eur <= 0 or dist_eur <= 0:
+        out["why"] = "prezzo o stop non validi"; return out
+    slot = CFG["max_position_pct"] * eq
+    q_risk = (CFG["risk_per_trade"] * eq - fees) / dist_eur
+    q_cap = slot / px_eur
+    q = min(q_risk, q_cap)
+    if CFG.get("lev_to_gate") and q_cap * CFG["reward_r"] * dist_eur < gate:
+        q_gate = gate / (CFG["reward_r"] * dist_eur) * 1.0005
+        q = min(q_risk, max(q_cap, min(q_gate, CFG.get("max_leverage", 1.0) * slot / px_eur)))
+    margin = min(q * px_eur, slot)
+    avail = cash - CFG["fee_per_order"]
+    if margin > avail:                       # scale down to the cash available for the margin
+        q = q * max(avail, 0.0) / margin if margin > 0 else 0.0
+    q = math.floor(max(q, 0.0) * 1e4) / 1e4 if CFG["fractional"] else math.floor(max(q, 0.0))
+    value = q * px_eur
+    margin = min(value, slot)
+    out.update(qty=q, value=value, reward=q * CFG["reward_r"] * dist_eur, margin=margin,
+               loan=max(0.0, value - margin), lev=(value / margin) if margin > 0 else 1.0)
+    if value < CFG["min_position_eur"]:
+        out["why"] = f"posizione troppo piccola ({value:.0f} EUR) per giustificare le commissioni"
+    elif out["reward"] < gate:
+        out["why"] = (f"filtro commissioni: guadagno atteso {out['reward']:.2f} EUR < {gate:.0f} EUR "
+                      f"({CFG['min_reward_vs_fees']:.0f}x commissioni)")
+    return out
 
 
 def quote_bid_ask(bars):
@@ -436,9 +493,12 @@ def record_trade(con, ticker, side, qty, price_local, reason, **extra):
     return fx, px_eur, value, fee
 
 def open_position(con, ticker, qty, price_local, stop, target, risk_eur, rationale, entry_bar,
-                  setup="ORB", chart_score=None, chart=None, currency=None, quote_bars=None, side="long"):
+                  setup="ORB", chart_score=None, chart=None, currency=None, quote_bars=None, side="long",
+                  margin_eur=None):
     """Open a PAPER position. side="short": sell short at the bid (or mid - slippage); the notional is
-    reserved from cash as collateral (1x, no extra leverage) and released with the P&L at cover."""
+    reserved from cash as collateral and released with the P&L at cover.
+    margin_eur (leverage, see size_position): own cash committed; notional - margin is a paper loan
+    (loan_eur) repaid at close. None = 1x (whole notional from cash)."""
     m = dict(meta(ticker))
     if currency:
         m["currency"] = currency
@@ -447,12 +507,13 @@ def open_position(con, ticker, qty, price_local, stop, target, risk_eur, rationa
     fill = fill_price(order, price_local, quote_bars, apply_spread=True, apply_slippage=True)
     fx, px_eur, value, fee = record_trade(con, ticker, "SHORT" if side == "short" else "BUY", qty, fill, rationale,
                                           setup=setup, chart=chart, currency=m["currency"])
-    set_cash(con, get_cash(con) - value - fee)
+    ln = max(0.0, value - margin_eur) if margin_eur is not None else 0.0
+    set_cash(con, get_cash(con) - value - fee + ln)
     cols = dict(ticker=ticker, name=m["name"], region=m["region"], currency=m["currency"], qty=qty,
                 entry_ts=now().isoformat(timespec="seconds"), entry_local=fill, entry_fx=fx, entry_eur=px_eur,
                 entry_fee=fee, stop_local=stop, initial_stop_local=stop, target_local=target, risk_eur=risk_eur,
                 rationale=rationale, entry_bar=entry_bar, setup=setup, chart_score=chart_score, entry_chart=chart,
-                mae_local=fill, mfe_local=fill, side=side)
+                mae_local=fill, mfe_local=fill, side=side, loan_eur=round(ln, 6))
     con.execute(f"INSERT INTO positions({','.join(cols)}) VALUES({','.join('?'*len(cols))})", tuple(cols.values()))
     con.commit()
     return fill
@@ -509,7 +570,7 @@ def close_position(con, p, price_local, reason, apply_slippage=True, chart=None,
     record_trade(con, p["ticker"], "COVER" if short else "SELL", p["qty"], fill, reason, pnl_eur=round(pnl, 4),
                  setup=p.get("setup"), gross_pnl_eur=round(gross, 4), tax_eur=tax, loss_credit_used=round(used, 4),
                  net_pnl_eur=round(net, 4), chart=chart)
-    set_cash(con, get_cash(con) + cash_back - CFG["fee_per_order"] - tax)
+    set_cash(con, get_cash(con) + cash_back - CFG["fee_per_order"] - tax - loan(p))
     con.execute("DELETE FROM positions WHERE ticker=?", (p["ticker"],))
     con.commit()
     try:

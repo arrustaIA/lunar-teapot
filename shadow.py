@@ -16,6 +16,10 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   V0 (copia diagnostica delle regole di trade.py, compresi quelli bloccati dal filtro commissioni), V0_LOOSE e NEWS_LLM (giudizi forti
   di Natasia, |impact| >= 0,5 e confidence >= 0,6) debate.py fa argomentare PRO e CONTRO a un LLM gratuito e un giudice decide
   ENTRA/SCARTA. V0 e NEWS_LLM vanno in data/debate_signals.jsonl (non nei totali shadow). Worker in background, mai bloccante.
+- V0_FEE4 (prova di un giorno dal 16/11/2026, R&D reports/sizing_scan_2026-11-16.md): regole identiche alla v0 in produzione
+  (ORB + VWAP + momentum + EMA9>EMA21, estensione max 1,5 ATR, analista grafico) ma filtro commissioni piu' severo: guadagno al
+  target 2R >= 4x commissioni (8 EUR invece di 6). Backtest 61 sedute: 7 trade, +7,26 EUR (OOS +4,12, WF 2/5 come la v0) ->
+  NON in produzione (pochi trade). Non passa dal dibattito LLM. Confronto con la v0 nel report delle 21:56.
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
@@ -38,6 +42,8 @@ DSIG = os.path.join(OUT, "debate_signals.jsonl")   # segnali V0 / NEWS_LLM per i
 NEWS_MAX_TICKERS = 6                               # NEWS_LLM: max titoli extra scaricati per ciclo
 RB = dict(min_drop=0.025, drop_atr=1.0, min_bars_after_low=3, reclaim_lookback=3, stop_atr=2.0)
 LOOSE = dict(max_extension_atr=3.0, min_reward_vs_fees=1.5)   # variante V0_LOOSE (solo shadow)
+FEE4 = dict(min_reward_vs_fees=4.0)                            # variante V0_FEE4: v0 con filtro commissioni 4x (solo shadow)
+MIN_RR = {"V0_LOOSE": LOOSE["min_reward_vs_fees"], "V0_FEE4": FEE4["min_reward_vs_fees"]}
 NOTIONAL = CFG["start_cash"]   # sizing ipotetico su 1.000 € (non legge l'equity del ledger)
 
 
@@ -246,7 +252,7 @@ def scan(dry=False):
     st_t = {i["ticker"] for i in static}
     plan = [(i, "REBOUND") for i in static] + [(i, "REBOUND") for i in dyn if i["ticker"] not in st_t] + \
            [(i, "ORB_DYN") for i in dyn if i["ticker"] not in st_t] + [(i, "V0_LOOSE") for i in static] + \
-           [(i, "V0") for i in static]
+           [(i, "V0_FEE4") for i in static] + [(i, "V0") for i in static]
     done = {(r["strategy"], r["ticker"]) for r in _lines(SIG) + _lines(DSIG) if r.get("day") == today().isoformat()}
     plan = [(i, s) for i, s in plan if (s, i["ticker"]) not in done]
     tick = sorted({i["ticker"] for i, _ in plan})[:20]       # LS: max 20 titoli per ciclo
@@ -279,8 +285,8 @@ def scan(dry=False):
         sess = sess[sess.index >= o]
         if strat == "REBOUND":
             sig = rebound(b, sess, region, daily.get(t))
-        elif strat in ("V0_LOOSE", "V0"):   # V0 = stesse regole di trade.py (estensione 1,5 ATR), copia per il dibattito
-            sig = orb(b, sess, region, max_ext=None if strat == "V0" else LOOSE["max_extension_atr"])
+        elif strat in ("V0_LOOSE", "V0", "V0_FEE4"):   # V0 / V0_FEE4 = stesse regole di trade.py (estensione 1,5 ATR)
+            sig = orb(b, sess, region, max_ext=LOOSE["max_extension_atr"] if strat == "V0_LOOSE" else None)
         else:
             sig = orb(b, sess, region)
         if not sig:
@@ -288,7 +294,7 @@ def scan(dry=False):
         close, stop, target, info = sig
         ccy = quote_currency(b, t)
         entry = float(b.attrs.get("ask") or close * (1 + CFG["slippage"]))
-        qty = size(entry, close - stop, ccy, min_rr=LOOSE["min_reward_vs_fees"] if strat == "V0_LOOSE" else None)
+        qty = size(entry, close - stop, ccy, min_rr=MIN_RR.get(strat))
         a = CA.analyze(t, "buy", b, daily.get(t), stop, target, save_chart=False)
         row = dict(day=today().isoformat(), ts=n.isoformat(timespec="seconds"), strategy=strat, ticker=t, region=region,
                    currency=ccy, price=round(close, 4), entry=round(entry, 4), stop=round(stop, 4), target=round(target, 4),
@@ -296,7 +302,7 @@ def scan(dry=False):
                    bar=str(sess.index[-1]), source=b.attrs.get("source"), info=info,
                    dyn=t not in st_t, side="long", ctx=ctx_for(b, sess, region, close), note="SHADOW: nessun ordine")
         found += 1
-        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE"):
+        if a["verdict"] != "APPROVE" and strat in ("REBOUND", "ORB_DYN", "V0_LOOSE", "V0_FEE4"):
             # registra comunque il segnale grezzo (serve al conteggio), ma con approved=False; non lo ripete oggi
             pass
         if dry:
@@ -377,7 +383,8 @@ def eod(dry=False):
     allres = [x for x in _lines(RES) if x.get("day") == d] if not dry else out
     md = [f"# Shadow {today():%d/%m/%Y} – segnali ipotetici, NESSUN ordine (ora di Roma)", "",
           "Strategie non validate dal backtest: REBOUND (rimbalzo VWAP dopo forte calo), ORB_DYN (ORB v0 su candidati dinamici) e "
-          "V0_LOOSE (ORB v0 sulla watchlist statica con estensione max 3 ATR e filtro commissioni 1,5x).",
+          "V0_LOOSE (ORB v0 sulla watchlist statica con estensione max 3 ATR e filtro commissioni 1,5x) e "
+          "V0_FEE4 (v0 identica alla produzione ma con guadagno al target >= 4x commissioni, cioe' 8 € invece di 6; prova di un giorno).",
           "Sizing ipotetico su 1.000 €, commissioni 2 €; netto ante tasse (tassa 26% solo se in utile, zainetto non applicato).", ""]
     if not allres:
         md.append("Nessun segnale oggi.")
@@ -399,6 +406,7 @@ def eod(dry=False):
                   f"grafico {x['chart_score']} ({x['chart_verdict']}) -> {x['outcome']}" + tag)
     md += ["", f"Totale netto ante tasse dei segnali operativi (passano anche il filtro commissioni): {tot:+.2f} €",
            f"Totale netto ante tasse dei segnali diagnostici (solo filtro commissioni li blocca): {totd:+.2f} €"]
+    md += fee4_lines(allres, d)
     try:
         import debate
         md += debate.eod_lines(dry)
@@ -408,6 +416,26 @@ def eod(dry=False):
         print("\n".join(md)); return
     open(os.path.join(REPORTS, f"shadow_{today():%Y-%m-%d}.md"), "w").write("\n".join(md) + "\n")
     log(f"shadow eod: {len(out)} esiti nuovi, totale {tot:+.2f} EUR", S)
+
+
+def fee4_lines(allres, d):
+    """Confronto della prova V0_FEE4 con la v0 in produzione (ledger) e con la copia V0 vista dallo shadow."""
+    f4 = [x for x in allres if x.get("strategy") == "V0_FEE4"]
+    op = [x for x in f4 if not x.get("diag") and x.get("net_ante_tasse") is not None]
+    md = ["", "## Prova V0_FEE4 (v0 con filtro commissioni 4x, nessun ordine)", ""]
+    md.append(f"- V0_FEE4: {len(f4)} segnali, {len(op)} operativi (passano grafico e filtro 8 €), "
+              f"netto ante tasse {sum(x['net_ante_tasse'] for x in op):+.2f} €")
+    v0 = [r for r in _lines(DSIG) if r.get("day") == d and r.get("strategy") == "V0"]
+    v0_ok = [r for r in v0 if r.get("chart_verdict") == "APPROVE" and not r.get("blocked_by_fees")]
+    md.append(f"- Copia V0 (regole di produzione, filtro 6 €): {len(v0)} segnali, {len(v0_ok)} passano grafico e filtro commissioni")
+    prod = []
+    try:
+        import trade_log as TL
+        prod = [r for r in _lines(TL.log_path()) if str(r.get("exit_ts", ""))[:10] == d and r.get("source") == "production"]
+    except Exception:
+        pass
+    md.append(f"- v0 in produzione: {len(prod)} trade chiusi oggi, netto {sum(float(r.get('net_pnl_eur') or 0) for r in prod):+.2f} €")
+    return md
 
 
 def main():

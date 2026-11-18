@@ -1,5 +1,39 @@
 # Changelog
 
+## 2026-11-18 (~03:00 ora di Roma) - R&D serale 17/11: filtri qualità USA, RVOL, orario/retest USA; NESSUN deploy (parziale, aggiornato a fine lotto)
+
+- **Produzione invariata** (commit 8a4a779: 1.233 titoli, EMA9>EMA21, filtro commissioni 6 €, solo long). Nessun codice cambiato; il fee gate di Sguattera non risulta ancora su main. Scheduler GitHub regolare (ultimo run 17/11 23:29 ok, heartbeat 22:24 = chiusura sessione).
+- **Verifica 17/11 dal ledger (sola lettura) e da trade_log**: BRKR -6,98, TSN -0,48, MOH -8,20, LCID -0,12 = **-15,77 €** (lordo -7,77, commissioni 8 € = 103%). Tre ingressi su quattro tra le 16:10 e le 16:41, LCID alle 20:00; tutti usciti per stop (LCID in trailing, lordo +1,88). Dal backtest B0: i titoli USA perdono quasi tutto nella prima ora (16:00-16:29: 107 trade, -190 €; 16:30-16:59: 40 trade, -94 €; da 17:00: 22 trade, circa -6 €).
+- **Test** (script R&D fuori repo `filt_test.py`, copia isolata `rd-paper-trading`, cache Yahoo 5m `cache_w`, 59 sedute 26/08-16/11, 1.233 titoli, stesse regole e costi della produzione, 1+1 €, slippage del backtest, tassa 26% con zainetto). Pre-registrazione `reports/prereg_filters_2026-11-17.md` (+ addendum 00:35 per RT) scritta prima dei risultati. Riferimento B0 = produzione: **-342,55 €, 204 trade, OOS -210,60, holdout -65,81, WF 0/4, lordo/trade +0,33**.
+  Criteri di promozione (tutti): netto, OOS e holdout migliori di B0; meglio di B0 in almeno 3 blocchi su 4; >= 30 trade; lordo/trade migliore; vicini della griglia che battono B0. **Varianti provate: 40 (36 + 4 RT; 8 vicini Q3/Q6 della prima griglia non eseguiti perché Q3 ha lordo negativo), rischio data-snooping alto. Nessuna passa.**
+
+  | Variante | Trade | Netto € | OOS € | Holdout € | WF blocchi > B0 | Esito |
+  |---|---|---|---|---|---|---|
+  | B0 produzione | 204 | -342,55 | -210,60 | -65,81 | - | riferimento |
+  | Q1 prezzo >= 10 $ (USA) | 206 | -336,07 | -209,84 | -72,30 | 1/4 | no (holdout; vicini 5/20 $: 205/-337,89, 207/-333,76, holdout -68,62/-77,43) |
+  | Q2 liquidità >= 100 M$ | 198 | -334,81 | -205,01 | -66,64 | 2/4 | no (holdout, WF; vicini 50/200 M$ -337,89 / -342,67) |
+  | Q3 ATR% 1,5-5% | 146 | -341,97 | -176,26 | -81,47 | 2/4 | no (holdout, lordo/trade -0,33) |
+  | QC Q1+Q2+Q3 | 155 | -337,89 | -211,71 | -105,52 | 3/4 | no (holdout, lordo -0,17) |
+  | Q4 USA da 16:30 | 172 | -336,75 | -189,47 | -65,93 | 3/4 | no (holdout -0,12 €, lordo/trade 0,04) |
+  | Q4_45 USA da 16:15 | 210 | -334,99 | -223,31 | -94,77 | - | no |
+  | Q5 soglia commissioni 8 € | 183 | -152,00 | -161,89 | -100,67 | 3/4 | **no**: dimezza il netto ma holdout -100,67 contro -65,81 (lordo/trade 1,24); tenuto in shadow come V0_FEE4 |
+  | Q6 niente USA dopo le 20:00 | 200 | -340,39 | -202,82 | -65,81 | 2/4 | no (effetto trascurabile) |
+  | RVOL cumulato x1,25 / 1,5 / 1,75 / 2 / 2,5 / 3 / 4, tutti | 191 / 164 / 146 / 121 / 86 / 64 / 43 | -325,54 / -318,59 / -300,09 / -255,68 / -204,90 / -168,85 / -112,57 | -260,66 ... -92,51 | -161,85 ... -69,87 | 2-3/4 | no: meno trade e meno perdita ma holdout sempre peggiore, lordo/trade negativo da x1,75 |
+  | RVOL cumulato solo USA x1,25 / 1,5 / 1,75 / 2 / 2,5 / 3 / 4 | 180 / 172 / 155 / 131 / 105 / 93 / 75 | -339,94 / -330,11 / -301,97 / -259,64 / -235,74 / -207,34 / -159,43 | -258,33 ... -115,72 | -158,01 ... -85,14 | 2-3/4 | no |
+  | RVOL barra x2, tutti | 175 | -307,73 | -243,29 | -144,14 | 2/4 | no |
+  | QC + RVOL 2 solo USA | 100 | -253,48 | -178,58 | -86,72 | 3/4 | no (lordo -0,54) |
+  | RT_US retest ORH (0,10 ATR) | 168 | -337,93 | -200,98 | -131,51 | - | no |
+  | RT_US_05 / RT_US_20 | 176 / 171 | -310,94 / -335,74 | -195,91 / -191,35 | -122,97 / -110,81 | - | no |
+
+  Lettura: i filtri riducono il numero di trade (e quindi le commissioni) ma non migliorano la qualità, e l'holdout (ultimo terzo) peggiora quasi sempre. Il lordo medio per trade resta vicino a zero: le commissioni (408 € in 59 sedute) valgono più del lordo (+66 €). L'unico segno robusto è che la perdita nasce dai breakout USA dei primi 60 minuti dopo l'OR, ma ritardare o filtrare gli ingressi non l'ha corretta. Nessuna variante ha passato i criteri, quindi nessuna modifica in produzione. Tornare ai 55 titoli (-5,74 €) resta possibile solo per decisione di Andrea (`wide_file=False`).
+- **Verdetti di 1 giorno (shadow 17/11, non bastano per promuovere)**:
+  - V0_SHORT: 8 segnali, 0 operativi, diagnostici bloccati dalle commissioni -12,51 € (NVDA unico target, +0,88 €); non informativo.
+  - V0_FEE4: 5 segnali, 0 operativi (grafico o filtro 8 €), +0,00 €; in prova, non informativo.
+  - Dibattito LLM: l'API Pollinations risponde dai runner (3 chiamate per segnale, ritardo 2-3 min), nessun NON_DECISO, ma il giudice ha scartato 9 segnali su 9 in due giorni (5 oggi: -10,32 €, tutti perdenti). Non informativo: nessun segnale ENTRA da confrontare, e le motivazioni ripetono i filtri già esistenti (tetto commissioni, analista grafico). Raccomando di spegnerlo se anche domani scarta tutto; non l'ho spento oggi (nessun effetto sugli ordini).
+  - V0_WIDE: 0 segnali; non informativo.
+- **Natasia**: `news_eval.py` 105 coppie (titolo, seduta successiva), soglia 100 superata. Hit rate del segno 54,3% (LLM) contro 46,7% (parole chiave); Spearman LLM +0,123 contro parole chiave +0,092; con confidence >= 0,6 solo 15 coppie. Vantaggio piccolo, non significativo (p circa 0,2) e non valutato fuori campione al netto dei costi: **nessuna integrazione**, la misura in ombra continua.
+- **Backup/ledger**: nessun deploy, quindi nessun backup; `data/ledger.sqlite` letto solo in modalità sola lettura.
+
 ## 2026-11-17 (~00:30 ora di Roma) - Scansione di tutto l'universo TR liquido: 1.233 titoli a ogni passaggio (ordine di Andrea)
 
 - **Cosa**: per ordine esplicito di Andrea ("controlla tutti quelli in Trade Republic"), la produzione controlla a ogni passaggio (ogni 10 minuti) **1.233 titoli**: i 71 di `universe.csv` più il nuovo `universe_wide.csv` (1.162 titoli: 246 europei in EUR, 916 USA in USD). `CFG["wide_regions"]=("EU","US")`, `wide_file=True`. Le altre regole di rischio restano: rischio 2%, max 3 posizioni, tetto 30%, filtro commissioni 6 €, filtro EMA9>EMA21, solo long, limite giornaliero −3%.

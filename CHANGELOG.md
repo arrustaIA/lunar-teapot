@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-18 (~22:50 ora di Roma) - R&D serale 18/11: filtro dibattito LLM spento (solo shadow); nessuna regola di trading cambiata
+
+- **Cosa**: nuovo interruttore `CFG["debate_shadow"]=False` in `common.py`. Con l'interruttore spento `shadow.spawn_debate()` non lancia più il worker `debate.py` (nessuna chiamata a Pollinations) e `debate.eod_lines()` scrive nel report delle 21:56 solo una riga "spento" invece di simulare i segnali. `test_debate.py` riaccende l'interruttore solo dentro il test (16/16 controlli ok); ok anche test_fee4_shadow, test_short e test_wide_scan. Backup della versione precedente in `backups/2026-11-18_debate_off/` (fuori dal repo). Produzione v0 invariata.
+- **Perché**: regola pre-registrata il 16-17/11. Se il giudice scarta di nuovo tutto, la prova non è informativa e si spegne. Il giudice ha scartato **14 segnali su 14** in tre sedute (16, 17 e 18/11). Il cumulativo senza filtro è di 14 segnali, netto ante tasse **-32,27 €**, 0 vincenti il 18/11. Un filtro che scarta sempre non si distingue da questo giudice, quindi il confronto ENTRA contro nessun filtro non si può fare (0 ENTRA). Spegnerlo libera anche fino a ~25 minuti per ogni passaggio del worker sui runner GitHub. Lo storico resta in `data/debate_*.jsonl` (solo in aggiunta, non toccato).
+- **Nota**: durante la verifica ho lanciato per errore `shadow.py` sul box alle 22:45 (34 valutazioni, 0 segnali, fuori orario). Non ha toccato il ledger né lo stato GitHub, perché lo stato vivo sta sul branch `state`.
+
 ## 2026-11-18 (~03:00 ora di Roma) - R&D serale 17/11: filtri qualità USA, RVOL, orario/retest USA; NESSUN deploy (completo)
 
 - **Produzione invariata** (commit 8a4a779: 1.233 titoli, EMA9>EMA21, filtro commissioni 6 €, solo long). Nessun codice cambiato; il fee gate di Sguattera non risulta ancora su main. Scheduler GitHub regolare (ultimo run 17/11 23:29 ok, heartbeat 22:24 = chiusura sessione).

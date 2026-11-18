@@ -337,6 +337,10 @@ def _after_tax(tot):
 
 def eod_lines(dry=False, bars_fn=None):
     d = today().isoformat()
+    if not CFG.get("debate_shadow", True):
+        return ["", "## Filtro dibattito LLM (prova shadow)", "",
+                "Spento dal 19/11/2026 (R&D): il giudice ha scartato 14 segnali su 14 in tre sedute (16-18/11), "
+                "quindi non si distingue da un filtro che scarta sempre. Storico in data/debate_results.jsonl."]
     sigs = signals(d)
     if not sigs:
         return ["", "## Filtro dibattito LLM (prova shadow)", "", "Nessun segnale V0 / V0_LOOSE / NEWS_LLM oggi."]

@@ -22,6 +22,7 @@ for d in (DATA, REPORTS, LOGS):
 # ---------------- configuration / risk rules ----------------
 CFG = dict(
     start_cash=1000.0,
+    debate_shadow=False,        # filtro dibattito LLM (solo shadow): spento dal 19/11/2026, giudice SCARTA 14/14 in 3 sedute (non informativo)
     fee_per_order=1.0,          # Trade Republic external cost per order
     slippage=0.0005,            # 0.05% adverse slippage on every simulated fill
     risk_per_trade=0.02,        # max 2% of equity at risk (stop distance x qty + fees)

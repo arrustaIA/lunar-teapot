@@ -7,7 +7,8 @@ TMP = tempfile.mkdtemp(prefix="debate-test-")
 os.environ["DEBATE_DIR"] = TMP
 import pandas as pd
 import debate as D
-from common import ROME
+from common import ROME, CFG
+CFG["debate_shadow"] = True   # il test verifica la logica del dibattito anche se in produzione è spento
 
 T0 = datetime(2026, 11, 16, 10, 3, tzinfo=ROME)
 clock = [T0]

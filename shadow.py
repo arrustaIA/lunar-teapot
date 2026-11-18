@@ -253,6 +253,8 @@ def news_scan(n, bars, done, dry):
 
 def spawn_debate():
     """Lancia il worker del dibattito in background (lock esclusivo dentro debate.py): shadow.py non aspetta mai l'LLM."""
+    if not CFG.get("debate_shadow", True):
+        return
     try:
         import debate
         if not debate.pending(today().isoformat()):

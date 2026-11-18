@@ -1,11 +1,11 @@
 # Changelog
 
-## 2026-11-18 (~03:00 ora di Roma) - R&D serale 17/11: filtri qualità USA, RVOL, orario/retest USA; NESSUN deploy (parziale, aggiornato a fine lotto)
+## 2026-11-18 (~03:00 ora di Roma) - R&D serale 17/11: filtri qualità USA, RVOL, orario/retest USA; NESSUN deploy (completo)
 
 - **Produzione invariata** (commit 8a4a779: 1.233 titoli, EMA9>EMA21, filtro commissioni 6 €, solo long). Nessun codice cambiato; il fee gate di Sguattera non risulta ancora su main. Scheduler GitHub regolare (ultimo run 17/11 23:29 ok, heartbeat 22:24 = chiusura sessione).
 - **Verifica 17/11 dal ledger (sola lettura) e da trade_log**: BRKR -6,98, TSN -0,48, MOH -8,20, LCID -0,12 = **-15,77 €** (lordo -7,77, commissioni 8 € = 103%). Tre ingressi su quattro tra le 16:10 e le 16:41, LCID alle 20:00; tutti usciti per stop (LCID in trailing, lordo +1,88). Dal backtest B0: i titoli USA perdono quasi tutto nella prima ora (16:00-16:29: 107 trade, -190 €; 16:30-16:59: 40 trade, -94 €; da 17:00: 22 trade, circa -6 €).
 - **Test** (script R&D fuori repo `filt_test.py`, copia isolata `rd-paper-trading`, cache Yahoo 5m `cache_w`, 59 sedute 26/08-16/11, 1.233 titoli, stesse regole e costi della produzione, 1+1 €, slippage del backtest, tassa 26% con zainetto). Pre-registrazione `reports/prereg_filters_2026-11-17.md` (+ addendum 00:35 per RT) scritta prima dei risultati. Riferimento B0 = produzione: **-342,55 €, 204 trade, OOS -210,60, holdout -65,81, WF 0/4, lordo/trade +0,33**.
-  Criteri di promozione (tutti): netto, OOS e holdout migliori di B0; meglio di B0 in almeno 3 blocchi su 4; >= 30 trade; lordo/trade migliore; vicini della griglia che battono B0. **Varianti provate: 40 (36 + 4 RT; 8 vicini Q3/Q6 della prima griglia non eseguiti perché Q3 ha lordo negativo), rischio data-snooping alto. Nessuna passa.**
+  Criteri di promozione (tutti): netto, OOS e holdout migliori di B0; meglio di B0 in almeno 3 blocchi su 4; >= 30 trade; lordo/trade migliore; vicini della griglia che battono B0. **Varianti provate: 36 eseguite sulle 40 pre-registrate (28 della prima griglia + 4 RT + Q4_45/Q4_90/Q6_60/Q6_180; non eseguiti i 4 vicini di Q3, bocciata per lordo negativo), rischio data-snooping alto. Nessuna passa.**
 
   | Variante | Trade | Netto € | OOS € | Holdout € | WF blocchi > B0 | Esito |
   |---|---|---|---|---|---|---|
@@ -15,15 +15,18 @@
   | Q3 ATR% 1,5-5% | 146 | -341,97 | -176,26 | -81,47 | 2/4 | no (holdout, lordo/trade -0,33) |
   | QC Q1+Q2+Q3 | 155 | -337,89 | -211,71 | -105,52 | 3/4 | no (holdout, lordo -0,17) |
   | Q4 USA da 16:30 | 172 | -336,75 | -189,47 | -65,93 | 3/4 | no (holdout -0,12 €, lordo/trade 0,04) |
-  | Q4_45 USA da 16:15 | 210 | -334,99 | -223,31 | -94,77 | - | no |
+  | Q4_45 USA da 16:15 | 210 | -334,99 | -223,31 | -94,77 | 2/4 | no |
+  | Q4_90 USA da 17:00 | 144 | -261,36 | -183,57 | -120,81 | 2/4 | no: netto migliore (-81 €) ma holdout -55 € peggio, lordo/trade 0,21 |
   | Q5 soglia commissioni 8 € | 183 | -152,00 | -161,89 | -100,67 | 3/4 | **no**: dimezza il netto ma holdout -100,67 contro -65,81 (lordo/trade 1,24); tenuto in shadow come V0_FEE4 |
   | Q6 niente USA dopo le 20:00 | 200 | -340,39 | -202,82 | -65,81 | 2/4 | no (effetto trascurabile) |
   | RVOL cumulato x1,25 / 1,5 / 1,75 / 2 / 2,5 / 3 / 4, tutti | 191 / 164 / 146 / 121 / 86 / 64 / 43 | -325,54 / -318,59 / -300,09 / -255,68 / -204,90 / -168,85 / -112,57 | -260,66 ... -92,51 | -161,85 ... -69,87 | 2-3/4 | no: meno trade e meno perdita ma holdout sempre peggiore, lordo/trade negativo da x1,75 |
   | RVOL cumulato solo USA x1,25 / 1,5 / 1,75 / 2 / 2,5 / 3 / 4 | 180 / 172 / 155 / 131 / 105 / 93 / 75 | -339,94 / -330,11 / -301,97 / -259,64 / -235,74 / -207,34 / -159,43 | -258,33 ... -115,72 | -158,01 ... -85,14 | 2-3/4 | no |
   | RVOL barra x2, tutti | 175 | -307,73 | -243,29 | -144,14 | 2/4 | no |
   | QC + RVOL 2 solo USA | 100 | -253,48 | -178,58 | -86,72 | 3/4 | no (lordo -0,54) |
-  | RT_US retest ORH (0,10 ATR) | 168 | -337,93 | -200,98 | -131,51 | - | no |
-  | RT_US_05 / RT_US_20 | 176 / 171 | -310,94 / -335,74 | -195,91 / -191,35 | -122,97 / -110,81 | - | no |
+  | RT_US retest ORH (0,10 ATR) | 168 | -337,93 | -200,98 | -131,51 | 2/4 | no |
+  | RT_US_05 / RT_US_20 | 176 / 171 | -310,94 / -335,74 | -195,91 / -191,35 | -122,97 / -110,81 | 2/4 | no |
+  | RT_ALL retest su tutti | 161 | -320,13 | -180,58 | -107,41 | 3/4 | no (holdout, lordo/trade 0,01) |
+  | Q6_60 / Q6_180 (niente USA nelle ultime 1 / 3 ore) | 204 / 199 | -342,55 / -342,54 | -210,60 / -208,09 | -65,81 / -65,81 | 0/4, 1/4 | no (nessun effetto) |
 
   Lettura: i filtri riducono il numero di trade (e quindi le commissioni) ma non migliorano la qualità, e l'holdout (ultimo terzo) peggiora quasi sempre. Il lordo medio per trade resta vicino a zero: le commissioni (408 € in 59 sedute) valgono più del lordo (+66 €). L'unico segno robusto è che la perdita nasce dai breakout USA dei primi 60 minuti dopo l'OR, ma ritardare o filtrare gli ingressi non l'ha corretta. Nessuna variante ha passato i criteri, quindi nessuna modifica in produzione. Tornare ai 55 titoli (-5,74 €) resta possibile solo per decisione di Andrea (`wide_file=False`).
 - **Verdetti di 1 giorno (shadow 17/11, non bastano per promuovere)**:

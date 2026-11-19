@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-11-19 (~23:40 ora di Roma) - R&D serale 19/11: varianti di W2 (uscite, ranking, orari EU); NESSUN deploy
+
+- **W2 reale 19/11** (report 21:55 e ledger, sola lettura): attiva dalle ~14:00. 6 trade chiusi (8TRA, APAM, MONC, ERF, VVV, GME), **0 vincenti**, lordo -8,33 EUR, commissioni 12 EUR, netto **-20,33 EUR**; equity 943,56 EUR (-5,64% dall'avvio). Non 7 entrate/5 perdite/-18 come stimato a meta' giornata.
+- **Backtest W2 sullo stesso giorno** (cache_w3 = cache_w2 + barre del 19/11, capitale fisso): 15 trade, lordo -17,35, netto -47,35 EUR; dopo le 14:00 12 trade, in comune col reale solo MONC.MI ed ERF.PA. Differenza strutturale: il backtest chiude gli EU alle 17:25, la produzione li tiene fino alle 21:50 (Traton ed Eurofins chiusi alle 21:50).
+- **Scoperta metodologica**: nel backtest a capitale composto (quello usato per W2 alle 13:50) tutte le config finiscono a circa -335/-338 EUR perche' l'equity scende a ~663 EUR, lo slot del 30% va sotto i 200 EUR minimi e il bot smette di aprire (W2 a 62 sedute identico a 61: 0 trade il 19/11). Quindi netto/holdout composti NON sono confrontabili tra varianti. Nuova modalita' `W2V_FIXED=1` in `rd-paper-trading/w2var_test.py`: sizing sempre su 1.000 EUR, cassa non vincolante, limite giornaliero -3% disattivato (con equity bassa bloccava tutto: prima prova invalida, salvata come `w2var_fixed_halt_bug.*`). In questa modalita' **W2 = 593 trade in 62 sedute (9,6 a seduta), win rate 12,0%, lordo -183,79, netto -1.369,79 EUR (circa -22 EUR a seduta), OOS -969,95, holdout -513,85, 0/5 blocchi WF positivi**.
+- **Varianti** (pre-registrate in `rd-paper-trading/reports/prereg_w2_variants_2026-11-19.md` prima dei risultati; 14 varianti + W2, rischio data-snooping alto; universo e Q4_90 invariati, filtro commissioni sempre su 2R; 1+1 EUR, slippage, tassa 26% con zainetto). Capitale fisso, 62 sedute 26/08-19/11:
+
+  | Variante | Trade/seduta | Win rate | Netto EUR | Lordo/trade | OOS EUR | Holdout EUR | WF blocchi >0 |
+  |---|---|---|---|---|---|---|---|
+  | **W2** | 9,6 | 12,0% | -1.369,79 | -0,31 | -969,95 | -513,85 | 0/5 |
+  | RK_MOM (ranking momentum/ATR) | 9,8 | 13,8% | -1.403,81 | -0,31 | -918,81 | -467,66 | 0/5 (meglio di W2 in 2/5) |
+  | EPAUSE (niente ingressi 11:30-14:30) | 9,4 | 11,0% | -1.382,47 | -0,38 | -973,61 | -518,87 | 0/5 |
+  | TP150 | 9,7 | 14,2% | -1.400,74 | -0,32 | -994,54 | -538,38 | 0/5 |
+  | RK_BRK (forza breakout/ATR) | 9,7 | 12,7% | -1.507,66 | -0,51 | -1.007,91 | -562,08 | 0/5 |
+  | TP125 | 10,0 | 16,9% | -1.457,30 | -0,35 | -1.023,26 | -536,54 | 0/5 |
+  | E1000 (EU dalle 10:00) | 9,8 | 11,2% | -1.504,34 | -0,48 | -1.059,72 | -569,32 | 0/5 |
+  | TP100 | 10,4 | 24,1% | -1.553,72 | -0,41 | -1.090,59 | -563,75 | 0/5 |
+  | RK_RVOL | 10,9 | 14,8% | -1.672,41 | -0,48 | -1.190,21 | -657,95 | 0/5 |
+  | TM90 / TM60 / TM30 (uscita a tempo) | 25,5 / 36,6 / 68,8 | 7,2 / 4,4 / 2,5% | -3.752 / -5.486 / -10.066 | -0,37 / -0,42 / -0,36 | | | 0/5 |
+  | TR20 / TR15 / TR10 (trailing k*ATR) | 36,0 / 55,5 / 91,6 | 5,7 / 4,0 / 2,0% | -5.275 / -7.976 / -13.177 | -0,37 / -0,32 / -0,32 | | | 0/5 |
+
+  Lettura: nessuna variante ha lordo positivo. TP piu' vicini alzano il win rate (fino al 24%) ma non l'expectancy. Trailing e uscita a tempo liberano gli slot e moltiplicano i trade (e le commissioni): rovinosi. L'unica che batte W2 sia in OOS (+51 EUR) sia in holdout (+46 EUR) e' RK_MOM, ma perde nel netto totale, vince solo 2 blocchi WF su 5 e le altre due regole di ranking (stessa famiglia) peggiorano: non regge, **nessun deploy**. 09:15/09:30 non testabili/uguali alla base (opening range EU 09:00-09:30).
+- **Shadow 19/11**: V0_SHORT 3 operativi, +8,25 EUR ante tasse (18/11: 1 operativo, -0,15): 4 operativi in 2 sedute, troppo pochi, resta in ombra. V0_FEE4 e V0_WIDE 0 operativi; REBOUND SAN.PA -8,40. V0_LOOSE resta in ombra.
+- **Natasia** (`news_eval.py`): 190 coppie. LLM segno 55,9%, Spearman +0,104; parole chiave 44,8%, +0,098; giudizi forti solo 3 (-0,42% nel verso). Nessun vantaggio netto dimostrato: non integro.
+- **Raccomandazioni HR 19/11**: identiche al 18/11 (stop 1,5 ATR, specialista USA, pullback VWAP, ruoli): gia' valutate e scartate il 16-18/11, nessun elemento nuovo.
+- **Scheduler GitHub**: regolare (run 22:26 ok, heartbeat 22:25). Produzione non toccata.
+
 ## 2026-11-19 (13:50 ora di Roma) - Ordine di Andrea: comprare molto di piu'. Config "W2" (stop minimo 1,05%, senza analista grafico e senza filtro EMA)
 
 - **Ordine** (12:38, verbatim): "Ancora niente? Allora trova il perche' hai comprato poco e sei in perdita e inizia a comprare il piu' possibile tutto quello che ti sembra che faccia guadagnare".

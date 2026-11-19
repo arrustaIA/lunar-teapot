@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-11-19 (13:50 ora di Roma) - Ordine di Andrea: comprare molto di piu'. Config "W2" (stop minimo 1,05%, senza analista grafico e senza filtro EMA)
+
+- **Ordine** (12:38, verbatim): "Ancora niente? Allora trova il perche' hai comprato poco e sei in perdita e inizia a comprare il piu' possibile tutto quello che ti sembra che faccia guadagnare".
+- **Perche' comprava poco (log 19/11 07:30-12:25, 30 passaggi, 153 titoli arrivati almeno a una valutazione completa)**: il collo di bottiglia e' il **filtro commissioni** (guadagno 2R atteso >= 6 EUR). Con slot 30% (~289 EUR) e stop minimo 0,4%, il guadagno atteso e' 2,31 EUR (110 volte lo stesso valore): **84 titoli su 153 hanno passato breakout, VWAP, momentum, estensione ed EMA e sono stati bloccati solo dalle commissioni**. Altri: momentum 15m negativo 61 titoli, "troppo esteso" 36, EMA disallineata 6, analista grafico che rifiuta 6 (dopo aver passato il filtro commissioni), sotto VWAP 4. Prima delle 16:00 gli USA sono fuori finestra, dopo Q4_90 dalle 17:00.
+- **Perche' perdeva (17-18/11)**: 10 trade tutti USA, lordo -16,11 EUR e 20 EUR di commissioni (124%); 8 ingressi su 10 tra 16:00 e 16:59 (-34,92 EUR), 5 su 6 il 18/11 usciti in stop; il backtest B0 mostra lordo +66 EUR su 408 EUR di commissioni in 59 sedute.
+- **Cosa cambia (CFG in common.py)**: `min_stop_pct` 0.004 -> **0.0105**; `ema_filter` (nuovo) **False**; `chart_veto` (nuovo) **False**; `chart_exit` (nuovo) **False**; `mom_filter` (nuovo) True. Invariati: universo 1.233 (EU+US), Q4_90 (US da 17:00), filtro commissioni 3x, rischio 2%, slot 30%, max 3 posizioni, solo long, leva 1x, stop/target 2R/breakeven/flatten 21:50. Nota: i flag in `trade.py` (plan_entry e manage_open); `shadow.py` condivide `min_stop_pct`, quindi anche gli shadow V0_* usano ora stop minimo 1,05%.
+- **ROLLBACK**: in `common.py` mettere `min_stop_pct=0.004, ema_filter=True, chart_veto=True, chart_exit=True`, commit e push.
+- **Backtest** (R&D `rd-paper-trading/loose_test.py`, cache_w2, 61 sedute 26/08-18/11, 1.233 titoli, 1+1 EUR, slippage, tassa 26% con zainetto; tutte le varianti sopra Q4_90 = produzione prima di questo cambio):
+
+  | Config | Trade | Trade/seduta | di cui EU | Netto EUR | Lordo EUR | OOS EUR | Holdout EUR | Note |
+  |---|---|---|---|---|---|---|---|---|
+  | B0 (prima di Q4_90, 17/11) | ~216 | 3,5 | ~20 | circa -384 | | | | -342,55 sulle 59 sedute + -41,69 del 17-18/11 |
+  | P0 = Q4_90 (produzione stamattina) | 146 | 2,4 | 37 | -261,85 | +33,85 | -184,06 | -125,24 | |
+  | **W2 (scelta)**: P0 + stop 1,05% + no analista + no EMA | **221** | **3,6** | **74** | **-337,07** | +104,93 | -182,81 | -128,04 | vincite 23,5% |
+  | L1: P0 senza analista | 217 | 3,6 | 57 | -332,21 | +105,53 | -223,46 | -136,79 | |
+  | W10: P0 + stop 1,05% senza analista, con EMA | 177 | 2,9 | 58 | -341,48 | +12,52 | -189,84 | -86,49 | |
+  | W5: P0 + stop 1,05% senza Q4_90 | 199 | 3,3 | 31 | -333,88 | | | | |
+  | W1: P0 + stop 1,05% | 147 | 2,4 | 47 | -293,50 | +0,50 | -174,15 | -119,32 | |
+  | L2: P0 senza EMA | 144 | 2,4 | 37 | -275,51 | +14,73 | | | |
+  | L5/L3/L4/L7/L8 (soglia commissioni 1,5x/1x, 6 posizioni) | 134-158 | | | circa -334 e lo zainetto si ferma | | | | in 13-15 sedute l'equity scende a ~667 EUR (sotto 200 EUR a posizione) e il bot non apre piu' |
+  | L6/L9/L10/L11/W3 (leva fino a 5x) | 245-343 | 4-5,6 | | da -751 a -831 | | | | rovinose: vincite 3-13% |
+
+  Lettura onesta: **nessuna config che compra di piu' guadagna**. W2 compra +50% (EU piu' che doppi: 74 contro 37) e perde circa 75 EUR piu' di Q4_90 in 61 sedute (~1,2 EUR a seduta), ma meno di B0 e quasi come L1 con piu' operazioni EU. Abbassare la soglia commissioni o usare la leva moltiplica le perdite (stop da 0,4% presi dal rumore: vincite 3-13%). Scelta secondo l'ordine di Andrea: massima attivita' senza ricadere nelle varianti che azzerano il conto.
+- Test: `test_loose_flags.py` (nuovo, flag EMA/momentum) e tutti gli altri test ok.
+
 ## 2026-11-19 (mattina, ora di Roma) - Prova di 1 giorno: ingressi USA dalle 17:00 (Q4_90)
 
 - Prova di 1 giorno decisa da Sguattera su regole permanenti di Andrea (applicare subito cambi che testano meglio): ingressi USA dalle 17:00 (Q4_90). Forward 17-18/11: -6,65 vs -41,69 EUR; 59 sedute meglio; holdout misto. Rollback: `CFG["us_entry_delay_min"]=None` in `common.py` (torna a 16:00).

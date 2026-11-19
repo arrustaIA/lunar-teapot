@@ -79,7 +79,7 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         # discretionary sell decision: ask the chart analyst (no PNG unless we act)
         ok, age = quote_ok(b, p["region"])
         a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target, save_chart=False)
-        if ok and a["verdict"] == "EXIT":
+        if ok and a["verdict"] == "EXIT" and CFG.get("chart_exit", True):
             a = CA.analyze(p["ticker"], xside, b, daily.get(p["ticker"]), stop, target); CA.record(con, a, 1)
             fill, pnl = close_position(con, p, float(b["Close"].iloc[-1]),
                                        f"uscita anticipata: grafico {'rialzista' if short else 'ribassista'} (score {a['score']})",
@@ -122,16 +122,16 @@ def plan_entry(con, it, b, eq, cash, n_open, daily):
         return ("nessun breakout né breakdown: " if CFG.get("allow_short") else "nessun breakout: ") + info
     if side == "long":
         if close <= vw:    return "sotto VWAP: " + info
-        if mom <= 0:       return "momentum 15m negativo: " + info
+        if mom <= 0 and CFG.get("mom_filter", True): return "momentum 15m negativo: " + info
         if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
     else:
         if close >= vw:    return "short: sopra VWAP: " + info
-        if mom >= 0:       return "short: momentum 15m positivo: " + info
+        if mom >= 0 and CFG.get("mom_filter", True): return "short: momentum 15m positivo: " + info
         if close < orl - CFG["max_extension_atr"] * a: return "short: troppo esteso, non inseguo: " + info
     ok_ema, e9, e21 = ema_aligned(b, side=side)
     if e9 == e9 and e21 == e21:
         info = info + f", EMA9 {e9:.3f}, EMA21 {e21:.3f}"
-    if not ok_ema:
+    if not ok_ema and CFG.get("ema_filter", True):
         rel = "sotto" if side == "short" else "sopra"
         detail = f"EMA9 {e9:.3f} non {rel} EMA21 {e21:.3f}" if e9 == e9 and e21 == e21 else "EMA non pronte"
         return ("short: " if side == "short" else "") + f"ema_misaligned: {detail}; " + info
@@ -167,7 +167,7 @@ def plan_entry(con, it, b, eq, cash, n_open, daily):
         if ms["score"] >= 0.4 and ms["count"] >= 10:
             return f"short bloccato: clima macro risk-on ({ms['score']:+.2f})"
     a = CA.analyze(t, "buy" if side == "long" else "short", b, daily.get(t), stop, target)
-    if a["verdict"] != "APPROVE":
+    if a["verdict"] != "APPROVE" and CFG.get("chart_veto", True):
         CA.record(con, a, 0)
         return (f"segnale ORB ma analista grafico RIFIUTA (score {a['score']}): " if side == "long" else
                 f"segnale short ma analista grafico RIFIUTA (score {a['score']}, serve <= -{CA.APPROVE_BUY}): ") + "; ".join(a["reasons"][:4])

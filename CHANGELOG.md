@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-19 (23:40 ora di Roma) - ROLLBACK di W2 (ordine di Andrea 23:37: "Se e' peggiore allora eliminala")
+
+- **Perche'**: il controllo a capitale fisso di Lerabuns (`w2var_test.py`, commit 7397911, 1.000 EUR senza tetto da capitale che scende) da per W2 circa 9,6 trade a seduta, 12% di vincite, **-1.370 EUR in 62 sedute** (~-22 EUR a seduta). Il mio -337 EUR di mattina era un artefatto: l'equity scendeva a ~663 EUR e il backtest smetteva di aprire posizioni (min 200 EUR a posizione).
+- **Cosa**: `min_stop_pct` 0.0105 -> **0.004**; `ema_filter`, `chart_veto`, `chart_exit` -> **True**. Restano Q4_90 (`us_entry_delay_min=90`), universo 1.233 (EU+US), fee gate 3x, rischio 2%, slot 30%, 3 posizioni, solo long, leva 1x. I flag nuovi in `trade.py` restano (default acceso). Test tutti ok.
+- Effetto sugli shadow: tornano a stop minimo 0,4% come prima.
+
 ## 2026-11-19 (~23:40 ora di Roma) - R&D serale 19/11: varianti di W2 (uscite, ranking, orari EU); NESSUN deploy
 
 - **W2 reale 19/11** (report 21:55 e ledger, sola lettura): attiva dalle ~14:00. 6 trade chiusi (8TRA, APAM, MONC, ERF, VVV, GME), **0 vincenti**, lordo -8,33 EUR, commissioni 12 EUR, netto **-20,33 EUR**; equity 943,56 EUR (-5,64% dall'avvio). Non 7 entrate/5 perdite/-18 come stimato a meta' giornata.

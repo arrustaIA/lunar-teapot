@@ -35,12 +35,11 @@ CFG = dict(
     us_entry_delay_min=90,      # 19/11/2026 (Q4_90): ingressi USA solo da apertura cash USA + N minuti (90 = 17:00 Roma; 15:30+90).
                                 # Gli EU restano da apertura + or_minutes. ROLLBACK: None (torna a 16:00). Non tocca le uscite.
     atr_stop_mult=1.5,          # stop = max(OR low, entry - 1.5*ATR(5m,14))
-    min_stop_pct=0.0105,        # 19/11/2026 (ordine di Andrea: piu' operativita'): stop almeno 1,05% (prima 0,4%, ROLLBACK 0.004). Con slot 30% il
-                                # guadagno 2R vale >= 6 EUR, quindi il filtro commissioni non blocca piu' (84 titoli su 153 bloccati il 19/11 mattina).
-    ema_filter=False,           # 19/11/2026: EMA9>EMA21 spento (ROLLBACK True). Il codice del filtro resta, solo bypassato.
+    min_stop_pct=0.004,         # stop almeno 0,4% (rumore). 19/11 sera: ROLLBACK di W2 (era 0.0105; a capitale fisso W2 -1.370 EUR in 62 sedute)
+    ema_filter=True,            # EMA9>EMA21 (riacceso 19/11 sera dopo il rollback di W2)
     mom_filter=True,            # momentum 15m positivo richiesto (acceso)
-    chart_veto=False,           # 19/11/2026: l'analista grafico non blocca piu' gli ingressi (ROLLBACK True)
-    chart_exit=False,           # 19/11/2026: nessuna uscita anticipata dall'analista grafico (ROLLBACK True); restano stop, target, breakeven, flatten
+    chart_veto=True,            # l'analista grafico blocca gli ingressi (riacceso 19/11 sera)
+    chart_exit=True,            # uscita anticipata dell'analista grafico (riacceso 19/11 sera)
     max_stop_pct=0.03,
     reward_r=2.0,               # take profit at 2R
     breakeven_at_r=1.0,         # move stop to breakeven once +1R reached

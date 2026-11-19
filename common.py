@@ -39,6 +39,7 @@ CFG = dict(
     ema_filter=True,            # EMA9>EMA21 (riacceso 19/11 sera dopo il rollback di W2)
     mom_filter=True,            # momentum 15m positivo richiesto (acceso)
     chart_veto=True,            # l'analista grafico blocca gli ingressi (riacceso 19/11 sera)
+    chart_approve_buy=45,       # 20/11/2026: soglia dell'analista grafico per ENTRARE long (era 25, ROLLBACK 25). Backtest capitale fisso CH45.
     chart_exit=True,            # uscita anticipata dell'analista grafico (riacceso 19/11 sera)
     max_stop_pct=0.03,
     reward_r=2.0,               # take profit at 2R

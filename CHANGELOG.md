@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-11-20 (00:55 ora di Roma) - Ritocchi alla config prudente a capitale fisso: deploy soglia analista grafico 45 (CH45)
+
+- **Contesto**: W2 ritirata alle 23:40 (rollback cef6597 su main, verificato). Ordine di Andrea 23:37: "Se e' peggiore allora eliminala e migliorala". Pre-registrazione in `rd-paper-trading/reports/prereg_prudent_tweaks_2026-11-19.md` (scritta prima dei risultati). Script `tweaks_test.py` sopra il metodo a capitale fisso di Lerabuns (`w2var_test.py`, W2V_FIXED=1: sizing su 1.000 EUR fissi, limite giornaliero -3% disattivato; 1+1 EUR, slippage 0,05%, tassa 26% con zainetto, WF 5 blocchi + holdout; cache_w3, 62 sedute 26/08-19/11, 1.233 titoli). 14 prove (2 basi + 12 ritocchi): rischio data-snooping alto.
+- **Risultati** (P0 = produzione prima di questo cambio = Q4_90; B0 = senza Q4_90):
+
+  | Config | Trade | /seduta | Vincite | Netto EUR | OOS EUR | Holdout EUR | Batte P0 su tutti e 3 |
+  |---|---|---|---|---|---|---|---|
+  | B0 | 371 | 6,0 | 27,5% | -699,58 | -594,62 | -361,74 | |
+  | **P0 (Q4_90)** | 210 | 3,4 | 25,2% | **-330,56** | **-253,68** | **-180,23** | base |
+  | FEE8 (soglia 8 EUR) | 70 | 1,1 | 30,0% | -160,78 | -151,80 | -123,76 | si |
+  | FEE10 (10 EUR) | 23 | 0,4 | 30,4% | -51,04 | -54,94 | -48,78 | si, ma < 30 trade |
+  | MP1 (1 posizione) | 114 | 1,8 | 27,2% | -150,27 | -108,47 | -55,32 | si |
+  | MP2 (2 posizioni) | 178 | 2,9 | 23,0% | -304,74 | -231,41 | -143,26 | si |
+  | SL40 (slot 40%) | 500 | 8,1 | 24,6% | -1.013,62 | -831,84 | -430,08 | no |
+  | SL50 (slot 50%) | 785 | 12,7 | 21,8% | -1.987,41 | -1.602,75 | -839,46 | no |
+  | NOEU (solo USA) | 153 | 2,5 | 26,8% | -228,00 | -171,26 | -131,39 | si |
+  | NOUS (solo EU) | 57 | 0,9 | 21,1% | -95,46 | -73,71 | -49,52 | si |
+  | FLUS2030 (flatten USA 20:30) | 198 | 3,2 | 26,8% | -295,72 | -226,34 | -155,24 | si (poco) |
+  | FLEU1500 (flatten EU 15:00) | 206 | 3,3 | 26,2% | -311,74 | -238,70 | -183,49 | no (holdout) |
+  | CH35 (analista >= 35) | 157 | 2,5 | 24,2% | -267,31 | -231,69 | -174,38 | si (poco) |
+  | **CH45 (analista >= 45)** | **93** | **1,5** | **30,1%** | **-76,09** | **-79,04** | **-74,64** | **si** |
+
+- **Scelta**: CH45. E' la sola con netto migliore tra quelle che battono P0 su netto, OOS e holdout e hanno almeno 30 trade (FEE10 ne ha 23). Famiglia coerente: soglia 25 -> 35 -> 45 migliora netto (-331, -267, -76) e OOS in modo monotono; lordo +112,9 EUR (contro +91,8 di P0) con meno trade. Onesta': **resta in perdita** (-76 EUR in 62 sedute, ~-1,2 EUR a seduta contro -5,3 di P0), meno operativa (1,5 trade a seduta), e quasi tutto il guadagno viene dal meno commissioni; il lordo non cambia molto. Nessuna combinazione e' stata provata (evita altro snooping). Tutti i ritocchi che battono P0 lo fanno soprattutto riducendo le commissioni.
+- **Cosa cambia**: `CFG["chart_approve_buy"]=45` (nuovo, in `common.py`); `chart_analysis.py` lo usa per approvare gli ingressi long (prima costante 25). Uscite (EXIT_SELL -30), stop, target, universo, Q4_90, fee gate, 3 posizioni, slot 30% invariati. Gli shadow che usano l'analista (se presenti) ricevono la stessa soglia. **ROLLBACK**: `chart_approve_buy=25` in `common.py`, commit e push.
+- Test: nuovo `test_chart_threshold.py`; `test_us_entry_delay.py` reso indipendente dalla data di oggi (falliva dopo mezzanotte perche' `session_times()` usava la data reale); tutti gli altri test ok.
+
 ## 2026-11-20 (~00:45 ora di Roma) - R&D: setup alternativi all'ORB (7 varianti pre-registrate); NESSUN deploy, USLEAD_DAX in shadow
 
 - **Perche'**: richiesta di Sguattera (19/11 23:40): l'ORB non ha lordo positivo in nessuna versione; servono setup diversi e "pochi trade ma grandi" per diluire le commissioni fisse. Ritocchi della config prudente lasciati a Sguattera; universo e Q4_90 invariati.

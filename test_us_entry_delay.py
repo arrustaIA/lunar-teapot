@@ -22,6 +22,7 @@ def run(region, hhmm):
     h, m = map(int, hhmm.split(":"))
     T.now = lambda: datetime(2026, 11, 19, h, m, tzinfo=ROME)
     T.today = lambda: d
+    C.today = lambda: d   # session_times() usa common.today: senza questo il test dipende dalla data di oggi
     return T.plan_entry(None, dict(ticker="X", region=region), None, 1000, 1000, 0, None)
 # us window: prima di 17:00 respinto dal nuovo gate
 for hh in ("16:00", "16:30", "16:59"):

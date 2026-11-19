@@ -32,6 +32,8 @@ CFG = dict(
     min_reward_vs_fees=3.0,     # expected gain at target must be >= 3x round-trip fees
     daily_loss_limit=-0.03,     # -3% vs start-of-day equity -> flatten & halt for the day
     or_minutes=30,              # opening range length
+    us_entry_delay_min=90,      # 19/11/2026 (Q4_90): ingressi USA solo da apertura cash USA + N minuti (90 = 17:00 Roma; 15:30+90).
+                                # Gli EU restano da apertura + or_minutes. ROLLBACK: None (torna a 16:00). Non tocca le uscite.
     atr_stop_mult=1.5,          # stop = max(OR low, entry - 1.5*ATR(5m,14))
     min_stop_pct=0.004,         # stop at least 0.4% away (noise)
     max_stop_pct=0.03,

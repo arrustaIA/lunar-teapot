@@ -95,6 +95,9 @@ def plan_entry(con, it, b, eq, cash, n_open, daily):
     n = now()
     if not (o + timedelta(minutes=CFG["or_minutes"]) <= n <= last_entry):
         return f"fuori finestra ingressi ({o + timedelta(minutes=CFG['or_minutes']):%H:%M}-{last_entry:%H:%M})"
+    us_delay = CFG.get("us_entry_delay_min")
+    if region == "US" and us_delay is not None and n < o + timedelta(minutes=us_delay):
+        return f"ingressi USA solo da {o + timedelta(minutes=us_delay):%H:%M} (us_entry_delay_min={us_delay})"
     sess = today_session(b, region)  # LS/TR window 07:30-22:00
     if len(sess) < 8:
         return "dati di oggi insufficienti (festivo/ritardo?)"

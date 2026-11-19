@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-19 (mattina, ora di Roma) - Prova di 1 giorno: ingressi USA dalle 17:00 (Q4_90)
+
+- Prova di 1 giorno decisa da Sguattera su regole permanenti di Andrea (applicare subito cambi che testano meglio): ingressi USA dalle 17:00 (Q4_90). Forward 17-18/11: -6,65 vs -41,69 EUR; 59 sedute meglio; holdout misto. Rollback: `CFG["us_entry_delay_min"]=None` in `common.py` (torna a 16:00).
+- Come: nuovo flag `us_entry_delay_min=90` (minuti dopo l'apertura cash USA, 15:30 + 90 = 17:00 Roma) controllato in `trade.py: plan_entry` solo per `region == "US"`. Titoli EU, universo (1.233), fee gate, stop/target e uscite delle posizioni già aperte invariati. Test: `test_us_entry_delay.py` (nuovo) e tutti gli altri test ok.
+
 ## 2026-11-18 (~22:50 ora di Roma) - R&D serale 18/11: filtro dibattito LLM spento (solo shadow); nessuna regola di trading cambiata
 
 - **Cosa**: nuovo interruttore `CFG["debate_shadow"]=False` in `common.py`. Con l'interruttore spento `shadow.spawn_debate()` non lancia più il worker `debate.py` (nessuna chiamata a Pollinations) e `debate.eod_lines()` scrive nel report delle 21:56 solo una riga "spento" invece di simulare i segnali. `test_debate.py` riaccende l'interruttore solo dentro il test (16/16 controlli ok); ok anche test_fee4_shadow, test_short e test_wide_scan. Backup della versione precedente in `backups/2026-11-18_debate_off/` (fuori dal repo). Produzione v0 invariata.

@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-11-20 (~00:45 ora di Roma) - R&D: setup alternativi all'ORB (7 varianti pre-registrate); NESSUN deploy, USLEAD_DAX in shadow
+
+- **Perche'**: richiesta di Sguattera (19/11 23:40): l'ORB non ha lordo positivo in nessuna versione; servono setup diversi e "pochi trade ma grandi" per diluire le commissioni fisse. Ritocchi della config prudente lasciati a Sguattera; universo e Q4_90 invariati.
+- **Metodo** (pre-registrazione `rd-paper-trading/reports/prereg_alt_2026-11-20.md` scritta prima dei risultati; script `rd-paper-trading/alt_test.py`): cache_w3, 62 sedute 26/08-19/11, 1.233 titoli + ^GDAXI/^NDX/^GSPC; capitale FISSO 1.000 EUR; 1 posizione alla volta, max 2 ingressi/giorno; azioni long a pronti fino a 1.000 EUR (slippage 0,05%/lato), short su azioni solo KO x2 (spread 0,50%), indici solo KO x5 (spread 0,12%, mezzo spread min 1 cent su certificato da 10 EUR, knock-out modellato); rischio 20 EUR allo stop; filtro costi 3x; 1+1 EUR; tassa 26% con zainetto; ingressi EU 10:00-16:30, USA 17:00-21:00, chiusura 17:25/21:45; holdout ultimo 1/3, WF 5 blocchi. Riferimento P0f (config prudente a capitale fisso, stesso dataset): 210 trade, lordo +91,81, netto -330,56, OOS -253,68 (0/5), holdout -180,23.
+- **Risultati** (netto in EUR dopo commissioni e tasse):
+
+  | Variante | Trade (/seduta) | Lordo | Netto | Win | Exp/trade | OOS (blocchi+) | Holdout |
+  |---|---|---|---|---|---|---|---|
+  | P0f prudente (rif.) | 210 (3,4) | +91,81 | -330,56 | 25,2% | -1,57 | -253,68 (0/5) | -180,23 |
+  | PB_L_STK pullback EMA20 nel trend, long | 124 (2,0) | -126,27 | -383,34 | 34,7% | -3,09 | -253,77 (0/5) | -195,00 |
+  | PB_LS_STK idem long+short KO x2 | 124 (2,0) | -270,68 | -527,75 | 35,5% | -4,26 | -387,35 (0/5) | -180,03 |
+  | MR_L_STK eccesso sotto VWAP (z<=-3, RSI<=25), long | 124 (2,0) | -102,46 | -350,46 | 29,0% | -2,83 | -248,95 (0/5) | -172,16 |
+  | MR_LS_STK idem long+short KO x2 | 124 (2,0) | -421,23 | -669,23 | 27,4% | -5,40 | -471,83 (0/5) | -355,47 |
+  | PB_IDX pullback su DAX/Nasdaq 100, KO x5 | 51 (0,8) | -90,13 | -192,13 | 41,2% | -3,77 | -66,76 (1/5) | -51,07 |
+  | MR_IDX eccesso su DAX/Nasdaq 100, KO x5 | 37 (0,6) | -361,40 | -435,40 | 21,6% | -11,77 | -330,44 (1/5) | -233,74 |
+  | USLEAD_DAX S&P 15:30-15:55 -> DAX 16:00, KO x5 | 13 (0,2) | +97,78 | +53,11 | 69,2% | +4,09 | +69,78 (3/5) | +57,94 |
+
+  Lettura: sulle azioni, pullback ed eccessi hanno lordo NEGATIVO anche con posizioni da 1.000 EUR (costi fissi 0,2%): diluire le commissioni non basta se il segnale non ha vantaggio; gli short via KO x2 pagano lo spread 0,5% e peggiorano tutto. Indici: pullback quasi in pari prima dei costi ma negativo, mean reversion pessima. Solo USLEAD_DAX ha lordo positivo e batte P0f su netto, OOS e holdout, ma con 13 trade (soglia pre-registrata 60) e 1 solo target che vale 38 EUR di lordo. Vicini (informativi): soglia 0,2% 25 trade netto +3,26; 0,4% 7 trade +42,95; target 1,5R +56,43; 2,5R +40,36. Controllo su barre 1h 2024-2026 (proxy: S&P prima ora -> DAX 17:00-17:30, 217 casi): -1,6 bp a trade, negativo nel 2024 e nel 2025 -> l'effetto non e' dimostrato su storia lunga.
+- **Decisione** (regole pre-registrate): nessuna variante soddisfa il criterio di deploy (netto, OOS e holdout > 0 e > P0f, lordo > 0, >= 60 trade, >= 3/5 blocchi, griglia). **Nessun deploy.** PB_*, MR_* scartate. **USLEAD_DAX in shadow** (lordo > 0 e batte P0f ovunque, volume insufficiente): `shadow.py` registra fra le 16:00 e le 16:40 un segnale al giorno (nessun ordine, nessuna scrittura sul ledger) e l'esito alle 21:56 (spread KO 2 EUR incluso, niente breakeven, chiusura 17:25). Test: replay 16-19/11 con data simulata su file temporanei (16/11 short, esito +7,10 EUR ante tasse vs +9,58 del backtest: lo shadow applica in piu' lo slippage 0,05% sul nozionale); `shadow.py --dry-run` ok; backup `/tmp/shadow.py.bak-20261120`.
+- File: `rd-paper-trading/alt_test.py`, `reports/alt_results.jsonl`, `reports/alt.out`, `reports/alt_<VAR>_trades.csv`, `reports/progress_2026-11-20.md`. Produzione (`trade.py`, config), scheduler e ledger non toccati.
+
 ## 2026-11-19 (23:40 ora di Roma) - ROLLBACK di W2 (ordine di Andrea 23:37: "Se e' peggiore allora eliminala")
 
 - **Perche'**: il controllo a capitale fisso di Lerabuns (`w2var_test.py`, commit 7397911, 1.000 EUR senza tetto da capitale che scende) da per W2 circa 9,6 trade a seduta, 12% di vincite, **-1.370 EUR in 62 sedute** (~-22 EUR a seduta). Il mio -337 EUR di mattina era un artefatto: l'equity scendeva a ~663 EUR e il backtest smetteva di aprire posizioni (min 200 EUR a posizione).

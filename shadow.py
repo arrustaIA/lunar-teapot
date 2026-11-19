@@ -24,13 +24,17 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   range, prezzo sotto VWAP, momentum 15m negativo, EMA9<EMA21, estensione max 1,5 ATR sotto ORL, stop min(ORH, prezzo+1,5 ATR),
   target 2R sotto, stesso sizing e filtro commissioni 6 €, analista grafico con punteggio <= -25). Backtest 61 sedute: 29 short,
   -69,35 EUR (OOS -55,88) e long+short -69,31 contro -7,09 della sola v0 long -> NON in produzione, qui per misurarlo dal vivo.
+- USLEAD_DAX (dal 20/11/2026, R&D reports/prereg_alt_2026-11-20.md): direzione dell'S&P 500 fra le 15:30 e le 15:55 (|r| >= 0,30%)
+  -> DAX nella stessa direzione alle 16:00 via KO x5 (esposizione ipotetica 5.000 EUR, spread 0,2% sul certificato), stop 0,4%,
+  target 2R, chiusura alla barra 17:25. Backtest a capitale fisso 62 sedute: 13 trade, netto +53,11 EUR (OOS +69,78, holdout +57,94)
+  ma volume troppo basso e controllo su barre 1h 2024-2026 negativo (-1,6 bp) -> NON in produzione, qui per misurarlo dal vivo.
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
 File: data/shadow_signals.jsonl e data/shadow_results.jsonl (solo in aggiunta), reports/shadow_YYYY-MM-DD.md.
 """
 import json, math, os, subprocess, sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time as dtime
 import pandas as pd
 from common import (CFG, ROME, DATA, REPORTS, log, now, today, is_weekend, session_times, flatten_time, load_watchlist,
                     load_universe, intraday_bars, yf_intraday_bars, daily_bars, today_session, atr, vwap, ema_aligned, quote_ok, quote_currency,
@@ -48,6 +52,7 @@ RB = dict(min_drop=0.025, drop_atr=1.0, min_bars_after_low=3, reclaim_lookback=3
 LOOSE = dict(max_extension_atr=3.0, min_reward_vs_fees=1.5)   # variante V0_LOOSE (solo shadow)
 FEE4 = dict(min_reward_vs_fees=4.0)                            # variante V0_FEE4: v0 con filtro commissioni 4x (solo shadow)
 MIN_RR = {"V0_LOOSE": LOOSE["min_reward_vs_fees"], "V0_FEE4": FEE4["min_reward_vs_fees"]}
+USLEAD = dict(thr=0.003, stop=0.004, rr=2.0, lev=5.0, expo=5000.0, half_spread=0.001)  # USLEAD_DAX (solo shadow)
 NOTIONAL = CFG["start_cash"]   # sizing ipotetico su 1.000 € (non legge l'equity del ledger)
 
 
@@ -268,10 +273,52 @@ def spawn_debate():
         log(f"dibattito: worker non avviato ({e})", S)
 
 
+def uslead_scan(n, dry=False):
+    """USLEAD_DAX (solo shadow): S&P 500 15:30-15:55 -> DAX alle 16:00 via KO x5. Una volta al giorno, fra le 16:00 e le 16:40."""
+    d = today()
+    if not (dtime(16, 0) <= n.time() <= dtime(16, 40)):
+        return 0
+    if any(r.get("strategy") == "USLEAD_DAX" and r.get("day") == d.isoformat() for r in _lines(SIG)):
+        return 0
+    b = yf_intraday_bars(["^GSPC", "^GDAXI"])
+    spx, dax = b.get("^GSPC"), b.get("^GDAXI")
+    if spx is None or dax is None or spx.empty or dax.empty:
+        log("shadow USLEAD_DAX: barre Yahoo ^GSPC/^GDAXI non disponibili", S); return 0
+    o = datetime.combine(d, dtime(15, 30), ROME)
+    sp = spx[spx.index >= o]
+    if not len(sp) or sp.index[0] != o:
+        log("shadow USLEAD_DAX: apertura USA non alle 15:30 (settimana con ora legale sfasata) o barre mancanti", S); return 0
+    last = sp[sp.index == o + timedelta(minutes=25)]
+    e = dax[dax.index == o + timedelta(minutes=30)]
+    if not len(last) or not len(e):
+        return 0
+    r = float(last["Close"].iloc[0]) / float(sp["Open"].iloc[0]) - 1
+    if abs(r) < USLEAD["thr"]:
+        log(f"shadow USLEAD_DAX: S&P 15:30-15:55 {r:+.2%} sotto soglia, nessun segnale", S); return 0
+    sg = 1 if r > 0 else -1; entry = float(e["Open"].iloc[0]); dist = entry * USLEAD["stop"]
+    qty = round(USLEAD["expo"] / entry, 4)
+    row = dict(day=d.isoformat(), ts=n.isoformat(timespec="seconds"), strategy="USLEAD_DAX", ticker="^GDAXI", region="EU",
+               currency="EUR", price=round(entry, 2), entry=round(entry, 2), stop=round(entry - sg * dist, 2),
+               target=round(entry + sg * USLEAD["rr"] * dist, 2), qty=qty, qty_diag=qty, chart_score=None,
+               chart_verdict="N/A", approved=True, bar=str(last.index[0]), source="yfinance",
+               info=f"S&P 15:30-15:55 {r:+.2%}; KO x5 ipotetico, esposizione {USLEAD['expo']:.0f} EUR",
+               dyn=False, side="long" if sg > 0 else "short", inst="ko5",
+               spread_cost=round(2 * USLEAD["half_spread"] * USLEAD["expo"] / USLEAD["lev"], 2), note="SHADOW: nessun ordine")
+    if dry:
+        print(json.dumps(row, ensure_ascii=False)); return 1
+    append(SIG, row)
+    log(f"SHADOW USLEAD_DAX ^GDAXI {row['side']} @ {entry:.2f} (S&P {r:+.2%})", S)
+    return 1
+
+
 def scan(dry=False):
     n = now()
     if is_weekend():
         return
+    try:
+        uslead_scan(n, dry)
+    except Exception as e:
+        log(f"shadow USLEAD_DAX: errore {e}", S)
     static = (load_watchlist() or {}).get("items", [])
     dyn = rescan.load_dyn()
     st_t = {i["ticker"] for i in static}
@@ -387,6 +434,8 @@ def eod(dry=False):
         if q > 0 and b is not None and len(b):
             res["diag"] = diag
             fl = flatten_time(r["region"])
+            if r.get("strategy") == "USLEAD_DAX":
+                fl = datetime.combine(today(), dtime(17, 30), ROME)
             fut = b[(b.index > pd.Timestamp(r["bar"])) & (b.index < fl)]
             st, tg, e = r["stop"], r["target"], r["entry"]
             short = (r.get("side") or "long") == "short"
@@ -402,6 +451,8 @@ def eod(dry=False):
                     why, exit_ts = "stop", ts; break
                 if (x["Low"] <= tg) if short else (x["High"] >= tg):
                     px, why, exit_ts = (min(tg, x["Open"]) if short else max(tg, x["Open"])), "target", ts; break
+                if r.get("strategy") == "USLEAD_DAX":
+                    continue                         # niente breakeven (come nel backtest)
                 if short and x["Low"] <= e - risk:
                     st = min(st, e - 2 * CFG["fee_per_order"] / q)
                 elif not short and x["High"] >= e + risk:
@@ -410,7 +461,7 @@ def eod(dry=False):
                 px = float(fut["Close"].iloc[-1]) * (1 - sg * CFG["slippage"])
                 exit_ts = fut.index[-1]
             if px is not None:
-                gross = to_eur(sg * q * (px - e), r["currency"])
+                gross = to_eur(sg * q * (px - e), r["currency"]) - float(r.get("spread_cost") or 0)
                 fees = 2 * CFG["fee_per_order"]
                 pnl = gross - fees
                 tax = round(max(pnl, 0) * TAX_RATE, 2)
@@ -462,6 +513,10 @@ def eod(dry=False):
     md += fee4_lines(allres, d)
     md += short_lines(allres, d)
     md += wide_lines(allres, d)
+    ul = [x for x in allres if x.get("strategy") == "USLEAD_DAX"]
+    md += ["", "## USLEAD_DAX (S&P 15:30-15:55 -> DAX 16:00-17:25 via KO x5 ipotetico, nessun ordine)", "",
+           (f"- USLEAD_DAX: {ul[0].get('side')} {ul[0].get('info')} -> {ul[0].get('outcome')}, netto ante tasse "
+            f"{(ul[0].get('net_ante_tasse') or 0):+.2f} € (spread KO incluso)") if ul else "- USLEAD_DAX: nessun segnale oggi"]
     try:
         import debate
         md += debate.eod_lines(dry)

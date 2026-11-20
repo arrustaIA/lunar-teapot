@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-20 (~22:55 ora di Roma) - Controlli serali 20/11 (routine R&D): nessun deploy, nessun rollback
+
+- **Scheduler GitHub**: run 22:01 e 22:18 ok, heartbeat 22:25 (ora di Roma). Box fermo come previsto.
+- **Reale 20/11 (CH45, primo giorno intero)**: 2 trade, 0 vincenti: CAR -1,60 EUR (stop a breakeven), TTWO -8,42 EUR (stop iniziale); lordo -6,01, commissioni 4, netto **-10,01 EUR**. Equity 933,54 EUR (-6,65% dall'avvio), 18 operazioni totali, 1 vincente, lordo cumulato -30,46. Volume 2 trade contro 1,5/seduta attesi dal backtest CH45: in linea. Il confronto puntuale col backtest CH45 sul 20/11 (cache_w4, 63 sedute) e i filtri anti-stop sono nel lavoro R&D separato in corso (reports/progress_2026-11-20b.md, richiesta Sguattera ~21:00): non duplicato qui.
+- **Shadow 20/11**: V0_SHORT 3 operativi +6,93 EUR ante tasse (cumulato 18-20/11: 7 operativi, circa +15 EUR): troppo pochi, resta in ombra. USLEAD_DAX primo segnale live: long, stop, -26,49 EUR (spread KO incluso): resta in ombra. V0_FEE4, V0_WIDE 0 operativi; REBOUND/ORB_DYN/V0_LOOSE tutti respinti dall'analista grafico (solo conteggio). V0_LOOSE resta in ombra.
+- **Natasia** (news_eval.py): 230 coppie. LLM segno 58,8%, Spearman +0,143; parole chiave 41,4%, +0,084; giudizi forti (|impact x conf| >= 0,2) ancora solo 3 (-0,42% nel verso). Correlazione leggermente migliore ma nessun vantaggio netto fuori campione dimostrabile: non integro.
+- **Raccomandazioni HR 20/11**: identiche al 19/11 (cambiano solo i conteggi). Stop/breakout falsi: oggetto dei test anti-stop in corso. Pullback VWAP: scartato il 20/11 (PB_L_STK lordo negativo). Specialista USA: gli ingressi USA restano da Q4_90 (17:00); nessuna regola USA separata con vantaggio lordo. Ruoli (calendario, qualita' quotazioni, LLM notizie): nessun vantaggio misurabile da validare; non applicate.
+
 ## 2026-11-20 (00:55 ora di Roma) - Ritocchi alla config prudente a capitale fisso: deploy soglia analista grafico 45 (CH45)
 
 - **Contesto**: W2 ritirata alle 23:40 (rollback cef6597 su main, verificato). Ordine di Andrea 23:37: "Se e' peggiore allora eliminala e migliorala". Pre-registrazione in `rd-paper-trading/reports/prereg_prudent_tweaks_2026-11-19.md` (scritta prima dei risultati). Script `tweaks_test.py` sopra il metodo a capitale fisso di Lerabuns (`w2var_test.py`, W2V_FIXED=1: sizing su 1.000 EUR fissi, limite giornaliero -3% disattivato; 1+1 EUR, slippage 0,05%, tassa 26% con zainetto, WF 5 blocchi + holdout; cache_w3, 62 sedute 26/08-19/11, 1.233 titoli). 14 prove (2 basi + 12 ritocchi): rischio data-snooping alto.

@@ -108,6 +108,46 @@ def spike_gap_block(sess, o, daily_df, a):
                 return f"gap contrario in apertura ({op / pc - 1:+.2%}), non entro"
     return None
 
+_regime_cache = {}
+def index_regime(region, bars=None, at=None):
+    """Regime dell'indice per il filtro long (R&D 21/11/2026, reports/prereg_regime_long_2026-11-21.md).
+    Ritorna (stato, dettaglio): stato +1 sopra VWAP, -1 sotto o uguale, None se non calcolabile (dati mancanti o vecchi).
+    Usa solo barre 5m CHIUSE (inizio <= at - 5 min) della seduta cash di oggi. bars/at servono ai test e al dry-run."""
+    tk = CFG.get("regime_eu_ticker", "EXS1.DE") if region == "EU" else CFG.get("regime_us_ticker", "^GSPC")
+    at = at or now()
+    if bars is None:
+        if tk not in _regime_cache:
+            try:
+                _regime_cache[tk] = yf_intraday_bars([tk], period="2d", interval="5m").get(tk)
+            except Exception as e:
+                log(f"WARN regime: download {tk} fallito: {e}", S); _regime_cache[tk] = None
+        bars = _regime_cache[tk]
+    if bars is None or len(bars) == 0:
+        return None, f"{tk}: nessun dato"
+    o, c, _ = session_times(region, at.date())
+    s = bars[(bars.index >= o) & (bars.index < c) & (bars.index <= at - timedelta(minutes=5))]
+    if not len(s):
+        return None, f"{tk}: nessuna barra chiusa di oggi"
+    age = (at - s.index[-1]).total_seconds() / 60.0
+    if age > CFG.get("regime_max_age_min", 30):
+        return None, f"{tk}: ultima barra vecchia di {age:.0f} min"
+    vw = float(vwap(s).iloc[-1]); cl = float(s["Close"].iloc[-1])
+    if not (vw == vw and vw > 0 and cl == cl):
+        return None, f"{tk}: VWAP non calcolabile"
+    return (1 if cl > vw else -1), f"{tk} {cl:.2f} vs VWAP {vw:.2f} (barra {s.index[-1]:%H:%M})"
+
+def regime_block(region, bars=None, at=None):
+    """Filtro di regime sui long. ROLLBACK: CFG['regime_filter_long']=False. Se il regime non e' calcolabile NON blocca."""
+    if not CFG.get("regime_filter_long", False):
+        return None
+    st, det = index_regime(region, bars, at)
+    if st is None:
+        log(f"regime {region} non disponibile ({det}): filtro non applicato", S)
+        return None
+    if st < 0:
+        return f"regime indice ribassista ({det}), niente long"
+    return None
+
 def plan_entry(con, it, b, eq, cash, n_open, daily):
     """All entry checks; returns a reason string (no entry) or a plan dict for execute_entry."""
     t, region = it["ticker"], it["region"]
@@ -146,6 +186,8 @@ def plan_entry(con, it, b, eq, cash, n_open, daily):
         if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
         sg_why = spike_gap_block(sess, o, daily.get(t) if daily else None, a)
         if sg_why: return sg_why + ": " + info
+        rg_why = regime_block(region)
+        if rg_why: return rg_why + ": " + info
     else:
         if close >= vw:    return "short: sopra VWAP: " + info
         if mom >= 0 and CFG.get("mom_filter", True): return "short: momentum 15m positivo: " + info

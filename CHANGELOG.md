@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-21 (~01:05 ora di Roma) - DEPLOY filtro di regime sui long (indice sopra VWAP: DAX via EXS1.DE per EU, ^GSPC per US) sopra CH45+SPK12
+
+- **Perche'**: richiesta di Sguattera 21/11 (~00:52), dopo lo spunto del test short/regime: long solo con l'indice della regione sopra il VWAP di sessione, attivo da lunedi' 23/11 se passa. Short escluso. Universo, Q4_90, soglia 45 e SPK12 invariati.
+- **Pre-registrazione** (`rd-paper-trading/reports/prereg_regime_long_2026-11-21.md`, scritta alle 00:53 prima di ogni nuovo calcolo, con il data-snooping dichiarato: il -19,35 su cache_w4 era gia' visto, quindi cache_w4 da sola non bastava). Criteri, tutti obbligatori: (a) cache_w4 meglio di CH45+SPK12 su netto, OOS e holdout e in almeno 3 blocchi WF su 5; (b) vicini (apertura, EMA21, margine VWAP +0,1%) nella stessa direzione; (c) conferma indipendente su barre 1h dic-2023..nov-2026 (72 titoli EU+US, l'universo 1h piu' ampio disponibile; ORB long approssimato, costi 1+1 EUR e slippage): expectancy per trade migliore, segno coerente in almeno 2 anni su 3, almeno 300 trade (sostituisce la soglia dei 55), bootstrap per giorno >= 80%; (d) nessun peggioramento sistematico nei giorni rialzisti (1h: expectancy con filtro >= senza - 0,10 EUR).
+- **Risultati**:
+
+  | Criterio | Riferimento CH45+SPK12 | Con filtro | Esito |
+  |---|---|---|---|
+  | (a) netto cache_w4 (63 sedute) | -39,66 (73 trade) | -19,35 (44 trade) | ok |
+  | (a) OOS / holdout | -42,42 / -41,07 | -22,39 / -20,54 | ok |
+  | (a) blocchi WF | -1,35 / +7,98 / -16,81 / -31,25 / -0,99 | -2,59 / +8,13 / -2,54 / -25,39 / 0,00 | meglio in 4/5, ok |
+  | (b) vicini: apertura / EMA21 / VWAP +0,1% | -39,66 | -30,15 / -33,98 / -21,30 | tutti meglio, ok |
+  | (c) 1h: expectancy per trade | -2,347 EUR (11.679 trade) | -2,310 EUR (8.938 trade) | +0,037, ok |
+  | (c) per anno 2024 / 2025 / 2026 | | +0,024 / +0,061 / +0,020 | 3/3, ok |
+  | (c) bootstrap per giorno | | differenza > 0 nel 92,9% (IC 90% -0,005..+0,078) | ok |
+  | (d) 1h giorni rialzisti | -1,931 | -1,929 | ok |
+
+  Altri dati 1h: trade esclusi dal filtro -2,467 EUR di media; EU +0,025, US +0,065; vicino margine +0,1% +0,092. Dettagli in `rd-paper-trading/reports/regime_long1h.md` e `regime_long_w4.jsonl`.
+- **Lettura onesta**: il filtro passa tutti i criteri pre-registrati, ma l'effetto per trade e' piccolo (+0,04 EUR sulla storia lunga). Il grosso del miglioramento su cache_w4 viene dai trade in meno (-40%) nei giorni deboli, che con un'expectancy negativa riducono le perdite. Non rende la strategia profittevole: CH45+SPK12+filtro resta negativa (-19,35 su 63 sedute).
+- **Cosa** (codice): `common.py` nuovi `regime_filter_long=True` (ROLLBACK: False), `regime_eu_ticker="EXS1.DE"`, `regime_us_ticker="^GSPC"`, `regime_max_age_min=30`. `trade.py`: `index_regime()` scarica una volta per passaggio le barre 5m Yahoo dell'indice (stessa funzione `yf_intraday_bars` gia' usata per cambio e scansione), usa solo le barre CHIUSE della seduta cash di oggi e confronta il close con il VWAP (`vwap()`, media dei prezzi tipici se i volumi sono a zero); `regime_block()` blocca il long con il motivo "regime indice ribassista". **Degrado sicuro**: download fallito, nessun dato di oggi, ultima barra piu' vecchia di 30 min o VWAP non calcolabile -> il filtro NON blocca (comportamento di prima) e scrive nel log "regime non disponibile". Lo short (spento) non e' toccato.
+- **Verifiche**: nuovo `test_regime_filter.py` (15 controlli: sopra/sotto VWAP, solo barre chiuse, download vuoto o in errore, barre vecchie, solo dati di ieri, volumi a zero, US dalle 15:30, rollback); passano anche test_spike_filter, test_chart_threshold, test_short, test_fee4_shadow, test_ema_filter, test_trade_log, test_scan_watchlist, test_wide_scan, test_loose_flags, test_us_entry_delay, gh/test_chain (47 ok) e gh/secret_check. Dati dal vivo: Yahoo restituisce barre 5m di EXS1.DE (361 barre 16-20/11, 357 con volume) e ^GSPC (390, 388 con volume). Dry-run sui trade reali del 19-20/11 (copia in sola lettura del ledger di `origin/state`, script `rd-paper-trading/regime_dryrun.py`): tutti gli 8 ingressi reali (8TRA, APAM, MONC, ERF, VVV, GME, CAR, TTWO; netto reale -30,34 EUR) sarebbero stati bloccati con indice sotto VWAP; il segno coincide con quello del backtest (cache_w4) su tutti i casi controllati. E' una verifica di funzionamento, non una prova di vantaggio (giorni gia' noti e ribassisti).
+- **Backup**: `backups/2026-11-21_regime_long/` (trade.py e common.py precedenti, fuori dal repo). Rollback: `regime_filter_long=False` in common.py.
+
 ## 2026-11-21 (~00:50 ora di Roma) - R&D short via KO con filtro di regime (DAX / S&P 500): NESSUN deploy, nessuna nuova ombra
 
 - **Perche'**: richiesta di Sguattera 21/11 00:25: mercato in calo (DAX -1,41% il 19/11, -1,28% il 20/11), produzione solo long; testare short ORB solo con indice ribassista e long solo con indice rialzista. Universo e Q4_90 invariati.

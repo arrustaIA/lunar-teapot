@@ -46,6 +46,11 @@ CFG = dict(
     spike_filter=True,          # 21/11/2026: filtro SPK12 (movimento brusco 1,2 ATR / gap contrario 2%). ROLLBACK: False
     spike_filter_atr=1.2,
     gap_down_skip=0.02,
+    regime_filter_long=True,    # 21/11/2026: long solo se l'indice della regione e' sopra il suo VWAP di sessione (EU: EXS1.DE ETF DAX,
+                                # US: ^GSPC). Dati mancanti/vecchi -> filtro non applicato (degrado sicuro). ROLLBACK: False
+    regime_eu_ticker="EXS1.DE",
+    regime_us_ticker="^GSPC",
+    regime_max_age_min=30,      # barra dell'indice piu' vecchia di cosi' -> regime indeterminato -> filtro non applicato
     breakeven_at_r=1.0,         # move stop to breakeven once +1R reached
     max_extension_atr=1.5,      # don't chase: close <= OR high + 1.5*ATR (short: close >= OR low - 1.5*ATR)
     allow_short=False,          # mirror ORB breakdown short side (1x, notional reserved as collateral). Code ready and tested,

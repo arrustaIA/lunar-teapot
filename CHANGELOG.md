@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-21 (~00:50 ora di Roma) - R&D short via KO con filtro di regime (DAX / S&P 500): NESSUN deploy, nessuna nuova ombra
+
+- **Perche'**: richiesta di Sguattera 21/11 00:25: mercato in calo (DAX -1,41% il 19/11, -1,28% il 20/11), produzione solo long; testare short ORB solo con indice ribassista e long solo con indice rialzista. Universo e Q4_90 invariati.
+- **Metodo** (pre-registrazione `rd-paper-trading/reports/prereg_regime_2026-11-21.md` scritta prima dei risultati, addendum alle 00:31 dopo il deploy di SPK12; script `rd-paper-trading/regime_test.py`): cache_w4, 63 sedute 26/08-20/11, 1.232 titoli. Short = specchio di CH45 (rottura sotto il minimo dell'opening range, sotto VWAP, momentum 15m < 0, EMA9 < EMA21, analista grafico <= -45, stop/target/breakeven/uscita da grafico speculari, Q4_90) eseguito SOLO con knock-out short su azione x2 o x5 (spread emittente 0,50%, barriera, knock-out; vicini 0,30% e 1,00%). Regime sull'ultima barra 5m chiusa: DAX (VWAP via ETF EXS1.DE) per EU, S&P 500 per US (SPY/QQQ non in cache; ^NDX come vicino); filtri VWAP, apertura, EMA21. Capitale fisso 1.000 EUR, max 3 posizioni fra long e short, 1+1 EUR, tassa 26% con zainetto sulla sequenza combinata, WF 5 blocchi + holdout. Lato long = trade del motore su cache_w4 (combinatore verificato: riproduce CH45 -91,49 e CH45+SPK12 -39,66 / -42,42 / -41,07).
+- **Risultati** (lato long = CH45+SPK12, produzione attuale; netto EUR):
+
+  | Variante | Trade (short) | Netto | OOS (blocchi+) | Holdout | Senza 19-20/11 | Lordo short |
+  |---|---|---|---|---|---|---|
+  | CH45+SPK12 (rif.) | 73 (0) | -39,66 | -42,42 (1/5) | -41,07 | -38,67 | - |
+  | CH45 (rif. precedente) | 96 (0) | -91,49 | -94,45 (1/5) | -82,08 | -81,87 | - |
+  | long+short senza filtro, KO x2 | 1.212 (1.174) | -3.712,46 | -2.656,57 (0/5) | -1.198,98 | -3.649,30 | -1.335,53 |
+  | regime VWAP, KO x2 | 822 (785) | -2.552,45 | -1.779,28 (0/5) | -807,23 | -2.458,62 | -982,41 |
+  | regime apertura, KO x2 (migliore) | 756 (709) | -2.374,48 | -1.671,64 (0/5) | -791,25 | -2.281,76 | -929,80 |
+  | regime EMA21, KO x2 | 877 (836) | -2.743,62 | -1.881,35 (0/5) | -939,07 | -2.642,59 | -1.046,72 |
+  | regime apertura, KO x5 | 973 (926) | -3.047,82 | -2.067,12 (1/5) | -870,70 | -3.114,13 | -1.171,80 |
+  | solo filtro sui long, VWAP (informativo) | 44 (0) | -19,35 | -22,39 (1/5) | -20,54 | -19,35 | - |
+
+  Vicini del filtro apertura x2 (margine 0,10%, soglia grafico -35/-55, spread 0,30%/1,00%, ^NDX): da -1.948,94 a -3.438,31, tutti molto peggiori. Con lato long = CH45 i numeri sono quasi identici (tabelle complete in `rd-paper-trading/reports/regime_2026-11-21.md`). Gli short perdono anche nei soli 19-20/11 (-92,72 col filtro apertura).
+- **Diagnosi**: sul sottostante gli short hanno un lordo appena positivo (+147,92 EUR su 711, +0,21 a trade), ma lo spread KO costa 1,50 EUR a trade (-1.066,50) e le commissioni 1.422 EUR; win 18%. Lo specchio dell'analista grafico fa passare ~11 short al giorno contro ~1,2 long. La leva x5 riduce lo spread per euro esposto ma alza il numero di trade e peggiora l'OOS, quindi non va adottata. Storia lunga (barre 1h dic-2023..nov-2026, `reports/regime_longhist.md`): il regime ha un effetto reale e stabile (short di titoli deboli con indice sotto l'apertura +5,9 bp lordi contro -3,2; long di titoli forti con indice sopra +5,9 contro -4,3), ma i costi sono 55-75 bp a trade.
+- **Decisione** (regole pre-registrate): nessuna variante con short batte CH45 o CH45+SPK12 su netto, OOS o holdout; lordo short negativo; fallisce anche senza 19-20/11 e sui vicini. **Nessun deploy, nessuna nuova ombra**; V0_SHORT resta in shadow invariata e `allow_short` resta False (in produzione lo short sarebbe a pronti 1x, non ammesso: un eventuale deploy futuro richiede prima il modello KO in trade.py). Spunto non pre-registrato come candidato: il solo filtro di regime sui long (VWAP) dimezza la perdita di CH45+SPK12 ma con 44 trade (<55) e 1/5 blocchi; i vicini (apertura -30,15, EMA -33,98) e la storia lunga vanno nella stessa direzione. Va pre-registrato come test dedicato prima di qualunque deploy.
+- **Produzione**: nessuna modifica al codice, nessun file del repo toccato oltre a questo CHANGELOG.
+
 ## 2026-11-21 (~00:40 ora di Roma) - R&D anti-stop su CH45 (6 varianti pre-registrate + vicini): DEPLOY filtro SPK12 (movimento brusco / gap contrario)
 
 - **Perche'**: richiesta di Sguattera 20/11 (~21:00): i segnali CH45 sopra lo score 45 finiscono in stop in pochi minuti (20/11 CAR e TTWO). Universo, Q4_90 e soglia 45 invariati; niente ripetizione dei 14 test W2 e dei 7 setup alternativi.

@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-11-21 (~00:40 ora di Roma) - R&D anti-stop su CH45 (6 varianti pre-registrate + vicini): DEPLOY filtro SPK12 (movimento brusco / gap contrario)
+
+- **Perche'**: richiesta di Sguattera 20/11 (~21:00): i segnali CH45 sopra lo score 45 finiscono in stop in pochi minuti (20/11 CAR e TTWO). Universo, Q4_90 e soglia 45 invariati; niente ripetizione dei 14 test W2 e dei 7 setup alternativi.
+- **Verifica dal vivo 20/11** (copia in sola lettura del ledger da `origin/state`): CAR 17:20->17:26 netto -1,60 (lordo +0,40: uscita allo stop gia' spostato a breakeven, non stop iniziale); TTWO 20:40->20:50 netto -8,42 (stop iniziale); equity 933,54 EUR, giornata -10,01. Numeri di Sguattera confermati. Il backtest CH45 su cache_w4 riproduce gli stessi 2 trade del 20/11.
+- **Diagnosi** (`rd-paper-trading/reports/diag_antistop_2026-11-20.md`): lo stop "in pochi minuti" e' minoritario. CH45 backtest 93 trade: durata mediana 65 min, chiusi entro 15 min il 6% (4 stop iniziali, -27,90 EUR); 40% esce a breakeven (+1R poi ritorno, netto medio -0,20 = commissioni), 28% allo stop iniziale (-6,06 medio), 19 target. Dal vivo 17-20/11: 18 uscite, 0 target, 4 entro 15 min, 8 con lordo > 0 ma netto < 0. Peggiori: ingressi > ~2,3 ATR sopra il VWAP, candela 15 min > ~1,9 ATR, barra-spike > ~1,2 ATR recente; il rapporto ATR breve/lungo non conta.
+- **Metodo** (pre-registrazione `rd-paper-trading/reports/prereg_antistop_2026-11-20.md`, scritta dopo la diagnosi ma prima dei backtest; script `rd-paper-trading/antistop_test.py` sopra `tweaks_test.py`/`w2var_test.py`): capitale FISSO 1.000 EUR, 1+1 EUR, slippage 0,05%, tassa 26% con zainetto, WF 5 blocchi + holdout ultimo terzo. Griglia su cache_w3 (62 sedute 26/08-19/11); conferma dei candidati su cache_w4 (63 sedute, 20/11 incluso). Filtri applicati al segnale (ultima barra chiusa), prima dell'analista grafico.
+- **Risultati cache_w3** (netto EUR dopo commissioni e tasse):
+
+  | Variante | Trade (/seduta) | Lordo | Netto | Win | Exp/trade | OOS (blocchi+) | Holdout (trade) | Netto senza top-2 |
+  |---|---|---|---|---|---|---|---|---|
+  | **CH45 (rif.)** | 93 (1,50) | +112,91 | -76,09 | 30,1% | -0,82 | -79,04 (1/5) | -74,64 (37) | -93,48 |
+  | XV20 sopra VWAP > 2,0 ATR | 51 (0,82) | +69,06 | -35,17 | 35,3% | -0,69 | -37,90 (0/5) | -25,27 (18) | -49,32 |
+  | XV175 / XV25 (vicini) | 39 / 76 | +43,83 / +92,99 | -35,61 / -63,00 | 30,8 / 32,9% | -0,91 / -0,83 | -30,88 / -70,75 | -29,90 / -64,75 | |
+  | C15_18 candela 15m > 1,8 ATR | 60 (0,97) | +86,40 | -36,97 | 33,3% | -0,62 | -42,98 (0/5) | -29,26 (20) | -54,36 |
+  | C15_15 / C15_22 (vicini) | 47 / 77 | +53,68 / +93,10 | -45,40 / -64,95 | 34,0 / 31,2% | -0,97 / -0,84 | -59,59 / -72,85 | -30,58 / -59,36 | |
+  | VR13 ATR6/ATR48 > 1,3 | 75 (1,21) | +67,78 | -83,22 | 29,3% | -1,11 | -76,19 (1/5) | -75,83 (28) | -99,12 |
+  | VR12 / VR15 (vicini) | 71 / 82 | +65,98 / +89,46 | -76,83 / -77,54 | 28,2 / 30,5% | -1,08 / -0,95 | -69,27 / -76,20 | -61,48 / -72,65 | |
+  | CONF2 2 chiusure sopra ORH | 63 (1,02) | +76,65 | -55,16 | 34,9% | -0,88 | -66,01 (1/5) | -60,57 (25) | -68,92 |
+  | CONF3 (vicino) | 46 (0,74) | +78,83 | -18,95 | 39,1% | -0,41 | -29,78 (1/5) | -23,10 (15) | -32,71 |
+  | **SPK12 spike > 1,2 ATR in 30 min o gap < -2%** | **71 (1,15)** | **+113,75** | **-32,68** | **36,6%** | **-0,46** | **-35,44 (1/5)** | **-42,05 (25)** | **-49,80** |
+  | SPK10 / SPK15 (vicini) | 48 / 80 | +65,92 / +120,87 | -34,17 / -42,60 | 33,3 / 35,0% | -0,71 / -0,53 | -36,00 / -41,52 | -34,78 / -50,36 | |
+  | NOBE niente breakeven | 93 (1,50) | +97,52 | -95,30 | 41,9% | -1,02 | -97,02 (1/5) | -82,82 (37) | -112,69 |
+  | BE15 breakeven a 1,5R (vicino) | 93 (1,50) | +98,28 | -94,51 | 39,8% | -1,02 | -96,07 (1/5) | -85,92 (37) | -111,90 |
+
+- **Conferma cache_w4** (63 sedute, 20/11 incluso): CH45 96 trade, lordo +103,51, netto -91,49, OOS -94,45 (1/5), holdout -82,08 (40). SPK12 73 trade, lordo +110,77, netto **-39,66**, win 35,6%, exp -0,54, OOS **-42,42** (1/5), holdout **-41,07** (27), senza top-2 -56,78. Altri: XV20 -44,58 / OOS -47,31 (0/5); C15_18 -36,97 / -42,98 (0/5); CONF2 -61,31 / -72,16 (1/5). Il 20/11 SPK12 avrebbe saltato TTWO (spike 4,92 > 1,2 x ATR 2,928), tenendo CAR.
+- **Decisione** (criteri pre-registrati): passano SPK12 e CONF2 (netto, OOS e holdout > CH45; >= 55 trade e >= 15 nel holdout; senza i 2 trade migliori ancora > CH45; vicini che battono CH45; blocchi WF >= 1/5); XV20 fallisce (51 trade, WF 0/5), C15_18 fallisce (WF 0/5), VR*, NOBE, BE15 peggiori. Regola "OOS migliore" -> **DEPLOY SPK12**, confermato su w4. SPK12 e' l'unico filtro che toglie quasi solo perdite: dei 28 trade CH45 eliminati (lordo -6,51, netto -62,51) restano il lordo (+113,75 vs +112,91) con 22 trade in meno; lordo/trade da +1,21 a +1,60. CONF2 non deployata (nessuna combinazione). **Onesta'**: resta in perdita (~-0,6 EUR a seduta contro ~-1,4 di CH45), 1,15 trade a seduta, soglie scelte dopo una diagnosi sugli stessi dati (rischio data-snooping): da rivalutare dal vivo.
+- **Cosa cambia**: `common.py` `spike_filter=True`, `spike_filter_atr=1.2`, `gap_down_skip=0.02`; `trade.py` nuova `spike_gap_block()` chiamata in `plan_entry` per i long dopo i controlli ORB/VWAP/estensione: guarda solo le barre della seduta cash (non il pre-market L&S) e la chiusura giornaliera precedente. Uscite, stop, target, breakeven, analista 45, Q4_90, universo, shadow invariati. **ROLLBACK**: `spike_filter=False` in `common.py` (backup in `rd-paper-trading/staging/bak-20261121-spk12/`, HEAD precedente 2925d0b).
+- **Test**: nuovo `test_spike_filter.py` (7 controlli, incluso rollback); tutti i test `test_*.py` ok, `gh/test_chain.py` 47 ok; prova su barre reali del 20/11: TTWO 20:40 bloccato (spike 4,92 vs ATR 2,928, stesso ATR del log di produzione), CAR 17:20 non bloccato; `shadow.py --dry-run` ok. Ledger, scheduler e workflow non toccati.
+- **Idee per la prossima pre-registrazione** (non testate qui per evitare data-snooping; richieste di Sguattera): filtri anti-falso-breakout (es. CONF2/CONF3 sopra SPK12, chiusura a 15 min sopra ORH, volume della barra di rottura); sizing rispetto alle commissioni fisse (posizione minima piu' grande o rischio piu' alto solo quando il target atteso >> 2 EUR); gestione del breakeven (oggi il 40% delle uscite; spostarlo su stop a +0,5R o solo dopo un tempo minimo); altri setup (USLEAD_DAX in shadow resta da accumulare).
+- File R&D: `rd-paper-trading/diag_antistop.py`, `antistop_test.py`, `antistop_summary.py`, `reports/antistop.out`, `antistop_results.jsonl`, `antistop_w4.out`, `antistop_w4_results.jsonl`, `antistop_table_w3.md`, `antistop_table_w4.md`, `as_w3/`, `as_w4/`, `progress_2026-11-20b.md`.
+
 ## 2026-11-20 (~22:55 ora di Roma) - Controlli serali 20/11 (routine R&D): nessun deploy, nessun rollback
 
 - **Scheduler GitHub**: run 22:01 e 22:18 ok, heartbeat 22:25 (ora di Roma). Box fermo come previsto.

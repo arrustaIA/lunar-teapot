@@ -43,6 +43,9 @@ CFG = dict(
     chart_exit=True,            # uscita anticipata dell'analista grafico (riacceso 19/11 sera)
     max_stop_pct=0.03,
     reward_r=2.0,               # take profit at 2R
+    spike_filter=True,          # 21/11/2026: filtro SPK12 (movimento brusco 1,2 ATR / gap contrario 2%). ROLLBACK: False
+    spike_filter_atr=1.2,
+    gap_down_skip=0.02,
     breakeven_at_r=1.0,         # move stop to breakeven once +1R reached
     max_extension_atr=1.5,      # don't chase: close <= OR high + 1.5*ATR (short: close >= OR low - 1.5*ATR)
     allow_short=False,          # mirror ORB breakdown short side (1x, notional reserved as collateral). Code ready and tested,

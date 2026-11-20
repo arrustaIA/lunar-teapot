@@ -88,6 +88,26 @@ def manage_open(con, bars, daily, stops_only=False, catchup=False):
         log(f"{p['ticker']}: analista grafico {a['verdict']} (score {a['score']}), stop {stop:.4f} target {target:.4f}", S)
         save()
 
+def spike_gap_block(sess, o, daily_df, a):
+    """Filtro SPK12 (R&D 21/11/2026, backtest a capitale fisso): niente ingresso long se nelle ultime 6 barre a 5 min
+    della seduta cash una variazione close-close supera spike_filter_atr*ATR, o se l'apertura cash e' sotto la chiusura
+    di ieri di oltre gap_down_skip. ROLLBACK: CFG['spike_filter']=False."""
+    if not CFG.get("spike_filter", False):
+        return None
+    cs = sess[sess.index >= o]
+    if len(cs) >= 2 and a == a and a > 0:
+        mx = float(cs["Close"].diff().abs().tail(6).max())
+        if mx > CFG.get("spike_filter_atr", 1.2) * a:
+            return f"movimento brusco recente ({mx:.3f} > {CFG.get('spike_filter_atr', 1.2)}xATR), non entro"
+    if daily_df is not None and len(cs) and len(daily_df) >= 2:
+        d = daily_df.copy(); d.index = pd.to_datetime(d.index).date
+        hist = d[d.index < o.date()]
+        if len(hist):
+            pc = float(hist["Close"].iloc[-1]); op = float(cs["Open"].iloc[0])
+            if pc > 0 and op < pc * (1 - CFG.get("gap_down_skip", 0.02)):
+                return f"gap contrario in apertura ({op / pc - 1:+.2%}), non entro"
+    return None
+
 def plan_entry(con, it, b, eq, cash, n_open, daily):
     """All entry checks; returns a reason string (no entry) or a plan dict for execute_entry."""
     t, region = it["ticker"], it["region"]
@@ -124,6 +144,8 @@ def plan_entry(con, it, b, eq, cash, n_open, daily):
         if close <= vw:    return "sotto VWAP: " + info
         if mom <= 0 and CFG.get("mom_filter", True): return "momentum 15m negativo: " + info
         if close > orh + CFG["max_extension_atr"] * a: return "troppo esteso, non inseguo: " + info
+        sg_why = spike_gap_block(sess, o, daily.get(t) if daily else None, a)
+        if sg_why: return sg_why + ": " + info
     else:
         if close >= vw:    return "short: sopra VWAP: " + info
         if mom >= 0 and CFG.get("mom_filter", True): return "short: momentum 15m positivo: " + info

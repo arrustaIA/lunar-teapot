@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-21 (~01:20 ora di Roma) - R&D interruttore di regime ADATTIVO (fase ribassista degli ultimi 3-5 giorni -> short KO su indice + blocco long): SCARTATO, nessun deploy, nessuna ombra
+
+- **Perche'**: richiesta di Sguattera 21/11 01:03 per Andrea: niente regola fissa, ma un bot che riconosce la fase di mercato degli ultimi giorni, attiva gli short a bassa frequenza e blocca i long finche' dura, poi torna da solo alla produzione (CH45+SPK12+regime long).
+- **Pre-registrazione** (`rd-paper-trading/reports/prereg_adaptive_2026-11-21.md`, alle 01:06 prima dei risultati). Regola causale: lo stato del giorno d usa solo chiusure fino a d-1; indice DAX per EU, Nasdaq 100 per US. Se ON nella regione: KO short x5 su indice (nozionale 1.200 EUR, stop +1,5%, ingresso a fine prima ora, uscita 17:00 / 21:30, costi come lfshort ~25 bp) e long bloccati. 5 varianti: A1 rendimento 5 giorni <= -x (1-4%); A2 close < SMA5 < SMA10 e sotto SMA10 di x; A3 quota titoli in calo su 5 giorni >= b (72 titoli 1h); A4 = A1 ma short solo con indice sotto l'apertura all'ingresso; A5 = A1 con KO sul titolo piu' debole. Sensibilita' k=3 e soglie vicine. Long sulla storia 1h = ORB approssimato di regime_long1h.py filtrato col regime long, scalato alla frequenza della produzione (0,35 per giorno-regione). Soglia scelta solo nella stima 2024-01..2025-06; OOS 2025-07..2026-08-25; holdout 26/08-20/11; WF 5 blocchi.
+- **Risultati storia lunga** (754 sedute, Δ = netto sistema - netto produzione dopo tasse): A1, A2, A3 e A5 non hanno nessuna soglia con Δ positivo nella stima (migliori -50,05 / -45,45 / -66,21 / -185,42). Solo A4 (soglia 3%):
+
+  | A4, rendimento 5 giorni <= -3% + indice sotto apertura | Valore |
+  |---|---|
+  | giorni-indice ON / fasi / durata media | 114 / 52 / 2,2 giorni |
+  | Δ stima / OOS / holdout | +63,68 / **-31,40** / +81,75 |
+  | short da solo nell'OOS | -64,68 EUR (16 trade) |
+  | walk-forward (Δ per blocco) | +63,77 / -9,64 / -38,68 / -20,50 / +44,96 (2/5) |
+  | vicini 2% / 4% Δ OOS; k=3 | -52,83 / -51,83; -28,32 |
+  | Δ holdout senza 18-20/11 | +11,67 |
+  | long nei giorni ON vs OFF (bootstrap) | ON **migliori** di +0,65 EUR a trade; quota "ON peggiori" 9% (serve >= 80%) |
+  | Δ per anno 2024 / 2025 / 2026 | +28,86 / +5,42 / +79,76 (soglia scelta col 2024) |
+
+  Supporto giornaliero 2005-2026 (dopo -1..-4% in 5 giorni, short apertura->chiusura): mossa media DAX da -0,6 a +3,4 bp, NDX da -6,8 a +4,2 bp contro ~25 bp di costi. Dettagli: `rd-paper-trading/reports/adaptive_long.md`.
+- **cache_w4** (riferimento -19,35 / OOS -22,39 / holdout -20,54, riprodotto): A4 3% netto +55,77, OOS +52,72 (2/5), holdout +75,62; vicini 2% +56,99 e 4% +71,35; k=3 +17,45. Scomposizione: solo short +41,86 (ma senza 19-20/11 -16,70, cioe' quasi tutto il guadagno dello short viene da quei due giorni), solo blocco long +0,14. Il criterio 5 passa, ma e' lo stesso trimestre ribassista che la storia lunga indica come eccezione.
+- **Decisione**: scartato. Falliscono i criteri pre-registrati 1-4 (Δ OOS negativo, WF 2/5, vicini e k=3 negativi, short OOS negativo, blocco long controproducente: dopo fasi ribassiste i long vanno meglio della media, non peggio). Non rientra neanche nella regola dell'ombra (serve criterio 1, oppure criterio 5 con Δ OOS > 0). Codice di produzione invariato, regime_adaptive non introdotto.
+- **Script**: `rd-paper-trading/adaptive_test.py`, `adaptive_w4.py`; output `reports/adaptive_long.md/.json`, `reports/adaptive_w4.json`.
+
 ## 2026-11-21 (~01:10 ora di Roma) - R&D short a BASSA FREQUENZA su indice via KO (DAX / Nasdaq 100): NESSUN deploy, nessuna ombra
 
 - **Perche'**: richiesta di Sguattera 21/11 00:53 (Andrea: Nasdaq in calo da 3 giorni). Il test precedente (4b71965) mostrava che lo short su azioni perde per i costi (~11 short/giorno, spread KO azione). Idea: 1-2 short al giorno solo nei giorni di regime ribassista forte, su KO short indice (spread basso), tenuti fino a fine giornata per catturare mosse >= 1%.

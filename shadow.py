@@ -28,6 +28,13 @@ Attive dal 13/11/2026 (regole pre-registrate in R&D reports/preregistration_2026
   -> DAX nella stessa direzione alle 16:00 via KO x5 (esposizione ipotetica 5.000 EUR, spread 0,2% sul certificato), stop 0,4%,
   target 2R, chiusura alla barra 17:25. Backtest a capitale fisso 62 sedute: 13 trade, netto +53,11 EUR (OOS +69,78, holdout +57,94)
   ma volume troppo basso e controllo su barre 1h 2024-2026 negativo (-1,6 bp) -> NON in produzione, qui per misurarlo dal vivo.
+- A4_ADAPT (dal 23/11/2026, R&D reports/prereg_adaptive_2026-11-21.md, variante A4): SHADOW OSSERVATIVA su richiesta di Andrea (via
+  Sguattera), NON un candidato validato (scartata dai criteri pre-registrati: OOS 2025-26 -31,40 EUR vs produzione). Interruttore per
+  regione: ON se l'indice (DAX per EU, Nasdaq 100 per US) ha reso <= -3% sulle ultime 5 chiusure fino a ieri. Se ON: short ombra
+  via KO x5 sull'indice (nozionale 1.200 EUR, stop +1,5%, ingresso a fine prima ora solo se l'indice e' sotto l'apertura, uscita 17:00
+  DAX / 21:30 NDX, fee 2 EUR, spread KO 0,2% sul certificato, slippage 0,02%/lato) e i long di produzione della regione 'bloccati'
+  (solo conteggio del loro netto reale). Calcolato a fine giornata (--eod) in data/adaptive_shadow.jsonl; sezione nel report serale.
+  Verifica a data simulata: python3 shadow.py --a4-sim 2026-11-18,2026-11-19,2026-11-20 (non scrive nulla).
 Backtest 19/08-11/11 (61 sedute): entrambe peggiori della v0 -> NON in produzione; qui solo per accumulare evidenza.
 Uso: ./run.sh shadow (ogni 10 min, minuto :x3)  |  ./run.sh shadow --eod (21:56, esito ipotetico + report)
      python3 shadow.py --dry-run  (stampa i segnali senza scrivere)
@@ -53,6 +60,9 @@ LOOSE = dict(max_extension_atr=3.0, min_reward_vs_fees=1.5)   # variante V0_LOOS
 FEE4 = dict(min_reward_vs_fees=4.0)                            # variante V0_FEE4: v0 con filtro commissioni 4x (solo shadow)
 MIN_RR = {"V0_LOOSE": LOOSE["min_reward_vs_fees"], "V0_FEE4": FEE4["min_reward_vs_fees"]}
 USLEAD = dict(thr=0.003, stop=0.004, rr=2.0, lev=5.0, expo=5000.0, half_spread=0.001)  # USLEAD_DAX (solo shadow)
+A4 = dict(k=5, thr=0.03, lev=5.0, expo=1200.0, stop=0.015, half_spread=0.001, slip=0.0002, fees=2.0,
+          idx={"EU": "^GDAXI", "US": "^NDX"}, exit={"EU": dtime(17, 0), "US": dtime(21, 30)})  # A4_ADAPT (solo shadow)
+ADAPT = os.path.join(OUT, "adaptive_shadow.jsonl")
 NOTIONAL = CFG["start_cash"]   # sizing ipotetico su 1.000 € (non legge l'equity del ledger)
 
 
@@ -311,6 +321,160 @@ def uslead_scan(n, dry=False):
     return 1
 
 
+# ---------------- A4_ADAPT: interruttore di regime adattivo (SHADOW osservativa, nessun ordine) ----------------
+def a4_state(closes, d):
+    """closes: Serie di chiusure giornaliere indicizzata per data. Usa solo chiusure < d. -> (on, ret5) o (None, None)."""
+    s = closes[[x < d for x in closes.index]].dropna()
+    if len(s) < A4["k"] + 1:
+        return None, None
+    r = float(s.iloc[-1]) / float(s.iloc[-1 - A4["k"]]) - 1
+    return r <= -A4["thr"], r
+
+
+def a4_closes(daily, b, region, d):
+    """Chiusure giornaliere dell'indice: Yahoo 1d, con le sedute mancanti (Yahoo a volte omette l'ultima in download multipli)
+    riempite con l'ultima barra 5m della seduta cash. -> (Serie per data, lista dei giorni riempiti dal 5m)."""
+    cl = pd.Series(dtype=float)
+    if daily is not None and len(daily):
+        cl = daily["Close"].astype(float).dropna().copy(); cl.index = [pd.Timestamp(x).date() for x in cl.index]
+    filled = []
+    if b is not None and len(b):
+        for dd in sorted(set(b.index.date)):
+            if dd >= d or dd in cl.index:
+                continue
+            o, c = session_times(region, dd)[:2]
+            sess = b[(b.index >= o) & (b.index < c)]
+            if len(sess) >= 30:
+                cl.loc[dd] = float(sess["Close"].iloc[-1]); filled.append(str(dd))
+    cl = cl[~pd.Index(cl.index).duplicated(keep="first")].sort_index()
+    return (cl if len(cl) else None), filled
+
+
+def a4_short(b, region, d):
+    """Short ombra KO x5 sull'indice: ingresso a fine prima ora se sotto l'apertura, stop +1,5%, uscita a orario fisso."""
+    if b is None or not len(b):
+        return dict(status="barre non disponibili")
+    o = session_times(region, d)[0]; ent = o + timedelta(minutes=60); ex = datetime.combine(d, A4["exit"][region], ROME)
+    day = b[(b.index >= o) & (b.index.date == d)]
+    first = day[day.index + timedelta(minutes=5) <= ent]
+    path = day[(day.index + timedelta(minutes=5) > ent) & (day.index + timedelta(minutes=5) <= ex)]
+    if not len(first) or first.index[0] != o or not len(path):
+        return dict(status="barre incomplete")
+    op, px = float(first["Open"].iloc[0]), float(first["Close"].iloc[-1])
+    if not px < op:
+        return dict(status="nessuno short: indice sopra l'apertura alle " + ent.strftime("%H:%M"), open=round(op, 2), entry_px=round(px, 2))
+    lev, e = A4["lev"], A4["expo"]; barrier, st = px * (1 + 1 / lev), px * (1 + A4["stop"])
+    sx, why, xts = float(path["Close"].iloc[-1]), "orario", path.index[-1] + timedelta(minutes=5)
+    for ts, bar in path.iterrows():
+        if float(bar["High"]) >= barrier:
+            sx, why, xts = None, "knock-out", ts + timedelta(minutes=5); break
+        if float(bar["High"]) >= st:
+            sx, why, xts = max(st, float(bar["Open"])), "stop", ts + timedelta(minutes=5); break
+    v0 = e / lev; rel = 0.0 if sx is None else max(0.0, 1 + lev * (1 - sx / px)); hs = A4["half_spread"]
+    gross = v0 * rel * (1 - hs) - v0 * (1 + hs) - 2 * A4["slip"] * e
+    return dict(status="short", open=round(op, 2), entry_px=round(px, 2), entry_ts=ent.isoformat(timespec="minutes"),
+                exit_px=round(sx if sx is not None else barrier, 2), exit_ts=xts.isoformat(timespec="minutes"), exit_reason=why,
+                move_pct=round((1 - (sx if sx is not None else barrier) / px) * 100, 3), gross=round(gross, 2), net_ante_tasse=round(gross - A4["fees"], 2))
+
+
+def a4_prod_trades(d):
+    """Long di produzione con ingresso nel giorno d (trade_log), con regione e netto reale."""
+    try:
+        import trade_log as TL
+        rows = _lines(TL.log_path())
+    except Exception:
+        return []
+    try:
+        reg = {u["ticker"]: u["region"] for u in load_universe()}
+    except Exception:
+        reg = {}
+    out = []
+    for r in rows:
+        if r.get("source") != "production" or str(r.get("entry_ts", ""))[:10] != d.isoformat():
+            continue
+        sym = r.get("symbol", "")
+        out.append(dict(symbol=sym, region=reg.get(sym, "EU" if "." in sym else "US"), side=r.get("side", "long"),
+                        entry_ts=r.get("entry_ts"), net=round(float(r.get("net_pnl_eur") or 0), 2)))
+    return out
+
+
+def a4_eval(d, bars, daily):
+    """Riga giornaliera A4_ADAPT per il giorno d (pura: nessuna scrittura)."""
+    row = dict(day=d.isoformat(), strategy="A4_ADAPT", note="SHADOW osservativa: nessun ordine, nessuna scrittura sul ledger", regions={})
+    prod = a4_prod_trades(d); short_net = 0.0; blocked_net = 0.0
+    for region, tk in A4["idx"].items():
+        cl, filled = a4_closes(daily.get(tk), bars.get(tk), region, d)
+        on, r5 = a4_state(cl, d) if cl is not None else (None, None)
+        x = dict(index=tk, on=on, ret5_pct=None if r5 is None else round(r5 * 100, 2),
+                 last_close_day=None if cl is None or not len(cl[[c < d for c in cl.index]]) else str(max(c for c in cl.index if c < d)),
+                 closes_from_5m=filled)
+        if on:
+            x["short"] = a4_short(bars.get(tk), region, d)
+            bl = [p for p in prod if p["region"] == region and p["side"] == "long"]
+            x["blocked"] = bl; x["blocked_net"] = round(sum(p["net"] for p in bl), 2)
+            short_net += x["short"].get("net_ante_tasse") or 0.0; blocked_net += x["blocked_net"]
+        row["regions"][region] = x
+    row["short_net"] = round(short_net, 2); row["blocked_net"] = round(blocked_net, 2)
+    row["delta"] = round(short_net - blocked_net, 2)
+    return row
+
+
+def a4_fetch(period="1mo"):
+    tks = list(A4["idx"].values())
+    return yf_intraday_bars(tks, period=period), daily_bars(tks, period="3mo")
+
+
+def a4_lines(dry=False):
+    d = today(); md = ["", "## A4_ADAPT — interruttore di regime adattivo (SHADOW osservativa su richiesta di Andrea, non validato; nessun ordine)", ""]
+    if is_weekend(d):
+        return md + ["- nessuna seduta (fine settimana)"]
+    try:
+        hist = [r for r in _lines(ADAPT) if r.get("strategy") == "A4_ADAPT"]
+        row = next((r for r in hist if r.get("day") == d.isoformat()), None)
+        if row is None:
+            bars, daily = a4_fetch()
+            row = a4_eval(d, bars, daily)
+            if not dry:
+                append(ADAPT, row); hist.append(row)
+        md += a4_row_lines(row)
+        cum = sum(r.get("delta") or 0 for r in hist if r.get("day", "") <= d.isoformat()) + (0 if row in hist else row["delta"])
+        md.append(f"- Δ cumulato A4 vs produzione dal 23/11: {cum:+.2f} € ({len([r for r in hist if r.get('day', '') <= d.isoformat()])} sedute registrate)")
+    except Exception as e:
+        md.append(f"- A4_ADAPT non calcolato ({type(e).__name__}: {e})")
+    return md
+
+
+def a4_row_lines(row):
+    md = []
+    for region, x in row["regions"].items():
+        st = "ACCESO" if x.get("on") else ("spento" if x.get("on") is False else "n/d")
+        line = (f"- {x['index']} ({region}): interruttore {st}, rendimento 5 giorni {x['ret5_pct'] if x['ret5_pct'] is not None else 'n/d'}% "
+                f"(ultima chiusura usata {x.get('last_close_day')}" + (", chiusure da barre 5m: " + ", ".join(x['closes_from_5m']) if x.get('closes_from_5m') else "") + ")")
+        if x.get("on"):
+            sh = x.get("short") or {}
+            if sh.get("status") == "short":
+                line += (f"; short ombra {sh['entry_ts'][11:16]} @ {sh['entry_px']} -> {sh['exit_ts'][11:16]} @ {sh['exit_px']} ({sh['exit_reason']}, "
+                         f"{sh['move_pct']:+.2f}%), netto ante tasse {sh['net_ante_tasse']:+.2f} €")
+            else:
+                line += f"; {sh.get('status', 'nessuno short')}"
+            bl = x.get("blocked") or []
+            line += (f"; long di produzione che A4 avrebbe bloccato: {len(bl)}"
+                     + (" (" + ", ".join(f"{p['symbol']} {p['net']:+.2f}" for p in bl) + f"; netto reale {x['blocked_net']:+.2f} €)" if bl else ""))
+        md.append(line)
+    md.append(f"- Δ del giorno A4 vs produzione: {row['delta']:+.2f} € (short {row['short_net']:+.2f} € ante tasse, meno long bloccati {row['blocked_net']:+.2f} € netti)")
+    return md
+
+
+def a4_sim(days_csv):
+    """Verifica a data simulata: ricalcola A4 per i giorni dati (barre Yahoo 5m ultimi 60 giorni). Non scrive nulla."""
+    from datetime import date as _date
+    bars, daily = a4_fetch(period="1mo"); tot = 0.0
+    for ds in days_csv.split(","):
+        row = a4_eval(_date.fromisoformat(ds.strip()), bars, daily); tot += row["delta"]
+        print(f"### {row['day']}"); print("\n".join(a4_row_lines(row))); print(json.dumps(row, ensure_ascii=False, default=str))
+    print(f"Δ totale simulato: {tot:+.2f} €")
+
+
 def scan(dry=False):
     n = now()
     if is_weekend():
@@ -517,6 +681,7 @@ def eod(dry=False):
     md += ["", "## USLEAD_DAX (S&P 15:30-15:55 -> DAX 16:00-17:25 via KO x5 ipotetico, nessun ordine)", "",
            (f"- USLEAD_DAX: {ul[0].get('side')} {ul[0].get('info')} -> {ul[0].get('outcome')}, netto ante tasse "
             f"{(ul[0].get('net_ante_tasse') or 0):+.2f} € (spread KO incluso)") if ul else "- USLEAD_DAX: nessun segnale oggi"]
+    md += a4_lines(dry)
     try:
         import debate
         md += debate.eod_lines(dry)
@@ -572,6 +737,8 @@ def wide_lines(allres, d):
 
 def main():
     dry = "--dry-run" in sys.argv
+    if "--a4-sim" in sys.argv:
+        a4_sim(sys.argv[sys.argv.index("--a4-sim") + 1]); return
     if "--eod" in sys.argv:
         eod(dry)
     else:

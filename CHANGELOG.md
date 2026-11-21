@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-11-21 (~01:10 ora di Roma) - R&D short a BASSA FREQUENZA su indice via KO (DAX / Nasdaq 100): NESSUN deploy, nessuna ombra
+
+- **Perche'**: richiesta di Sguattera 21/11 00:53 (Andrea: Nasdaq in calo da 3 giorni). Il test precedente (4b71965) mostrava che lo short su azioni perde per i costi (~11 short/giorno, spread KO azione). Idea: 1-2 short al giorno solo nei giorni di regime ribassista forte, su KO short indice (spread basso), tenuti fino a fine giornata per catturare mosse >= 1%.
+- **Pre-registrazione** (`rd-paper-trading/reports/prereg_lfshort_2026-11-21.md`, scritta alle 00:56 prima di ogni risultato): KO short x5 (barriera +20%), nozionale fisso 1.200 EUR (certificato 240 EUR, slot dedicato), stop +1,5% sul sottostante, ingresso a fine prima ora (DAX 10:00, NDX 16:30; V5 13:00/18:30), uscita DAX 17:00 / NDX 21:30. Costi: 1+1 EUR, spread indice 0,12% con minimo mezzo spread 0,01 EUR su 10 EUR (0,20% effettivo sul certificato), slippage 0,02% per lato => ~25 bp del nozionale; tasse 26% con zainetto. 6 varianti con griglia: V1 gap indice <= -g; V2 prima ora <= -f; V3 gap <= -g e indice sotto apertura; V4 ampiezza (quota titoli sotto apertura) >= b; V5 indice sotto apertura di m alle 13:00/18:30; V6 titolo piu' debole con KO azione. Soglia scelta SOLO nella stima (2024-01..2025-06), OOS 2025-07..2026-08-25, holdout 26/08-20/11, WF 5 blocchi espansi; criteri: OOS e holdout > 0, WF >= 3/5, >= 60 trade e >= 25 OOS con t >= 1,5, vicini con OOS > 0, holdout senza 18-20/11 > 0, spread wide OOS > 0, cache_w4 meglio della produzione su netto/OOS/holdout.
+- **Spread verificato**: KO short Nasdaq 100 SG (gs.de, 19/11): 0,01 EUR su 7,63 EUR (0,13%, leva 3,2) e 0,01 su 50,85 (0,02%, leva 4,8). Il modello (0,20% effettivo) e' prudente; anche a spread zero il risultato non cambia segno (lo spread pesa ~4 bp su 25, le fee ~17 bp).
+- **Risultati storia lunga (barre 1h dic-2023..20/11/2026, 754 sedute)**: la mossa media nei giorni di regime e' quasi sempre sotto i costi (25 bp). Solo V3 ha una soglia positiva in stima:
+
+  | Variante (soglia scelta in stima) | Stima | OOS (n, mossa bp, t) | Holdout | WF 5 blocchi | Vicini OOS | Esito |
+  |---|---|---|---|---|---|---|
+  | V1 gap | nessuna > 0 (migliore -21,56) | - | - | 0 | - | scartata |
+  | V2 prima ora | nessuna > 0 (-32,94) | - | - | 0 | - | scartata |
+  | V3 gap+sotto apertura, g=0,8% | +32,31 (32, +36,8 bp) | -41,80 (23, +9,5 bp, t -0,91) | +50,18 (6, +119 bp) | 0/-13,31/-35,44/-18,88/0 = -67,63 | 0,6%: -86,96; 1,0%: -21,59 | fallisce 1-4 |
+  | V4 ampiezza | nessuna > 0 (-147,79) | - | - | -82,62 | - | scartata |
+  | V5 meta' giornata | nessuna > 0 (-56,48) | - | - | 0 | - | scartata |
+  | V6 titolo piu' debole | nessuna > 0 (-111,04) | - | - | 0 | - | scartata |
+
+  Controllo giornaliero 2005-2026 (gap <= -g, short apertura->chiusura): DAX mossa da -0,6 a +10 bp, NDX da -5,8 a -1,7 bp: nessun vantaggio in 22 anni. Dettagli: `rd-paper-trading/reports/lfshort_long.md`.
+- **Secondo controllo cache_w4 (63 sedute, 5m)**, V3 g=0,8% sopra la produzione attuale CH45+SPK12+regime long (riferimento -19,35 / OOS -22,39 / holdout -20,54, riprodotto): netto +40,99, OOS +37,94 (3/5), holdout +27,93; 7 short (+70,90 EUR prima delle tasse), di cui 2 il 20/11 (+34,85); senza 19-20/11 +6,14. Nessun conflitto di liquidita' o slot con i long (0 casi). Ma e' esattamente il trimestre ribassista che la storia lunga indica come eccezione (holdout +119 bp a trade contro +9,5 bp nell'OOS 2025-26).
+- **Decisione**: nessun deploy e nessuna ombra. I criteri pre-registrati 1-4 falliscono: la soglia scelta in stima perde nell'OOS di 14 mesi, il walk-forward e' negativo e le soglie vicine perdono. Il guadagno su cache_w4 dipende da pochi giorni ribassisti recenti (adattamento al regime attuale). Codice di produzione invariato (allow_short resta False).
+- **Script**: `rd-paper-trading/lfshort_data.py`, `lfshort_test.py`, `lfshort_w4.py`; output `reports/lfshort_long.md/.json`, `reports/lfshort_w4.json`.
+
 ## 2026-11-21 (~00:58 ora di Roma) - DEPLOY filtro di regime sui long (indice sopra VWAP: DAX via EXS1.DE per EU, ^GSPC per US) sopra CH45+SPK12
 
 - **Perche'**: richiesta di Sguattera 21/11 (~00:52), dopo lo spunto del test short/regime: long solo con l'indice della regione sopra il VWAP di sessione, attivo da lunedi' 23/11 se passa. Short escluso. Universo, Q4_90, soglia 45 e SPK12 invariati.

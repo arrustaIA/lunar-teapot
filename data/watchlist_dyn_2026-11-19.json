@@ -1,0 +1,575 @@
+{
+ "date": "2026-11-19",
+ "items": [
+  {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "09:25",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.536,
+   "rationale": "sentiment parole chiave 6h +0.54 su 3 notizie; top: Anthropic’s Cash Pile Tops Amazon And Nvidia Combined After Record IPO – Meet The New ETF Tracking ANT-Linked Companies (yfinance, 19/11 06:47)"
+  },
+  {
+   "ticker": "META",
+   "name": "Meta Platforms",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "10:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: 4,056 Meta Platforms, Inc. $META Shares Sold by Bellwether Advisors LLC - MarketBeat (Google News, 19/11 09:48)"
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "11:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.544,
+   "rationale": "sentiment parole chiave 6h +0.54 su 3 notizie; top: Siemens Energy Lifts on AI Rebound as Buyback and Record Year Reframe the Story - ad-hoc-news.de (Google News, 19/11 11:01)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.037,
+   "rationale": "raffica di 9 notizie in 60 min (media oraria 7gg 1.1); top: Josh Brown: “No Greater Beneficiary Than Apple” if Nvidia Stops Hoarding Memory. Nvidia Just Did the Opposite (yfinance, 19/11 07:58)"
+  },
+  {
+   "ticker": "SAP.DE",
+   "name": "SAP",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.518,
+   "rationale": "sentiment parole chiave 6h +0.52 su 3 notizie; top: SAP Lines Up IONOS Leadership Move as Buyback, TechWolf Deal and JPMorgan Upgrade Reshape the Story - ad-hoc-news.de (Google News, 19/11 08:30)"
+  },
+  {
+   "ticker": "CBK.DE",
+   "name": "Commerzbank",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.037,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.5); top: Unicredit – Commerzbank: c’è accordo con Germania. Cosa succede ora? - Meteofinanza.com (Google News, 19/11 11:58)"
+  },
+  {
+   "ticker": "UCG.MI",
+   "name": "UniCredit",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.034,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.6); top: Unicredit – Commerzbank: c’è accordo con Germania. Cosa succede ora? - Meteofinanza.com (Google News, 19/11 11:58)"
+  },
+  {
+   "ticker": "CON.DE",
+   "name": "Continental",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.664,
+   "rationale": "sentiment parole chiave 6h +0.66 su 3 notizie; top: Continental stock wins Mercedes-AMG CLA tire approval - ad-hoc-news.de (Google News, 19/11 10:25)"
+  },
+  {
+   "ticker": "SAN.PA",
+   "name": "Sanofi",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "13:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.509,
+   "rationale": "sentiment parole chiave 6h +0.51 su 11 notizie; top: Sanofi (ENXTPA:SAN) Could Be 19% Overvalued As VaxRabeo Wins EU Approval (yfinance, 19/11 12:16)"
+  },
+  {
+   "ticker": "AIR.DE",
+   "name": "Airbus",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "13:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.071,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 0.3); top: Airbus shares among the biggest gainers on the CAC 40, targeting €210.70 - Idéal Investisseur (Google News, 19/11 12:20)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "13:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.035,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.4); top: Key facts: AMD Buys World Labs; Upgrades; 80% Data Center Mix in 2027 - TradingView (Google News, 19/11 09:00)"
+  },
+  {
+   "ticker": "GOOGL",
+   "name": "Alphabet A",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:00",
+   "move": 0.038,
+   "rvol": 2.45,
+   "atr_d": 0.0336,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento +3.80% (soglia 3.36%), volume relativo 2.4x"
+  },
+  {
+   "ticker": "INTC",
+   "name": "Intel",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.199,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.1); top: Intel Climbs 7% on First 18A Customer, NVIDIA Gains 4% as Trump Floats Blackwell Sales to China and Dan Ives Hails Anthropic IPO; AMD Rises 3% (yfinance, 19/11 15:56)"
+  },
+  {
+   "ticker": "MU",
+   "name": "Micron",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.194,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 0.9); top: SanDisk and Micron Rise 4% as Anthropic’s Record IPO Revives the AI Trade; Western Digital Gains 5% (yfinance, 19/11 15:11)"
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.033,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.3); top: Tesla, Inc. $TSLA Stock Sold by Independent Advisor Alliance - MarketBeat (Google News, 19/11 14:38)"
+  },
+  {
+   "ticker": "JPM",
+   "name": "JPMorgan Chase",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "20:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.168,
+   "rationale": "raffica di 7 notizie in 60 min (media oraria 7gg 1.1); top: Bullish (NYSE:BLSH) Stock Price Target Cut by JPMorgan Chase & Co. - MarketBeat (Google News, 19/11 19:35)"
+  },
+  {
+   "ticker": "UBER",
+   "name": "Uber",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "21:00",
+   "move": -0.0468,
+   "rvol": 2.25,
+   "atr_d": 0.0336,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -4.68% (soglia 3.36%), volume relativo 2.3x"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-19T09:25:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "AMZN"
+   ]
+  },
+  {
+   "at": "2026-11-19T09:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T10:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T10:15:20+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "META"
+   ]
+  },
+  {
+   "at": "2026-11-19T10:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T11:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T11:05:17+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "ENR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-19T11:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T12:00:15+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T12:15:23+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "AAPL",
+    "SAP.DE",
+    "CBK.DE",
+    "UCG.MI"
+   ]
+  },
+  {
+   "at": "2026-11-19T12:30:15+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T12:45:19+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "CON.DE"
+   ]
+  },
+  {
+   "at": "2026-11-19T13:00:13+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 47,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T13:15:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "SAN.PA",
+    "AIR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-19T13:30:13+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 45,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T13:35:20+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "AMD"
+   ]
+  },
+  {
+   "at": "2026-11-19T14:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 45,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T14:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 45,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T15:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 45,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T15:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 45,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T16:00:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 60,
+   "candidates": 1,
+   "added": [
+    "GOOGL"
+   ]
+  },
+  {
+   "at": "2026-11-19T16:15:17+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "INTC"
+   ]
+  },
+  {
+   "at": "2026-11-19T16:30:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T16:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "MU",
+    "TSLA"
+   ]
+  },
+  {
+   "at": "2026-11-19T17:00:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T17:30:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T18:00:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T18:30:14+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T19:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T19:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T20:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 56,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T20:15:09+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "JPM"
+   ]
+  },
+  {
+   "at": "2026-11-19T20:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 55,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-19T21:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 55,
+   "candidates": 1,
+   "added": [
+    "UBER"
+   ]
+  }
+ ],
+ "updated": "2026-11-19T21:00:06+01:00"
+}

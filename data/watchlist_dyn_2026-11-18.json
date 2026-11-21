@@ -1,0 +1,446 @@
+{
+ "date": "2026-11-18",
+ "items": [
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "10:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: Why is Broadcom stock climbing today? - Investing.com (Google News, 18/11 10:29)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.0,
+   "rationale": "raffica di 10 notizie in 60 min (media oraria 7gg 1.1); top: Apple outage hits iCloud, Apple Pay in latest U.S. tech disruption (Investing.com, 18/11 09:50)"
+  },
+  {
+   "ticker": "BAYN.DE",
+   "name": "Bayer",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.549,
+   "rationale": "sentiment parole chiave 6h +0.55 su 3 notizie; top: Bayer Draws a Higher Berenberg Target but No Upgrade as Drug Approvals Reshape the Story - ad-hoc-news.de (Google News, 18/11 11:51)"
+  },
+  {
+   "ticker": "ALV.DE",
+   "name": "Allianz",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "16:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: Allianz Wins Fresh Buy Calls and a Lloyd's Foothold While Barclays Stays on the Sidelines - ad-hoc-news.de (Google News, 18/11 14:11)"
+  },
+  {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.0,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 1.2); top: What Does Amazon's Falling Multiple Really Say? (yfinance, 18/11 16:19)"
+  },
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "17:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.039,
+   "rationale": "raffica di 7 notizie in 60 min (media oraria 7gg 1.6); top: Microsoft Corporation (MSFT) Surged on Strong Azure Growth and AI-related Demand (yfinance, 18/11 17:04)"
+  },
+  {
+   "ticker": "UCG.MI",
+   "name": "UniCredit",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "17:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.506,
+   "rationale": "sentiment parole chiave 6h +0.51 su 3 notizie; top: Commerzbank Extends Buyback as UniCredit Secures Twin Regulatory Nods - ad-hoc-news.de (Google News, 18/11 14:01)"
+  },
+  {
+   "ticker": "ENI.MI",
+   "name": "Eni",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "18:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.507,
+   "rationale": "sentiment parole chiave 6h +0.51 su 5 notizie; top: ENI * BUYBACK: «ACQUISTATE 4,56 MILIONI DI AZIONI PROPRIE IN UNA SETTIMANA PER 115 MILIONI DI EURO - agenzia giornalistica opinione (Google News, 18/11 13:01)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 4 notizie; top: AMD Stock Climbs After Nvidia's Blowout Results (yfinance, 18/11 17:08)"
+  },
+  {
+   "ticker": "SAP.DE",
+   "name": "SAP",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "19:00",
+   "move": -0.0355,
+   "rvol": 1.72,
+   "atr_d": 0.0297,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -3.55% (soglia 2.97%), volume relativo 1.7x"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-18T09:30:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T10:00:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T10:30:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T10:35:11+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "AVGO"
+   ]
+  },
+  {
+   "at": "2026-11-18T11:00:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T11:30:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T12:00:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T12:15:14+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "AAPL",
+    "BAYN.DE"
+   ]
+  },
+  {
+   "at": "2026-11-18T12:30:09+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T13:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T13:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T14:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T14:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T15:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T15:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T16:00:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 68,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T16:30:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 68,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T16:35:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "ALV.DE"
+   ]
+  },
+  {
+   "at": "2026-11-18T16:45:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "AMZN"
+   ]
+  },
+  {
+   "at": "2026-11-18T17:00:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 66,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T17:15:09+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "MSFT",
+    "UCG.MI"
+   ]
+  },
+  {
+   "at": "2026-11-18T17:30:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 64,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T18:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 64,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T18:05:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "ENI.MI"
+   ]
+  },
+  {
+   "at": "2026-11-18T18:15:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "AMD"
+   ]
+  },
+  {
+   "at": "2026-11-18T18:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 62,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T19:00:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 62,
+   "candidates": 1,
+   "added": [
+    "SAP.DE"
+   ]
+  },
+  {
+   "at": "2026-11-18T19:30:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T20:00:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T20:30:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-18T21:00:05+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-18T21:00:07+01:00"
+}

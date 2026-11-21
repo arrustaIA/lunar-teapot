@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-16",
+  "macro_news": {
+    "score": -0.031,
+    "count": 49
+  },
+  "created": "2026-11-16T09:35:16+01:00",
+  "universe_scanned": 71,
+  "items": [
+    {
+      "ticker": "DTE.DE",
+      "name": "Deutsche Telekom",
+      "region": "EU",
+      "currency": "EUR",
+      "score": 6.198,
+      "last": 26.92,
+      "rationale": "gap +1.13%, ieri +0.30%, 5gg +2.66%, volume relativo 1.3x, ATR 2.26%, sopra la media 20gg, news +0.11 (7 notizie 24h): Deutsche Telekom Draws a Higher Barclays Target as Fibre Build-Out and Buybacks Set the Pace - ad-hoc-news.de (Google News, 15/11 14:51)"
+    },
+    {
+      "ticker": "HAG.DE",
+      "name": "Hensoldt",
+      "region": "EU",
+      "currency": "EUR",
+      "score": 5.022,
+      "last": 81.38,
+      "rationale": "gap +0.52%, ieri +1.21%, 5gg +3.85%, volume relativo 1.4x, ATR 5.07%, sotto la media 20gg, news +0.07 (3 notizie 24h): Hensoldt Draws a Split Analyst Verdict as Revenue Guidance Edges Higher - ad-hoc-news.de (Google News, 15/11 14:51)"
+    },
+    {
+      "ticker": "TIT.MI",
+      "name": "Telecom Italia",
+      "region": "EU",
+      "currency": "EUR",
+      "score": 3.671,
+      "last": 5.803,
+      "rationale": "gap +0.44%, ieri -0.76%, 5gg +2.72%, volume relativo 1.6x, ATR 2.56%, sopra la media 20gg, news +0.00 (0 notizie 24h)"
+    },
+    {
+      "ticker": "BAYN.DE",
+      "name": "Bayer",
+      "region": "EU",
+      "currency": "EUR",
+      "score": 3.284,
+      "last": 56.86,
+      "rationale": "gap +0.74%, ieri -0.07%, 5gg +1.69%, volume relativo 0.7x, ATR 3.26%, sopra la media 20gg, news +0.38 (2 notizie 24h): Bayer Wins FDA Nod for First-in-Class Stroke Drug as Deutsche Bank Lifts Target to EUR 65 - ad-hoc-news.de (Google News, 16/11 07:11)"
+    },
+    {
+      "ticker": "RHM.DE",
+      "name": "Rheinmetall",
+      "region": "EU",
+      "currency": "EUR",
+      "score": 2.716,
+      "last": 778.8,
+      "rationale": "gap +0.00%, ieri -0.92%, 5gg -5.81%, volume relativo 1.3x, ATR 6.63%, sotto la media 20gg, news +0.00 (8 notizie 24h): Rheinmetall's €138 Million Question: Paid in Full, but Not Yet Earned - ad-hoc-news.de (Google News, 15/11 13:51)"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "region": "US",
+      "currency": "USD",
+      "score": 3.356,
+      "last": 162.85,
+      "rationale": "gap +0.00%, ieri -2.01%, 5gg -12.75%, volume relativo 1.7x, ATR 6.76%, sotto la media 20gg, news -0.13 (89 notizie 24h): Stocks extend losses as traders digest Nvidia fallout (yfinance, 16/11 08:14)"
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "region": "US",
+      "currency": "USD",
+      "score": 1.563,
+      "last": 641.69,
+      "rationale": "gap +0.00%, ieri +2.90%, 5gg +5.17%, volume relativo 0.6x, ATR 3.27%, sopra la media 20gg, news +0.12 (15 notizie 24h): Is Meta Stock Still a Buy After Borrowing About $25 Billion This Month? (yfinance, 16/11 01:07)"
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron",
+      "region": "US",
+      "currency": "USD",
+      "score": 1.375,
+      "last": 778.31,
+      "rationale": "gap +0.00%, ieri -2.52%, 5gg +12.80%, volume relativo 0.9x, ATR 8.33%, sotto la media 20gg, news -0.00 (10 notizie 24h): Micron Stock Price Drops 10%—Why the AI Memory Bull Case Still Looks Intact - TradingKey (Google News, 15/11 18:03)"
+    }
+  ]
+}

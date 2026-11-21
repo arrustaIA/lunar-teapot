@@ -1,0 +1,471 @@
+2026-11-12 13:22:46 [scan] watchlist written: ['SIE.DE', 'TIT.MI', 'ENR.DE', 'IFX.DE', 'ZAL.DE', 'AMD', 'MU', 'AVGO'] (scanned 71)
+2026-11-12 13:23:30 [trade] SIE.DE: nessun breakout: prezzo 283.250, ORH 291.450, ORL 286.350, VWAP 288.014, ATR5m 0.891
+2026-11-12 13:23:30 [trade] TIT.MI: sotto VWAP: prezzo 5.978, ORH 5.926, ORL 5.861, VWAP 5.999, ATR5m 0.033
+2026-11-12 13:23:30 [trade] ENR.DE: troppo esteso, non inseguo: prezzo 133.680, ORH 132.760, ORL 129.580, VWAP 133.188, ATR5m 0.375
+2026-11-12 13:23:30 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.470, ORH 50.540, ORL 49.865, VWAP 51.267, ATR5m 0.136
+2026-11-12 13:23:30 [trade] ZAL.DE: momentum 15m negativo: prezzo 28.910, ORH 28.790, ORL 28.300, VWAP 28.764, ATR5m 0.032
+2026-11-12 13:23:30 [trade] AMD: fuori finestra ingressi (16:00-21:00)
+2026-11-12 13:23:30 [trade] MU: fuori finestra ingressi (16:00-21:00)
+2026-11-12 13:23:30 [trade] AVGO: fuori finestra ingressi (16:00-21:00)
+2026-11-12 13:23:30 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 13:26:24 [trade] SIE.DE: nessun breakout: prezzo 283.500, ORH 291.450, ORL 286.350, VWAP 287.990, ATR5m 0.870
+2026-11-12 13:26:24 [trade] TIT.MI: sotto VWAP: prezzo 5.982, ORH 5.926, ORL 5.861, VWAP 5.999, ATR5m 0.034
+2026-11-12 13:26:24 [trade] ENR.DE: troppo esteso, non inseguo: prezzo 133.860, ORH 132.760, ORL 129.580, VWAP 133.194, ATR5m 0.368
+2026-11-12 13:26:24 [trade] IFX.DE: momentum 15m negativo: prezzo 51.490, ORH 50.540, ORL 49.865, VWAP 51.268, ATR5m 0.133
+2026-11-12 13:26:24 [trade] ZAL.DE: momentum 15m negativo: prezzo 28.900, ORH 28.790, ORL 28.300, VWAP 28.764, ATR5m 0.031
+2026-11-12 13:26:24 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:26:24 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:26:24 [trade] AVGO: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:26:24 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 13:28:36 [news] news: 1291 nuove notizie; fonti: {'yfinance': 390, 'Google News': 988, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 13:28:53 [scan] watchlist written: ['SIE.DE', 'TIT.MI', 'ENR.DE', 'IFX.DE', 'ZAL.DE', 'AMD', 'MU', 'ORCL'] (scanned 70)
+2026-11-12 13:29:17 [news] news: 1238 nuove notizie; fonti: {'yfinance': 390, 'Google News': 933, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 13:29:19 [scan] watchlist written: ['SIE.DE', 'ENR.DE', 'TIT.MI', 'IFX.DE', 'ZAL.DE', 'AMD', 'MU', 'ORCL'] (scanned 70)
+2026-11-12 13:31:41 [trade] SIE.DE: nessun breakout: prezzo 283.400, ORH 291.450, ORL 286.350, VWAP 287.948, ATR5m 0.791
+2026-11-12 13:31:41 [trade] ENR.DE: momentum 15m negativo: prezzo 133.520, ORH 132.760, ORL 129.580, VWAP 133.201, ATR5m 0.411
+2026-11-12 13:31:41 [trade] TIT.MI: sotto VWAP: prezzo 5.982, ORH 5.926, ORL 5.861, VWAP 5.998, ATR5m 0.034
+2026-11-12 13:31:41 [trade] IFX.DE: momentum 15m negativo: prezzo 51.520, ORH 50.540, ORL 49.865, VWAP 51.271, ATR5m 0.153
+2026-11-12 13:31:41 [trade] ZAL.DE: troppo esteso, non inseguo: prezzo 28.940, ORH 28.790, ORL 28.300, VWAP 28.765, ATR5m 0.029
+2026-11-12 13:31:41 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:31:41 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:31:41 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:31:41 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 13:32:19 [report] report scritto: /workspace/paper-trading/reports/report_2026-11-12.md
+2026-11-12 13:32:20 [team_review] team review scritta: /workspace/paper-trading/reports/team_review_2026-11-12.md
+2026-11-12 13:40:14 [trade] SIE.DE: nessun breakout: prezzo 282.050, ORH 291.450, ORL 286.350, VWAP 287.893, ATR5m 0.720
+2026-11-12 13:40:14 [trade] ENR.DE: sotto VWAP: prezzo 132.940, ORH 132.760, ORL 129.580, VWAP 133.198, ATR5m 0.428
+2026-11-12 13:40:14 [trade] TIT.MI: sotto VWAP: prezzo 5.992, ORH 5.926, ORL 5.861, VWAP 5.998, ATR5m 0.032
+2026-11-12 13:40:14 [trade] IFX.DE: momentum 15m negativo: prezzo 51.440, ORH 50.540, ORL 49.865, VWAP 51.272, ATR5m 0.154
+2026-11-12 13:40:14 [trade] ZAL.DE: troppo esteso, non inseguo: prezzo 28.920, ORH 28.790, ORL 28.300, VWAP 28.770, ATR5m 0.031
+2026-11-12 13:40:14 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:40:14 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:40:14 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:40:14 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 13:50:14 [trade] SIE.DE: nessun breakout: prezzo 282.000, ORH 291.450, ORL 286.350, VWAP 287.830, ATR5m 0.630
+2026-11-12 13:50:14 [trade] ENR.DE: nessun breakout: prezzo 132.580, ORH 132.760, ORL 129.580, VWAP 133.185, ATR5m 0.445
+2026-11-12 13:50:14 [trade] TIT.MI: sotto VWAP: prezzo 5.992, ORH 5.926, ORL 5.861, VWAP 5.998, ATR5m 0.017
+2026-11-12 13:50:14 [trade] IFX.DE: momentum 15m negativo: prezzo 51.400, ORH 50.540, ORL 49.865, VWAP 51.273, ATR5m 0.147
+2026-11-12 13:50:14 [trade] ZAL.DE: momentum 15m negativo: prezzo 28.870, ORH 28.790, ORL 28.300, VWAP 28.772, ATR5m 0.029
+2026-11-12 13:50:14 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:50:14 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:50:14 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 13:50:14 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 14:00:11 [trade] SIE.DE: nessun breakout: prezzo 282.600, ORH 291.450, ORL 286.350, VWAP 287.768, ATR5m 0.702
+2026-11-12 14:00:11 [trade] ENR.DE: nessun breakout: prezzo 132.600, ORH 132.760, ORL 129.580, VWAP 133.177, ATR5m 0.472
+2026-11-12 14:00:11 [trade] TIT.MI: sotto VWAP: prezzo 5.989, ORH 5.926, ORL 5.861, VWAP 5.997, ATR5m 0.018
+2026-11-12 14:00:11 [trade] IFX.DE: sotto VWAP: prezzo 51.260, ORH 50.540, ORL 49.865, VWAP 51.274, ATR5m 0.146
+2026-11-12 14:00:11 [trade] ZAL.DE: momentum 15m negativo: prezzo 28.840, ORH 28.790, ORL 28.300, VWAP 28.774, ATR5m 0.027
+2026-11-12 14:00:11 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:00:11 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:00:11 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:00:11 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 14:05:11 [news] news: 205 nuove notizie; fonti: {'yfinance': 390, 'Google News': 1073, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 14:10:06 [trade] SIE.DE: nessun breakout: prezzo 282.000, ORH 291.450, ORL 286.350, VWAP 287.674, ATR5m 0.666
+2026-11-12 14:10:06 [trade] ENR.DE: nessun breakout: prezzo 132.700, ORH 132.760, ORL 129.580, VWAP 133.166, ATR5m 0.468
+2026-11-12 14:10:06 [trade] TIT.MI: sotto VWAP: prezzo 5.980, ORH 5.926, ORL 5.861, VWAP 5.997, ATR5m 0.017
+2026-11-12 14:10:06 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.330, ORH 50.540, ORL 49.865, VWAP 51.274, ATR5m 0.136
+2026-11-12 14:10:06 [trade] ZAL.DE: nessun breakout: prezzo 28.730, ORH 28.790, ORL 28.300, VWAP 28.773, ATR5m 0.033
+2026-11-12 14:10:06 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:10:06 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:10:06 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:10:06 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 14:20:12 [marketdata] LS mid delay median 250s (n=8, AMD 70s, ENR.DE 190s, IFX.DE 430s, MU 250s, ORCL 250s, SIE.DE 250s, TIT.MI 70s, ZAL.DE 250s)
+2026-11-12 14:20:12 [trade] SIE.DE: nessun breakout: prezzo 279.450, ORH 290.900, ORL 285.900, VWAP 286.324, ATR5m 0.707
+2026-11-12 14:20:12 [trade] ENR.DE: nessun breakout: prezzo 131.410, ORH 132.660, ORL 130.060, VWAP 132.942, ATR5m 0.404
+2026-11-12 14:20:12 [trade] TIT.MI: sotto VWAP: prezzo 5.976, ORH 5.928, ORL 5.865, VWAP 5.981, ATR5m 0.010
+2026-11-12 14:20:12 [trade] IFX.DE: nessun breakout: prezzo 51.195, ORH 51.395, ORL 50.110, VWAP 51.367, ATR5m 0.122
+2026-11-12 14:20:12 [trade] ZAL.DE: nessun breakout: prezzo 28.515, ORH 28.760, ORL 28.435, VWAP 28.590, ATR5m 0.038
+2026-11-12 14:20:12 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:20:12 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:20:12 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:20:12 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 14:40:11 [marketdata] LS mid delay median 189s (n=8, AMD 309s, ENR.DE 369s, IFX.DE 249s, MU 129s, ORCL 69s, SIE.DE 129s, TIT.MI 69s, ZAL.DE 189s)
+2026-11-12 14:40:11 [trade] SIE.DE: nessun breakout: prezzo 280.450, ORH 290.900, ORL 285.900, VWAP 286.065, ATR5m 0.679
+2026-11-12 14:40:11 [trade] ENR.DE: nessun breakout: prezzo 132.170, ORH 132.660, ORL 130.060, VWAP 132.918, ATR5m 0.382
+2026-11-12 14:40:11 [trade] TIT.MI: sotto VWAP: prezzo 5.968, ORH 5.928, ORL 5.865, VWAP 5.980, ATR5m 0.009
+2026-11-12 14:40:11 [trade] IFX.DE: nessun breakout: prezzo 51.385, ORH 51.395, ORL 50.110, VWAP 51.368, ATR5m 0.114
+2026-11-12 14:40:11 [trade] ZAL.DE: nessun breakout: prezzo 28.325, ORH 28.760, ORL 28.435, VWAP 28.581, ATR5m 0.063
+2026-11-12 14:40:11 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:40:11 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:40:11 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:40:11 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 14:50:59 [marketdata] LS quote delay median 22s (n=8, AMD 23s, ENR.DE 6s, IFX.DE 14s, MU 22s, ORCL 32s, SIE.DE 19s, TIT.MI 11s, ZAL.DE 52s)
+2026-11-12 14:51:00 [trade] SIE.DE: nessun breakout: prezzo 281.675, ORH 290.900, ORL 285.900, VWAP 286.763, ATR5m 0.696
+2026-11-12 14:51:00 [trade] ENR.DE: nessun breakout: prezzo 131.380, ORH 132.660, ORL 130.060, VWAP 132.899, ATR5m 0.409
+2026-11-12 14:51:00 [trade] TIT.MI: sotto VWAP: prezzo 5.968, ORH 5.928, ORL 5.865, VWAP 5.989, ATR5m 0.009
+2026-11-12 14:51:00 [trade] IFX.DE: nessun breakout: prezzo 51.205, ORH 51.395, ORL 50.110, VWAP 51.332, ATR5m 0.122
+2026-11-12 14:51:00 [trade] ZAL.DE: nessun breakout: prezzo 28.440, ORH 28.760, ORL 28.435, VWAP 28.745, ATR5m 0.076
+2026-11-12 14:51:00 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:51:00 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:51:00 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 14:51:00 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 15:10:10 [marketdata] LS quote delay median 18s (n=8, AMD 18s, ENR.DE 22s, IFX.DE 23s, MU 9s, ORCL 8s, SIE.DE 8s, TIT.MI 4s, ZAL.DE 57s)
+2026-11-12 15:10:10 [trade] SIE.DE: nessun breakout: prezzo 281.775, ORH 290.900, ORL 285.900, VWAP 286.616, ATR5m 0.691
+2026-11-12 15:10:10 [trade] ENR.DE: nessun breakout: prezzo 131.520, ORH 132.660, ORL 130.060, VWAP 132.756, ATR5m 0.377
+2026-11-12 15:10:10 [trade] TIT.MI: sotto VWAP: prezzo 5.978, ORH 5.928, ORL 5.865, VWAP 5.992, ATR5m 0.008
+2026-11-12 15:10:10 [trade] IFX.DE: nessun breakout: prezzo 51.025, ORH 51.395, ORL 50.110, VWAP 51.325, ATR5m 0.149
+2026-11-12 15:10:10 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.737, ATR5m 0.078
+2026-11-12 15:10:10 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:10:10 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:10:10 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:10:10 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 15:10:45 [news] news: 155 nuove notizie; fonti: {'yfinance': 395, 'Google News': 1075, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 15:40:09 [marketdata] LS quote delay median 30s (n=8, AMD 27s, ENR.DE 34s, IFX.DE 38s, MU 23s, ORCL 24s, SIE.DE 30s, TIT.MI 16s, ZAL.DE 36s)
+2026-11-12 15:40:09 [trade] SIE.DE: nessun breakout: prezzo 281.900, ORH 290.900, ORL 285.900, VWAP 286.486, ATR5m 0.596
+2026-11-12 15:40:09 [trade] ENR.DE: nessun breakout: prezzo 132.290, ORH 132.660, ORL 130.060, VWAP 132.737, ATR5m 0.377
+2026-11-12 15:40:09 [trade] TIT.MI: troppo esteso, non inseguo: prezzo 5.991, ORH 5.928, ORL 5.865, VWAP 5.990, ATR5m 0.007
+2026-11-12 15:40:09 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.925, ORH 51.395, ORL 50.110, VWAP 51.319, ATR5m 0.203
+2026-11-12 15:40:09 [trade] ZAL.DE: nessun breakout: prezzo 28.360, ORH 28.760, ORL 28.435, VWAP 28.724, ATR5m 0.068
+2026-11-12 15:40:09 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:40:09 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:40:09 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 15:40:09 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 16:20:18 [marketdata] LS quote delay median 105s (n=8, AMD 103s, ENR.DE 104s, IFX.DE 14s, MU 105s, ORCL 107s, SIE.DE 107s, TIT.MI 78s, ZAL.DE 109s)
+2026-11-12 16:20:18 [trade] SIE.DE: nessun breakout: prezzo 281.700, ORH 290.900, ORL 285.900, VWAP 286.247, ATR5m 0.514
+2026-11-12 16:20:18 [trade] ENR.DE: nessun breakout: prezzo 132.250, ORH 132.660, ORL 130.060, VWAP 132.654, ATR5m 0.446
+2026-11-12 16:20:18 [trade] TIT.MI: sotto VWAP: prezzo 5.958, ORH 5.928, ORL 5.865, VWAP 5.991, ATR5m 0.007
+2026-11-12 16:20:18 [trade] IFX.DE: nessun breakout: prezzo 51.370, ORH 51.395, ORL 50.110, VWAP 51.351, ATR5m 0.275
+2026-11-12 16:20:18 [trade] ZAL.DE: nessun breakout: prezzo 28.255, ORH 28.760, ORL 28.435, VWAP 28.693, ATR5m 0.067
+2026-11-12 16:20:18 [trade] AMD: nessun breakout: prezzo 505.300, ORH 521.650, ORL 502.600, VWAP 510.937, ATR5m 5.662
+2026-11-12 16:20:18 [trade] MU: nessun breakout: prezzo 699.400, ORH 718.450, ORL 694.950, VWAP 702.725, ATR5m 6.136
+2026-11-12 16:20:18 [trade] ORCL: nessun breakout: prezzo 113.350, ORH 113.610, ORL 112.050, VWAP 112.722, ATR5m 0.684
+2026-11-12 16:20:18 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 16:37:00 [catchup] recupero: nessuna posizione aperta
+2026-11-12 16:37:10 [marketdata] LS quote delay median 28s (n=8, AMD 36s, ENR.DE 11s, IFX.DE 28s, MU 28s, ORCL 39s, SIE.DE 28s, TIT.MI 18s, ZAL.DE 30s)
+2026-11-12 16:37:10 [trade] SIE.DE: nessun breakout: prezzo 281.150, ORH 290.900, ORL 285.900, VWAP 286.174, ATR5m 0.475
+2026-11-12 16:37:10 [trade] ENR.DE: nessun breakout: prezzo 132.020, ORH 132.660, ORL 130.060, VWAP 132.633, ATR5m 0.454
+2026-11-12 16:37:10 [trade] TIT.MI: nessun breakout: prezzo 5.918, ORH 5.928, ORL 5.865, VWAP 5.992, ATR5m 0.009
+2026-11-12 16:37:10 [trade] IFX.DE: nessun breakout: prezzo 51.155, ORH 51.395, ORL 50.110, VWAP 51.346, ATR5m 0.266
+2026-11-12 16:37:10 [trade] ZAL.DE: nessun breakout: prezzo 28.360, ORH 28.760, ORL 28.435, VWAP 28.685, ATR5m 0.064
+2026-11-12 16:37:10 [trade] AMD: nessun breakout: prezzo 507.650, ORH 521.650, ORL 502.600, VWAP 510.866, ATR5m 5.075
+2026-11-12 16:37:10 [trade] MU: nessun breakout: prezzo 700.050, ORH 718.450, ORL 694.950, VWAP 702.697, ATR5m 5.954
+2026-11-12 16:37:10 [trade] ORCL: nessun breakout: prezzo 113.340, ORH 113.610, ORL 112.050, VWAP 112.738, ATR5m 0.640
+2026-11-12 16:37:10 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 17:40:46 [catchup] recupero: nessuna posizione aperta
+2026-11-12 17:40:54 [marketdata] LS quote delay median 27s (n=8, AMD 27s, ENR.DE 33s, IFX.DE 22s, MU 35s, ORCL 17s, SIE.DE 651s, TIT.MI 18s, ZAL.DE 20s)
+2026-11-12 17:40:54 [trade] SIE.DE: nessun breakout: prezzo 282.550, ORH 290.900, ORL 285.900, VWAP 285.700, ATR5m 0.546
+2026-11-12 17:40:54 [trade] ENR.DE: nessun breakout: prezzo 132.450, ORH 132.660, ORL 130.060, VWAP 132.738, ATR5m 0.494
+2026-11-12 17:40:54 [trade] TIT.MI: nessun breakout: prezzo 5.900, ORH 5.928, ORL 5.865, VWAP 5.972, ATR5m 0.015
+2026-11-12 17:40:54 [trade] IFX.DE: momentum 15m negativo: prezzo 52.175, ORH 51.395, ORL 50.110, VWAP 51.328, ATR5m 0.222
+2026-11-12 17:40:54 [trade] ZAL.DE: nessun breakout: prezzo 28.460, ORH 28.760, ORL 28.435, VWAP 28.655, ATR5m 0.055
+2026-11-12 17:40:54 [trade] AMD: momentum 15m negativo: prezzo 530.800, ORH 521.650, ORL 502.600, VWAP 513.284, ATR5m 3.982
+2026-11-12 17:40:54 [trade] MU: nessun breakout: prezzo 711.650, ORH 718.450, ORL 694.950, VWAP 704.229, ATR5m 3.650
+2026-11-12 17:40:54 [trade] ORCL: momentum 15m negativo: prezzo 115.020, ORH 113.610, ORL 112.050, VWAP 113.030, ATR5m 0.495
+2026-11-12 17:40:54 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 17:41:02 [news] news: 266 nuove notizie; fonti: {'yfinance': 393, 'Google News': 1074, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 18:12:22 [catchup] recupero: nessuna posizione aperta
+2026-11-12 18:12:32 [marketdata] LS quote delay median 42s (n=8, AMD 41s, ENR.DE 46s, IFX.DE 42s, MU 28s, ORCL 42s, SIE.DE 42s, TIT.MI 61s, ZAL.DE 52s)
+2026-11-12 18:12:32 [trade] SIE.DE: nessun breakout: prezzo 282.150, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.370
+2026-11-12 18:12:32 [trade] ENR.DE: nessun breakout: prezzo 132.270, ORH 132.660, ORL 130.060, VWAP 132.749, ATR5m 0.360
+2026-11-12 18:12:32 [trade] TIT.MI: nessun breakout: prezzo 5.902, ORH 5.928, ORL 5.865, VWAP 5.966, ATR5m 0.012
+2026-11-12 18:12:32 [trade] IFX.DE: momentum 15m negativo: prezzo 52.090, ORH 51.395, ORL 50.110, VWAP 51.355, ATR5m 0.190
+2026-11-12 18:12:32 [trade] ZAL.DE: nessun breakout: prezzo 28.475, ORH 28.760, ORL 28.435, VWAP 28.650, ATR5m 0.035
+2026-11-12 18:12:32 [trade] AMD: momentum 15m negativo: prezzo 526.950, ORH 521.650, ORL 502.600, VWAP 513.854, ATR5m 2.979
+2026-11-12 18:12:32 [trade] MU: nessun breakout: prezzo 710.800, ORH 718.450, ORL 694.950, VWAP 704.560, ATR5m 2.836
+2026-11-12 18:12:32 [trade] ORCL: momentum 15m negativo: prezzo 114.850, ORH 113.610, ORL 112.050, VWAP 114.392, ATR5m 0.368
+2026-11-12 18:12:32 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 18:12:38 [news] news: 88 nuove notizie; fonti: {'yfinance': 391, 'Google News': 1081, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 18:20:17 [marketdata] LS quote delay median 62s (n=8, AMD 54s, ENR.DE 29s, IFX.DE 103s, MU 19s, ORCL 19s, SIE.DE 164s, TIT.MI 62s, ZAL.DE 77s)
+2026-11-12 18:20:17 [trade] SIE.DE: nessun breakout: prezzo 282.225, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.296
+2026-11-12 18:20:17 [trade] ENR.DE: nessun breakout: prezzo 132.420, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.329
+2026-11-12 18:20:17 [trade] TIT.MI: nessun breakout: prezzo 5.901, ORH 5.928, ORL 5.865, VWAP 5.965, ATR5m 0.012
+2026-11-12 18:20:17 [trade] IFX.DE: momentum 15m negativo: prezzo 52.080, ORH 51.395, ORL 50.110, VWAP 51.355, ATR5m 0.165
+2026-11-12 18:20:17 [trade] ZAL.DE: nessun breakout: prezzo 28.460, ORH 28.760, ORL 28.435, VWAP 28.650, ATR5m 0.034
+2026-11-12 18:20:17 [trade] AMD: momentum 15m negativo: prezzo 525.900, ORH 521.650, ORL 502.600, VWAP 513.997, ATR5m 2.543
+2026-11-12 18:20:17 [trade] MU: nessun breakout: prezzo 710.800, ORH 718.450, ORL 694.950, VWAP 704.984, ATR5m 2.589
+2026-11-12 18:20:17 [trade] ORCL: momentum 15m negativo: prezzo 114.750, ORH 113.610, ORL 112.050, VWAP 114.343, ATR5m 0.324
+2026-11-12 18:20:17 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 18:30:15 [marketdata] LS quote delay median 20s (n=8, AMD 20s, ENR.DE 31s, IFX.DE 20s, MU 18s, ORCL 17s, SIE.DE 56s, TIT.MI 12s, ZAL.DE 25s)
+2026-11-12 18:30:15 [trade] SIE.DE: nessun breakout: prezzo 282.350, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.268
+2026-11-12 18:30:15 [trade] ENR.DE: nessun breakout: prezzo 132.290, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.300
+2026-11-12 18:30:15 [trade] TIT.MI: nessun breakout: prezzo 5.901, ORH 5.928, ORL 5.865, VWAP 5.964, ATR5m 0.008
+2026-11-12 18:30:15 [trade] IFX.DE: momentum 15m negativo: prezzo 51.855, ORH 51.395, ORL 50.110, VWAP 51.357, ATR5m 0.152
+2026-11-12 18:30:15 [trade] ZAL.DE: nessun breakout: prezzo 28.460, ORH 28.760, ORL 28.435, VWAP 28.650, ATR5m 0.030
+2026-11-12 18:30:15 [trade] AMD: momentum 15m negativo: prezzo 522.350, ORH 521.650, ORL 502.600, VWAP 514.033, ATR5m 2.386
+2026-11-12 18:30:15 [trade] MU: nessun breakout: prezzo 710.250, ORH 718.450, ORL 694.950, VWAP 705.025, ATR5m 2.539
+2026-11-12 18:30:15 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.210, ORH 113.610, ORL 112.050, VWAP 114.430, ATR5m 0.342
+2026-11-12 18:30:15 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 18:36:36 [marketdata] LS quote delay median 64s (n=8, AMD 11s, ENR.DE 137s, IFX.DE 73s, MU 9s, ORCL 39s, SIE.DE 64s, TIT.MI 51s, ZAL.DE 112s)
+2026-11-12 18:36:36 [shadow] shadow: 8 valutazioni, 0 segnali
+2026-11-12 18:36:45 [rescan] rescan 18:36 EU+US: 71 titoli con barre, 1 candidati, aggiunti ['AVGO']
+2026-11-12 18:36:54 [marketdata] LS quote delay median 29s (n=9, AMD 28s, AVGO 12s, ENR.DE 155s, IFX.DE 26s, MU 4s, ORCL 29s, SIE.DE 82s, TIT.MI 68s, ZAL.DE 129s)
+2026-11-12 18:36:54 [shadow] SHADOW ORB_DYN AVGO @ 329.9500 stop 328.0277 target 333.1946 grafico 40 APPROVE
+2026-11-12 18:36:54 [shadow] shadow: 10 valutazioni, 1 segnali
+2026-11-12 18:40:15 [marketdata] LS quote delay median 36s (n=8, AMD 13s, ENR.DE 35s, IFX.DE 36s, MU 20s, ORCL 18s, SIE.DE 66s, TIT.MI 111s, ZAL.DE 91s)
+2026-11-12 18:40:15 [trade] SIE.DE: nessun breakout: prezzo 281.925, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.213
+2026-11-12 18:40:15 [trade] ENR.DE: guadagno atteso 2.40 EUR < 3x commissioni
+2026-11-12 18:40:15 [trade] TIT.MI: nessun breakout: prezzo 5.904, ORH 5.928, ORL 5.865, VWAP 5.962, ATR5m 0.007
+2026-11-12 18:40:15 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.935, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.135
+2026-11-12 18:40:15 [trade] ZAL.DE: nessun breakout: prezzo 28.435, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.031
+2026-11-12 18:40:15 [trade] AMD: guadagno atteso 4.16 EUR < 3x commissioni
+2026-11-12 18:40:15 [trade] MU: nessun breakout: prezzo 716.450, ORH 718.450, ORL 694.950, VWAP 705.470, ATR5m 2.675
+2026-11-12 18:40:15 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.520, ORH 113.610, ORL 112.050, VWAP 114.428, ATR5m 0.346
+2026-11-12 18:40:15 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 18:42:29 [marketdata] LS quote delay median 41s (n=9, AMD 11s, AVGO 42s, ENR.DE 33s, IFX.DE 50s, MU 14s, ORCL 20s, SIE.DE 41s, TIT.MI 83s, ZAL.DE 94s)
+2026-11-12 18:42:29 [shadow] shadow: 9 valutazioni, 0 segnali
+2026-11-12 18:43:14 [marketdata] LS quote delay median 35s (n=9, AMD 31s, AVGO 32s, ENR.DE 35s, IFX.DE 94s, MU 33s, ORCL 34s, SIE.DE 45s, TIT.MI 127s, ZAL.DE 138s)
+2026-11-12 18:43:14 [shadow] shadow: 9 valutazioni, 0 segnali
+2026-11-12 18:45:12 [news] news: 81 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 388, 'Google News': 1085, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 18:45:12 [news] watchlist dinamica +NVDA (notizia forte): raffica di 17 notizie in 60 min (media oraria 7gg 1.2); top: Stock Market Today: Nasdaq Higher Amid Nvidia CEO Change; Software Name Jumps (Live Coverage) (yfinance, 12/11 18:26)
+2026-11-12 18:45:12 [news] watchlist dinamica +SAP.DE (notizia forte): sentiment parole chiave 6h +0.74 su 4 notizie; top: SAP stock gains fresh capital-allocation detail from buyback tranche - ad-hoc-news.de (Google News, 12/11 18:26)
+2026-11-12 18:45:12 [news] watchlist dinamica +ENR.DE (notizia forte): sentiment parole chiave 6h +0.58 su 5 notizie; top: Siemens Energy Wins JPMorgan's Vote of Confidence as Record Orders Face Their Margin Test - ad-hoc-news.de (Google News, 12/11 12:51)
+2026-11-12 18:45:12 [news] watchlist dinamica +AMD (notizia forte): raffica di 5 notizie in 60 min (media oraria 7gg 0.3); top: Tom Lee Says Jensen Huang Exit Doesn’t Change His Bullish Tech Outlook: AVGO, AMD Stocks Lead Chip Rally (yfinance, 12/11 18:22)
+2026-11-12 18:45:12 [news] watchlist dinamica +SIE.DE (notizia forte): sentiment parole chiave 6h +0.54 su 5 notizie; top: Siemens stock rises as Q4 orders jump 58% to record €34.8 billion - ad-hoc-news.de (Google News, 12/11 18:05)
+2026-11-12 18:45:12 [news] news: run completata in 6 s
+2026-11-12 19:00:22 [marketdata] LS quote delay median 76s (n=8, AMD 70s, ENR.DE 76s, IFX.DE 80s, MU 71s, ORCL 73s, SIE.DE 119s, TIT.MI 75s, ZAL.DE 237s)
+2026-11-12 19:00:22 [trade] SIE.DE: nessun breakout: prezzo 282.350, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.279
+2026-11-12 19:00:22 [trade] ENR.DE: nessun breakout: prezzo 132.340, ORH 132.660, ORL 130.060, VWAP 132.746, ATR5m 0.232
+2026-11-12 19:00:22 [trade] TIT.MI: nessun breakout: prezzo 5.899, ORH 5.928, ORL 5.865, VWAP 5.960, ATR5m 0.005
+2026-11-12 19:00:22 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 52.035, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.129
+2026-11-12 19:00:22 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.026
+2026-11-12 19:00:22 [trade] AMD: troppo esteso, non inseguo: prezzo 526.700, ORH 521.650, ORL 502.600, VWAP 514.360, ATR5m 2.139
+2026-11-12 19:00:22 [trade] MU: guadagno atteso 2.93 EUR < 3x commissioni
+2026-11-12 19:00:22 [trade] ORCL: momentum 15m negativo: prezzo 115.400, ORH 113.610, ORL 112.050, VWAP 114.676, ATR5m 0.295
+2026-11-12 19:00:22 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:00:28 [catchup] recupero: nessuna posizione aperta
+2026-11-12 19:00:36 [marketdata] LS quote delay median 90s (n=8, AMD 85s, ENR.DE 90s, IFX.DE 94s, MU 12s, ORCL 25s, SIE.DE 133s, TIT.MI 89s, ZAL.DE 250s)
+2026-11-12 19:00:36 [trade] SIE.DE: nessun breakout: prezzo 282.350, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.279
+2026-11-12 19:00:36 [trade] ENR.DE: nessun breakout: prezzo 132.340, ORH 132.660, ORL 130.060, VWAP 132.746, ATR5m 0.232
+2026-11-12 19:00:36 [trade] TIT.MI: nessun breakout: prezzo 5.899, ORH 5.928, ORL 5.865, VWAP 5.960, ATR5m 0.005
+2026-11-12 19:00:36 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 52.035, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.129
+2026-11-12 19:00:36 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.026
+2026-11-12 19:00:36 [trade] AMD: troppo esteso, non inseguo: prezzo 526.700, ORH 521.650, ORL 502.600, VWAP 514.360, ATR5m 2.139
+2026-11-12 19:00:36 [trade] MU: momentum 15m negativo: prezzo 719.250, ORH 718.450, ORL 694.950, VWAP 706.007, ATR5m 2.196
+2026-11-12 19:00:36 [trade] ORCL: momentum 15m negativo: prezzo 115.400, ORH 113.610, ORL 112.050, VWAP 114.676, ATR5m 0.279
+2026-11-12 19:00:36 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:00:47 [rescan] rescan 19:00 EU+US: 64 titoli con barre, 0 candidati, aggiunti []
+2026-11-12 19:00:51 [news] news: 21 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 85, 'Google News': 206, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 19:00:51 [news] news: run completata in 3 s
+2026-11-12 19:08:26 [catchup] recupero: nessuna posizione aperta
+2026-11-12 19:08:34 [marketdata] LS quote delay median 42s (n=8, AMD 23s, ENR.DE 42s, IFX.DE 91s, MU 15s, ORCL 21s, SIE.DE 92s, TIT.MI 19s, ZAL.DE 395s)
+2026-11-12 19:08:34 [trade] SIE.DE: nessun breakout: prezzo 281.525, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.284
+2026-11-12 19:08:34 [trade] ENR.DE: nessun breakout: prezzo 132.370, ORH 132.660, ORL 130.060, VWAP 132.746, ATR5m 0.222
+2026-11-12 19:08:34 [trade] TIT.MI: nessun breakout: prezzo 5.896, ORH 5.928, ORL 5.865, VWAP 5.959, ATR5m 0.005
+2026-11-12 19:08:34 [trade] IFX.DE: momentum 15m negativo: prezzo 52.045, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.106
+2026-11-12 19:08:34 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.025
+2026-11-12 19:08:34 [trade] AMD: momentum 15m negativo: prezzo 523.750, ORH 521.650, ORL 502.600, VWAP 514.417, ATR5m 2.139
+2026-11-12 19:08:34 [trade] MU: nessun breakout: prezzo 716.150, ORH 718.450, ORL 694.950, VWAP 708.735, ATR5m 2.332
+2026-11-12 19:08:34 [trade] ORCL: momentum 15m negativo: prezzo 115.190, ORH 113.610, ORL 112.050, VWAP 114.679, ATR5m 0.292
+2026-11-12 19:08:34 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:08:35 [marketdata] LS quote delay median 34s (n=11, AMD 22s, AVGO 34s, ENR.DE 42s, IFX.DE 91s, MU 15s, NVDA 15s, ORCL 21s, SAP.DE 82s, SIE.DE 93s, TIT.MI 20s, ZAL.DE 395s)
+2026-11-12 19:08:35 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 19:08:36 [news] news: 3 nuove notizie; titoli interrogati 0/71; fonti: {'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 30, 'Il Sole 24 Ore': 9}
+2026-11-12 19:08:36 [news] news: run completata in 1 s
+2026-11-12 19:10:17 [marketdata] LS quote delay median 38s (n=8, AMD 21s, ENR.DE 40s, IFX.DE 26s, MU 13s, ORCL 28s, SIE.DE 85s, TIT.MI 38s, ZAL.DE 110s)
+2026-11-12 19:10:17 [trade] SIE.DE: nessun breakout: prezzo 281.450, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.295
+2026-11-12 19:10:17 [trade] ENR.DE: nessun breakout: prezzo 132.200, ORH 132.660, ORL 130.060, VWAP 132.746, ATR5m 0.224
+2026-11-12 19:10:18 [trade] TIT.MI: nessun breakout: prezzo 5.895, ORH 5.928, ORL 5.865, VWAP 5.959, ATR5m 0.005
+2026-11-12 19:10:18 [trade] IFX.DE: momentum 15m negativo: prezzo 52.045, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.106
+2026-11-12 19:10:18 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.024
+2026-11-12 19:10:18 [trade] AMD: momentum 15m negativo: prezzo 523.350, ORH 521.650, ORL 502.600, VWAP 514.427, ATR5m 2.154
+2026-11-12 19:10:18 [trade] MU: nessun breakout: prezzo 716.750, ORH 718.450, ORL 694.950, VWAP 708.788, ATR5m 2.221
+2026-11-12 19:10:18 [trade] ORCL: momentum 15m negativo: prezzo 115.220, ORH 113.610, ORL 112.050, VWAP 114.680, ATR5m 0.289
+2026-11-12 19:10:18 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:13:23 [marketdata] LS quote delay median 81s (n=11, AMD 71s, AVGO 77s, ENR.DE 80s, IFX.DE 94s, MU 74s, NVDA 74s, ORCL 81s, SAP.DE 101s, SIE.DE 98s, TIT.MI 84s, ZAL.DE 106s)
+2026-11-12 19:13:23 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 19:15:20 [news] news: 42 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 387, 'Google News': 1084, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-12 19:15:20 [news] news: run completata in 6 s
+2026-11-12 19:20:21 [marketdata] LS quote delay median 151s (n=8, AMD 15s, ENR.DE 151s, IFX.DE 180s, MU 21s, ORCL 23s, SIE.DE 169s, TIT.MI 34s, ZAL.DE 163s)
+2026-11-12 19:20:21 [trade] SIE.DE: nessun breakout: prezzo 281.925, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.377
+2026-11-12 19:20:21 [trade] ENR.DE: nessun breakout: prezzo 132.150, ORH 132.660, ORL 130.060, VWAP 132.746, ATR5m 0.233
+2026-11-12 19:20:21 [trade] TIT.MI: nessun breakout: prezzo 5.898, ORH 5.928, ORL 5.865, VWAP 5.958, ATR5m 0.005
+2026-11-12 19:20:21 [trade] IFX.DE: momentum 15m negativo: prezzo 52.040, ORH 51.395, ORL 50.110, VWAP 51.362, ATR5m 0.108
+2026-11-12 19:20:21 [trade] ZAL.DE: nessun breakout: prezzo 28.450, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.022
+2026-11-12 19:20:21 [trade] AMD: troppo esteso, non inseguo: prezzo 527.300, ORH 521.650, ORL 502.600, VWAP 514.485, ATR5m 1.936
+2026-11-12 19:20:21 [trade] MU: momentum 15m negativo: prezzo 718.950, ORH 718.450, ORL 694.950, VWAP 708.900, ATR5m 2.268
+2026-11-12 19:20:21 [trade] ORCL: momentum 15m negativo: prezzo 115.220, ORH 113.610, ORL 112.050, VWAP 114.683, ATR5m 0.278
+2026-11-12 19:20:21 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:25:10 [news] news: 13 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 205, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 19:25:10 [news] news: run completata in 6 s
+2026-11-12 19:30:11 [rescan] rescan 19:30 EU+US: 65 titoli con barre, 0 candidati, aggiunti []
+2026-11-12 19:35:06 [news] news: 7 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 205, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 19:35:06 [news] news: run completata in 2 s
+2026-11-12 19:40:22 [marketdata] LS quote delay median 39s (n=8, AMD 32s, ENR.DE 36s, IFX.DE 53s, MU 15s, ORCL 26s, SIE.DE 58s, TIT.MI 39s, ZAL.DE 131s)
+2026-11-12 19:40:22 [trade] SIE.DE: nessun breakout: prezzo 281.825, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.423
+2026-11-12 19:40:22 [trade] ENR.DE: nessun breakout: prezzo 132.610, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.319
+2026-11-12 19:40:22 [trade] TIT.MI: nessun breakout: prezzo 5.895, ORH 5.928, ORL 5.865, VWAP 5.955, ATR5m 0.005
+2026-11-12 19:40:22 [trade] IFX.DE: momentum 15m negativo: prezzo 51.980, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.108
+2026-11-12 19:40:22 [trade] ZAL.DE: nessun breakout: prezzo 28.425, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.017
+2026-11-12 19:40:22 [trade] AMD: troppo esteso, non inseguo: prezzo 526.000, ORH 521.650, ORL 502.600, VWAP 514.739, ATR5m 1.743
+2026-11-12 19:40:22 [trade] MU: momentum 15m negativo: prezzo 719.350, ORH 718.450, ORL 694.950, VWAP 711.372, ATR5m 1.811
+2026-11-12 19:40:22 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.430, ORH 113.610, ORL 112.050, VWAP 114.404, ATR5m 0.211
+2026-11-12 19:40:22 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:43:24 [marketdata] LS quote delay median 45s (n=11, AMD 44s, AVGO 26s, ENR.DE 45s, IFX.DE 22s, MU 36s, NVDA 41s, ORCL 45s, SAP.DE 86s, SIE.DE 82s, TIT.MI 75s, ZAL.DE 177s)
+2026-11-12 19:43:26 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 19:45:20 [news] news: 38 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 387, 'Google News': 1081, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 19:45:20 [news] news: run completata in 7 s
+2026-11-12 19:50:22 [marketdata] LS quote delay median 40s (n=8, AMD 38s, ENR.DE 52s, IFX.DE 40s, MU 33s, ORCL 37s, SIE.DE 106s, TIT.MI 22s, ZAL.DE 52s)
+2026-11-12 19:50:23 [trade] SIE.DE: nessun breakout: prezzo 281.800, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.398
+2026-11-12 19:50:23 [trade] ENR.DE: nessun breakout: prezzo 131.980, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.323
+2026-11-12 19:50:23 [trade] TIT.MI: nessun breakout: prezzo 5.890, ORH 5.928, ORL 5.865, VWAP 5.954, ATR5m 0.005
+2026-11-12 19:50:23 [trade] IFX.DE: momentum 15m negativo: prezzo 51.915, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.095
+2026-11-12 19:50:23 [trade] ZAL.DE: nessun breakout: prezzo 28.410, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.013
+2026-11-12 19:50:23 [trade] AMD: momentum 15m negativo: prezzo 523.400, ORH 521.650, ORL 502.600, VWAP 514.782, ATR5m 1.671
+2026-11-12 19:50:23 [trade] MU: nessun breakout: prezzo 716.550, ORH 718.450, ORL 694.950, VWAP 711.466, ATR5m 1.768
+2026-11-12 19:50:23 [trade] ORCL: momentum 15m negativo: prezzo 115.100, ORH 113.610, ORL 112.050, VWAP 114.383, ATR5m 0.210
+2026-11-12 19:50:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 19:53:23 [marketdata] LS quote delay median 30s (n=11, AMD 29s, AVGO 23s, ENR.DE 26s, IFX.DE 61s, MU 25s, NVDA 39s, ORCL 30s, SAP.DE 122s, SIE.DE 30s, TIT.MI 16s, ZAL.DE 38s)
+2026-11-12 19:53:23 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 19:55:15 [news] news: 4 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 203, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-12 19:55:15 [news] news: run completata in 2 s
+2026-11-12 20:00:15 [rescan] rescan 20:00 EU+US: 65 titoli con barre, 0 candidati, aggiunti []
+2026-11-12 20:00:22 [marketdata] LS quote delay median 49s (n=8, AMD 30s, ENR.DE 51s, IFX.DE 74s, MU 17s, ORCL 37s, SIE.DE 62s, TIT.MI 15s, ZAL.DE 49s)
+2026-11-12 20:00:22 [trade] SIE.DE: nessun breakout: prezzo 281.825, ORH 290.900, ORL 285.900, VWAP 285.674, ATR5m 0.377
+2026-11-12 20:00:22 [trade] ENR.DE: nessun breakout: prezzo 131.690, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.329
+2026-11-12 20:00:22 [trade] TIT.MI: nessun breakout: prezzo 5.893, ORH 5.928, ORL 5.865, VWAP 5.953, ATR5m 0.006
+2026-11-12 20:00:22 [trade] IFX.DE: momentum 15m negativo: prezzo 51.865, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.099
+2026-11-12 20:00:22 [trade] ZAL.DE: nessun breakout: prezzo 28.410, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.017
+2026-11-12 20:00:22 [trade] AMD: momentum 15m negativo: prezzo 524.350, ORH 521.650, ORL 502.600, VWAP 514.860, ATR5m 1.654
+2026-11-12 20:00:22 [trade] MU: nessun breakout: prezzo 717.600, ORH 718.450, ORL 694.950, VWAP 711.492, ATR5m 1.643
+2026-11-12 20:00:22 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.420, ORH 113.610, ORL 112.050, VWAP 114.392, ATR5m 0.206
+2026-11-12 20:00:22 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:03:24 [marketdata] LS quote delay median 71s (n=11, AMD 69s, AVGO 68s, ENR.DE 98s, IFX.DE 76s, MU 70s, NVDA 71s, ORCL 71s, SAP.DE 82s, SIE.DE 15s, TIT.MI 104s, ZAL.DE 94s)
+2026-11-12 20:03:24 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 20:05:15 [news] news: 14 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 202, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 20:05:15 [news] news: run completata in 2 s
+2026-11-12 20:10:24 [marketdata] LS quote delay median 38s (n=8, AMD 10s, ENR.DE 51s, IFX.DE 29s, MU 38s, ORCL 30s, SIE.DE 113s, TIT.MI 50s, ZAL.DE 33s)
+2026-11-12 20:10:24 [trade] SIE.DE: nessun breakout: prezzo 281.750, ORH 290.900, ORL 285.900, VWAP 285.633, ATR5m 0.373
+2026-11-12 20:10:24 [trade] ENR.DE: nessun breakout: prezzo 131.700, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.324
+2026-11-12 20:10:24 [trade] TIT.MI: nessun breakout: prezzo 5.888, ORH 5.928, ORL 5.865, VWAP 5.952, ATR5m 0.006
+2026-11-12 20:10:24 [trade] IFX.DE: momentum 15m negativo: prezzo 51.700, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.099
+2026-11-12 20:10:24 [trade] ZAL.DE: nessun breakout: prezzo 28.375, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.027
+2026-11-12 20:10:24 [trade] AMD: troppo esteso, non inseguo: prezzo 525.800, ORH 521.650, ORL 502.600, VWAP 514.923, ATR5m 1.543
+2026-11-12 20:10:24 [trade] MU: nessun breakout: prezzo 716.700, ORH 718.450, ORL 694.950, VWAP 711.511, ATR5m 1.839
+2026-11-12 20:10:24 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.340, ORH 113.610, ORL 112.050, VWAP 114.397, ATR5m 0.212
+2026-11-12 20:10:24 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:13:23 [marketdata] LS quote delay median 68s (n=11, AMD 66s, AVGO 65s, ENR.DE 229s, IFX.DE 65s, MU 66s, NVDA 67s, ORCL 68s, SAP.DE 136s, SIE.DE 126s, TIT.MI 150s, ZAL.DE 123s)
+2026-11-12 20:13:23 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 20:15:20 [news] news: 25 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 388, 'Google News': 1084, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 20:15:20 [news] news: run completata in 6 s
+2026-11-12 20:20:22 [marketdata] LS quote delay median 40s (n=8, AMD 30s, ENR.DE 122s, IFX.DE 40s, MU 31s, ORCL 45s, SIE.DE 88s, TIT.MI 23s, ZAL.DE 34s)
+2026-11-12 20:20:22 [trade] SIE.DE: nessun breakout: prezzo 280.775, ORH 290.900, ORL 285.900, VWAP 285.633, ATR5m 0.357
+2026-11-12 20:20:22 [trade] ENR.DE: nessun breakout: prezzo 131.700, ORH 132.660, ORL 130.060, VWAP 132.745, ATR5m 0.329
+2026-11-12 20:20:22 [trade] TIT.MI: nessun breakout: prezzo 5.888, ORH 5.928, ORL 5.865, VWAP 5.951, ATR5m 0.006
+2026-11-12 20:20:22 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.890, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.100
+2026-11-12 20:20:22 [trade] ZAL.DE: nessun breakout: prezzo 28.375, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.035
+2026-11-12 20:20:22 [trade] AMD: troppo esteso, non inseguo: prezzo 525.750, ORH 521.650, ORL 502.600, VWAP 514.980, ATR5m 1.579
+2026-11-12 20:20:22 [trade] MU: guadagno atteso 2.40 EUR < 3x commissioni
+2026-11-12 20:20:22 [trade] ORCL: troppo esteso, non inseguo: prezzo 115.310, ORH 113.610, ORL 112.050, VWAP 114.404, ATR5m 0.183
+2026-11-12 20:20:22 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:23:23 [marketdata] LS quote delay median 41s (n=11, AMD 23s, AVGO 41s, ENR.DE 102s, IFX.DE 33s, MU 45s, NVDA 19s, ORCL 29s, SAP.DE 65s, SIE.DE 85s, TIT.MI 186s, ZAL.DE 30s)
+2026-11-12 20:23:23 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 20:25:16 [news] news: 6 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 20:25:16 [news] news: run completata in 2 s
+2026-11-12 20:30:15 [rescan] rescan 20:30 EU+US: 65 titoli con barre, 0 candidati, aggiunti []
+2026-11-12 20:30:23 [marketdata] LS quote delay median 71s (n=8, AMD 66s, ENR.DE 63s, IFX.DE 73s, MU 68s, ORCL 69s, SIE.DE 142s, TIT.MI 82s, ZAL.DE 71s)
+2026-11-12 20:30:23 [trade] SIE.DE: nessun breakout: prezzo 280.375, ORH 290.900, ORL 285.900, VWAP 285.632, ATR5m 0.345
+2026-11-12 20:30:23 [trade] ENR.DE: nessun breakout: prezzo 131.940, ORH 132.660, ORL 130.060, VWAP 132.742, ATR5m 0.274
+2026-11-12 20:30:23 [trade] TIT.MI: nessun breakout: prezzo 5.888, ORH 5.928, ORL 5.865, VWAP 5.950, ATR5m 0.005
+2026-11-12 20:30:23 [trade] IFX.DE: momentum 15m negativo: prezzo 51.690, ORH 51.395, ORL 50.110, VWAP 51.363, ATR5m 0.095
+2026-11-12 20:30:23 [trade] ZAL.DE: nessun breakout: prezzo 28.375, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.032
+2026-11-12 20:30:23 [trade] AMD: troppo esteso, non inseguo: prezzo 528.850, ORH 521.650, ORL 502.600, VWAP 515.008, ATR5m 1.579
+2026-11-12 20:30:23 [trade] MU: troppo esteso, non inseguo: prezzo 721.550, ORH 718.450, ORL 694.950, VWAP 713.339, ATR5m 1.743
+2026-11-12 20:30:23 [trade] ORCL: momentum 15m negativo: prezzo 115.170, ORH 113.610, ORL 112.050, VWAP 114.410, ATR5m 0.177
+2026-11-12 20:30:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:33:24 [marketdata] LS quote delay median 28s (n=11, AMD 14s, AVGO 30s, ENR.DE 28s, IFX.DE 45s, MU 21s, NVDA 6s, ORCL 23s, SAP.DE 32s, SIE.DE 155s, TIT.MI 14s, ZAL.DE 53s)
+2026-11-12 20:33:24 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 20:35:16 [news] news: 5 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 20:35:16 [news] news: run completata in 3 s
+2026-11-12 20:40:23 [marketdata] LS quote delay median 43s (n=8, AMD 43s, ENR.DE 88s, IFX.DE 28s, MU 20s, ORCL 30s, SIE.DE 193s, TIT.MI 130s, ZAL.DE 35s)
+2026-11-12 20:40:23 [trade] SIE.DE: nessun breakout: prezzo 280.525, ORH 290.900, ORL 285.900, VWAP 285.632, ATR5m 0.395
+2026-11-12 20:40:23 [trade] ENR.DE: nessun breakout: prezzo 132.150, ORH 132.660, ORL 130.060, VWAP 132.741, ATR5m 0.269
+2026-11-12 20:40:23 [trade] TIT.MI: nessun breakout: prezzo 5.885, ORH 5.928, ORL 5.865, VWAP 5.948, ATR5m 0.005
+2026-11-12 20:40:23 [trade] IFX.DE: momentum 15m negativo: prezzo 51.770, ORH 51.395, ORL 50.110, VWAP 51.369, ATR5m 0.110
+2026-11-12 20:40:23 [trade] ZAL.DE: nessun breakout: prezzo 28.345, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.028
+2026-11-12 20:40:23 [trade] AMD: troppo esteso, non inseguo: prezzo 527.650, ORH 521.650, ORL 502.600, VWAP 515.135, ATR5m 1.632
+2026-11-12 20:40:23 [trade] MU: nessun breakout: prezzo 717.750, ORH 718.450, ORL 694.950, VWAP 713.367, ATR5m 1.768
+2026-11-12 20:40:23 [trade] ORCL: momentum 15m negativo: prezzo 114.890, ORH 113.610, ORL 112.050, VWAP 114.412, ATR5m 0.176
+2026-11-12 20:40:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:43:25 [marketdata] LS quote delay median 83s (n=11, AMD 69s, AVGO 72s, ENR.DE 194s, IFX.DE 83s, MU 71s, NVDA 71s, ORCL 72s, SAP.DE 115s, SIE.DE 193s, TIT.MI 83s, ZAL.DE 98s)
+2026-11-12 20:43:25 [shadow] shadow: 13 valutazioni, 0 segnali
+2026-11-12 20:45:19 [news] news: 36 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 389, 'Google News': 1088, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 20:45:19 [news] news: run completata in 6 s
+2026-11-12 20:50:22 [marketdata] LS quote delay median 70s (n=8, AMD 57s, ENR.DE 74s, IFX.DE 65s, MU 59s, ORCL 63s, SIE.DE 70s, TIT.MI 82s, ZAL.DE 81s)
+2026-11-12 20:50:22 [trade] SIE.DE: nessun breakout: prezzo 280.525, ORH 290.900, ORL 285.900, VWAP 285.632, ATR5m 0.366
+2026-11-12 20:50:22 [trade] ENR.DE: nessun breakout: prezzo 131.950, ORH 132.660, ORL 130.060, VWAP 132.741, ATR5m 0.251
+2026-11-12 20:50:22 [trade] TIT.MI: nessun breakout: prezzo 5.885, ORH 5.928, ORL 5.865, VWAP 5.947, ATR5m 0.005
+2026-11-12 20:50:22 [trade] IFX.DE: troppo esteso, non inseguo: prezzo 51.785, ORH 51.395, ORL 50.110, VWAP 51.369, ATR5m 0.114
+2026-11-12 20:50:22 [trade] ZAL.DE: nessun breakout: prezzo 28.355, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.031
+2026-11-12 20:50:22 [trade] AMD: troppo esteso, non inseguo: prezzo 530.450, ORH 521.650, ORL 502.600, VWAP 515.205, ATR5m 1.718
+2026-11-12 20:50:22 [trade] MU: momentum 15m negativo: prezzo 718.600, ORH 718.450, ORL 694.950, VWAP 713.376, ATR5m 1.893
+2026-11-12 20:50:22 [trade] ORCL: momentum 15m negativo: prezzo 114.810, ORH 113.610, ORL 112.050, VWAP 114.416, ATR5m 0.178
+2026-11-12 20:50:22 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 20:53:23 [marketdata] LS quote delay median 36s (n=11, AMD 36s, AVGO 11s, ENR.DE 187s, IFX.DE 90s, MU 47s, NVDA 30s, ORCL 25s, SAP.DE 82s, SIE.DE 70s, TIT.MI 15s, ZAL.DE 18s)
+2026-11-12 20:53:24 [shadow] SHADOW REBOUND NVDA @ 148.6400 stop 147.7143 target 150.4014 grafico 15 REJECT
+2026-11-12 20:53:24 [shadow] shadow: 13 valutazioni, 1 segnali
+2026-11-12 20:55:15 [news] news: 7 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-12 20:55:16 [news] news: run completata in 2 s
+2026-11-12 21:00:15 [rescan] rescan 21:00 EU+US: 65 titoli con barre, 0 candidati, aggiunti []
+2026-11-12 21:00:23 [marketdata] LS quote delay median 93s (n=8, AMD 90s, ENR.DE 100s, IFX.DE 191s, MU 85s, ORCL 92s, SIE.DE 140s, TIT.MI 82s, ZAL.DE 93s)
+2026-11-12 21:00:23 [trade] SIE.DE: nessun breakout: prezzo 280.525, ORH 290.900, ORL 285.900, VWAP 285.632, ATR5m 0.330
+2026-11-12 21:00:23 [trade] ENR.DE: nessun breakout: prezzo 131.850, ORH 132.660, ORL 130.060, VWAP 132.741, ATR5m 0.201
+2026-11-12 21:00:23 [trade] TIT.MI: nessun breakout: prezzo 5.887, ORH 5.928, ORL 5.865, VWAP 5.946, ATR5m 0.005
+2026-11-12 21:00:23 [trade] IFX.DE: momentum 15m negativo: prezzo 51.750, ORH 51.395, ORL 50.110, VWAP 51.369, ATR5m 0.103
+2026-11-12 21:00:23 [trade] ZAL.DE: nessun breakout: prezzo 28.305, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.042
+2026-11-12 21:00:23 [trade] AMD: troppo esteso, non inseguo: prezzo 530.450, ORH 521.650, ORL 502.600, VWAP 515.390, ATR5m 1.621
+2026-11-12 21:00:23 [trade] MU: guadagno atteso 2.40 EUR < 3x commissioni
+2026-11-12 21:00:23 [trade] ORCL: troppo esteso, non inseguo: prezzo 114.900, ORH 113.610, ORL 112.050, VWAP 114.419, ATR5m 0.164
+2026-11-12 21:00:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 21:03:23 [marketdata] LS quote delay median 53s (n=11, AMD 31s, AVGO 33s, ENR.DE 66s, IFX.DE 177s, MU 36s, NVDA 34s, ORCL 36s, SAP.DE 53s, SIE.DE 62s, TIT.MI 79s, ZAL.DE 60s)
+2026-11-12 21:03:23 [shadow] shadow: 12 valutazioni, 0 segnali
+2026-11-12 21:05:15 [news] news: 11 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 205, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 21:05:15 [news] news: run completata in 2 s
+2026-11-12 21:10:23 [marketdata] LS quote delay median 38s (n=8, AMD 31s, ENR.DE 36s, IFX.DE 29s, MU 45s, ORCL 49s, SIE.DE 186s, TIT.MI 38s, ZAL.DE 23s)
+2026-11-12 21:10:23 [trade] SIE.DE: nessun breakout: prezzo 280.525, ORH 290.900, ORL 285.900, VWAP 285.632, ATR5m 0.352
+2026-11-12 21:10:23 [trade] ENR.DE: nessun breakout: prezzo 131.860, ORH 132.660, ORL 130.060, VWAP 132.741, ATR5m 0.170
+2026-11-12 21:10:23 [trade] TIT.MI: nessun breakout: prezzo 5.886, ORH 5.928, ORL 5.865, VWAP 5.945, ATR5m 0.004
+2026-11-12 21:10:23 [trade] IFX.DE: momentum 15m negativo: prezzo 51.750, ORH 51.395, ORL 50.110, VWAP 51.369, ATR5m 0.086
+2026-11-12 21:10:23 [trade] ZAL.DE: nessun breakout: prezzo 28.290, ORH 28.760, ORL 28.435, VWAP 28.644, ATR5m 0.036
+2026-11-12 21:10:23 [trade] AMD: momentum 15m negativo: prezzo 528.650, ORH 521.650, ORL 502.600, VWAP 515.495, ATR5m 1.796
+2026-11-12 21:10:23 [trade] MU: guadagno atteso 2.40 EUR < 3x commissioni
+2026-11-12 21:10:23 [trade] ORCL: momentum 15m negativo: prezzo 114.520, ORH 113.610, ORL 112.050, VWAP 114.421, ATR5m 0.171
+2026-11-12 21:10:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 21:13:23 [marketdata] LS quote delay median 36s (n=11, AMD 33s, AVGO 40s, ENR.DE 14s, IFX.DE 128s, MU 28s, NVDA 36s, ORCL 15s, SAP.DE 44s, SIE.DE 322s, TIT.MI 140s, ZAL.DE 27s)
+2026-11-12 21:13:23 [shadow] shadow: 12 valutazioni, 0 segnali
+2026-11-12 21:15:19 [news] news: 21 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 389, 'Google News': 1084, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 21:15:19 [news] news: run completata in 6 s
+2026-11-12 21:20:23 [marketdata] LS quote delay median 55s (n=8, AMD 42s, ENR.DE 55s, IFX.DE 60s, MU 18s, ORCL 26s, SIE.DE 145s, TIT.MI 47s, ZAL.DE 73s)
+2026-11-12 21:20:23 [trade] SIE.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:20:23 [trade] ENR.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:20:23 [trade] TIT.MI: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:20:23 [trade] IFX.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:20:23 [trade] ZAL.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:20:23 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:20:23 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:20:23 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:20:23 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 21:25:16 [news] news: 16 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 21:25:16 [news] news: run completata in 2 s
+2026-11-12 21:30:23 [marketdata] LS quote delay median 78s (n=8, AMD 38s, ENR.DE 34s, IFX.DE 78s, MU 26s, ORCL 17s, SIE.DE 141s, TIT.MI 114s, ZAL.DE 84s)
+2026-11-12 21:30:24 [trade] SIE.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:30:24 [trade] ENR.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:30:24 [trade] TIT.MI: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:30:24 [trade] IFX.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:30:24 [trade] ZAL.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:30:24 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:30:24 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:30:24 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:30:24 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 21:35:16 [news] news: 2 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 205, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 21:35:16 [news] news: run completata in 2 s
+2026-11-12 21:40:24 [marketdata] LS quote delay median 59s (n=8, AMD 35s, ENR.DE 106s, IFX.DE 225s, MU 38s, ORCL 37s, SIE.DE 90s, TIT.MI 59s, ZAL.DE 54s)
+2026-11-12 21:40:25 [trade] SIE.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:40:25 [trade] ENR.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:40:25 [trade] TIT.MI: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:40:25 [trade] IFX.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:40:25 [trade] ZAL.DE: fuori finestra ingressi (09:30-21:15)
+2026-11-12 21:40:25 [trade] AMD: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:40:25 [trade] MU: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:40:25 [trade] ORCL: fuori finestra ingressi (16:00-21:15)
+2026-11-12 21:40:25 [trade] equity 1000.00 EUR (cash 1000.00, posizioni 0.00), oggi +0.00%
+2026-11-12 21:45:19 [news] news: 36 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 393, 'Google News': 1079, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-12 21:45:19 [news] news: run completata in 6 s
+2026-11-12 21:50:14 [close_all] nessuna posizione aperta
+2026-11-12 21:55:14 [report] report scritto: /home/runner/work/paper-trading-bot/paper-trading-bot/reports/report_2026-11-12.md
+2026-11-12 21:55:15 [news] news: 4 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 0, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-12 21:55:15 [news] news: run completata in 2 s
+2026-11-12 21:56:18 [marketdata] LS quote delay median 40s (n=2, AVGO 40s, NVDA 29s)
+2026-11-12 21:56:18 [shadow] shadow eod: 2 esiti nuovi, totale +0.00 EUR
+2026-11-12 22:05:16 [news] news: 7 nuove notizie; titoli interrogati 11/71; fonti: {'yfinance': 84, 'Google News': 204, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-12 22:05:16 [news] news: run completata in 2 s
+2026-11-12 22:15:14 [team_review] team review scritta: /home/runner/work/paper-trading-bot/paper-trading-bot/reports/team_review_2026-11-12.md

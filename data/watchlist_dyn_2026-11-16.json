@@ -1,0 +1,561 @@
+{
+ "date": "2026-11-16",
+ "items": [
+  {
+   "ticker": "INTC",
+   "name": "Intel",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "07:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.505,
+   "rationale": "sentiment parole chiave 6h -0.51 su 6 notizie; top: Intel faces shareholder lawsuit over concealed PC sales slump - Crypto Briefing (Google News, 16/11 02:34)"
+  },
+  {
+   "ticker": "META",
+   "name": "Meta Platforms",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "09:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.378,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 0.7); top: Meta Platforms, Inc. $META Shares Acquired by First Command Advisory Services Inc. - MarketBeat (Google News, 16/11 09:44)"
+  },
+  {
+   "ticker": "BA",
+   "name": "Boeing",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "09:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 4 notizie; top: Archer Aviation Stock Gains Defense Revenue With Boeing Unit Deal - Simply Wall St (Google News, 16/11 08:11)"
+  },
+  {
+   "ticker": "DBK.DE",
+   "name": "Deutsche Bank",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "10:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.35,
+   "rationale": "raffica di 10 notizie in 60 min (media oraria 7gg 0.5); top: COMPAGNIE FINANCIERE RICHEMONT : Buy rating from Deutsche Bank - marketscreener.com (Google News, 16/11 10:39)"
+  },
+  {
+   "ticker": "MU",
+   "name": "Micron",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "10:55",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.524,
+   "rationale": "sentiment parole chiave 6h -0.52 su 3 notizie; top: Market Chatter: Micron, Samsung, SK Hynix Fail to Get DRAM Price-Fixing Lawsuit Dismissed (yfinance, 16/11 10:12)"
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "11:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.13,
+   "rationale": "raffica di 15 notizie in 60 min (media oraria 7gg 4.7); top: Stocks extend losses as traders digest Nvidia fallout (yfinance, 16/11 08:14)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "11:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.445,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.6); top: Apple Inc. $AAPL Stock Sold by Slow Capital Inc. - MarketBeat (Google News, 16/11 10:59)"
+  },
+  {
+   "ticker": "BAMI.MI",
+   "name": "Banco BPM",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "11:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.049,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Azioni Banco BPM, la fusione con Crédit Agricole si avvicina: cosa succede adesso? - Meteofinanza.com (Google News, 16/11 10:51)"
+  },
+  {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.039,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.7); top: Amazon Stock Falls as Boeing-Lockheed Rocket Failure Destroys 40 Leo Satellites - TipRanks (Google News, 16/11 10:11)"
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.34,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 0.8); top: Tesla Stock Price Prediction 2026, 2027, 2030–2040: How Much Further Can TSLA Climb? - Coinpedia (Google News, 16/11 12:29)"
+  },
+  {
+   "ticker": "COIN",
+   "name": "Coinbase",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "14:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.061,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.6); top: Bitcoin Prices Tumble and Bring Coinbase and Strategy Stocks Down With Them (yfinance, 16/11 13:36)"
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "14:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.028,
+   "rationale": "raffica di 12 notizie in 60 min (media oraria 7gg 0.4); top: Siemens Energy AG : Deutsche Bank keeps its Buy rating - marketscreener.com (Google News, 16/11 10:37)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "15:25",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.309,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.0); top: AMD, Broadcom stocks sink on tighter US chips rules, CoreWeave drops (yfinance, 16/11 15:24)"
+  },
+  {
+   "ticker": "RACE.MI",
+   "name": "Ferrari",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "18:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.535,
+   "rationale": "sentiment parole chiave 6h +0.54 su 3 notizie; top: Ferrari prosegue il buyback con acquisti per 13,19 milioni di euro - la Repubblica (Google News, 16/11 17:45)"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-16T07:35:15+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "INTC"
+   ]
+  },
+  {
+   "at": "2026-11-16T09:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T09:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "META",
+    "BA"
+   ]
+  },
+  {
+   "at": "2026-11-16T10:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T10:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T10:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "DBK.DE"
+   ]
+  },
+  {
+   "at": "2026-11-16T10:55:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "MU"
+   ]
+  },
+  {
+   "at": "2026-11-16T11:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T11:05:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "NVDA"
+   ]
+  },
+  {
+   "at": "2026-11-16T11:15:19+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "AAPL"
+   ]
+  },
+  {
+   "at": "2026-11-16T11:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T11:45:18+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "BAMI.MI"
+   ]
+  },
+  {
+   "at": "2026-11-16T12:00:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T12:30:14+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T12:35:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "AMZN"
+   ]
+  },
+  {
+   "at": "2026-11-16T12:45:19+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "TSLA"
+   ]
+  },
+  {
+   "at": "2026-11-16T13:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T13:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T14:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T14:05:14+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "COIN"
+   ]
+  },
+  {
+   "at": "2026-11-16T14:15:15+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "ENR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-16T14:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T15:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T15:25:13+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "AMD"
+   ]
+  },
+  {
+   "at": "2026-11-16T15:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T16:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T16:30:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T17:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T17:30:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T18:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T18:15:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "RACE.MI"
+   ]
+  },
+  {
+   "at": "2026-11-16T18:30:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T19:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T19:30:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T20:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T20:30:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-16T21:00:11+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-16T21:00:13+01:00"
+}

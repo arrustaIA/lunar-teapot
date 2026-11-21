@@ -1,0 +1,477 @@
+{
+ "date": "2026-11-17",
+ "items": [
+  {
+   "ticker": "MONC.MI",
+   "name": "Moncler",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "09:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.687,
+   "rationale": "sentiment parole chiave 6h -0.69 su 3 notizie; top: Morgan Stanley downgrades Moncler to \"underweight\", cuts price target to €39 (Investing.com, 17/11 08:40)"
+  },
+  {
+   "ticker": "DBK.DE",
+   "name": "Deutsche Bank",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "09:30",
+   "move": -0.0544,
+   "rvol": 3.63,
+   "atr_d": 0.0338,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -5.44% (soglia 3.38%), volume relativo 3.6x"
+  },
+  {
+   "ticker": "SAN.MC",
+   "name": "Banco Santander",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "10:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 10 notizie; top: Lam Research Corporation $LRCX Shares Bought by Banco Santander S.A. - MarketBeat (Google News, 17/11 09:52)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.171,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.9); top: Apple Inc. $AAPL Stock: Patton Albertson Miller Group LLC Reduces Stake - MarketBeat (Google News, 17/11 10:47)"
+  },
+  {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.062,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.0); top: Amazon Falls 3.3% on AI Chip Rule, 40-Satellite Loss - shattered.io (Google News, 17/11 07:47)"
+  },
+  {
+   "ticker": "HEI.DE",
+   "name": "Heidelberg Materials",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "14:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.5,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: Berenberg Notes Heidelberg Materials' Sequential European Recovery, Near-term US Headwinds - marketscreener.com (Google News, 17/11 13:02)"
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.086,
+   "rationale": "raffica di 22 notizie in 60 min (media oraria 7gg 6.9); top: US stock futures slip and Nvidia edges lower before its results as Europe falls 1% and Deutsche Bank drops 6% - MLQ.ai (Google News, 17/11 11:35)"
+  },
+  {
+   "ticker": "PST.MI",
+   "name": "Poste Italiane",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "16:30",
+   "move": -0.0212,
+   "rvol": 1.86,
+   "atr_d": 0.0176,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -2.12% (soglia 2.00%), volume relativo 1.9x"
+  },
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.004,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 1.4); top: Microsoft Stock MSFT Drops Below $500 as Cybersecurity Concerns Hit Tech Stocks - FXLeaders (Google News, 17/11 18:00)"
+  },
+  {
+   "ticker": "BAS.DE",
+   "name": "BASF",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "19:00",
+   "move": -0.0261,
+   "rvol": 1.51,
+   "atr_d": 0.0213,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -2.61% (soglia 2.13%), volume relativo 1.5x"
+  },
+  {
+   "ticker": "JPM",
+   "name": "JPMorgan Chase",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "20:00",
+   "move": -0.025,
+   "rvol": 1.61,
+   "atr_d": 0.0244,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -2.50% (soglia 2.44%), volume relativo 1.6x"
+  },
+  {
+   "ticker": "AIR.DE",
+   "name": "Airbus",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "20:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.501,
+   "rationale": "sentiment parole chiave 6h +0.50 su 3 notizie; top: Airbus Adds Voluntary SAF Study to Air India Ties as Buyback and IRIS Contract Run in Parallel - ad-hoc-news.de (Google News, 17/11 17:42)"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-17T09:05:08+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "MONC.MI"
+   ]
+  },
+  {
+   "at": "2026-11-17T09:30:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 51,
+   "candidates": 1,
+   "added": [
+    "DBK.DE"
+   ]
+  },
+  {
+   "at": "2026-11-17T10:00:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T10:30:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T10:45:11+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "SAN.MC"
+   ]
+  },
+  {
+   "at": "2026-11-17T11:00:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T11:30:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T12:00:06+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T12:15:13+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "AAPL",
+    "AMZN"
+   ]
+  },
+  {
+   "at": "2026-11-17T12:30:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T13:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T13:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T14:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 49,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T14:05:05+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "HEI.DE"
+   ]
+  },
+  {
+   "at": "2026-11-17T14:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T15:00:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T15:30:03+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T16:00:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 65,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T16:05:05+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "NVDA"
+   ]
+  },
+  {
+   "at": "2026-11-17T16:30:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 64,
+   "candidates": 1,
+   "added": [
+    "PST.MI"
+   ]
+  },
+  {
+   "at": "2026-11-17T17:00:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 63,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T17:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 63,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T18:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 63,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T18:05:06+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "MSFT"
+   ]
+  },
+  {
+   "at": "2026-11-17T18:30:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 62,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T19:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 62,
+   "candidates": 1,
+   "added": [
+    "BAS.DE"
+   ]
+  },
+  {
+   "at": "2026-11-17T19:30:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T20:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 61,
+   "candidates": 1,
+   "added": [
+    "JPM"
+   ]
+  },
+  {
+   "at": "2026-11-17T20:05:14+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "AIR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-17T20:30:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 59,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-17T21:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 59,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-17T21:00:14+01:00"
+}

@@ -1,0 +1,587 @@
+{
+ "date": "2026-11-20",
+ "items": [
+  {
+   "ticker": "DBK.DE",
+   "name": "Deutsche Bank",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "10:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.495,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.1); top: Deutsche Bank upgrades Unicredit stock on strong earnings outlook By Investing.com - Investing.com India (Google News, 20/11 10:00)"
+  },
+  {
+   "ticker": "UCG.MI",
+   "name": "UniCredit",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "10:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.374,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.7); top: Deutsche Bank upgrades Unicredit stock on strong earnings outlook By Investing.com - Investing.com India (Google News, 20/11 10:00)"
+  },
+  {
+   "ticker": "PRY.MI",
+   "name": "Prysmian",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "11:30",
+   "move": -0.0565,
+   "rvol": 1.88,
+   "atr_d": 0.0476,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -5.65% (soglia 4.76%), volume relativo 1.9x"
+  },
+  {
+   "ticker": "BAS.DE",
+   "name": "BASF",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "11:30",
+   "move": -0.0223,
+   "rvol": 1.64,
+   "atr_d": 0.0219,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -2.23% (soglia 2.19%), volume relativo 1.6x"
+  },
+  {
+   "ticker": "META",
+   "name": "Meta Platforms",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "11:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.414,
+   "rationale": "raffica di 8 notizie in 60 min (media oraria 7gg 1.3); top: Meta Platforms, Inc. $META Stock: Intech Investment Management LLC Reduces Stake - MarketBeat (Google News, 20/11 11:35)"
+  },
+  {
+   "ticker": "ENR.DE",
+   "name": "Siemens Energy",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "12:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.665,
+   "rationale": "sentiment parole chiave 6h +0.67 su 3 notizie; top: Siemens Energy Draws Fresh Analyst Support as Buyback and Record Orders Underpin Growth Story - ad-hoc-news.de (Google News, 20/11 11:50)"
+  },
+  {
+   "ticker": "AAPL",
+   "name": "Apple",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.031,
+   "rationale": "raffica di 9 notizie in 60 min (media oraria 7gg 1.2); top: Apple Inc. $AAPL Stock: AMI Investment Management Inc. Boosts Position - MarketBeat (Google News, 20/11 09:11)"
+  },
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:35",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.0,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.5); top: Nestle Teams Up With Microsoft, Boston Dynamics on AI in Factories and Products (yfinance, 20/11 08:10)"
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "12:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.325,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.4); top: When Nvidia Falls 30%, How Far Does AMD Fall? (yfinance, 20/11 12:01)"
+  },
+  {
+   "ticker": "STMMI.MI",
+   "name": "STMicroelectronics",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "13:00",
+   "move": -0.0666,
+   "rvol": 1.83,
+   "atr_d": 0.0569,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -6.66% (soglia 5.69%), volume relativo 1.8x"
+  },
+  {
+   "ticker": "UBER",
+   "name": "Uber",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "15:45",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.508,
+   "rationale": "sentiment parole chiave 6h -0.51 su 3 notizie; top: Anthropic Stock Falls 9.6% Before the Bell on Its Second Day of Trading. Facebook and Uber Both Fell 11% on Day 2. Here’s What Happened Next (yfinance, 20/11 14:23)"
+  },
+  {
+   "ticker": "MU",
+   "name": "Micron",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:05",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.191,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 1.0); top: Micron Sinks 6%, Sandisk Down 7% as Chip Selloff Deepens Memory’s “Abject Disaster” (yfinance, 20/11 15:38)"
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "16:30",
+   "move": -0.0759,
+   "rvol": 4.62,
+   "atr_d": 0.0602,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -7.59% (soglia 6.02%), volume relativo 4.6x"
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "18:30",
+   "move": -0.0599,
+   "rvol": 2.31,
+   "atr_d": 0.0491,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -5.99% (soglia 4.91%), volume relativo 2.3x"
+  },
+  {
+   "ticker": "IFX.DE",
+   "name": "Infineon",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "19:00",
+   "move": -0.0768,
+   "rvol": 2.35,
+   "atr_d": 0.0575,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -7.68% (soglia 5.75%), volume relativo 2.4x"
+  },
+  {
+   "ticker": "SIE.DE",
+   "name": "Siemens",
+   "region": "EU",
+   "currency": "EUR",
+   "added_at": "19:00",
+   "move": -0.0451,
+   "rvol": 1.59,
+   "atr_d": 0.0318,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -4.51% (soglia 3.18%), volume relativo 1.6x"
+  },
+  {
+   "ticker": "ORCL",
+   "name": "Oracle",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "19:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": -0.363,
+   "rationale": "raffica di 5 notizie in 60 min (media oraria 7gg 0.7); top: Oracle Stock Sinks to New 52-Week Low Amid Tech Selloff and Nasdaq Woes - Benzinga (Google News, 20/11 18:34)"
+  },
+  {
+   "ticker": "JPM",
+   "name": "JPMorgan Chase",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "19:15",
+   "move": null,
+   "rvol": null,
+   "atr_d": null,
+   "source": "notizie (news.py)",
+   "news_impact": 0.193,
+   "rationale": "raffica di 6 notizie in 60 min (media oraria 7gg 1.2); top: JPMorgan Chase & Co. Issues Positive Forecast for Warner Music Group (NASDAQ:WMG) Stock Price - MarketBeat (Google News, 20/11 18:59)"
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "region": "US",
+   "currency": "USD",
+   "added_at": "20:30",
+   "move": -0.1067,
+   "rvol": 11.7,
+   "atr_d": 0.0815,
+   "source": "prezzo/volume",
+   "news_impact": null,
+   "rationale": "movimento -10.67% (soglia 8.15%), volume relativo 11.7x"
+  }
+ ],
+ "scans": [
+  {
+   "at": "2026-11-20T09:30:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T10:00:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T10:30:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T10:45:14+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "DBK.DE",
+    "UCG.MI"
+   ]
+  },
+  {
+   "at": "2026-11-20T11:00:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T11:30:07+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 50,
+   "candidates": 2,
+   "added": [
+    "PRY.MI",
+    "BAS.DE"
+   ]
+  },
+  {
+   "at": "2026-11-20T11:45:13+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 1,
+   "added": [
+    "META"
+   ]
+  },
+  {
+   "at": "2026-11-20T12:00:08+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 48,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T12:05:10+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "ENR.DE"
+   ]
+  },
+  {
+   "at": "2026-11-20T12:30:08+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 47,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T12:35:09+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "AAPL",
+    "MSFT"
+   ]
+  },
+  {
+   "at": "2026-11-20T12:45:11+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 5,
+   "added": [
+    "AMD"
+   ]
+  },
+  {
+   "at": "2026-11-20T13:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 47,
+   "candidates": 1,
+   "added": [
+    "STMMI.MI"
+   ]
+  },
+  {
+   "at": "2026-11-20T13:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 46,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T14:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 46,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T14:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 46,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T15:00:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 46,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T15:30:11+01:00",
+   "regions": [
+    "EU"
+   ],
+   "scanned": 46,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T15:45:16+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 2,
+   "added": [
+    "UBER"
+   ]
+  },
+  {
+   "at": "2026-11-20T16:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 60,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T16:05:17+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 4,
+   "added": [
+    "MU"
+   ]
+  },
+  {
+   "at": "2026-11-20T16:30:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 59,
+   "candidates": 1,
+   "added": [
+    "AVGO"
+   ]
+  },
+  {
+   "at": "2026-11-20T17:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T17:30:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T18:00:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T18:30:12+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 58,
+   "candidates": 1,
+   "added": [
+    "TSLA"
+   ]
+  },
+  {
+   "at": "2026-11-20T19:00:02+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 57,
+   "candidates": 2,
+   "added": [
+    "IFX.DE",
+    "SIE.DE"
+   ]
+  },
+  {
+   "at": "2026-11-20T19:15:07+01:00",
+   "regions": [
+    "news"
+   ],
+   "scanned": 0,
+   "candidates": 3,
+   "added": [
+    "ORCL",
+    "JPM"
+   ]
+  },
+  {
+   "at": "2026-11-20T19:30:02+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 53,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T20:00:02+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 53,
+   "candidates": 0,
+   "added": []
+  },
+  {
+   "at": "2026-11-20T20:30:03+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 53,
+   "candidates": 1,
+   "added": [
+    "NVDA"
+   ]
+  },
+  {
+   "at": "2026-11-20T21:00:04+01:00",
+   "regions": [
+    "EU",
+    "US"
+   ],
+   "scanned": 52,
+   "candidates": 0,
+   "added": []
+  }
+ ],
+ "updated": "2026-11-20T21:00:05+01:00"
+}

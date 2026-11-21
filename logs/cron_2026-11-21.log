@@ -1,0 +1,26 @@
+2026-11-21 03:33:12 [news] news: 168 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 345, 'Google News': 1005, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-21 03:33:12 [news] news: run completata in 7 s
+sentiment macro 12h: -0.09 su 163 titoli
+  G.MI      +0.50 (1 notizie) Generali pronta ad aumentare i riacquisti di azioni nel 2027 grazie al superamento degli obiettivi, secondo Berenberg - MarketScre
+  IFX.DE    +0.38 (7 notizie) Infineon's Record Quarter Is Already in the Books — the €20 Billion Forecast Is Where the Argume - ad-hoc-news.de (Google News, 21
+  AMD       -0.33 (42 notizie) Stock Market Midday, Nov. 20: Nasdaq Plunges Nearly 3% as AMD and Micron Lead a Brutal Semiconductor Sell-Off (yfinance, 20/11 18
+  ENR.DE    +0.31 (8 notizie) Siemens Energy Wins Fresh Price-Target Upgrades as Hydrogen Milestone Meets a Choppy Tape - ad-hoc-news.de (Google News, 20/11 13:
+  AVGO      -0.26 (28 notizie) Broadcom sinks 12% as Google trims 2027 TPU orders, tech stocks drop (AVGO:NASDAQ) - Seeking Alpha (Google News, 20/11 22:25)
+  PUM.DE    +0.24 (2 notizie) Puma Future 10 Ultimate Launch FG "Fizzy Yellow/PUMA Black/Glowing Red/Yellow Alert" 109613-01 - SNKRDUNK (Google News, 20/11 16:2
+  PLTR      -0.23 (12 notizie) Palantir shares drop about 5.5% after high valuation multiples spark negative reaction despite growth - Traders Union (Google New
+  ORCL      -0.22 (24 notizie) Oracle shares fall to new 52-week low on AI selloff - StreetInsider (Google News, 20/11 19:21)
+  STMMI.MI  +0.20 (4 notizie) Roth/MKM avvia copertura su STMicroelectronics con Buy sulla crescita AI - Investing.com (Google News, 20/11 06:49)
+  NVDA      -0.20 (139 notizie) Nvidia’s Stock Slide Deepens After Report of SEC Accounting Probe - Barron's (Google News, 20/11 22:43)
+2026-11-21 12:26:50 [news] news: 198 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 343, 'Google News': 976, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-21 12:26:50 [news] news: run completata in 6 s
+sentiment macro 12h: -0.04 su 11 titoli
+  EOAN.DE   +0.50 (1 notizie) E.ON stock: Nine-month profit rises as 2026 guidance holds - ad-hoc-news.de (Google News, 21/11 11:26)
+  MTX.DE    -0.50 (1 notizie) MTU Aero Engines stock drops 5.18% in weekly Xetra decline - ad-hoc-news.de (Google News, 21/11 12:03)
+  ALV.DE    +0.44 (12 notizie) Invesco QQQ $QQQ Stock: Allianz SE Trims Holdings - MarketBeat (Google News, 21/11 12:19)
+  ENR.DE    +0.39 (8 notizie) Siemens Energy Slips as AI Trade Sours, but Record Books and a €9 Billion Buyback Tell Another Sto - ad-hoc-news.de (Google News, 
+  BAMI.MI   +0.38 (3 notizie) Banco BPM, Fitch migliora l'Outlook a Positivo confermando il rating "BBB+" - Borsa Italiana (Google News, 20/11 17:46)
+  SAN.MC    +0.34 (7 notizie) Banco Santander stock: UBS keeps Buy rating and 13.30 euro target - ad-hoc-news.de (Google News, 21/11 11:40)
+  PLTR      -0.24 (11 notizie) Palantir shares drop about 5.5% after high valuation multiples spark negative reaction despite growth - Traders Union (Google New
+  JPM       +0.24 (27 notizie) JPMorgan Chase & Co. $JPM Stock: Cibc World Market Inc. Cuts Position - MarketBeat (Google News, 21/11 10:51)
+  PUM.DE    +0.24 (2 notizie) Puma Future 10 Ultimate Launch FG "Fizzy Yellow/PUMA Black/Glowing Red/Yellow Alert" 109613-01 - SNKRDUNK (Google News, 20/11 16:2
+  SHL.DE    +0.23 (2 notizie) Siemens Healthineers AG : Gets a Buy rating from DZ Bank - marketscreener.com (Google News, 20/11 16:33)

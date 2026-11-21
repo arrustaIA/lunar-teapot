@@ -1,0 +1,16 @@
+# Watchlist dinamica 16/11/2026 (aggiornata 21:00 ora di Roma) – solo candidati, usati in SHADOW
+
+1. 07:35 **Intel** (INTC, US) [notizie (news.py)]: sentiment parole chiave 6h -0.51 su 6 notizie; top: Intel faces shareholder lawsuit over concealed PC sales slump - Crypto Briefing (Google News, 16/11 02:34)
+2. 09:45 **Meta Platforms** (META, US) [notizie (news.py)]: raffica di 6 notizie in 60 min (media oraria 7gg 0.7); top: Meta Platforms, Inc. $META Shares Acquired by First Command Advisory Services Inc. - MarketBeat (Google News, 16/11 09:44)
+3. 09:45 **Boeing** (BA, US) [notizie (news.py)]: sentiment parole chiave 6h +0.50 su 4 notizie; top: Archer Aviation Stock Gains Defense Revenue With Boeing Unit Deal - Simply Wall St (Google News, 16/11 08:11)
+4. 10:45 **Deutsche Bank** (DBK.DE, EU) [notizie (news.py)]: raffica di 10 notizie in 60 min (media oraria 7gg 0.5); top: COMPAGNIE FINANCIERE RICHEMONT : Buy rating from Deutsche Bank - marketscreener.com (Google News, 16/11 10:39)
+5. 10:55 **Micron** (MU, US) [notizie (news.py)]: sentiment parole chiave 6h -0.52 su 3 notizie; top: Market Chatter: Micron, Samsung, SK Hynix Fail to Get DRAM Price-Fixing Lawsuit Dismissed (yfinance, 16/11 10:12)
+6. 11:05 **NVIDIA** (NVDA, US) [notizie (news.py)]: raffica di 15 notizie in 60 min (media oraria 7gg 4.7); top: Stocks extend losses as traders digest Nvidia fallout (yfinance, 16/11 08:14)
+7. 11:15 **Apple** (AAPL, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.6); top: Apple Inc. $AAPL Stock Sold by Slow Capital Inc. - MarketBeat (Google News, 16/11 10:59)
+8. 11:45 **Banco BPM** (BAMI.MI, EU) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.4); top: Azioni Banco BPM, la fusione con Crédit Agricole si avvicina: cosa succede adesso? - Meteofinanza.com (Google News, 16/11 10:51)
+9. 12:35 **Amazon** (AMZN, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.7); top: Amazon Stock Falls as Boeing-Lockheed Rocket Failure Destroys 40 Leo Satellites - TipRanks (Google News, 16/11 10:11)
+10. 12:45 **Tesla** (TSLA, US) [notizie (news.py)]: raffica di 6 notizie in 60 min (media oraria 7gg 0.8); top: Tesla Stock Price Prediction 2026, 2027, 2030–2040: How Much Further Can TSLA Climb? - Coinpedia (Google News, 16/11 12:29)
+11. 14:05 **Coinbase** (COIN, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 0.6); top: Bitcoin Prices Tumble and Bring Coinbase and Strategy Stocks Down With Them (yfinance, 16/11 13:36)
+12. 14:15 **Siemens Energy** (ENR.DE, EU) [notizie (news.py)]: raffica di 12 notizie in 60 min (media oraria 7gg 0.4); top: Siemens Energy AG : Deutsche Bank keeps its Buy rating - marketscreener.com (Google News, 16/11 10:37)
+13. 15:25 **AMD** (AMD, US) [notizie (news.py)]: raffica di 5 notizie in 60 min (media oraria 7gg 1.0); top: AMD, Broadcom stocks sink on tighter US chips rules, CoreWeave drops (yfinance, 16/11 15:24)
+14. 18:15 **Ferrari** (RACE.MI, EU) [notizie (news.py)]: sentiment parole chiave 6h +0.54 su 3 notizie; top: Ferrari prosegue il buyback con acquisti per 13,19 milioni di euro - la Repubblica (Google News, 16/11 17:45)

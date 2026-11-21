@@ -1,0 +1,507 @@
+{
+  "DE0007164600": {
+    "instrumentId": 34313,
+    "isin": "DE0007164600",
+    "name": "SAP SE",
+    "ticker": "SAP.DE",
+    "queried_isin": "DE0007164600"
+  },
+  "DE0007236101": {
+    "instrumentId": 34301,
+    "isin": "DE0007236101",
+    "name": "SIEMENS AG NA",
+    "ticker": "SIE.DE",
+    "queried_isin": "DE0007236101"
+  },
+  "DE0008404005": {
+    "instrumentId": 34379,
+    "isin": "DE0008404005",
+    "name": "ALLIANZ AG VNA O.N.",
+    "ticker": "ALV.DE",
+    "queried_isin": "DE0008404005"
+  },
+  "DE0005557508": {
+    "instrumentId": 34349,
+    "isin": "DE0005557508",
+    "name": "DT.TELEKOM AG NA",
+    "ticker": "DTE.DE",
+    "queried_isin": "DE0005557508"
+  },
+  "NL0000235190": {
+    "instrumentId": 34277,
+    "isin": "NL0000235190",
+    "name": "Airbus SE",
+    "ticker": "AIR.DE",
+    "queried_isin": "NL0000235190"
+  },
+  "DE0007100000": {
+    "instrumentId": 34361,
+    "isin": "DE0007100000",
+    "name": "MERCEDES-BENZ GRP NA O.N.",
+    "ticker": "MBG.DE",
+    "queried_isin": "DE0007100000"
+  },
+  "DE0005190003": {
+    "instrumentId": 34367,
+    "isin": "DE0005190003",
+    "name": "BAY.MOTOREN WERKE AG ST",
+    "ticker": "BMW.DE",
+    "queried_isin": "DE0005190003"
+  },
+  "DE0007664039": {
+    "instrumentId": 34304,
+    "isin": "DE0007664039",
+    "name": "VOLKSWAGEN AG VORZUGSAKTIEN",
+    "ticker": "VOW3.DE",
+    "queried_isin": "DE0007664039"
+  },
+  "DE000BASF111": {
+    "instrumentId": 34376,
+    "isin": "DE000BASF111",
+    "name": "BASF AG O.N.",
+    "ticker": "BAS.DE",
+    "queried_isin": "DE000BASF111"
+  },
+  "DE000BAY0017": {
+    "instrumentId": 34373,
+    "isin": "DE000BAY0017",
+    "name": "BAYER AG O.N.",
+    "ticker": "BAYN.DE",
+    "queried_isin": "DE000BAY0017"
+  },
+  "DE0006231004": {
+    "instrumentId": 34331,
+    "isin": "DE0006231004",
+    "name": "INFINEON TECH.AG NA O.N.",
+    "ticker": "IFX.DE",
+    "queried_isin": "DE0006231004"
+  },
+  "DE0005140008": {
+    "instrumentId": 34355,
+    "isin": "DE0005140008",
+    "name": "DEUTSCHE BANK AG NA O.N.",
+    "ticker": "DBK.DE",
+    "queried_isin": "DE0005140008"
+  },
+  "DE000CBK1001": {
+    "instrumentId": 34364,
+    "isin": "DE000CBK1001",
+    "name": "COMMERZBANK AG",
+    "ticker": "CBK.DE",
+    "queried_isin": "DE000CBK1001"
+  },
+  "DE0008430026": {
+    "instrumentId": 34319,
+    "isin": "DE0008430026",
+    "name": "MUENCH.RUECKVERS.VNA O.N.",
+    "ticker": "MUV2.DE",
+    "queried_isin": "DE0008430026"
+  },
+  "DE000A1EWWW0": {
+    "instrumentId": 34382,
+    "isin": "DE000A1EWWW0",
+    "name": "ADIDAS AG",
+    "ticker": "ADS.DE",
+    "queried_isin": "DE000A1EWWW0"
+  },
+  "DE0007030009": {
+    "instrumentId": 34223,
+    "isin": "DE0007030009",
+    "name": "Rheinmetall AG",
+    "ticker": "RHM.DE",
+    "queried_isin": "DE0007030009"
+  },
+  "DE0005552004": {
+    "instrumentId": 34352,
+    "isin": "DE0005552004",
+    "name": "DHL AG",
+    "ticker": "DHL.DE",
+    "queried_isin": "DE0005552004"
+  },
+  "DE000ENAG999": {
+    "instrumentId": 34346,
+    "isin": "DE000ENAG999",
+    "name": "E.ON SE",
+    "ticker": "EOAN.DE",
+    "queried_isin": "DE000ENAG999"
+  },
+  "DE0007037129": {
+    "instrumentId": 34316,
+    "isin": "DE0007037129",
+    "name": "RWE AG ST O.N.",
+    "ticker": "RWE.DE",
+    "queried_isin": "DE0007037129"
+  },
+  "DE000A0D9PT0": {
+    "instrumentId": 34238,
+    "isin": "DE000A0D9PT0",
+    "name": "MTU AERO ENGINES NA O.N.",
+    "ticker": "MTX.DE",
+    "queried_isin": "DE000A0D9PT0"
+  },
+  "DE000ENER6Y0": {
+    "instrumentId": 1240969,
+    "isin": "DE000ENER6Y0",
+    "name": "SIEMENS ENERGY AG NA O.N.",
+    "ticker": "ENR.DE",
+    "queried_isin": "DE000ENER6Y0"
+  },
+  "DE0005810055": {
+    "instrumentId": 34358,
+    "isin": "DE0005810055",
+    "name": "DEUTSCHE BOERSE NA O.N.",
+    "ticker": "DB1.DE",
+    "queried_isin": "DE0005810055"
+  },
+  "DE000ZAL1111": {
+    "instrumentId": 41855,
+    "isin": "DE000ZAL1111",
+    "name": "ZALANDO SE",
+    "ticker": "ZAL.DE",
+    "queried_isin": "DE000ZAL1111"
+  },
+  "DE000PAG9113": {
+    "instrumentId": 1901580,
+    "isin": "DE000PAG9113",
+    "name": "DR.ING.H.C.F.PORSCHE VZO",
+    "ticker": "P911.DE",
+    "queried_isin": "DE000PAG9113"
+  },
+  "DE000SHL1006": {
+    "instrumentId": 583411,
+    "isin": "DE000SHL1006",
+    "name": "SIEMENS HEALTH.AG NA O.N.",
+    "ticker": "SHL.DE",
+    "queried_isin": "DE000SHL1006"
+  },
+  "DE0006047004": {
+    "instrumentId": 34337,
+    "isin": "DE0006047004",
+    "name": "Heidelberg Materials",
+    "ticker": "HEI.DE",
+    "queried_isin": "DE0006047004"
+  },
+  "DE0005439004": {
+    "instrumentId": 34286,
+    "isin": "DE0005439004",
+    "name": "CONTINENTAL AG O.N.",
+    "ticker": "CON.DE",
+    "queried_isin": "DE0005439004"
+  },
+  "DE000A1ML7J1": {
+    "instrumentId": 42374,
+    "isin": "DE000A1ML7J1",
+    "name": "VONOVIA SE",
+    "ticker": "VNA.DE",
+    "queried_isin": "DE000A1ML7J1"
+  },
+  "DE0008232125": {
+    "instrumentId": 34397,
+    "isin": "DE0008232125",
+    "name": "LUFTHANSA AG VNA O.N.",
+    "ticker": "LHA.DE",
+    "queried_isin": "DE0008232125"
+  },
+  "DE000HAG0005": {
+    "instrumentId": 1232685,
+    "isin": "DE000HAG0005",
+    "name": "HENSOLDT AG INH O.N.",
+    "ticker": "HAG.DE",
+    "queried_isin": "DE000HAG0005"
+  },
+  "DE000RENK730": {
+    "instrumentId": 3136523,
+    "isin": "DE000RENK730",
+    "name": "RENK GROUP AG INH O.N.",
+    "ticker": "R3NK.DE",
+    "queried_isin": "DE000RENK730"
+  },
+  "DE0006969603": {
+    "instrumentId": 47738,
+    "isin": "DE0006969603",
+    "name": "PUMA SE",
+    "ticker": "PUM.DE",
+    "queried_isin": "DE0006969603"
+  },
+  "IT0003132476": {
+    "instrumentId": 46538,
+    "isin": "IT0003132476",
+    "name": "ENI S.P.A.",
+    "ticker": "ENI.MI",
+    "queried_isin": "IT0003132476"
+  },
+  "IT0000072618": {
+    "instrumentId": 59486,
+    "isin": "IT0000072618",
+    "name": "INTESA SANPAOLO",
+    "ticker": "ISP.MI",
+    "queried_isin": "IT0000072618"
+  },
+  "IT0005239360": {
+    "instrumentId": 343533,
+    "isin": "IT0005239360",
+    "name": "UNICREDIT",
+    "ticker": "UCG.MI",
+    "queried_isin": "IT0005239360"
+  },
+  "IT0003128367": {
+    "instrumentId": 57071,
+    "isin": "IT0003128367",
+    "name": "ENEL S.P.A.          EO 1",
+    "ticker": "ENEL.MI",
+    "queried_isin": "IT0003128367"
+  },
+  "NL00150001Q9": {
+    "instrumentId": 1348648,
+    "isin": "NL00150001Q9",
+    "name": "STELLANTIS NV     EO -,01",
+    "ticker": "STLAM.MI",
+    "queried_isin": "NL00150001Q9"
+  },
+  "NL0011585146": {
+    "instrumentId": 198916,
+    "isin": "NL0011585146",
+    "name": "FERRARI N.V.",
+    "ticker": "RACE.MI",
+    "queried_isin": "NL0011585146"
+  },
+  "IT0003856405": {
+    "instrumentId": 41969,
+    "isin": "IT0003856405",
+    "name": "LEONARDO S.P.A.   EO 4,40",
+    "ticker": "LDO.MI",
+    "queried_isin": "IT0003856405"
+  },
+  "IT0000062072": {
+    "instrumentId": 42062,
+    "isin": "IT0000062072",
+    "name": "GENERALI S.P.A.",
+    "ticker": "G.MI",
+    "queried_isin": "IT0000062072"
+  },
+  "NL0000226223": {
+    "instrumentId": 55076,
+    "isin": "NL0000226223",
+    "name": "STMICROELECTRONICS",
+    "ticker": "STMMI.MI",
+    "queried_isin": "NL0000226223"
+  },
+  "IT0003796171": {
+    "instrumentId": 176748,
+    "isin": "IT0003796171",
+    "name": "POSTE ITALIANE SPA EO-,51",
+    "ticker": "PST.MI",
+    "queried_isin": "IT0003796171"
+  },
+  "IT0000062957": {
+    "instrumentId": 54137,
+    "isin": "IT0000062957",
+    "name": "MEDIOBCA          EO 0,50",
+    "ticker": "MB.MI",
+    "queried_isin": "IT0000062957"
+  },
+  "IT0004176001": {
+    "instrumentId": 58067,
+    "isin": "IT0004176001",
+    "name": "PRYSMIAN S.P.A.   EO 0,10",
+    "ticker": "PRY.MI",
+    "queried_isin": "IT0004176001"
+  },
+  "IT0005218380": {
+    "instrumentId": 336667,
+    "isin": "IT0005218380",
+    "name": "BANCO BPM SPA",
+    "ticker": "BAMI.MI",
+    "queried_isin": "IT0005218380"
+  },
+  "IT0004965148": {
+    "instrumentId": 56681,
+    "isin": "IT0004965148",
+    "name": "MONCLER S.P.A.",
+    "ticker": "MONC.MI",
+    "queried_isin": "IT0004965148"
+  },
+  "NL0010273215": {
+    "instrumentId": 45299,
+    "isin": "NL0010273215",
+    "name": "ASML HOLDING    EO -,09",
+    "ticker": "ASML.AS",
+    "queried_isin": "NL0010273215"
+  },
+  "FR0000121014": {
+    "instrumentId": 41543,
+    "isin": "FR0000121014",
+    "name": "LVMH               EO 0,3",
+    "ticker": "MC.PA",
+    "queried_isin": "FR0000121014"
+  },
+  "FR0000120271": {
+    "instrumentId": 41891,
+    "isin": "FR0000120271",
+    "name": "TOTALENERGIES SE  EO 2,50",
+    "ticker": "TTE.PA",
+    "queried_isin": "FR0000120271"
+  },
+  "FR0000120578": {
+    "instrumentId": 41672,
+    "isin": "FR0000120578",
+    "name": "SANOFI SA INHABER    EO 2",
+    "ticker": "SAN.PA",
+    "queried_isin": "FR0000120578"
+  },
+  "ES0113900J37": {
+    "instrumentId": 43022,
+    "isin": "ES0113900J37",
+    "name": "BANCO SANTANDER",
+    "ticker": "SAN.MC",
+    "queried_isin": "ES0113900J37"
+  },
+  "US0378331005": {
+    "instrumentId": 41780,
+    "isin": "US0378331005",
+    "name": "Apple Inc.",
+    "ticker": "AAPL",
+    "queried_isin": "US0378331005"
+  },
+  "US5949181045": {
+    "instrumentId": 42026,
+    "isin": "US5949181045",
+    "name": "MICROSOFT    DL-,00000625",
+    "ticker": "MSFT",
+    "queried_isin": "US5949181045"
+  },
+  "US67066G1040": {
+    "instrumentId": 43763,
+    "isin": "US67066G1040",
+    "name": "NVIDIA CORP.      DL-,001",
+    "ticker": "NVDA",
+    "queried_isin": "US67066G1040"
+  },
+  "US0231351067": {
+    "instrumentId": 41786,
+    "isin": "US0231351067",
+    "name": "AMAZON.COM INC.    DL-,01",
+    "ticker": "AMZN",
+    "queried_isin": "US0231351067"
+  },
+  "US02079K3059": {
+    "instrumentId": 162465,
+    "isin": "US02079K3059",
+    "name": "ALPHABET INC.CL.A DL-,001",
+    "ticker": "GOOGL",
+    "queried_isin": "US02079K3059"
+  },
+  "US30303M1027": {
+    "instrumentId": 41765,
+    "isin": "US30303M1027",
+    "name": "META PLATF.  A DL-,000006",
+    "ticker": "META",
+    "queried_isin": "US30303M1027"
+  },
+  "US88160R1014": {
+    "instrumentId": 41933,
+    "isin": "US88160R1014",
+    "name": "TESLA INC. DL -,001",
+    "ticker": "TSLA",
+    "queried_isin": "US88160R1014"
+  },
+  "US0079031078": {
+    "instrumentId": 41789,
+    "isin": "US0079031078",
+    "name": "ADVANCED MIC.DEV.  DL-,01",
+    "ticker": "AMD",
+    "queried_isin": "US0079031078"
+  },
+  "US64110L1061": {
+    "instrumentId": 41939,
+    "isin": "US64110L1061",
+    "name": "NETFLIX INC.      DL-,001",
+    "ticker": "NFLX",
+    "queried_isin": "US64110L1061"
+  },
+  "US11135F1012": {
+    "instrumentId": 604621,
+    "isin": "US11135F1012",
+    "name": "BROADCOM INC.     DL-,001",
+    "ticker": "AVGO",
+    "queried_isin": "US11135F1012"
+  },
+  "US69608A1088": {
+    "instrumentId": 1241119,
+    "isin": "US69608A1088",
+    "name": "PALANTIR TECHNOLOGIES INC",
+    "ticker": "PLTR",
+    "queried_isin": "US69608A1088"
+  },
+  "US46625H1005": {
+    "instrumentId": 41756,
+    "isin": "US46625H1005",
+    "name": "JP MORGAN CH. DL 1",
+    "ticker": "JPM",
+    "queried_isin": "US46625H1005"
+  },
+  "US19260Q1076": {
+    "instrumentId": 1423488,
+    "isin": "US19260Q1076",
+    "name": "COINBASE GLB.CL.A -,00001",
+    "ticker": "COIN",
+    "queried_isin": "US19260Q1076"
+  },
+  "US4581401001": {
+    "instrumentId": 42023,
+    "isin": "US4581401001",
+    "name": "INTEL CORP.       DL-,001",
+    "ticker": "INTC",
+    "queried_isin": "US4581401001"
+  },
+  "US90353T1007": {
+    "instrumentId": 858912,
+    "isin": "US90353T1007",
+    "name": "UBER TECH.      DL-,00001",
+    "ticker": "UBER",
+    "queried_isin": "US90353T1007"
+  },
+  "US5951121038": {
+    "instrumentId": 52571,
+    "isin": "US5951121038",
+    "name": "MICRON TECHN. INC. DL-,10",
+    "ticker": "MU",
+    "queried_isin": "US5951121038"
+  },
+  "US68389X1054": {
+    "instrumentId": 41996,
+    "isin": "US68389X1054",
+    "name": "ORACLE CORP.       DL-,01",
+    "ticker": "ORCL",
+    "queried_isin": "US68389X1054"
+  },
+  "US5324571083": {
+    "instrumentId": 45947,
+    "isin": "US5324571083",
+    "name": "ELI LILLY",
+    "ticker": "LLY",
+    "queried_isin": "US5324571083"
+  },
+  "US0970231058": {
+    "instrumentId": 44606,
+    "isin": "US0970231058",
+    "name": "BOEING CO. DL 5",
+    "ticker": "BA",
+    "queried_isin": "US0970231058"
+  },
+  "IT0003497168": {
+    "instrumentId": 4824586,
+    "isin": "IT0005712671",
+    "name": "TELECOM ITALIA",
+    "ticker": "TIT.MI",
+    "queried_isin": "IT0003497168",
+    "alias_of": "IT0005712671"
+  },
+  "IT0005712671": {
+    "instrumentId": 4824586,
+    "isin": "IT0005712671",
+    "name": "TELECOM ITALIA",
+    "ticker": "TIT.MI",
+    "queried_isin": "IT0005712671"
+  }
+}

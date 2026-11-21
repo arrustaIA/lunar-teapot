@@ -1,0 +1,52 @@
+2026-11-15 03:00:01 [news] news: 61 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 335, 'Google News': 882, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 0}
+2026-11-15 03:00:01 [news] news: run completata in 5 s
+sentiment macro 12h: +0.07 su 29 titoli
+  LLY       -1.00 (1 notizie) Eli Lilly (LLY) Faces New Vision Loss Lawsuits As Pipeline Milestones Keep Coming - Simply Wall St (Google News, 14/11 08:23)
+  CBK.DE    +0.79 (2 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+  RWE.DE    +0.67 (5 notizie) RWE's Nine-Month Beat Backs Top-End Guidance as Sicily Storage Build and £12 Billion Wind Deal Adva - ad-hoc-news.de (Google News,
+  MBG.DE    -0.50 (1 notizie) Mercedes-Benz stock: Hydro deal sets lower-carbon supply targets - ad-hoc-news.de (Google News, 14/11 11:50)
+  P911.DE   -0.50 (1 notizie) Porsche AG stock: Mission S heads to Dubai premiere - ad-hoc-news.de (Google News, 14/11 12:29)
+  ENEL.MI   +0.50 (1 notizie) Azioni ENEL Analisi Q3 2026 con il Metodo Biagetti: esito positivo - Finanza Italiacom (Google News, 14/11 16:04)
+  RACE.MI   -0.50 (1 notizie) Ferrari, il titolo tiene mentre si attendono le consegne di fine esercizio - Traderlink (Google News, 14/11 14:53)
+  TTE.PA    +0.50 (1 notizie) TotalEnergies stock: Methane push gains fresh backing at COP31 - ad-hoc-news.de (Google News, 14/11 12:05)
+  UCG.MI    +0.50 (2 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+  DTE.DE    +0.48 (5 notizie) Deutsche Telekom's Munich AI Build-Out Gains Steam While Brussels Gigafactory Call and Buyback Math - ad-hoc-news.de (Google News,
+2026-11-15 10:37:46 [news] news: 153 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 320, 'Google News': 866, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-15 10:37:46 [news] news: run completata in 5 s
+sentiment macro 12h: +0.00 su 14 titoli
+  CBK.DE    +0.66 (3 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+  ALV.DE    +0.63 (9 notizie) Allianz Wins Workplace Acclaim and Fresh Buy Calls After Record Nine-Month Haul - ad-hoc-news.de (Google News, 15/11 09:02)
+  RWE.DE    +0.62 (7 notizie) RWE's Vanguard Wind Tie-Up With KKR Closes as Broker Targets Climb on Stellar Nine-Month Beat - ad-hoc-news.de (Google News, 15/11
+  SAP.DE    +0.50 (7 notizie) JPMorgan Lifts SAP to Overweight With 275 Euro Target as Buyback Passes 9.6 Million Shares - ad-hoc-news.de (Google News, 15/11 06
+  MBG.DE    -0.50 (1 notizie) Mercedes-Benz stock: Hydro deal sets lower-carbon supply targets - ad-hoc-news.de (Google News, 14/11 11:50)
+  BAYN.DE   +0.50 (1 notizie) Bayer's Dual Approval Week Meets a Split on the Street - ad-hoc-news.de (Google News, 14/11 12:31)
+  P911.DE   -0.50 (1 notizie) Porsche AG stock: Mission S heads to Dubai premiere - ad-hoc-news.de (Google News, 14/11 12:29)
+  RACE.MI   -0.50 (1 notizie) Ferrari, il titolo tiene mentre si attendono le consegne di fine esercizio - Traderlink (Google News, 14/11 14:53)
+  TTE.PA    +0.50 (1 notizie) TotalEnergies stock: Methane push gains fresh backing at COP31 - ad-hoc-news.de (Google News, 14/11 12:05)
+  UCG.MI    +0.50 (2 notizie) Commerzbank's Buyback Tally Climbs as UniCredit Prepares to Reshape Its Board - ad-hoc-news.de (Google News, 14/11 15:32)
+2026-11-15 18:17:14 [news] news: 298 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 288, 'Google News': 796, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-15 18:17:14 [news] news: run completata in 6 s
+sentiment macro 12h: +0.02 su 27 titoli
+  DTE.DE    +0.83 (3 notizie) Deutsche Telekom Draws a Higher Barclays Target as Fibre Build-Out and Buybacks Set the Pace - ad-hoc-news.de (Google News, 15/11 
+  SAP.DE    +0.67 (6 notizie) SAP Wins Twin IDC Leader Spots as JPMorgan Doubles Its Price Target - ad-hoc-news.de (Google News, 15/11 15:10)
+  RWE.DE    +0.53 (3 notizie) RWE Pins £12 Billion Norfolk Wind Financing as Hydrogen Fleet Takes Shape - ad-hoc-news.de (Google News, 15/11 17:03)
+  GOOGL     -0.50 (1 notizie) He Thinks His $200,000 S&P 500 401(k) Spreads His AI Risk. Two Alphabet Share Classes Put $10,380 in One Company. A 20% Drop Could
+  ALV.DE    +0.41 (9 notizie) Allianz Lifts Guidance After Record Nine-Month Haul, With Berenberg and DZ Bank Raising Their Sights - ad-hoc-news.de (Google News
+  ORCL      +0.37 (7 notizie) Oracle Corporation $ORCL Stock Sold by Aberdeen Group plc - MarketBeat (Google News, 15/11 17:21)
+  AIR.DE    +0.35 (3 notizie) Airbus Repurchases Shares Worth EUR91 Million Under First Tranche of Buyback Program - marketscreener.com (Google News, 15/11 13:5
+  SIE.DE    +0.34 (7 notizie) Siemens Balances Record Orders Against a Cautious 2027 Blueprint - ad-hoc-news.de (Google News, 15/11 17:23)
+  JPM       +0.33 (8 notizie) SAP Wins Twin IDC Leader Spots as JPMorgan Doubles Its Price Target - ad-hoc-news.de (Google News, 15/11 15:10)
+  R3NK.DE   +0.32 (5 notizie) Renk Locks In David Brown Defence as Nine-Month Orders Climb 33.6% - ad-hoc-news.de (Google News, 15/11 08:11)
+2026-11-15 22:54:37 [news] news: 162 nuove notizie; titoli interrogati 71/71; fonti: {'yfinance': 276, 'Google News': 757, 'CNBC Top': 30, 'CNBC Markets': 30, 'MarketWatch': 10, 'Investing.com': 10, 'FXStreet': 0, 'Il Sole 24 Ore': 9}
+2026-11-15 22:54:37 [news] news: run completata in 5 s
+sentiment macro 12h: +0.06 su 27 titoli
+  RWE.DE    +0.53 (3 notizie) RWE Pins £12 Billion Norfolk Wind Financing as Hydrogen Fleet Takes Shape - ad-hoc-news.de (Google News, 15/11 17:03)
+  SAP.DE    +0.48 (5 notizie) SAP Wins Twin IDC Leader Spots as JPMorgan Doubles Its Price Target - ad-hoc-news.de (Google News, 15/11 15:10)
+  UCG.MI    +0.44 (4 notizie) UniCredit's Orcel Sets November Deadline as Commerzbank Balances Record Earnings Against Trimmed Tar - ad-hoc-news.de (Google News
+  ORCL      +0.42 (8 notizie) Oracle Stock And US AI Data Center Winners Worth Watching (yfinance, 15/11 19:07)
+  ALV.DE    +0.36 (9 notizie) Allianz's Capital Cushion and Fund Flows Persuade Brokers to Lift Targets After Upbeat Quarter - ad-hoc-news.de (Google News, 15/1
+  DTE.DE    +0.36 (5 notizie) Deutsche Telekom Draws a Higher Barclays Target as Fibre Build-Out and Buybacks Set the Pace - ad-hoc-news.de (Google News, 15/11 
+  CBK.DE    +0.36 (3 notizie) UniCredit's Orcel Sets November Deadline as Commerzbank Balances Record Earnings Against Trimmed Tar - ad-hoc-news.de (Google News
+  SIE.DE    +0.36 (6 notizie) Siemens Balances Record Orders Against a Cautious 2027 Blueprint - ad-hoc-news.de (Google News, 15/11 17:23)
+  AIR.DE    +0.34 (2 notizie) Airbus Repurchases Shares Worth EUR91 Million Under First Tranche of Buyback Program - marketscreener.com (Google News, 15/11 13:5
+  JPM       +0.31 (8 notizie) SAP Wins Twin IDC Leader Spots as JPMorgan Doubles Its Price Target - ad-hoc-news.de (Google News, 15/11 15:10)
